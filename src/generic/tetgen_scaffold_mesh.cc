@@ -805,7 +805,7 @@ namespace oomph
     Vector<double> x_node(n_node);
     Vector<double> y_node(n_node);
     Vector<double> z_node(n_node);
-    Vector<unsigned> bound(n_node);
+    Vector<int> bound(n_node);
 
     // We shall ignore all point attributes
     if (boundary_markers_flag == 1)
@@ -815,7 +815,7 @@ namespace oomph
         x_node[i] = tetgen_data.pointlist[3 * i];
         y_node[i] = tetgen_data.pointlist[3 * i + 1];
         z_node[i] = tetgen_data.pointlist[3 * i + 2];
-        bound[i] = static_cast<unsigned>(tetgen_data.pointmarkerlist[i]);
+        bound[i] = (tetgen_data.pointmarkerlist[i]);
       }
     }
     // Otherwise no boundary markers
@@ -833,7 +833,7 @@ namespace oomph
 
     // Determine highest boundary index
     //------------------------------------
-    unsigned n_bound = 0;
+    int n_bound = 0;
     if (boundary_markers_flag == 1)
     {
       n_bound = bound[0];
@@ -931,15 +931,16 @@ namespace oomph
       // ... -1 because node number begins at 1 in tetgen
       {
         // If the node is on a boundary, construct a boundary node
-        if ((boundary_markers_flag == 1) && (bound[global_node_number - 1] > 0))
+        if ((boundary_markers_flag == 1) &&
+            (bound[global_node_number - 1] != 0))
         {
           // Construct the boundary ndoe
           Node_pt[global_node_number - 1] =
             finite_element_pt(e)->construct_boundary_node(3);
 
           // Add to the boundary lookup scheme
-          add_boundary_node(bound[global_node_number - 1] - 1,
-                            Node_pt[global_node_number - 1]);
+          /*           add_boundary_node(bound[global_node_number - 1] - 1,
+                                      Node_pt[global_node_number - 1]); */
         }
         // Otherwise just construct a normal node
         else
@@ -969,15 +970,15 @@ namespace oomph
         {
           // If we're on a boundary
           if ((boundary_markers_flag == 1) &&
-              (bound[global_node_number - 1] > 0))
+              (bound[global_node_number - 1] != 0))
           {
             // Construct the boundary ndoe
             Node_pt[global_node_number - 1] =
               finite_element_pt(e)->construct_boundary_node(j);
 
             // Add to the boundary lookup scheme
-            add_boundary_node(bound[global_node_number - 1] - 1,
-                              Node_pt[global_node_number - 1]);
+            /*add_boundary_node(bound[global_node_number - 1] - 1,
+                                          Node_pt[global_node_number - 1]); */
           }
           else
           {
