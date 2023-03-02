@@ -12,7 +12,7 @@ include(CTest)
 oomph_add_executable(
   NAME faceted_surface_vtu_output_tester
   SOURCES faceted_surface_vtu_output_tester.cc
-  LIBRARIES oomph::generic)
+  LIBRARIES oomph::poisson oomph::generic)
 
 message(VERBOSE "Leaving faceted_surface_vtu_output subdirectory")
 # ------------------------------------------------------------------------------
