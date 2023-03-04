@@ -3050,7 +3050,7 @@ namespace oomph
     virtual void output(std::ostream& outfile)
     {
       throw OomphLibError(
-        "Output function function hasn't been implemented for this element",
+        "Output function hasn't been implemented for this element",
         OOMPH_CURRENT_FUNCTION,
         OOMPH_EXCEPTION_LOCATION);
     }
@@ -3060,7 +3060,7 @@ namespace oomph
     virtual void output(std::ostream& outfile, const unsigned& n_plot)
     {
       throw OomphLibError(
-        "Output function function hasn't been implemented for this element",
+        "Output function hasn't been implemented for this element",
         OOMPH_CURRENT_FUNCTION,
         OOMPH_EXCEPTION_LOCATION);
     }
@@ -3073,7 +3073,7 @@ namespace oomph
                         const unsigned& n_plot) const
     {
       throw OomphLibError(
-        "Output function function hasn't been implemented for this element",
+        "Output function hasn't been implemented for this element",
         OOMPH_CURRENT_FUNCTION,
         OOMPH_EXCEPTION_LOCATION);
     }
@@ -3083,7 +3083,7 @@ namespace oomph
     /// (C style output)
     virtual void output(FILE* file_pt)
     {
-      throw OomphLibError("C-style otput function function hasn't been "
+      throw OomphLibError("C-style output function hasn't been "
                           "implemented for this element",
                           OOMPH_CURRENT_FUNCTION,
                           OOMPH_EXCEPTION_LOCATION);
@@ -3094,7 +3094,7 @@ namespace oomph
     /// (C style output)
     virtual void output(FILE* file_pt, const unsigned& n_plot)
     {
-      throw OomphLibError("C-style output function function hasn't been "
+      throw OomphLibError("C-style output function hasn't been "
                           "implemented for this element",
                           OOMPH_CURRENT_FUNCTION,
                           OOMPH_EXCEPTION_LOCATION);
@@ -3107,7 +3107,7 @@ namespace oomph
       FiniteElement::SteadyExactSolutionFctPt exact_soln_pt)
     {
       throw OomphLibError(
-        "Output function function hasn't been implemented for exact solution",
+        "Output function hasn't been implemented for exact solution",
         OOMPH_CURRENT_FUNCTION,
         OOMPH_EXCEPTION_LOCATION);
     }
@@ -3121,7 +3121,7 @@ namespace oomph
       FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt)
     {
       throw OomphLibError(
-        "Output function function hasn't been implemented for exact solution",
+        "Output function hasn't been implemented for exact solution",
         OOMPH_CURRENT_FUNCTION,
         OOMPH_EXCEPTION_LOCATION);
     }
@@ -3133,7 +3133,7 @@ namespace oomph
                             const SolutionFunctorBase& exact_soln) const
     {
       throw OomphLibError(
-        "Output function function hasn't been implemented for exact solution",
+        "Output function hasn't been implemented for exact solution",
         OOMPH_CURRENT_FUNCTION,
         OOMPH_EXCEPTION_LOCATION);
     }
