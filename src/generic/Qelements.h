@@ -358,7 +358,7 @@ namespace oomph
 
     /// Set pointers to "current" and "undeformed" MacroElements.
     void set_macro_elem_pt(MacroElement* macro_elem_pt,
-                                   MacroElement* undeformed_macro_elem_pt) override
+                           MacroElement* undeformed_macro_elem_pt) override
     {
       // Call the general Q version which sets up the storage
       // for the reference coordinates
@@ -527,8 +527,9 @@ namespace oomph
     /// Overload the template-free interface for the calculation of
     /// inverse jacobian matrix. This is a one-dimensional element, so
     /// use the 1D version.
-    double invert_jacobian_mapping(const DenseMatrix<double>& jacobian,
-                                   DenseMatrix<double>& inverse_jacobian) const override
+    double invert_jacobian_mapping(
+      const DenseMatrix<double>& jacobian,
+      DenseMatrix<double>& inverse_jacobian) const override
     {
       return FiniteElement::invert_jacobian<1>(jacobian, inverse_jacobian);
     }
@@ -577,7 +578,8 @@ namespace oomph
     }
 
     /// Get local coordinates of node j in the element; vector sets its own size
-    void local_coordinate_of_node(const unsigned& j, Vector<double>& s) const override
+    void local_coordinate_of_node(const unsigned& j,
+                                  Vector<double>& s) const override
     {
       s.resize(1);
       s[0] = this->s_min() +
@@ -586,7 +588,8 @@ namespace oomph
 
 
     /// Get the local fraction of node j in the element
-    void local_fraction_of_node(const unsigned& j, Vector<double>& s_fraction) override
+    void local_fraction_of_node(const unsigned& j,
+                                Vector<double>& s_fraction) override
     {
       s_fraction.resize(1);
       s_fraction[0] = double(j) / double(NNODE_1D - 1);
@@ -628,9 +631,10 @@ namespace oomph
     /// Fill in the offset information for paraview plot.
     /// Needs to be implemented for each new geometric element type; see
     /// http://www.vtk.org/VTK/img/file-formats.pdf
-    void write_paraview_output_offset_information(std::ofstream& file_out,
-                                                  const unsigned& nplot,
-                                                  unsigned& counter) const override
+    void write_paraview_output_offset_information(
+      std::ofstream& file_out,
+      const unsigned& nplot,
+      unsigned& counter) const override
     {
       // Number of local elements we want to plot over
       unsigned plot = nsub_elements_paraview(nplot);
@@ -689,11 +693,11 @@ namespace oomph
 
     ///  Get cector of local coordinates of plot point i (when plotting
     /// nplot points in each "coordinate direction).
-    void get_s_plot(
-      const unsigned& i,
-      const unsigned& nplot,
-      Vector<double>& s,
-      const bool& use_equally_spaced_interior_sample_points = false) const override
+    void get_s_plot(const unsigned& i,
+                    const unsigned& nplot,
+                    Vector<double>& s,
+                    const bool& use_equally_spaced_interior_sample_points =
+                      false) const override
     {
       if (nplot > 1)
       {
@@ -884,8 +888,9 @@ namespace oomph
     /// Overload the template-free interface for the calculation of
     /// inverse jacobian matrix. This is a two-dimensional element, so use
     /// the two-d version.
-    double invert_jacobian_mapping(const DenseMatrix<double>& jacobian,
-                                   DenseMatrix<double>& inverse_jacobian) const override
+    double invert_jacobian_mapping(
+      const DenseMatrix<double>& jacobian,
+      DenseMatrix<double>& inverse_jacobian) const override
     {
       return FiniteElement::invert_jacobian<2>(jacobian, inverse_jacobian);
     }
@@ -942,7 +947,8 @@ namespace oomph
 
 
     /// Get local coordinates of node j in the element; vector sets its own size
-    void local_coordinate_of_node(const unsigned& j, Vector<double>& s) const override
+    void local_coordinate_of_node(const unsigned& j,
+                                  Vector<double>& s) const override
     {
       s.resize(2);
       unsigned j0 = j % NNODE_1D;
@@ -954,7 +960,8 @@ namespace oomph
     }
 
     /// Get the local fraction of node j in the element
-    void local_fraction_of_node(const unsigned& j, Vector<double>& s_fraction) override
+    void local_fraction_of_node(const unsigned& j,
+                                Vector<double>& s_fraction) override
     {
       s_fraction.resize(2);
       unsigned j0 = j % NNODE_1D;
@@ -998,9 +1005,10 @@ namespace oomph
     /// Fill in the offset information for paraview plot.
     /// Needs to be implemented for each new geometric element type; see
     /// http://www.vtk.org/VTK/img/file-formats.pdf
-    void write_paraview_output_offset_information(std::ofstream& file_out,
-                                                  const unsigned& nplot,
-                                                  unsigned& counter) const override
+    void write_paraview_output_offset_information(
+      std::ofstream& file_out,
+      const unsigned& nplot,
+      unsigned& counter) const override
     {
       // Number of local elements we want to plot over
       unsigned plot = nsub_elements_paraview(nplot);
@@ -1064,11 +1072,11 @@ namespace oomph
 
     ///  Get cector of local coordinates of plot point i (when plotting
     /// nplot points in each "coordinate direction).
-    void get_s_plot(
-      const unsigned& i,
-      const unsigned& nplot,
-      Vector<double>& s,
-      const bool& use_equally_spaced_interior_sample_points = false) const override
+    void get_s_plot(const unsigned& i,
+                    const unsigned& nplot,
+                    Vector<double>& s,
+                    const bool& use_equally_spaced_interior_sample_points =
+                      false) const override
     {
       if (nplot > 1)
       {
@@ -1301,8 +1309,9 @@ namespace oomph
     /// Overload the template-free interface for the calculation of
     /// the inverse jacobian mapping. This is a three-dimensional element,
     /// so use the 3d version
-    double invert_jacobian_mapping(const DenseMatrix<double>& jacobian,
-                                   DenseMatrix<double>& inverse_jacobian) const override
+    double invert_jacobian_mapping(
+      const DenseMatrix<double>& jacobian,
+      DenseMatrix<double>& inverse_jacobian) const override
     {
       return FiniteElement::invert_jacobian<3>(jacobian, inverse_jacobian);
     }
@@ -1369,7 +1378,8 @@ namespace oomph
     }
 
     /// Get local coordinates of node j in the element; vector sets its own size
-    void local_coordinate_of_node(const unsigned& j, Vector<double>& s) const override
+    void local_coordinate_of_node(const unsigned& j,
+                                  Vector<double>& s) const override
     {
       s.resize(3);
       unsigned j0 = j % NNODE_1D;
@@ -1384,7 +1394,8 @@ namespace oomph
     }
 
     /// Get the local fraction of node j in the element
-    void local_fraction_of_node(const unsigned& j, Vector<double>& s_fraction) override
+    void local_fraction_of_node(const unsigned& j,
+                                Vector<double>& s_fraction) override
     {
       s_fraction.resize(3);
       unsigned j0 = j % NNODE_1D;
@@ -1430,9 +1441,10 @@ namespace oomph
     /// Fill in the offset information for paraview plot.
     /// Needs to be implemented for each new geometric element type; see
     /// http://www.vtk.org/VTK/img/file-formats.pdf
-    void write_paraview_output_offset_information(std::ofstream& file_out,
-                                                  const unsigned& nplot,
-                                                  unsigned& counter) const override
+    void write_paraview_output_offset_information(
+      std::ofstream& file_out,
+      const unsigned& nplot,
+      unsigned& counter) const override
     {
       // Number of local elements we want to plot over
       unsigned plot = nsub_elements_paraview(nplot);
@@ -1523,11 +1535,11 @@ namespace oomph
 
     ///  Get cector of local coordinates of plot point i (when plotting
     /// nplot points in each "coordinate direction).
-    void get_s_plot(
-      const unsigned& i,
-      const unsigned& nplot,
-      Vector<double>& s,
-      const bool& use_equally_spaced_interior_sample_points = false) const override
+    void get_s_plot(const unsigned& i,
+                    const unsigned& nplot,
+                    Vector<double>& s,
+                    const bool& use_equally_spaced_interior_sample_points =
+                      false) const override
     {
       if (nplot > 1)
       {

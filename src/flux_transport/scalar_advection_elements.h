@@ -64,7 +64,8 @@ namespace oomph
     void flux(const Vector<double>& u, DenseMatrix<double>& f) override;
 
     /// Return the flux derivatives as a function of the unknowns
-    void dflux_du(const Vector<double>& u, RankThreeTensor<double>& df_du) override;
+    void dflux_du(const Vector<double>& u,
+                  RankThreeTensor<double>& df_du) override;
 
     /// Return the wind at a given position
     inline virtual void get_wind_scalar_adv(const unsigned& ipt,
@@ -530,7 +531,8 @@ namespace oomph
     /// overloaded specific elements in which time and memory saving tricks can
     /// be applied)
     //============================================================================
-    void get_inverse_mass_matrix_times_residuals(Vector<double>& minv_res) override
+    void get_inverse_mass_matrix_times_residuals(
+      Vector<double>& minv_res) override
     {
       // If there are external data this is not going to work
       if (nexternal_data() > 0)

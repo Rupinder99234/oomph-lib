@@ -282,7 +282,8 @@ namespace oomph
     /// (Function can obviously only be called if the equation numbering
     /// scheme has been set up.)
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list)
+      const override
     {
       // temporary pair (used to store dof lookup prior to being added
       // to list)
@@ -467,8 +468,8 @@ namespace oomph
     /// The jacobian is calculated by finite differences by default,
     /// We need only to take finite differences w.r.t. positional variables
     /// For this element
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Add the contribution to the residuals
       this
@@ -482,9 +483,10 @@ namespace oomph
                     DenseMatrix<std::complex<double>>& sigma) const override;
 
     /// Output exact solution x,y,[z],u_r,v_r,[w_r],u_i,v_i,[w_i]
-    void output_fct(std::ostream& outfile,
-                    const unsigned& nplot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& nplot,
+      FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
 
     /// Output: x,y,[z],u_r,v_r,[w_r],u_i,v_i,[w_i]
     void output(std::ostream& outfile) override

@@ -565,8 +565,8 @@ namespace oomph
     /// Compute the elemental error measures for a given mesh
     /// and store them in a vector. Doc errors etc.
     void get_element_errors(Mesh*& mesh_pt,
-                                    Vector<double>& elemental_error,
-                                    DocInfo& doc_info) override
+                            Vector<double>& elemental_error,
+                            DocInfo& doc_info) override
     {
 #ifdef PARANOID
       if (doc_info.is_doc_enabled())

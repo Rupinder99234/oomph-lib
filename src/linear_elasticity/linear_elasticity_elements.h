@@ -309,7 +309,8 @@ namespace oomph
     /// (Function can obviously only be called if the equation numbering
     /// scheme has been set up.)
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list)
+      const override
     {
       // temporary pair (used to store dof lookup prior to being added
       // to list)
@@ -399,8 +400,8 @@ namespace oomph
     /// The jacobian is calculated by finite differences by default,
     /// We need only to take finite differences w.r.t. positional variables
     /// For this element
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Add the contribution to the residuals
       this->fill_in_generic_contribution_to_residuals_linear_elasticity(
@@ -409,19 +410,22 @@ namespace oomph
 
     /// Return the Cauchy stress tensor, as calculated
     /// from the elasticity tensor at specified local coordinate
-    void get_stress(const Vector<double>& s, DenseMatrix<double>& sigma) const override;
+    void get_stress(const Vector<double>& s,
+                    DenseMatrix<double>& sigma) const override;
 
 
     /// Output exact solution x,y,[z],u,v,[w]
-    void output_fct(std::ostream& outfile,
-                    const unsigned& nplot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& nplot,
+      FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
 
     /// Output exact solution x,y,[z],u,v,[w] (unsteady version)
-    void output_fct(std::ostream& outfile,
-                    const unsigned& nplot,
-                    const double& time,
-                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override;
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& nplot,
+      const double& time,
+      FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override;
 
     /// Output: x,y,[z],u,v,[w]
     void output(std::ostream& outfile) override
@@ -493,9 +497,10 @@ namespace oomph
     }
 
     /// Output exact solution x,y,[z],u,v,[w]
-    void output_fct(std::ostream& outfile,
-                    const unsigned& nplot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& nplot,
+      FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override
     {
       LinearElasticityEquations<DIM>::output_fct(outfile, nplot, exact_soln_pt);
     }

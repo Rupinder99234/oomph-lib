@@ -148,7 +148,8 @@ namespace oomph
 
 
     /// This function returns just the residuals
-    inline void fill_in_contribution_to_residuals(Vector<double>& residuals) override
+    inline void fill_in_contribution_to_residuals(
+      Vector<double>& residuals) override
     {
       // Create an output stream
       std::ostringstream error_message;
@@ -166,8 +167,8 @@ namespace oomph
 
 
     /// This function returns the residuals and the jacobian
-    inline void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                                 DenseMatrix<double>& jacobian) override
+    inline void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Create an output stream
       std::ostringstream error_message;
@@ -1563,18 +1564,20 @@ namespace oomph
     /// Output exact solution specified via function pointer
     /// at a given number of plot points. Function prints as
     /// many components as are returned in solution Vector
-    void output_fct(std::ostream& outfile,
-                    const unsigned& nplot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& nplot,
+      FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
 
 
     /// Output exact solution specified via function pointer
     /// at a given time and at a given number of plot points.
     /// Function prints as many components as are returned in solution Vector.
-    void output_fct(std::ostream& outfile,
-                    const unsigned& nplot,
-                    const double& time,
-                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override;
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& nplot,
+      const double& time,
+      FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override;
 
 
     /// Compute the vector norm of the FEM solution
@@ -1647,8 +1650,8 @@ namespace oomph
 
     /// Compute the element's residual Vector and the jacobian matrix
     /// Virtual function can be overloaded by hanging-node version
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Do we want to compute the Jacobian? ANSWER: Yes!
       unsigned compute_jacobian_flag = 1;
@@ -2112,7 +2115,8 @@ namespace oomph
 
     /// Output solution in data vector at local cordinates s:
     /// x,y,z,u,v,p
-    void point_output_data(const Vector<double>& s, Vector<double>& data) override
+    void point_output_data(const Vector<double>& s,
+                           Vector<double>& data) override
     {
       // Resize data for values
       data.resize(2 * DIM + 2);
@@ -2174,11 +2178,12 @@ namespace oomph
     /// Velocity shape and test functions and their derivs
     /// w.r.t. to global coords  at local coordinate s (taken from geometry)
     /// Return Jacobian of mapping between local and global coordinates.
-    inline double dshape_and_dtest_eulerian_at_knot_nst(const unsigned& ipt,
-                                                        Shape& psi,
-                                                        DShape& dpsidx,
-                                                        Shape& test,
-                                                        DShape& dtestdx) const override;
+    inline double dshape_and_dtest_eulerian_at_knot_nst(
+      const unsigned& ipt,
+      Shape& psi,
+      DShape& dpsidx,
+      Shape& test,
+      DShape& dtestdx) const override;
 
 
     /// Shape/test functions and derivs w.r.t. to global coords at
@@ -2226,11 +2231,12 @@ namespace oomph
     /// Pressure shape and test functions and their derivs
     /// w.r.t. to global coords  at local coordinate s (taken from geometry).
     /// Return Jacobian of mapping between local and global coordinates.
-    inline double dpshape_and_dptest_eulerian_nst(const Vector<double>& s,
-                                                  Shape& ppsi,
-                                                  DShape& dppsidx,
-                                                  Shape& ptest,
-                                                  DShape& dptestdx) const override;
+    inline double dpshape_and_dptest_eulerian_nst(
+      const Vector<double>& s,
+      Shape& ppsi,
+      DShape& dppsidx,
+      Shape& ptest,
+      DShape& dptestdx) const override;
 
   public:
     /// Constructor, no internal data points
@@ -2366,7 +2372,8 @@ namespace oomph
     /// Build FaceElements that apply the Robin boundary condition
     /// to the pressure advection diffusion problem required by
     /// Fp preconditioner
-    void build_fp_press_adv_diff_robin_bc_element(const unsigned& face_index) override
+    void build_fp_press_adv_diff_robin_bc_element(
+      const unsigned& face_index) override
     {
       // Create a new Robic BC element and add it to the storage
       this->Pressure_advection_diffusion_robin_element_pt.push_back(

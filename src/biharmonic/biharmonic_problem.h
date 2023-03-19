@@ -351,7 +351,8 @@ namespace oomph
 
     /// Compute the elemental residual vector - wrapper function called
     /// by get_residuals in GeneralisedElement
-    inline void fill_in_contribution_to_residuals(Vector<double>& residuals) override
+    inline void fill_in_contribution_to_residuals(
+      Vector<double>& residuals) override
     {
       // create a dummy matrix
       DenseDoubleMatrix dummy(1);
@@ -364,8 +365,8 @@ namespace oomph
 
     /// Compute the elemental residual vector and jacobian matrix -
     /// wrapper function called by get_jacobian in GeneralisedElement
-    inline void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                                 DenseMatrix<double>& jacobian) override
+    inline void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // call generic routine with flag set to 1
       fill_in_generic_residual_contribution_biharmonic_boundary(

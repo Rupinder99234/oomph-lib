@@ -327,7 +327,8 @@ namespace oomph
     /// 1 - y displacement
     /// 2 - z displacement
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list)
+      const override
     {
       // temporary pair (used to store dof lookup prior to being added to list
       std::pair<unsigned, unsigned> dof_lookup;
@@ -444,7 +445,8 @@ namespace oomph
 
     /// Return the 2nd Piola Kirchoff stress tensor, as calculated
     /// from the constitutive law at specified local coordinate
-    void get_stress(const Vector<double>& s, DenseMatrix<double>& sigma) override;
+    void get_stress(const Vector<double>& s,
+                    DenseMatrix<double>& sigma) override;
 
     /// Fill in the residuals for the solid equations (the discretised
     /// principle of virtual displacements)
@@ -456,8 +458,8 @@ namespace oomph
 
     /// Fill in contribution to Jacobian (either by FD or analytically,
     /// control this via evaluate_jacobian_by_fd()
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Solve for the consistent acceleration in Newmark scheme?
       if (this->Solve_for_consistent_newmark_accel_flag)
@@ -869,7 +871,8 @@ namespace oomph
 
     /// Return the 2nd Piola Kirchoff stress tensor, as calculated
     /// from the constitutive law at specified local coordinate
-    void get_stress(const Vector<double>& s, DenseMatrix<double>& sigma) override;
+    void get_stress(const Vector<double>& s,
+                    DenseMatrix<double>& sigma) override;
 
     /// Return whether the material is incompressible
     bool is_incompressible() const
@@ -911,8 +914,8 @@ namespace oomph
     /// for the positional variables; control this via
     /// evaluate_jacobian_by_fd(). Note: Jacobian entries arising from
     /// derivatives w.r.t. pressure terms are always computed analytically.
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Solve for the consistent acceleration in the Newmark scheme
       // Note that this replaces solid entries only
@@ -1075,7 +1078,8 @@ namespace oomph
     /// There are DIM+1 types of DOF: displacement compnents and
     /// pressure
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list)
+      const override
     {
       // temporary pair (used to store dof lookup prior to being added to list
       std::pair<unsigned, unsigned> dof_lookup;
@@ -1355,7 +1359,8 @@ namespace oomph
     }
 
     /// Return the pressure shape functions
-    inline void solid_pshape(const Vector<double>& s, Shape& psi) const override;
+    inline void solid_pshape(const Vector<double>& s,
+                             Shape& psi) const override;
 
   public:
     /// There is internal solid data so we can't use the automatic
@@ -1553,7 +1558,8 @@ namespace oomph
     }
 
     /// Return the pressure shape functions
-    inline void solid_pshape(const Vector<double>& s, Shape& psi) const override;
+    inline void solid_pshape(const Vector<double>& s,
+                             Shape& psi) const override;
 
   public:
     /// Constructor
@@ -2132,7 +2138,8 @@ namespace oomph
     }
 
     /// Pressure shape functions at local coordinate s
-    inline void solid_pshape(const Vector<double>& s, Shape& psi) const override;
+    inline void solid_pshape(const Vector<double>& s,
+                             Shape& psi) const override;
 
   public:
     /// Constructor

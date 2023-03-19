@@ -1455,10 +1455,12 @@ namespace oomph
     void set_error_weights() override;
 
     /// Compute the error in the position i at a node
-    double temporal_error_in_position(Node* const& node_pt, const unsigned& i) override;
+    double temporal_error_in_position(Node* const& node_pt,
+                                      const unsigned& i) override;
 
     /// Compute the error in the value i in a Data structure
-    double temporal_error_in_value(Data* const& data_pt, const unsigned& i) override;
+    double temporal_error_in_value(Data* const& data_pt,
+                                   const unsigned& i) override;
   };
 
 } // namespace oomph

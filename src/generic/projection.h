@@ -214,8 +214,8 @@ namespace oomph
     }
 
     /// Overloaded version of fill_in_contribution_to_jacobian
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Do projection
       if (Do_projection)

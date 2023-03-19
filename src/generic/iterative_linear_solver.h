@@ -1110,7 +1110,8 @@ namespace oomph
     /// on the system A*result=rhs. The number of (smoothing) iterations is
     /// the same as the max. number of iterations in the underlying
     /// IterativeLinearSolver class.
-    void smoother_solve(const DoubleVector& rhs, DoubleVector& solution) override
+    void smoother_solve(const DoubleVector& rhs,
+                        DoubleVector& solution) override
     {
       // If you use a smoother but you don't want to calculate the residual
       Use_as_smoother = true;

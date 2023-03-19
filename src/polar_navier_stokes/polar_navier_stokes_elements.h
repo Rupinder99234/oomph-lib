@@ -529,17 +529,19 @@ namespace oomph
     /// Output exact solution specified via function pointer
     /// at a given number of plot points. Function prints as
     /// many components as are returned in solution Vector
-    void output_fct(std::ostream& outfile,
-                    const unsigned& nplot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& nplot,
+      FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
 
     /// Output exact solution specified via function pointer
     /// at a given time and at a given number of plot points.
     /// Function prints as many components as are returned in solution Vector.
-    void output_fct(std::ostream& outfile,
-                    const unsigned& nplot,
-                    const double& time,
-                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override;
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& nplot,
+      const double& time,
+      FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override;
 
     /// Validate against exact solution at given time
     /// Solution is provided via function pointer.
@@ -572,8 +574,8 @@ namespace oomph
 
     /// Compute the element's residual Vector and the jacobian matrix
     /// Virtual function can be overloaded by hanging-node version
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine with the flag set to 1
       fill_in_generic_residual_contribution(
@@ -782,20 +784,22 @@ namespace oomph
     /// Velocity shape and test functions and their derivs
     /// w.r.t. to global coords  at local coordinate s (taken from geometry)
     /// Return Jacobian of mapping between local and global coordinates.
-    inline double dshape_and_dtest_eulerian_pnst(const Vector<double>& s,
-                                                 Shape& psi,
-                                                 DShape& dpsidx,
-                                                 Shape& test,
-                                                 DShape& dtestdx) const override;
+    inline double dshape_and_dtest_eulerian_pnst(
+      const Vector<double>& s,
+      Shape& psi,
+      DShape& dpsidx,
+      Shape& test,
+      DShape& dtestdx) const override;
 
     /// Velocity shape and test functions and their derivs
     /// w.r.t. to global coords at ipt-th integation point (taken from geometry)
     /// Return Jacobian of mapping between local and global coordinates.
-    inline double dshape_and_dtest_eulerian_at_knot_pnst(const unsigned& ipt,
-                                                         Shape& psi,
-                                                         DShape& dpsidx,
-                                                         Shape& test,
-                                                         DShape& dtestdx) const override;
+    inline double dshape_and_dtest_eulerian_at_knot_pnst(
+      const unsigned& ipt,
+      Shape& psi,
+      DShape& dpsidx,
+      Shape& test,
+      DShape& dtestdx) const override;
 
     /// Pressure shape functions at local coordinate s
     inline void pshape_pnst(const Vector<double>& s, Shape& psi) const override;
@@ -834,7 +838,9 @@ namespace oomph
     /// Return the velocity component u[i] at local node
     /// n at timestep t (t=0: present; t>0: previous timestep).
     /// Uses suitably interpolated value for hanging nodes.
-    double u_pnst(const unsigned& t, const unsigned& n, const unsigned& i) const override
+    double u_pnst(const unsigned& t,
+                  const unsigned& n,
+                  const unsigned& i) const override
     {
       return this->nodal_value(t, n, i);
     }
@@ -1024,20 +1030,22 @@ namespace oomph
     /// Velocity shape and test functions and their derivs
     /// w.r.t. to global coords  at local coordinate s (taken from geometry)
     /// Return Jacobian of mapping between local and global coordinates.
-    inline double dshape_and_dtest_eulerian_pnst(const Vector<double>& s,
-                                                 Shape& psi,
-                                                 DShape& dpsidx,
-                                                 Shape& test,
-                                                 DShape& dtestdx) const override;
+    inline double dshape_and_dtest_eulerian_pnst(
+      const Vector<double>& s,
+      Shape& psi,
+      DShape& dpsidx,
+      Shape& test,
+      DShape& dtestdx) const override;
 
     /// Velocity shape and test functions and their derivs
     /// w.r.t. to global coords  at local coordinate s (taken from geometry)
     /// Return Jacobian of mapping between local and global coordinates.
-    inline double dshape_and_dtest_eulerian_at_knot_pnst(const unsigned& ipt,
-                                                         Shape& psi,
-                                                         DShape& dpsidx,
-                                                         Shape& test,
-                                                         DShape& dtestdx) const override;
+    inline double dshape_and_dtest_eulerian_at_knot_pnst(
+      const unsigned& ipt,
+      Shape& psi,
+      DShape& dpsidx,
+      Shape& test,
+      DShape& dtestdx) const override;
 
     /// Pressure shape functions at local coordinate s
     inline void pshape_pnst(const Vector<double>& s, Shape& psi) const override;
@@ -1086,7 +1094,9 @@ namespace oomph
     /// Return the velocity component u[i] at local node
     /// n at timestep t (t=0: present; t>0: previous timestep).
     /// Uses suitably interpolated value for hanging nodes.
-    double u_pnst(const unsigned& t, const unsigned& n, const unsigned& i) const override
+    double u_pnst(const unsigned& t,
+                  const unsigned& n,
+                  const unsigned& i) const override
     {
       return this->nodal_value(t, n, i);
     }

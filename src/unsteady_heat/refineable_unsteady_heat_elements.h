@@ -180,7 +180,9 @@ namespace oomph
     /// flag=1: compute both
     /// flag=0: compute only residual vector
     void fill_in_generic_residual_contribution_ust_heat(
-      Vector<double>& residuals, DenseMatrix<double>& jacobian, unsigned flag) override;
+      Vector<double>& residuals,
+      DenseMatrix<double>& jacobian,
+      unsigned flag) override;
   };
 
 

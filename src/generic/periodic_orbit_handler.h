@@ -384,7 +384,8 @@ namespace oomph
     }
 
     /// Return the dummy values
-    void get_interpolated_values(const Vector<double>& s, Vector<double>& value) override
+    void get_interpolated_values(const Vector<double>& s,
+                                 Vector<double>& value) override
     {
       this->get_interpolated_values(0, s, value);
     }
@@ -504,11 +505,12 @@ namespace oomph
   protected:
     /// Shape, test functions & derivs. w.r.t. to global coords. Return
     /// Jacobian.
-    inline double dshape_and_dtest_eulerian_orbit(const Vector<double>& s,
-                                                  Shape& psi,
-                                                  DShape& dpsidt,
-                                                  Shape& test,
-                                                  DShape& dtestdt) const override;
+    inline double dshape_and_dtest_eulerian_orbit(
+      const Vector<double>& s,
+      Shape& psi,
+      DShape& dpsidt,
+      Shape& test,
+      DShape& dtestdt) const override;
 
 
     /// Shape, test functions & derivs. w.r.t. to global coords. at

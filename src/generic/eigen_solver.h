@@ -232,11 +232,12 @@ namespace oomph
     }
 
     /// Solve the eigen problem
-    void solve_eigenproblem_legacy(Problem* const& problem_pt,
-                                   const int& n_eval,
-                                   Vector<std::complex<double>>& eigenvalue,
-                                   Vector<DoubleVector>& eigenvector,
-                                   const bool& do_adjoint_problem = false) override;
+    void solve_eigenproblem_legacy(
+      Problem* const& problem_pt,
+      const int& n_eval,
+      Vector<std::complex<double>>& eigenvalue,
+      Vector<DoubleVector>& eigenvector,
+      const bool& do_adjoint_problem = false) override;
 
 
     /// Solve the real eigenproblem that is assembled by elements in
@@ -338,11 +339,12 @@ namespace oomph
     /// they are disentangled in the alternative version of this function
     /// that returns Vectors of complex Vectors.
     /// At least n_eval eigenvalues are computed.
-    void solve_eigenproblem_legacy(Problem* const& problem_pt,
-                                   const int& n_eval,
-                                   Vector<std::complex<double>>& eigenvalue,
-                                   Vector<DoubleVector>& eigenvector,
-                                   const bool& do_adjoint_problem = false) override;
+    void solve_eigenproblem_legacy(
+      Problem* const& problem_pt,
+      const int& n_eval,
+      Vector<std::complex<double>>& eigenvalue,
+      Vector<DoubleVector>& eigenvector,
+      const bool& do_adjoint_problem = false) override;
 
     /// Solve the real eigenproblem that is assembled by elements in
     /// a mesh in a Problem object. Note that the assembled matrices include the

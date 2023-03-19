@@ -958,8 +958,8 @@ namespace oomph
 
     /// Open output files that will store any hanging nodes in
     /// the forest and return a vector of the streams.
-    void open_hanging_node_files(DocInfo& doc_info,
-                                 Vector<std::ofstream*>& output_stream) override;
+    void open_hanging_node_files(
+      DocInfo& doc_info, Vector<std::ofstream*>& output_stream) override;
 
     /// Self-test: Check all neighbours. Return success (0)
     /// if the max. distance between corresponding points in the

@@ -385,8 +385,8 @@ namespace oomph
     }
 
     /// Assign the contribution to the residual using only finite differences
-    inline void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                                 DenseMatrix<double>& jacobian) override
+    inline void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Add the solid contribution to the residuals
       fill_in_contribution_to_residuals_axisym_pvd(residuals);
@@ -768,7 +768,8 @@ namespace oomph
     virtual double solid_p(const unsigned& l) = 0;
 
     /// Return the residuals
-    inline void fill_in_contribution_to_residuals(Vector<double>& residuals) override
+    inline void fill_in_contribution_to_residuals(
+      Vector<double>& residuals) override
     {
       // Call the generic residuals function with flag set to 0
       // using a dummy matrix argument
@@ -777,8 +778,8 @@ namespace oomph
     }
 
     /// Return the residuals and the jacobian
-    inline void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                                 DenseMatrix<double>& jacobian) override
+    inline void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine with the flag set to 1
       fill_in_generic_residual_contribution_axisym_pvd_with_pressure(
@@ -1360,7 +1361,8 @@ namespace oomph
     }
 
     /// Return the pressure shape functions
-    inline void solid_pshape(const Vector<double>& s, Shape& psi) const override;
+    inline void solid_pshape(const Vector<double>& s,
+                             Shape& psi) const override;
 
   public:
     /// There is internal solid data so we can't use the automatic

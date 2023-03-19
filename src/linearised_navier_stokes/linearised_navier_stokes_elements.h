@@ -661,7 +661,8 @@ namespace oomph
     /// Return the pressure value i at internal dof i_internal
     /// (Discontinous pressure interpolation -- no need to cater for
     /// hanging nodes)
-    double p_linearised_nst(const unsigned& i_internal, const unsigned& i) const override
+    double p_linearised_nst(const unsigned& i_internal,
+                            const unsigned& i) const override
     {
       return internal_data_pt(P_linearised_nst_internal_index[i])
         ->value(i_internal);
@@ -987,7 +988,8 @@ namespace oomph
 
     /// Access function for the i-th component of pressure
     /// at local pressure node n_p (const version).
-    double p_linearised_nst(const unsigned& n_p, const unsigned& i) const override
+    double p_linearised_nst(const unsigned& n_p,
+                            const unsigned& i) const override
     {
       return nodal_value(Pconv[n_p], p_index_linearised_nst(i));
     }

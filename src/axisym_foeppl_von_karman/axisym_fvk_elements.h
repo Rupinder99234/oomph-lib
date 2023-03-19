@@ -124,9 +124,10 @@ namespace oomph
     void output(FILE* file_pt, const unsigned& n_plot) override;
 
     /// Output exact soln: r,w_exact at n_plot plot points
-    void output_fct(std::ostream& outfile,
-                    const unsigned& n_plot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& n_plot,
+      FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
 
     /// Output exact soln: r,w_exact at
     /// n_plot plot points (dummy time-dependent version to
@@ -446,9 +447,10 @@ namespace oomph
 
     /// Output function for an exact solution:
     ///  r,w_exact at n_plot plot points
-    void output_fct(std::ostream& outfile,
-                    const unsigned& n_plot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& n_plot,
+      FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override
     {
       AxisymFoepplvonKarmanEquations::output_fct(
         outfile, n_plot, exact_soln_pt);
@@ -457,10 +459,11 @@ namespace oomph
     /// Output function for a time-dependent exact solution.
     ///  r,w_exact at n_plot plot points
     /// (Calls the steady version)
-    void output_fct(std::ostream& outfile,
-                    const unsigned& n_plot,
-                    const double& time,
-                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& n_plot,
+      const double& time,
+      FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override
     {
       AxisymFoepplvonKarmanEquations::output_fct(
         outfile, n_plot, time, exact_soln_pt);
@@ -470,11 +473,12 @@ namespace oomph
   protected:
     /// Shape, test functions & derivs. w.r.t. to global coords.
     /// Return Jacobian.
-    inline double dshape_and_dtest_eulerian_axisym_fvk(const Vector<double>& s,
-                                                       Shape& psi,
-                                                       DShape& dpsidr,
-                                                       Shape& test,
-                                                       DShape& dtestdr) const override;
+    inline double dshape_and_dtest_eulerian_axisym_fvk(
+      const Vector<double>& s,
+      Shape& psi,
+      DShape& dpsidr,
+      Shape& test,
+      DShape& dtestdr) const override;
 
     /// Shape, test functions & derivs. w.r.t. to global coords. at
     /// integration point ipt. Return Jacobian.

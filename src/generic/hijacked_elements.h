@@ -392,7 +392,8 @@ namespace oomph
     /// element, but then wipe the entries in the residual vector and the
     /// rows in the Jacobian matrix that correspond to hijacked
     /// values -- they will be computed by other elements.
-    void get_jacobian(Vector<double>& residuals, DenseMatrix<double>& jacobian) override
+    void get_jacobian(Vector<double>& residuals,
+                      DenseMatrix<double>& jacobian) override
     {
       // Call the element's get jacobian function
       ELEMENT::get_jacobian(residuals, jacobian);

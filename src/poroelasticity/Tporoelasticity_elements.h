@@ -246,7 +246,8 @@ namespace oomph
     unsigned nq_basis_edge() const override;
 
     /// Returns the local form of the q basis at local coordinate s
-    void get_q_basis_local(const Vector<double>& s, Shape& q_basis) const override;
+    void get_q_basis_local(const Vector<double>& s,
+                           Shape& q_basis) const override;
 
     /// Returns the local form of the q basis and dbasis/ds at local coordinate
     /// s
@@ -259,7 +260,8 @@ namespace oomph
     /// Returns the nth gauss point along an edge: if sign_edge(edge)==1,
     /// returns regular gauss point; if sign_edge(edge)==-1, returns 1-(gauss
     /// point)
-    double edge_gauss_point(const unsigned& edge, const unsigned& n) const override
+    double edge_gauss_point(const unsigned& edge,
+                            const unsigned& n) const override
     {
 #ifdef RANGE_CHECKING
       if (edge >= 3)

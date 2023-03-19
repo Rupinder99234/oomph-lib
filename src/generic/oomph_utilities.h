@@ -1216,7 +1216,7 @@ namespace oomph
 
     /// Call the function.
     Vector<double> operator()(const double& t,
-                                      const Vector<double>& x) const override
+                              const Vector<double>& x) const override
     {
 #ifdef PARANOID
       if (Solution_fpt == 0)
@@ -1231,8 +1231,8 @@ namespace oomph
 
     /// Call the derivative function.
     Vector<double> derivative(const double& t,
-                                      const Vector<double>& x,
-                                      const Vector<double>& u) const override
+                              const Vector<double>& x,
+                              const Vector<double>& u) const override
     {
 #ifdef PARANOID
       if (Derivative_fpt == 0)

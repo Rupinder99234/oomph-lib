@@ -129,9 +129,9 @@ namespace oomph
     /// If it is open, the positions of the new nodes will be written to
     /// the file stream new_nodes_file.
     void build(Mesh*& mesh_pt,
-                       Vector<Node*>& new_node_pt,
-                       bool& was_already_built,
-                       std::ofstream& new_nodes_file) override;
+               Vector<Node*>& new_node_pt,
+               bool& was_already_built,
+               std::ofstream& new_nodes_file) override;
 
     /// Check the integrity of the element: ensure that the position
     /// and values are continuous across the element edges.
@@ -229,7 +229,8 @@ namespace oomph
 
     /// Use the generic finite difference routine defined in
     /// RefineableSolidElement to calculate the Jacobian matrix
-    void get_jacobian(Vector<double>& residuals, DenseMatrix<double>& jacobian) override
+    void get_jacobian(Vector<double>& residuals,
+                      DenseMatrix<double>& jacobian) override
     {
       RefineableSolidElement::get_jacobian(residuals, jacobian);
     }

@@ -94,7 +94,8 @@ namespace oomph
     /// of this flag, this should only be done for newly
     /// created nodes, when this function is called from
     /// MacroElementNodeUpdateElementBase::build_macro_element_node_update_node(...)
-    void node_update(const bool& update_all_time_levels_for_new_node = false) override;
+    void node_update(
+      const bool& update_all_time_levels_for_new_node = false) override;
 
     ///  Pointer to finite element that performs the update by referring
     /// to its macro-element representation (Access required...)
@@ -294,7 +295,8 @@ namespace oomph
     /// Pass the vector of (pointers to) the geometric objects
     /// that affect the node update. This gets passed on to all nodes in
     /// the element.
-    void set_node_update_info(const Vector<GeomObject*>& geom_object_pt) override
+    void set_node_update_info(
+      const Vector<GeomObject*>& geom_object_pt) override
     {
       // Store local copy of geom object vector, so it can be passed on
       // to son elements (and their nodes) during refinement

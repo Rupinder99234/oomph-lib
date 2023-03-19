@@ -424,8 +424,8 @@ namespace oomph
 
     /// Compute the element's residual Vector and the jacobian matrix.
     /// Virtual function can be overloaded by hanging-node version.
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine with the flag set to 1
       fill_in_generic_residual_contribution_linearised_axi_nst(
@@ -842,7 +842,8 @@ namespace oomph
 
     /// Access function for the i-th component of pressure
     /// at local pressure node n_p (const version).
-    double p_linearised_axi_nst(const unsigned& n_p, const unsigned& i) const override
+    double p_linearised_axi_nst(const unsigned& n_p,
+                                const unsigned& i) const override
     {
       return nodal_value(Pconv[n_p], p_index_linearised_axi_nst(i));
     }

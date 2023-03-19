@@ -325,7 +325,8 @@ namespace oomph
 
     /// Apply the preconditioner. This method should apply the
     /// preconditioner operator to the vector r and return the vector z.
-    void preconditioner_solve_transpose(const DoubleVector& r, DoubleVector& z) override
+    void preconditioner_solve_transpose(const DoubleVector& r,
+                                        DoubleVector& z) override
     {
       // Applying the preconditioner to the transposed system is exactly the
       // same as applying the preconditioner to the original system

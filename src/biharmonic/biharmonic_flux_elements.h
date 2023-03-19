@@ -122,7 +122,8 @@ namespace oomph
     }
 
     /// Add the element's contribution to its residual vector
-    inline void fill_in_contribution_to_residuals(Vector<double>& residuals) override
+    inline void fill_in_contribution_to_residuals(
+      Vector<double>& residuals) override
     {
       // Call the generic residuals function
       fill_in_generic_residual_contribution_biharmonic_flux(residuals);
@@ -131,8 +132,8 @@ namespace oomph
 
     /// Add the element's contribution to its residual vector and its
     /// Jacobian matrix (note - no contributions are made to the jacobian)
-    inline void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                                 DenseMatrix<double>& jacobian) override
+    inline void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Call the generic residuals routine
       fill_in_generic_residual_contribution_biharmonic_flux(residuals);

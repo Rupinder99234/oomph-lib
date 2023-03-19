@@ -193,7 +193,7 @@ namespace oomph
     /// call hierarchy of this function when called from
     /// Problem::describe_dofs(...)
     void describe_local_dofs(std::ostream& out,
-                                     const std::string& current_string) const override
+                             const std::string& current_string) const override
     {
       // Do the standard finite element stuff
       FiniteElement::describe_local_dofs(out, current_string);
@@ -440,14 +440,16 @@ namespace oomph
     }
 
     /// Get local coordinates of node j in the element; vector sets its own size
-    void local_coordinate_of_node(const unsigned& n, Vector<double>& s) const override
+    void local_coordinate_of_node(const unsigned& n,
+                                  Vector<double>& s) const override
     {
       s.resize(1);
       s[0] = OneDimensionalLegendreShape<NNODE_1D>::nodal_position(n);
     }
 
     /// Get the local fractino of node j in the element
-    void local_fraction_of_node(const unsigned& n, Vector<double>& s_fraction) override
+    void local_fraction_of_node(const unsigned& n,
+                                Vector<double>& s_fraction) override
     {
       this->local_coordinate_of_node(n, s_fraction);
       // Resize
@@ -455,7 +457,8 @@ namespace oomph
     }
 
     /// The local one-d fraction is the same
-    double local_one_d_fraction_of_node(const unsigned& n1d, const unsigned& i) override
+    double local_one_d_fraction_of_node(const unsigned& n1d,
+                                        const unsigned& i) override
     {
       return 0.5 *
              (OneDimensionalLegendreShape<NNODE_1D>::nodal_position(n1d) + 1.0);
@@ -481,8 +484,9 @@ namespace oomph
     /// Overload the template-free interface for the calculation of
     /// inverse jacobian matrix. This is a one-dimensional element, so
     /// use the 1D version.
-    double invert_jacobian_mapping(const DenseMatrix<double>& jacobian,
-                                   DenseMatrix<double>& inverse_jacobian) const override
+    double invert_jacobian_mapping(
+      const DenseMatrix<double>& jacobian,
+      DenseMatrix<double>& inverse_jacobian) const override
     {
       return FiniteElement::invert_jacobian<1>(jacobian, inverse_jacobian);
     }
@@ -514,11 +518,11 @@ namespace oomph
 
     ///  Get cector of local coordinates of plot point i (when plotting
     /// nplot points in each "coordinate direction).
-    void get_s_plot(
-      const unsigned& i,
-      const unsigned& nplot,
-      Vector<double>& s,
-      const bool& use_equally_spaced_interior_sample_points = false) const override
+    void get_s_plot(const unsigned& i,
+                    const unsigned& nplot,
+                    Vector<double>& s,
+                    const bool& use_equally_spaced_interior_sample_points =
+                      false) const override
     {
       if (nplot > 1)
       {
@@ -725,7 +729,8 @@ namespace oomph
 
 
     /// Get local coordinates of node j in the element; vector sets its own size
-    void local_coordinate_of_node(const unsigned& n, Vector<double>& s) const override
+    void local_coordinate_of_node(const unsigned& n,
+                                  Vector<double>& s) const override
     {
       s.resize(2);
       unsigned n0 = n % NNODE_1D;
@@ -735,7 +740,8 @@ namespace oomph
     }
 
     /// Get the local fractino of node j in the element
-    void local_fraction_of_node(const unsigned& n, Vector<double>& s_fraction) override
+    void local_fraction_of_node(const unsigned& n,
+                                Vector<double>& s_fraction) override
     {
       this->local_coordinate_of_node(n, s_fraction);
       // Resize
@@ -744,7 +750,8 @@ namespace oomph
     }
 
     /// The local one-d fraction is the same
-    double local_one_d_fraction_of_node(const unsigned& n1d, const unsigned& i) override
+    double local_one_d_fraction_of_node(const unsigned& n1d,
+                                        const unsigned& i) override
     {
       return 0.5 *
              (OneDimensionalLegendreShape<NNODE_1D>::nodal_position(n1d) + 1.0);
@@ -772,8 +779,9 @@ namespace oomph
     /// Overload the template-free interface for the calculation of
     /// inverse jacobian matrix. This is a one-dimensional element, so
     /// use the 1D version.
-    double invert_jacobian_mapping(const DenseMatrix<double>& jacobian,
-                                   DenseMatrix<double>& inverse_jacobian) const override
+    double invert_jacobian_mapping(
+      const DenseMatrix<double>& jacobian,
+      DenseMatrix<double>& inverse_jacobian) const override
     {
       return FiniteElement::invert_jacobian<2>(jacobian, inverse_jacobian);
     }
@@ -805,11 +813,11 @@ namespace oomph
 
     ///  Get cector of local coordinates of plot point i (when plotting
     /// nplot points in each "coordinate direction).
-    void get_s_plot(
-      const unsigned& i,
-      const unsigned& nplot,
-      Vector<double>& s,
-      const bool& use_equally_spaced_interior_sample_points = false) const override
+    void get_s_plot(const unsigned& i,
+                    const unsigned& nplot,
+                    Vector<double>& s,
+                    const bool& use_equally_spaced_interior_sample_points =
+                      false) const override
     {
       if (nplot > 1)
       {
@@ -1053,7 +1061,8 @@ namespace oomph
 
 
     /// Get local coordinates of node j in the element; vector sets its own size
-    void local_coordinate_of_node(const unsigned& n, Vector<double>& s) const override
+    void local_coordinate_of_node(const unsigned& n,
+                                  Vector<double>& s) const override
     {
       s.resize(3);
       unsigned n0 = n % NNODE_1D;
@@ -1065,7 +1074,8 @@ namespace oomph
     }
 
     /// Get the local fractino of node j in the element
-    void local_fraction_of_node(const unsigned& n, Vector<double>& s_fraction) override
+    void local_fraction_of_node(const unsigned& n,
+                                Vector<double>& s_fraction) override
     {
       this->local_coordinate_of_node(n, s_fraction);
       // Resize
@@ -1075,7 +1085,8 @@ namespace oomph
     }
 
     /// The local one-d fraction is the same
-    double local_one_d_fraction_of_node(const unsigned& n1d, const unsigned& i) override
+    double local_one_d_fraction_of_node(const unsigned& n1d,
+                                        const unsigned& i) override
     {
       return 0.5 *
              (OneDimensionalLegendreShape<NNODE_1D>::nodal_position(n1d) + 1.0);
@@ -1107,8 +1118,9 @@ namespace oomph
     /// Overload the template-free interface for the calculation of
     /// inverse jacobian matrix. This is a one-dimensional element, so
     /// use the 3D version.
-    double invert_jacobian_mapping(const DenseMatrix<double>& jacobian,
-                                   DenseMatrix<double>& inverse_jacobian) const override
+    double invert_jacobian_mapping(
+      const DenseMatrix<double>& jacobian,
+      DenseMatrix<double>& inverse_jacobian) const override
     {
       return FiniteElement::invert_jacobian<3>(jacobian, inverse_jacobian);
     }
@@ -1139,11 +1151,11 @@ namespace oomph
 
     ///  Get cector of local coordinates of plot point i (when plotting
     /// nplot points in each "coordinate direction).
-    void get_s_plot(
-      const unsigned& i,
-      const unsigned& nplot,
-      Vector<double>& s,
-      const bool& use_equally_spaced_interior_sample_points = false) const override
+    void get_s_plot(const unsigned& i,
+                    const unsigned& nplot,
+                    Vector<double>& s,
+                    const bool& use_equally_spaced_interior_sample_points =
+                      false) const override
     {
       if (nplot > 1)
       {

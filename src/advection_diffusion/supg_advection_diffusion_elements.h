@@ -240,11 +240,12 @@ namespace oomph
 
     /// Shape, test functions & derivs. w.r.t. to global coords. Return
     /// Jacobian.
-    double dshape_and_dtest_eulerian_at_knot_adv_diff(const unsigned& ipt,
-                                                      Shape& psi,
-                                                      DShape& dpsidx,
-                                                      Shape& test,
-                                                      DShape& dtestdx) const override;
+    double dshape_and_dtest_eulerian_at_knot_adv_diff(
+      const unsigned& ipt,
+      Shape& psi,
+      DShape& dpsidx,
+      Shape& test,
+      DShape& dtestdx) const override;
 
     /// SUPG stabilisation parameter
     double Tau_SUPG;

@@ -103,7 +103,8 @@ namespace oomph
     /// number of the unknown, while the second one contains the number
     /// of the "DOF type" that this unknown is associated with.
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override = 0;
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list)
+      const override = 0;
 
   protected:
     /// The number of time slices in the mesh

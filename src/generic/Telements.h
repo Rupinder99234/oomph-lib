@@ -1342,8 +1342,9 @@ namespace oomph
     /// Overload the template-free interface for the calculation of
     /// inverse jacobian matrix. This is a one dimensional element, so use
     /// the 1D version.
-    double invert_jacobian_mapping(const DenseMatrix<double>& jacobian,
-                                   DenseMatrix<double>& inverse_jacobian) const override
+    double invert_jacobian_mapping(
+      const DenseMatrix<double>& jacobian,
+      DenseMatrix<double>& inverse_jacobian) const override
     {
       return FiniteElement::invert_jacobian<1>(jacobian, inverse_jacobian);
     }
@@ -1384,9 +1385,10 @@ namespace oomph
     /// Fill in the offset information for paraview plot.
     /// Needs to be implemented for each new geometric element type; see
     /// http://www.vtk.org/VTK/img/file-formats.pdf
-    void write_paraview_output_offset_information(std::ofstream& file_out,
-                                                  const unsigned& nplot,
-                                                  unsigned& counter) const override
+    void write_paraview_output_offset_information(
+      std::ofstream& file_out,
+      const unsigned& nplot,
+      unsigned& counter) const override
     {
       // Number of local elements we want to plot over
       unsigned plot = nsub_elements_paraview(nplot);
@@ -1443,11 +1445,11 @@ namespace oomph
 
     ///  Get vector of local coordinates of plot point i (when plotting
     /// nplot points in each "coordinate direction").
-    void get_s_plot(
-      const unsigned& i,
-      const unsigned& nplot,
-      Vector<double>& s,
-      const bool& use_equally_spaced_interior_sample_points = false) const override
+    void get_s_plot(const unsigned& i,
+                    const unsigned& nplot,
+                    Vector<double>& s,
+                    const bool& use_equally_spaced_interior_sample_points =
+                      false) const override
     {
       if (nplot > 1)
       {
@@ -1651,8 +1653,9 @@ namespace oomph
     /// Overload the template-free interface for the calculation of
     /// inverse jacobian matrix. This is a two dimensional element, so use
     /// the 2D version.
-    double invert_jacobian_mapping(const DenseMatrix<double>& jacobian,
-                                   DenseMatrix<double>& inverse_jacobian) const override
+    double invert_jacobian_mapping(
+      const DenseMatrix<double>& jacobian,
+      DenseMatrix<double>& inverse_jacobian) const override
     {
       return FiniteElement::invert_jacobian<2>(jacobian, inverse_jacobian);
     }
@@ -1703,9 +1706,10 @@ namespace oomph
     /// Fill in the offset information for paraview plot.
     /// Needs to be implemented for each new geometric element type; see
     /// http://www.vtk.org/VTK/img/file-formats.pdf
-    void write_paraview_output_offset_information(std::ofstream& file_out,
-                                                  const unsigned& nplot,
-                                                  unsigned& counter) const override
+    void write_paraview_output_offset_information(
+      std::ofstream& file_out,
+      const unsigned& nplot,
+      unsigned& counter) const override
     {
       // Outputs list of connectivity of Paraview elements,
       // whilst remembering the overall ordering
@@ -1778,11 +1782,11 @@ namespace oomph
 
     ///  Get vector of local coordinates of plot point i (when plotting
     /// nplot points in each "coordinate direction").
-    void get_s_plot(
-      const unsigned& iplot,
-      const unsigned& nplot,
-      Vector<double>& s,
-      const bool& use_equally_spaced_interior_sample_points = false) const override
+    void get_s_plot(const unsigned& iplot,
+                    const unsigned& nplot,
+                    Vector<double>& s,
+                    const bool& use_equally_spaced_interior_sample_points =
+                      false) const override
     {
       if (nplot > 1)
       {
@@ -1864,7 +1868,8 @@ namespace oomph
     /// nplot points in each "coordinate direction).
     /// Empty by default -- can be used, e.g., to add FE connectivity
     /// lists to elements that need it.
-    void write_tecplot_zone_footer(FILE* file_pt, const unsigned& nplot) const override
+    void write_tecplot_zone_footer(FILE* file_pt,
+                                   const unsigned& nplot) const override
     {
       // Output node lists for sub elements for Tecplot (node index
       // must start at 1)
@@ -3172,8 +3177,9 @@ namespace oomph
     /// Overload the template-free interface for the calculation of
     /// inverse jacobian matrix. This is a three dimensional element, so use
     /// the 3D version.
-    double invert_jacobian_mapping(const DenseMatrix<double>& jacobian,
-                                   DenseMatrix<double>& inverse_jacobian) const override
+    double invert_jacobian_mapping(
+      const DenseMatrix<double>& jacobian,
+      DenseMatrix<double>& inverse_jacobian) const override
     {
       return FiniteElement::invert_jacobian<3>(jacobian, inverse_jacobian);
     }
@@ -3222,9 +3228,10 @@ namespace oomph
     /// Fill in the offset information for paraview plot.
     /// Needs to be implemented for each new geometric element type; see
     /// http://www.vtk.org/VTK/img/file-formats.pdf
-    void write_paraview_output_offset_information(std::ofstream& file_out,
-                                                  const unsigned& nplot,
-                                                  unsigned& counter) const override
+    void write_paraview_output_offset_information(
+      std::ofstream& file_out,
+      const unsigned& nplot,
+      unsigned& counter) const override
     {
       // Output node lists for sub elements for Paraview (node index
       // must start at 0, fixed with magical counter-1)
@@ -3351,11 +3358,11 @@ namespace oomph
 
     ///  Get vector of local coordinates of plot point i (when plotting
     /// nplot points in each "coordinate direction).
-    void get_s_plot(
-      const unsigned& iplot,
-      const unsigned& nplot,
-      Vector<double>& s,
-      const bool& use_equally_spaced_interior_sample_points = false) const override
+    void get_s_plot(const unsigned& iplot,
+                    const unsigned& nplot,
+                    Vector<double>& s,
+                    const bool& use_equally_spaced_interior_sample_points =
+                      false) const override
     {
       if (nplot > 1)
       {
@@ -3491,7 +3498,8 @@ namespace oomph
     /// nplot points in each "coordinate direction).
     /// Empty by default -- can be used, e.g., to add FE connectivity
     /// lists to elements that need it.
-    void write_tecplot_zone_footer(FILE* file_pt, const unsigned& nplot) const override
+    void write_tecplot_zone_footer(FILE* file_pt,
+                                   const unsigned& nplot) const override
     {
       // Output node lists for sub elements for Tecplot (node index
       // must start at 1)

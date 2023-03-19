@@ -116,8 +116,8 @@ namespace oomph
     }
 
     /// Fill in the residuals and jacobian for the volume constraint
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // One contribution to jacobian; see comment in that function
       this->fill_in_generic_contribution_to_residuals_normalisation(residuals);

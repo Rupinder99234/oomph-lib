@@ -310,9 +310,10 @@ namespace oomph
 
 
     /// Output exact soln: x,y,u_exact or x,y,z,u_exact at nplot^DIM plot points
-    void output_fct(std::ostream& outfile,
-                    const unsigned& nplot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& nplot,
+      FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
 
 
     /// Output exact soln: x,y,u_exact or x,y,z,u_exact at
@@ -383,8 +384,8 @@ namespace oomph
 
 
     /// Compute element residual Vector and element Jacobian matrix (wrapper)
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine with the flag set to 1
       fill_in_generic_residual_contribution_womersley(residuals, jacobian, 1);
@@ -589,7 +590,8 @@ namespace oomph
     /// velocity dofs are added by the Womersley elements; the current
     /// element's internal Data (the pressure gradient) does not feature
     /// in the volume constraint.
-    void get_jacobian(Vector<double>& residuals, DenseMatrix<double>& jacobian) override
+    void get_jacobian(Vector<double>& residuals,
+                      DenseMatrix<double>& jacobian) override
     {
       // Initialise Jacobian
       unsigned n_dof = ndof();
@@ -689,9 +691,10 @@ namespace oomph
 
     /// Output function for an exact solution:
     ///  x,y,u_exact   or    x,y,z,u_exact at n_plot^DIM plot points
-    void output_fct(std::ostream& outfile,
-                    const unsigned& n_plot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& n_plot,
+      FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override
     {
       WomersleyEquations<DIM>::output_fct(outfile, n_plot, exact_soln_pt);
     }
@@ -700,10 +703,11 @@ namespace oomph
     /// Output function for a time-dependent exact solution.
     ///  x,y,u_exact   or    x,y,z,u_exact at n_plot^DIM plot points
     /// (Calls the steady version)
-    void output_fct(std::ostream& outfile,
-                    const unsigned& n_plot,
-                    const double& time,
-                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& n_plot,
+      const double& time,
+      FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override
     {
       WomersleyEquations<DIM>::output_fct(outfile, n_plot, time, exact_soln_pt);
     }
@@ -712,11 +716,12 @@ namespace oomph
   protected:
     /// Shape, test functions & derivs. w.r.t. to global coords. Return
     /// Jacobian.
-    inline double dshape_and_dtest_eulerian_womersley(const Vector<double>& s,
-                                                      Shape& psi,
-                                                      DShape& dpsidx,
-                                                      Shape& test,
-                                                      DShape& dtestdx) const override;
+    inline double dshape_and_dtest_eulerian_womersley(
+      const Vector<double>& s,
+      Shape& psi,
+      DShape& dpsidx,
+      Shape& test,
+      DShape& dtestdx) const override;
 
 
     /// Shape/test functions and derivs w.r.t. to global coords at
@@ -2236,7 +2241,8 @@ namespace oomph
     /// the derivative of the total volume flux through the
     /// outflow boundary of the (higher-dimensional) Navier-Stokes mesh w.r.t.
     /// to the discrete (global) (velocity) degrees of freedom.
-    void set_aux_integral_pt(std::map<unsigned, double>* aux_integral_pt) override
+    void set_aux_integral_pt(
+      std::map<unsigned, double>* aux_integral_pt) override
     {
       Aux_integral_pt = aux_integral_pt;
     }
@@ -2360,7 +2366,8 @@ namespace oomph
 
 
     /// Fill in the element's contribution to the element's residual vector
-    inline void fill_in_contribution_to_residuals(Vector<double>& residuals) override
+    inline void fill_in_contribution_to_residuals(
+      Vector<double>& residuals) override
     {
       // Call the generic residuals function with flag set to 0
       // using a dummy matrix argument
@@ -2371,8 +2378,8 @@ namespace oomph
 
     /// Fill in the element's contribution to the element's residual
     /// vector and Jacobian matrix
-    inline void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                                 DenseMatrix<double>& jacobian) override
+    inline void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine with the flag set to 1
       fill_in_generic_residual_contribution_fluid_traction(
@@ -2594,7 +2601,8 @@ namespace oomph
     ~NavierStokesWomersleyPressureControlElement() override {}
 
     /// This function returns the residuals
-    inline void fill_in_contribution_to_residuals(Vector<double>& residuals) override
+    inline void fill_in_contribution_to_residuals(
+      Vector<double>& residuals) override
     {
       // Call the generic residuals function using a dummy matrix argument
       fill_in_generic_residual_contribution_pressure_control(
@@ -2605,8 +2613,8 @@ namespace oomph
     /// plus the Jacobian contribution for the
     /// NetFluxControlElementForWomersleyPressureControl
     /// with respect to unknowns in this element
-    inline void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                                 DenseMatrix<double>& jacobian) override
+    inline void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine
       fill_in_generic_residual_contribution_pressure_control(
@@ -2641,7 +2649,8 @@ namespace oomph
     /// (Function can obviously only be called if the equation numbering
     /// scheme has been set up.)
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list)
+      const override
     {
       // pair to store dof lookup prior to being added to list
       std::pair<unsigned, unsigned> dof_lookup;
@@ -2781,7 +2790,8 @@ namespace oomph
     /// (Function can obviously only be called if the equation numbering
     /// scheme has been set up.)
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list)
+      const override
     {
       // pair to store dof lookup prior to being added to list
       std::pair<unsigned, unsigned> dof_lookup;

@@ -401,7 +401,8 @@ namespace oomph
 
     /// Overload thet node update function, call
     /// the update function in the Node's SpineMesh
-    void node_update(const bool& update_all_time_levels_for_new_node = false) override;
+    void node_update(
+      const bool& update_all_time_levels_for_new_node = false) override;
 
     /// Return the number of geometric data, zero if no spine.
     unsigned ngeom_data() const override
@@ -718,8 +719,9 @@ namespace oomph
 
     /// Overload the mesh_level timestepper function to set the
     /// timestepper data for the spines
-    void set_mesh_level_time_stepper(TimeStepper* const& time_stepper_pt,
-                                     const bool& preserve_existing_data) override
+    void set_mesh_level_time_stepper(
+      TimeStepper* const& time_stepper_pt,
+      const bool& preserve_existing_data) override
     {
       this->set_spine_time_stepper(time_stepper_pt, preserve_existing_data);
     }

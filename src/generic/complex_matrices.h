@@ -229,8 +229,8 @@ namespace oomph
 
     /// Overload the const version of the round-bracket access operator
     /// for read-only access.
-    inline std::complex<double> operator()(const unsigned long& i,
-                                           const unsigned long& j) const override
+    inline std::complex<double> operator()(
+      const unsigned long& i, const unsigned long& j) const override
     {
       return DenseMatrix<std::complex<double>>::get_entry(i, j);
     }
@@ -358,8 +358,8 @@ namespace oomph
     }
 
     /// Overload the round-bracket access operator for read-only access
-    inline std::complex<double> operator()(const unsigned long& i,
-                                           const unsigned long& j) const override
+    inline std::complex<double> operator()(
+      const unsigned long& i, const unsigned long& j) const override
     {
       return CRMatrix<std::complex<double>>::get_entry(i, j);
     }
@@ -522,8 +522,8 @@ namespace oomph
 
     /// Overload the round-bracket access operator to provide
     /// read-only (const) access to the data
-    inline std::complex<double> operator()(const unsigned long& i,
-                                           const unsigned long& j) const override
+    inline std::complex<double> operator()(
+      const unsigned long& i, const unsigned long& j) const override
     {
       return CCMatrix<std::complex<double>>::get_entry(i, j);
     }

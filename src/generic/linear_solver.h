@@ -579,7 +579,8 @@ namespace oomph
     /// Solver: Takes pointer to problem and returns the results Vector
     /// which contains the solution of the linear system defined by
     /// the problem's fully assembled Jacobian and residual Vector.
-    void solve_transpose(Problem* const& problem_pt, DoubleVector& result) override;
+    void solve_transpose(Problem* const& problem_pt,
+                         DoubleVector& result) override;
 
     /// Linear-algebra-type solver: Takes pointer to a matrix and rhs
     /// vector and returns the solution of the linear system.
@@ -597,7 +598,8 @@ namespace oomph
 
     /// Resolve the (transposed) system defined by the last assembled
     /// Jacobian and the specified rhs vector if resolve has been enabled.
-    void resolve_transpose(const DoubleVector& rhs, DoubleVector& result) override;
+    void resolve_transpose(const DoubleVector& rhs,
+                           DoubleVector& result) override;
 
     /// Enable documentation of solver statistics
     void enable_doc_stats()

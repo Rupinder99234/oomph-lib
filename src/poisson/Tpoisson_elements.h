@@ -112,9 +112,10 @@ namespace oomph
 
     /// Output function for an exact solution:
     ///  x,y,u_exact
-    void output_fct(std::ostream& outfile,
-                    const unsigned& n_plot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& n_plot,
+      FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override
     {
       PoissonEquations<DIM>::output_fct(outfile, n_plot, exact_soln_pt);
     }
@@ -122,10 +123,11 @@ namespace oomph
 
     /// Output function for a time-dependent exact solution.
     ///  x,y,u_exact (calls the steady version)
-    void output_fct(std::ostream& outfile,
-                    const unsigned& n_plot,
-                    const double& time,
-                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& n_plot,
+      const double& time,
+      FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override
     {
       PoissonEquations<DIM>::output_fct(outfile, n_plot, time, exact_soln_pt);
     }
@@ -133,11 +135,12 @@ namespace oomph
   protected:
     /// Shape, test functions & derivs. w.r.t. to global coords. Return
     /// Jacobian.
-    inline double dshape_and_dtest_eulerian_poisson(const Vector<double>& s,
-                                                    Shape& psi,
-                                                    DShape& dpsidx,
-                                                    Shape& test,
-                                                    DShape& dtestdx) const override;
+    inline double dshape_and_dtest_eulerian_poisson(
+      const Vector<double>& s,
+      Shape& psi,
+      DShape& dpsidx,
+      Shape& test,
+      DShape& dtestdx) const override;
 
 
     /// Shape, test functions & derivs. w.r.t. to global coords. Return

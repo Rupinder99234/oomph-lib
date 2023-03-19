@@ -180,8 +180,9 @@ namespace oomph
     /// Overload the template-free interface for the calculation of
     /// the inverse jacobian. The element dimension must be passed to
     /// the function
-    double invert_jacobian_mapping(const DenseMatrix<double>& jacobian,
-                                   DenseMatrix<double>& inverse_jacobian) const override
+    double invert_jacobian_mapping(
+      const DenseMatrix<double>& jacobian,
+      DenseMatrix<double>& inverse_jacobian) const override
     {
       return invert_jacobian<DIM>(jacobian, inverse_jacobian);
     }
@@ -214,7 +215,8 @@ namespace oomph
 
 
     /// Get local coordinates of node j in the element; vector sets its own size
-    void local_coordinate_of_node(const unsigned& j, Vector<double>& s) const override
+    void local_coordinate_of_node(const unsigned& j,
+                                  Vector<double>& s) const override
     {
       s.resize(DIM);
       Vector<unsigned> j_sub(DIM);
@@ -231,7 +233,8 @@ namespace oomph
     }
 
     /// Get local fraction of node j in the element; vector sets its own size
-    void local_fraction_of_node(const unsigned& j, Vector<double>& s_fraction) override
+    void local_fraction_of_node(const unsigned& j,
+                                Vector<double>& s_fraction) override
     {
       s_fraction.resize(DIM);
       Vector<unsigned> j_sub(DIM);
@@ -247,7 +250,8 @@ namespace oomph
 
     /// Get the local fraction of any node in the n-th position
     /// in a one dimensional expansion along the i-th local coordinate
-    double local_one_d_fraction_of_node(const unsigned& n1d, const unsigned& i) override
+    double local_one_d_fraction_of_node(const unsigned& n1d,
+                                        const unsigned& i) override
     {
       // The spacing is just the node number because there are only two
       // nodes
@@ -274,11 +278,11 @@ namespace oomph
 
     ///  Get cector of local coordinates of plot point i (when plotting
     /// nplot points in each "coordinate direction).
-    void get_s_plot(
-      const unsigned& i,
-      const unsigned& nplot,
-      Vector<double>& s,
-      const bool& use_equally_spaced_interior_sample_points = false) const override;
+    void get_s_plot(const unsigned& i,
+                    const unsigned& nplot,
+                    Vector<double>& s,
+                    const bool& use_equally_spaced_interior_sample_points =
+                      false) const override;
 
     /// Return string for tecplot zone header (when plotting
     /// nplot points in each "coordinate direction)
@@ -437,8 +441,9 @@ namespace oomph
     /// Overload the template-free interface for the calculation of
     /// the inverse jacobian. Pass the dimension of the element to the
     /// invert_jacobian function.
-    double invert_jacobian_mapping(const DenseMatrix<double>& jacobian,
-                                   DenseMatrix<double>& inverse_jacobian) const override
+    double invert_jacobian_mapping(
+      const DenseMatrix<double>& jacobian,
+      DenseMatrix<double>& inverse_jacobian) const override
     {
       return FiniteElement::invert_jacobian<DIM>(jacobian, inverse_jacobian);
     }

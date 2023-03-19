@@ -693,7 +693,8 @@ public:
 
   /// Counter to keep track of how many sample points we've
   /// visited during top level call to locate_zeta
-  unsigned& total_number_of_sample_points_visited_during_locate_zeta_from_top_level() override
+  unsigned& total_number_of_sample_points_visited_during_locate_zeta_from_top_level()
+    override
   {
     if (Depth == 0)
     {

@@ -728,9 +728,10 @@ namespace oomph
     /// stress tensor. Arguments are the
     /// covariant undeformed and deformed metric tensor and the
     /// matrix in which to return the stress tensor
-    void calculate_second_piola_kirchhoff_stress(const DenseMatrix<double>& g,
-                                                 const DenseMatrix<double>& G,
-                                                 DenseMatrix<double>& sigma) override;
+    void calculate_second_piola_kirchhoff_stress(
+      const DenseMatrix<double>& g,
+      const DenseMatrix<double>& G,
+      DenseMatrix<double>& sigma) override;
 
 
     /// Calculate the deviatoric part
@@ -816,9 +817,10 @@ namespace oomph
     /// covariant undeformed and deformed metric tensor and the
     /// matrix in which to return the stress tensor.
     /// Uses correct 3D invariants for 2D (plane strain) problems.
-    void calculate_second_piola_kirchhoff_stress(const DenseMatrix<double>& g,
-                                                 const DenseMatrix<double>& G,
-                                                 DenseMatrix<double>& sigma) override;
+    void calculate_second_piola_kirchhoff_stress(
+      const DenseMatrix<double>& g,
+      const DenseMatrix<double>& G,
+      DenseMatrix<double>& sigma) override;
 
 
     /// Calculate the deviatoric part

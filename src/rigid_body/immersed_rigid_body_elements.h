@@ -304,8 +304,8 @@ namespace oomph
 
 
     /// Get residuals including contribution to jacobian
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Get generic function, but don't bother to get jacobian terms
       bool flag = false;

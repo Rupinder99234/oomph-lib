@@ -566,17 +566,19 @@ namespace oomph
     /// Output exact solution specified via function pointer
     /// at a given number of plot points. Function prints as
     /// many components as are returned in solution Vector
-    void output_fct(std::ostream& outfile,
-                    const unsigned& nplot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& nplot,
+      FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
 
     /// Output exact solution specified via function pointer
     /// at a given time and at a given number of plot points.
     /// Function prints as many components as are returned in solution Vector.
-    void output_fct(std::ostream& outfile,
-                    const unsigned& nplot,
-                    const double& time,
-                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override;
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& nplot,
+      const double& time,
+      FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override;
 
     /// Validate against exact solution at given time
     /// Solution is provided via function pointer.
@@ -678,8 +680,8 @@ namespace oomph
 
     // Compute the element's residual Vector and the jacobian matrix
     // Virtual function can be overloaded by hanging-node version
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine with the flag set to 1
       fill_in_generic_residual_contribution_spherical_nst(
@@ -844,7 +846,8 @@ namespace oomph
       DShape& dtestdx) const override;
 
     /// Pressure shape functions at local coordinate s
-    inline void pshape_spherical_nst(const Vector<double>& s, Shape& psi) const override;
+    inline void pshape_spherical_nst(const Vector<double>& s,
+                                     Shape& psi) const override;
 
     /// Pressure shape and test functions at local coordinte s
     inline void pshape_spherical_nst(const Vector<double>& s,
@@ -973,7 +976,8 @@ namespace oomph
     /// (Function can obviously only be called if the equation numbering
     /// scheme has been set up.)
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override;
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list)
+      const override;
   };
 
   // Inline functions
@@ -1120,7 +1124,8 @@ namespace oomph
       DShape& dtestdx) const override;
 
     /// Pressure shape functions at local coordinate s
-    inline void pshape_spherical_nst(const Vector<double>& s, Shape& psi) const override;
+    inline void pshape_spherical_nst(const Vector<double>& s,
+                                     Shape& psi) const override;
 
     /// Pressure shape and test functions at local coordinte s
     inline void pshape_spherical_nst(const Vector<double>& s,
@@ -1236,7 +1241,8 @@ namespace oomph
     /// (Function can obviously only be called if the equation numbering
     /// scheme has been set up.)
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override;
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list)
+      const override;
   };
 
   // Inline functions

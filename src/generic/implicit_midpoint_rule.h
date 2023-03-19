@@ -143,7 +143,8 @@ namespace oomph
         err, OOMPH_CURRENT_FUNCTION, OOMPH_EXCEPTION_LOCATION);
     }
 
-    double temporal_error_in_position(Node* const& node_pt, const unsigned& i) override
+    double temporal_error_in_position(Node* const& node_pt,
+                                      const unsigned& i) override
     {
       std::string err = "Not implemented";
       throw OomphLibError(
@@ -152,7 +153,8 @@ namespace oomph
 
     // Adaptivity
     void calculate_predicted_values(Data* const& data_pt) override;
-    double temporal_error_in_value(Data* const& data_pt, const unsigned& i) override;
+    double temporal_error_in_value(Data* const& data_pt,
+                                   const unsigned& i) override;
   };
 
   /// The "real" implementation of the implicit midpoint rule. Implemented

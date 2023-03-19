@@ -629,7 +629,8 @@ namespace oomph
     void setup() override;
 
     /// Apply preconditioner to r
-    void preconditioner_solve(const DoubleVector& res, DoubleVector& z) override;
+    void preconditioner_solve(const DoubleVector& res,
+                              DoubleVector& z) override;
 
     /// access function to set the subsidiary preconditioner function.
     void set_subsidiary_preconditioner_function(

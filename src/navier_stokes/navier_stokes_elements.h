@@ -135,11 +135,14 @@ namespace oomph
     /// traction function. flag=1 (or 0): do (or don't) compute the
     /// Jacobian as well.
     void fill_in_generic_residual_contribution_fp_press_adv_diff_robin_bc(
-      Vector<double>& residuals, DenseMatrix<double>& jacobian, unsigned flag) override;
+      Vector<double>& residuals,
+      DenseMatrix<double>& jacobian,
+      unsigned flag) override;
 
 
     /// This function returns just the residuals
-    inline void fill_in_contribution_to_residuals(Vector<double>& residuals) override
+    inline void fill_in_contribution_to_residuals(
+      Vector<double>& residuals) override
     {
       std::ostringstream error_message;
       error_message
@@ -151,8 +154,8 @@ namespace oomph
     }
 
     /// This function returns the residuals and the jacobian
-    inline void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                                 DenseMatrix<double>& jacobian) override
+    inline void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       std::ostringstream error_message;
       error_message
@@ -1204,17 +1207,19 @@ namespace oomph
     /// Output exact solution specified via function pointer
     /// at a given number of plot points. Function prints as
     /// many components as are returned in solution Vector
-    void output_fct(std::ostream& outfile,
-                    const unsigned& nplot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& nplot,
+      FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
 
     /// Output exact solution specified via function pointer
     /// at a given time and at a given number of plot points.
     /// Function prints as many components as are returned in solution Vector.
-    void output_fct(std::ostream& outfile,
-                    const unsigned& nplot,
-                    const double& time,
-                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override;
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& nplot,
+      const double& time,
+      FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override;
 
     /// Compute norm of solution: square of the L2 norm of the velocities
     void compute_norm(double& norm) override;
@@ -1270,8 +1275,8 @@ namespace oomph
 
     /// Compute the element's residual Vector and the jacobian matrix
     /// Virtual function can be overloaded by hanging-node version
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine with the flag set to 1
       fill_in_generic_residual_contribution_nst(
@@ -1714,7 +1719,8 @@ namespace oomph
 
     /// Output solution in data vector at local cordinates s:
     /// x,y [,z], u,v,[w], p
-    void point_output_data(const Vector<double>& s, Vector<double>& data) override
+    void point_output_data(const Vector<double>& s,
+                           Vector<double>& data) override
     {
       // Dimension
       unsigned dim = s.size();
@@ -1769,11 +1775,12 @@ namespace oomph
     /// Velocity shape and test functions and their derivs
     /// w.r.t. to global coords at ipt-th integation point (taken from geometry)
     /// Return Jacobian of mapping between local and global coordinates.
-    inline double dshape_and_dtest_eulerian_at_knot_nst(const unsigned& ipt,
-                                                        Shape& psi,
-                                                        DShape& dpsidx,
-                                                        Shape& test,
-                                                        DShape& dtestdx) const override;
+    inline double dshape_and_dtest_eulerian_at_knot_nst(
+      const unsigned& ipt,
+      Shape& psi,
+      DShape& dpsidx,
+      Shape& test,
+      DShape& dtestdx) const override;
 
     /// Shape/test functions and derivs w.r.t. to global coords at
     /// integration point ipt; return Jacobian of mapping (J). Also compute
@@ -1835,11 +1842,12 @@ namespace oomph
     /// Pressure shape and test functions and their derivs
     /// w.r.t. to global coords  at local coordinate s (taken from geometry)
     /// Return Jacobian of mapping between local and global coordinates.
-    inline double dpshape_and_dptest_eulerian_nst(const Vector<double>& s,
-                                                  Shape& ppsi,
-                                                  DShape& dppsidx,
-                                                  Shape& ptest,
-                                                  DShape& dptestdx) const override;
+    inline double dpshape_and_dptest_eulerian_nst(
+      const Vector<double>& s,
+      Shape& ppsi,
+      DShape& dppsidx,
+      Shape& ptest,
+      DShape& dptestdx) const override;
 
     /// Return the local equation numbers for the pressure values.
     inline int p_local_eqn(const unsigned& n) const override
@@ -1858,7 +1866,8 @@ namespace oomph
     /// Build FaceElements that apply the Robin boundary condition
     /// to the pressure advection diffusion problem required by
     /// Fp preconditioner
-    void build_fp_press_adv_diff_robin_bc_element(const unsigned& face_index) override
+    void build_fp_press_adv_diff_robin_bc_element(
+      const unsigned& face_index) override
     {
       this->Pressure_advection_diffusion_robin_element_pt.push_back(
         new FpPressureAdvDiffRobinBCElement<QCrouzeixRaviartElement<DIM>>(
@@ -1944,7 +1953,8 @@ namespace oomph
     /// (Function can obviously only be called if the equation numbering
     /// scheme has been set up.) Velocity=0; Pressure=1
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override;
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list)
+      const override;
   };
 
   // Inline functions
@@ -2327,11 +2337,12 @@ namespace oomph
     /// Velocity shape and test functions and their derivs
     /// w.r.t. to global coords  at local coordinate s (taken from geometry)
     /// Return Jacobian of mapping between local and global coordinates.
-    inline double dshape_and_dtest_eulerian_at_knot_nst(const unsigned& ipt,
-                                                        Shape& psi,
-                                                        DShape& dpsidx,
-                                                        Shape& test,
-                                                        DShape& dtestdx) const override;
+    inline double dshape_and_dtest_eulerian_at_knot_nst(
+      const unsigned& ipt,
+      Shape& psi,
+      DShape& dpsidx,
+      Shape& test,
+      DShape& dtestdx) const override;
 
     /// Shape/test functions and derivs w.r.t. to global coords at
     /// integration point ipt; return Jacobian of mapping (J). Also compute
@@ -2395,11 +2406,12 @@ namespace oomph
     /// Pressure shape and test functions and their derivs
     /// w.r.t. to global coords  at local coordinate s (taken from geometry).
     /// Return Jacobian of mapping between local and global coordinates.
-    inline double dpshape_and_dptest_eulerian_nst(const Vector<double>& s,
-                                                  Shape& ppsi,
-                                                  DShape& dppsidx,
-                                                  Shape& ptest,
-                                                  DShape& dptestdx) const override;
+    inline double dpshape_and_dptest_eulerian_nst(
+      const Vector<double>& s,
+      Shape& ppsi,
+      DShape& dppsidx,
+      Shape& ptest,
+      DShape& dptestdx) const override;
 
     /// Return number of pressure values
     unsigned npres_nst() const override
@@ -2431,7 +2443,8 @@ namespace oomph
     /// Build FaceElements that apply the Robin boundary condition
     /// to the pressure advection diffusion problem required by
     /// Fp preconditioner
-    void build_fp_press_adv_diff_robin_bc_element(const unsigned& face_index) override
+    void build_fp_press_adv_diff_robin_bc_element(
+      const unsigned& face_index) override
     {
       this->Pressure_advection_diffusion_robin_element_pt.push_back(
         new FpPressureAdvDiffRobinBCElement<QTaylorHoodElement<DIM>>(
@@ -2501,7 +2514,8 @@ namespace oomph
     /// (Function can obviously only be called if the equation numbering
     /// scheme has been set up.) Velocity=0; Pressure=1
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override;
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list)
+      const override;
   };
 
   // Inline functions

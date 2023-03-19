@@ -99,9 +99,10 @@ namespace oomph
 
 
     /// Output exact soln at n_plot^2 plot points
-    void output_fct(std::ostream& outfile,
-                    const unsigned& n_plot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& n_plot,
+      FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
 
 
     /// Output exact soln at
@@ -498,9 +499,10 @@ namespace oomph
 
 
     /// Output function for an exact solutio at n_plot^2 plot points
-    void output_fct(std::ostream& outfile,
-                    const unsigned& n_plot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& n_plot,
+      FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override
     {
       YoungLaplaceEquations::output_fct(outfile, n_plot, exact_soln_pt);
     }
@@ -508,10 +510,11 @@ namespace oomph
 
     /// Output function for a time-dependent exact solution
     /// at n_plot^2 plot points (calls the steady version)
-    void output_fct(std::ostream& outfile,
-                    const unsigned& n_plot,
-                    const double& time,
-                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& n_plot,
+      const double& time,
+      FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override
     {
       YoungLaplaceEquations::output_fct(outfile, n_plot, time, exact_soln_pt);
     }

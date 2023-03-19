@@ -631,7 +631,8 @@ namespace oomph
 
     /// HijackedData is always a copy, so no equation numbers
     /// should be allocated. This function just returns.
-    void assign_eqn_numbers(unsigned long& global_ndof, Vector<double*>& dof_pt) override
+    void assign_eqn_numbers(unsigned long& global_ndof,
+                            Vector<double*>& dof_pt) override
     {
       return;
     }
@@ -705,7 +706,8 @@ namespace oomph
 
     /// CopiedData is always a copy, so no equation numbers
     /// should be allocated. This function just returns.
-    void assign_eqn_numbers(unsigned long& global_ndof, Vector<double*>& dof_pt) override
+    void assign_eqn_numbers(unsigned long& global_ndof,
+                            Vector<double*>& dof_pt) override
     {
       return;
     }
@@ -1048,7 +1050,7 @@ namespace oomph
     /// Assign global equation numbers; increment global number
     /// of unknowns, global_ndof; and add any new dofs to the dof_pt.
     void assign_eqn_numbers(unsigned long& global_ndof,
-                                    Vector<double*>& dof_pt) override;
+                            Vector<double*>& dof_pt) override;
 
     /// Return (Eulerian) spatial dimension of the node.
     unsigned ndim() const
@@ -1778,7 +1780,8 @@ namespace oomph
 
     /// Overload the check whether the pointer parameter_pt addresses
     /// position data values
-    bool does_pointer_correspond_to_position_data(double* const& parameter_pt) override;
+    bool does_pointer_correspond_to_position_data(
+      double* const& parameter_pt) override;
 
     /// Return whether any position component has been copied
     bool position_is_a_copy() const override
@@ -1942,7 +1945,8 @@ namespace oomph
 
     /// Overload the function add_values_to_map so that it also adds
     /// the variable position data
-    void add_value_pt_to_map(std::map<unsigned, double*>& map_of_value_pt) override;
+    void add_value_pt_to_map(
+      std::map<unsigned, double*>& map_of_value_pt) override;
 
 #ifdef OOMPH_HAS_MPI
 
@@ -1978,7 +1982,8 @@ namespace oomph
     /// of SolidNodes is determined by unknowns, there's nothing
     /// to be done apart from performing the auxiliary node
     /// update function (if any)
-    void node_update(const bool& update_all_time_levels_for_new_node = false) override
+    void node_update(
+      const bool& update_all_time_levels_for_new_node = false) override
     {
       perform_auxiliary_node_update_fct();
     }
@@ -2571,8 +2576,8 @@ namespace oomph
 
     /// Set the vector of coordinates on mesh boundary b
     /// Final overload
-    void set_coordinates_on_boundary(const unsigned& b,
-                                     const Vector<double>& boundary_zeta) override
+    void set_coordinates_on_boundary(
+      const unsigned& b, const Vector<double>& boundary_zeta) override
     {
       BoundaryNodeBase::set_coordinates_on_boundary(b, boundary_zeta);
     }
@@ -2589,9 +2594,10 @@ namespace oomph
 
     /// Set the vector of k-th generalised boundary coordinates
     /// on mesh boundary b. Final overload
-    void set_coordinates_on_boundary(const unsigned& b,
-                                     const unsigned& k,
-                                     const Vector<double>& boundary_zeta) override
+    void set_coordinates_on_boundary(
+      const unsigned& b,
+      const unsigned& k,
+      const Vector<double>& boundary_zeta) override
     {
       BoundaryNodeBase::set_coordinates_on_boundary(b, k, boundary_zeta);
     }
@@ -2607,7 +2613,8 @@ namespace oomph
     /// if a node has been resized by FaceElements) use alternative
     /// version (with leading bool arguments) that always checks and throws
     /// so exceptions can be caught gracefully. Returns UINT_MAX if error.
-    unsigned nvalue_assigned_by_face_element(const unsigned& face_id = 0) const override
+    unsigned nvalue_assigned_by_face_element(
+      const unsigned& face_id = 0) const override
     {
 #ifdef PARANOID
       if (Index_of_first_value_assigned_by_face_element_pt == 0)
@@ -2825,7 +2832,8 @@ namespace oomph
     }
 
     /// Overload the equation assignment operation
-    void assign_eqn_numbers(unsigned long& global_ndof, Vector<double*>& dof_pt) override
+    void assign_eqn_numbers(unsigned long& global_ndof,
+                            Vector<double*>& dof_pt) override
     {
       // If the boundary node is not periodic call the ususal
       // assign equation numbers

@@ -1732,8 +1732,8 @@ namespace oomph
     /// matrix. It must be called after the residuals vector and
     /// jacobian matrix have been initialised to zero. The default
     /// is to use finite differences to calculate the jacobian
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Add the contribution to the residuals
       fill_in_contribution_to_residuals(residuals);
@@ -2146,7 +2146,7 @@ namespace oomph
     /// typically built up incrementally as we descend through the call
     /// hierarchy of this function when called from Problem::describe_dofs(...)
     void describe_local_dofs(std::ostream& out,
-                                     const std::string& current_string) const override;
+                             const std::string& current_string) const override;
 
     /// Function to describe the local dofs of the element[s]. The
     /// ostream specifies the output stream to which the description is written;
@@ -2739,7 +2739,8 @@ namespace oomph
     /// to be established between elements on different Meshes covering the same
     /// curvilinear domain in cases where one element is much coarser than the
     /// other.
-    void interpolated_zeta(const Vector<double>& s, Vector<double>& zeta) const override;
+    void interpolated_zeta(const Vector<double>& s,
+                           Vector<double>& zeta) const override;
 
     /// For a given value of zeta, the "global" intrinsic coordinate of
     /// a mesh of FiniteElements represented as a compound geometric object,
@@ -2750,10 +2751,11 @@ namespace oomph
     /// pointer.
     /// By default don't use any value passed in to the local coordinate s
     /// as the initial guess in the Newton method
-    void locate_zeta(const Vector<double>& zeta,
-                     GeomObject*& geom_object_pt,
-                     Vector<double>& s,
-                     const bool& use_coordinate_as_initial_guess = false) override;
+    void locate_zeta(
+      const Vector<double>& zeta,
+      GeomObject*& geom_object_pt,
+      Vector<double>& s,
+      const bool& use_coordinate_as_initial_guess = false) override;
 
 
     /// Update the positions of all nodes in the element using
@@ -3459,7 +3461,8 @@ namespace oomph
     void shape(const Vector<double>& s, Shape& psi) const override;
 
     /// Get local coordinates of node j in the element; vector sets its own size
-    void local_coordinate_of_node(const unsigned& j, Vector<double>& s) const override
+    void local_coordinate_of_node(const unsigned& j,
+                                  Vector<double>& s) const override
     {
       s.resize(0);
     }
@@ -3806,7 +3809,8 @@ namespace oomph
     /// Construct the local node n and return
     /// a pointer to it. Additionally, create storage for `history'
     /// values as required by timestepper
-    Node* construct_node(const unsigned& n, TimeStepper* const& time_stepper_pt) override
+    Node* construct_node(const unsigned& n,
+                         TimeStepper* const& time_stepper_pt) override
     {
       // Construct a solid node and assign it to the local node pointer vector
       // The dimension and number of values are taken from internal element data
@@ -4182,8 +4186,8 @@ namespace oomph
     /// Overload the fill_in_contribution_to_jacobian() function to
     /// use finite
     /// differences to calculate the solid residuals by default
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Add the contribution to the residuals
       fill_in_contribution_to_residuals(residuals);
@@ -4525,7 +4529,8 @@ namespace oomph
 
     /// Return FE interpolated coordinate x[i] at local coordinate s.
     /// Overloaded to get information from bulk.
-    double interpolated_x(const Vector<double>& s, const unsigned& i) const override
+    double interpolated_x(const Vector<double>& s,
+                          const unsigned& i) const override
     {
       // Local coordinates in bulk element
       Vector<double> s_bulk(dim() + 1);
@@ -4552,7 +4557,8 @@ namespace oomph
 
     /// Return FE interpolated position x[] at local coordinate s as
     /// Vector Overloaded to get information from bulk.
-    void interpolated_x(const Vector<double>& s, Vector<double>& x) const override
+    void interpolated_x(const Vector<double>& s,
+                        Vector<double>& x) const override
     {
       // Local coordinates in bulk element
       Vector<double> s_bulk(dim() + 1);
@@ -4934,7 +4940,8 @@ namespace oomph
     /// in the FaceElement. This may confuse you if you (wrongly!) believe that
     /// in a 1D SolidElement there should only a single Lagrangian
     /// coordinate, namely xi_0!
-    double interpolated_xi(const Vector<double>& s, const unsigned& i) const override
+    double interpolated_xi(const Vector<double>& s,
+                           const unsigned& i) const override
     {
       // Local coordinates in bulk element
       Vector<double> s_bulk(dim() + 1);
@@ -4954,7 +4961,8 @@ namespace oomph
     /// in the FaceElement. This may confuse you if you (wrongly!) believe that
     /// in a 1D SolidElement there should only a single Lagrangian
     /// coordinate, namely xi_0!
-    void interpolated_xi(const Vector<double>& s, Vector<double>& xi) const override
+    void interpolated_xi(const Vector<double>& s,
+                         Vector<double>& xi) const override
     {
       // Local coordinates in bulk element
       Vector<double> s_bulk(dim() + 1);

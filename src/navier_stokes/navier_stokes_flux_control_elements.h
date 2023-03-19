@@ -175,7 +175,8 @@ namespace oomph
 
     /// Add the element's contribution to its residual vector:
     /// i.e. the flux constraint.
-    inline void fill_in_contribution_to_residuals(Vector<double>& residuals) override
+    inline void fill_in_contribution_to_residuals(
+      Vector<double>& residuals) override
     {
       // Call the generic routine
       fill_in_generic_residual_contribution_flux_control(residuals);
@@ -185,8 +186,8 @@ namespace oomph
     /// Jacobian as this element's Jacobian contributions are calculated by
     /// the NavierStokesFluxControlElements which impose the traction
     /// used to control the flux.
-    inline void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                                 DenseMatrix<double>& jacobian) override
+    inline void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine
       fill_in_generic_residual_contribution_flux_control(residuals);
@@ -242,7 +243,8 @@ namespace oomph
     /// assumed that the user has set the Dof_number_for_unknown variable to
     /// the velocity DOF type using the function dof_number_for_unknown()).
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list)
+      const override
     {
 #ifdef PARANOID
       if (Dof_number_for_unknown == UINT_MAX)
@@ -393,7 +395,8 @@ namespace oomph
     ~NavierStokesFluxControlElement() override {}
 
     /// This function returns just the residuals
-    inline void fill_in_contribution_to_residuals(Vector<double>& residuals) override
+    inline void fill_in_contribution_to_residuals(
+      Vector<double>& residuals) override
     {
       // Call the generic residuals function using a dummy matrix argument
       fill_in_generic_residual_contribution_fluid_traction(
@@ -404,8 +407,8 @@ namespace oomph
     /// including the Jacobian contribution from the flux control
     /// master element with respect to dof in this
     /// element
-    inline void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                                 DenseMatrix<double>& jacobian) override
+    inline void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine
       fill_in_generic_residual_contribution_fluid_traction(
@@ -587,7 +590,8 @@ namespace oomph
     }
 
     /// This function returns just the residuals
-    inline void fill_in_contribution_to_residuals(Vector<double>& residuals) override
+    inline void fill_in_contribution_to_residuals(
+      Vector<double>& residuals) override
     {
       // Call the generic residuals function using a dummy matrix argument
       refineable_fill_in_generic_residual_contribution_fluid_traction(
@@ -598,8 +602,8 @@ namespace oomph
     /// including the Jacobian contribution from the flux control
     /// master element with respect to dof in this
     /// element
-    inline void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                                 DenseMatrix<double>& jacobian) override
+    inline void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine
       refineable_fill_in_generic_residual_contribution_fluid_traction(

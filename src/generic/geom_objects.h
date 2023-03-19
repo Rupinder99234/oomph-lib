@@ -561,7 +561,7 @@ namespace oomph
     /// \f$ \frac{dR_i}{d \zeta_\alpha}\f$ = drdzeta(alpha,i).
     /// Evaluated at current time.
     void dposition(const Vector<double>& zeta,
-                           DenseMatrix<double>& drdzeta) const override
+                   DenseMatrix<double>& drdzeta) const override
     {
       // Tangent vector
       drdzeta(0, 0) = 1.0;
@@ -573,7 +573,7 @@ namespace oomph
     /// \f$ \frac{d^2R_i}{d \zeta_\alpha d \zeta_\beta}\f$ =
     /// ddrdzeta(alpha,beta,i). Evaluated at current time.
     void d2position(const Vector<double>& zeta,
-                            RankThreeTensor<double>& ddrdzeta) const override
+                    RankThreeTensor<double>& ddrdzeta) const override
     {
       // Derivative of tangent vector
       ddrdzeta(0, 0, 0) = 0.0;
@@ -588,9 +588,9 @@ namespace oomph
     /// ddrdzeta(alpha,beta,i).
     /// Evaluated at current time.
     void d2position(const Vector<double>& zeta,
-                            Vector<double>& r,
-                            DenseMatrix<double>& drdzeta,
-                            RankThreeTensor<double>& ddrdzeta) const override
+                    Vector<double>& r,
+                    DenseMatrix<double>& drdzeta,
+                    RankThreeTensor<double>& ddrdzeta) const override
     {
       // Position Vector
       r[0] = zeta[0];

@@ -824,9 +824,8 @@ namespace oomph
 
     /// The pressure nodes are the corner nodes, so when n_value==6
     /// or 7, the fraction is the same as the 1d node number, 0 or 1.
-    double local_one_d_fraction_of_interpolating_node(const unsigned& n1d,
-                                                      const unsigned& i,
-                                                      const int& n_value) override
+    double local_one_d_fraction_of_interpolating_node(
+      const unsigned& n1d, const unsigned& i, const int& n_value) override
     {
       if (n_value == (2 * DIM) || n_value == ((2 * DIM) + 1))
       {
@@ -844,8 +843,8 @@ namespace oomph
     /// The pressure nodes must be calculated by using the same methods
     /// as the geometric nodes, but by recalling that there are only two
     /// pressure nodes per edge.
-    Node* get_interpolating_node_at_local_coordinate(const Vector<double>& s,
-                                                     const int& n_value) override
+    Node* get_interpolating_node_at_local_coordinate(
+      const Vector<double>& s, const int& n_value) override
     {
       // If we are calculating pressure nodes
       if (n_value == static_cast<int>(2 * DIM) ||

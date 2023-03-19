@@ -549,7 +549,8 @@ namespace oomph
     /// Access function to get the total value of entries in position
     /// (i,j). Warning: this way of getting entries is far too slow to use
     /// inside of loops.
-    double operator()(const unsigned long& i, const unsigned long& j) const override
+    double operator()(const unsigned long& i,
+                      const unsigned long& j) const override
     {
       // Get contributions from all matrices
       double sum = main_matrix_pt()->operator()(i, j);
@@ -571,7 +572,7 @@ namespace oomph
     /// Dummy overload of a pure virtual function. I'm not sure how best
     /// to implement this and I don't think I need it.
     void multiply_transpose(const DoubleVector& x,
-                                    DoubleVector& soln) const override
+                            DoubleVector& soln) const override
     {
       std::ostringstream error_msg;
       error_msg << "Function not yet implemented.";
