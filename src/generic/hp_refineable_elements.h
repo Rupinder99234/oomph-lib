@@ -57,76 +57,76 @@ namespace oomph
     PRefineableQElement() : PRefineableElement(), RefineableQElement<1>() {}
 
     /// Destructor
-    virtual ~PRefineableQElement() {}
+    ~PRefineableQElement() override {}
 
     /// Initial setup of element (set the correct p-order and
     /// integration scheme) If an adopted father is specified, information
     /// from this is used instead of using the father found from the tree.
     void initial_setup(Tree* const& adopted_father_pt = 0,
-                       const unsigned& initial_p_order = 0);
+                       const unsigned& initial_p_order = 0) override;
 
     /// Pre-build (search father for required nodes which may already
     /// exist)
-    void pre_build(Mesh*& mesh_pt, Vector<Node*>& new_node_pt);
+    void pre_build(Mesh*& mesh_pt, Vector<Node*>& new_node_pt) override;
 
     /// p-refine the element (refine if inc>0, unrefine if inc<0).
     void p_refine(const int& inc,
                   Mesh* const& mesh_pt,
-                  GeneralisedElement* const& clone_pt);
+                  GeneralisedElement* const& clone_pt) override;
 
     /// Overload the shape functions
-    void shape(const Vector<double>& s, Shape& psi) const;
+    void shape(const Vector<double>& s, Shape& psi) const override;
 
-    void dshape_local(const Vector<double>& s, Shape& psi, DShape& dpsi) const;
+    void dshape_local(const Vector<double>& s, Shape& psi, DShape& dpsi) const override;
 
     void d2shape_local(const Vector<double>& s,
                        Shape& psi,
                        DShape& dpsids,
-                       DShape& d2psids) const;
+                       DShape& d2psids) const override;
 
     /// Perform additional hanging node procedures for variables
     /// that are not interpolated by all nodes (e.g. lower order interpolations
     /// for the pressure in Taylor Hood).
-    void further_setup_hanging_nodes() {}
+    void further_setup_hanging_nodes() override {}
 
     /// Returns the number of nodes along each edge of the element.
     /// Overloaded to return the (variable) p-order rather than the template
     /// argument.
-    unsigned nnode_1d() const
+    unsigned nnode_1d() const override
     {
       return this->p_order();
     }
 
     /// Get the initial P_order
-    unsigned initial_p_order() const
+    unsigned initial_p_order() const override
     {
       return INITIAL_NNODE_1D;
     }
 
     // Overloaded from QElement<1,NNODE_1D> to use nnode_1d() instead of
     // template argument.
-    Node* get_node_at_local_coordinate(const Vector<double>& s) const;
+    Node* get_node_at_local_coordinate(const Vector<double>& s) const override;
 
     Node* node_created_by_son_of_neighbour(const Vector<double>& s_fraction,
                                            bool& is_periodic);
 
     // Overload nodal positions -- these elements have GLL-spaced nodes.
     /// Get local coordinates of node j in the element; vector sets its own size
-    void local_coordinate_of_node(const unsigned& n, Vector<double>& s) const;
+    void local_coordinate_of_node(const unsigned& n, Vector<double>& s) const override;
 
     /// Get the local fractino of node j in the element
-    void local_fraction_of_node(const unsigned& n, Vector<double>& s_fraction);
+    void local_fraction_of_node(const unsigned& n, Vector<double>& s_fraction) override;
 
     /// The local one-d fraction is the same
-    double local_one_d_fraction_of_node(const unsigned& n1d, const unsigned& i);
+    double local_one_d_fraction_of_node(const unsigned& n1d, const unsigned& i) override;
 
     /// Rebuild the element. This needs to find any nodes in the sons which
     /// are still required.
-    void rebuild_from_sons(Mesh*& mesh_pt);
+    void rebuild_from_sons(Mesh*& mesh_pt) override;
 
     /// Check the integrity of interpolated values across element
     /// boundaries.
-    void check_integrity(double& max_error);
+    void check_integrity(double& max_error) override;
 
   protected:
     /// Set up hanging node information. Empty for 1D elements.
@@ -149,82 +149,82 @@ namespace oomph
     PRefineableQElement() : PRefineableElement(), RefineableQElement<2>() {}
 
     /// Destructor
-    virtual ~PRefineableQElement() {}
+    ~PRefineableQElement() override {}
 
     /// Initial setup of element (set the correct p-order and
     /// integration scheme) If an adopted father is specified, information
     /// from this is used instead of using the father found from the tree.
     void initial_setup(Tree* const& adopted_father_pt = 0,
-                       const unsigned& initial_p_order = 0);
+                       const unsigned& initial_p_order = 0) override;
 
     /// Pre-build (search father for required nodes which may already
     /// exist)
-    void pre_build(Mesh*& mesh_pt, Vector<Node*>& new_node_pt);
+    void pre_build(Mesh*& mesh_pt, Vector<Node*>& new_node_pt) override;
 
     /// p-refine the element (refine if inc>0, unrefine if inc<0).
     void p_refine(const int& inc,
                   Mesh* const& mesh_pt,
-                  GeneralisedElement* const& clone_pt);
+                  GeneralisedElement* const& clone_pt) override;
 
     /// Overload the shape functions
-    void shape(const Vector<double>& s, Shape& psi) const;
+    void shape(const Vector<double>& s, Shape& psi) const override;
 
-    void dshape_local(const Vector<double>& s, Shape& psi, DShape& dpsi) const;
+    void dshape_local(const Vector<double>& s, Shape& psi, DShape& dpsi) const override;
 
     void d2shape_local(const Vector<double>& s,
                        Shape& psi,
                        DShape& dpsids,
-                       DShape& d2psids) const;
+                       DShape& d2psids) const override;
 
     /// Perform additional hanging node procedures for variables
     /// that are not interpolated by all nodes (e.g. lower order interpolations
     /// for the pressure in Taylor Hood).
-    void further_setup_hanging_nodes() {}
+    void further_setup_hanging_nodes() override {}
 
     /// Returns the number of nodes along each edge of the element.
     /// Overloaded to return the (variable) p-order rather than the template
     /// argument.
-    unsigned nnode_1d() const
+    unsigned nnode_1d() const override
     {
       return this->p_order();
     }
 
     /// Get the initial P_order
-    unsigned initial_p_order() const
+    unsigned initial_p_order() const override
     {
       return INITIAL_NNODE_1D;
     }
 
     // Overloaded from QElement<2,NNODE_1D> to use nnode_1d() instead of
     // template argument.
-    Node* get_node_at_local_coordinate(const Vector<double>& s) const;
+    Node* get_node_at_local_coordinate(const Vector<double>& s) const override;
 
     Node* node_created_by_neighbour(const Vector<double>& s_fraction,
-                                    bool& is_periodic);
+                                    bool& is_periodic) override;
 
     Node* node_created_by_son_of_neighbour(const Vector<double>& s_fraction,
-                                           bool& is_periodic);
+                                           bool& is_periodic) override;
 
     // Overload nodal positions -- these elements have GLL-spaced nodes.
     /// Get local coordinates of node j in the element; vector sets its own size
-    void local_coordinate_of_node(const unsigned& n, Vector<double>& s) const;
+    void local_coordinate_of_node(const unsigned& n, Vector<double>& s) const override;
 
     /// Get the local fractino of node j in the element
-    void local_fraction_of_node(const unsigned& n, Vector<double>& s_fraction);
+    void local_fraction_of_node(const unsigned& n, Vector<double>& s_fraction) override;
 
     /// The local one-d fraction is the same
-    double local_one_d_fraction_of_node(const unsigned& n1d, const unsigned& i);
+    double local_one_d_fraction_of_node(const unsigned& n1d, const unsigned& i) override;
 
     /// Rebuild the element. This needs to find any nodes in the sons which
     /// are still required.
-    void rebuild_from_sons(Mesh*& mesh_pt);
+    void rebuild_from_sons(Mesh*& mesh_pt) override;
 
     /// Check the integrity of interpolated values across element
     /// boundaries.
     /// Note: with the mortar method, continuity is enforced weakly across non-
     /// conforming element boundaries, so it makes no sense to check the
     /// continuity of interpolated values across these boundaries.
-    void check_integrity(double& max_error);
+    void check_integrity(double& max_error) override;
 
   protected:
     /// Set up hanging node information.
@@ -233,7 +233,7 @@ namespace oomph
     /// condition at non-conforming element boundaries.
     void quad_hang_helper(const int& value_id,
                           const int& my_edge,
-                          std::ofstream& output_hangfile);
+                          std::ofstream& output_hangfile) override;
   };
 
   //=======================================================================
@@ -250,82 +250,82 @@ namespace oomph
     PRefineableQElement() : PRefineableElement(), RefineableQElement<3>() {}
 
     /// Destructor
-    virtual ~PRefineableQElement() {}
+    ~PRefineableQElement() override {}
 
     /// Initial setup of element (set the correct p-order and
     /// integration scheme) If an adopted father is specified, information
     /// from this is used instead of using the father found from the tree.
     void initial_setup(Tree* const& adopted_father_pt = 0,
-                       const unsigned& initial_p_order = 0);
+                       const unsigned& initial_p_order = 0) override;
 
     /// Pre-build (search father for required nodes which may already
     /// exist)
-    void pre_build(Mesh*& mesh_pt, Vector<Node*>& new_node_pt);
+    void pre_build(Mesh*& mesh_pt, Vector<Node*>& new_node_pt) override;
 
     /// p-refine the element (refine if inc>0, unrefine if inc<0).
     void p_refine(const int& inc,
                   Mesh* const& mesh_pt,
-                  GeneralisedElement* const& clone_pt);
+                  GeneralisedElement* const& clone_pt) override;
 
     /// Overload the shape functions
-    void shape(const Vector<double>& s, Shape& psi) const;
+    void shape(const Vector<double>& s, Shape& psi) const override;
 
-    void dshape_local(const Vector<double>& s, Shape& psi, DShape& dpsi) const;
+    void dshape_local(const Vector<double>& s, Shape& psi, DShape& dpsi) const override;
 
     void d2shape_local(const Vector<double>& s,
                        Shape& psi,
                        DShape& dpsids,
-                       DShape& d2psids) const;
+                       DShape& d2psids) const override;
 
     /// Perform additional hanging node procedures for variables
     /// that are not interpolated by all nodes (e.g. lower order interpolations
     /// for the pressure in Taylor Hood).
-    void further_setup_hanging_nodes() {}
+    void further_setup_hanging_nodes() override {}
 
     /// Returns the number of nodes along each edge of the element.
     /// Overloaded to return the (variable) p-order rather than the template
     /// argument.
-    unsigned nnode_1d() const
+    unsigned nnode_1d() const override
     {
       return this->p_order();
     }
 
     /// Get the initial P_order
-    unsigned initial_p_order() const
+    unsigned initial_p_order() const override
     {
       return INITIAL_NNODE_1D;
     }
 
     // Overloaded from QElement<3,NNODE_1D> to use nnode_1d() instead of
     // template argument.
-    Node* get_node_at_local_coordinate(const Vector<double>& s) const;
+    Node* get_node_at_local_coordinate(const Vector<double>& s) const override;
 
     Node* node_created_by_neighbour(const Vector<double>& s_fraction,
-                                    bool& is_periodic);
+                                    bool& is_periodic) override;
 
     Node* node_created_by_son_of_neighbour(const Vector<double>& s_fraction,
-                                           bool& is_periodic);
+                                           bool& is_periodic) override;
 
     // Overload nodal positions -- these elements have GLL-spaced nodes.
     /// Get local coordinates of node j in the element; vector sets its own size
-    void local_coordinate_of_node(const unsigned& n, Vector<double>& s) const;
+    void local_coordinate_of_node(const unsigned& n, Vector<double>& s) const override;
 
     /// Get the local fractino of node j in the element
-    void local_fraction_of_node(const unsigned& n, Vector<double>& s_fraction);
+    void local_fraction_of_node(const unsigned& n, Vector<double>& s_fraction) override;
 
     /// The local one-d fraction is the same
-    double local_one_d_fraction_of_node(const unsigned& n1d, const unsigned& i);
+    double local_one_d_fraction_of_node(const unsigned& n1d, const unsigned& i) override;
 
     /// Rebuild the element. This needs to find any nodes in the sons which
     /// are still required.
-    void rebuild_from_sons(Mesh*& mesh_pt);
+    void rebuild_from_sons(Mesh*& mesh_pt) override;
 
     /// Check the integrity of interpolated values across element
     /// boundaries.
     /// Note: with the mortar method, continuity is enforced weakly across non-
     /// conforming element boundaries, so it makes no sense to check the
     /// continuity of interpolated values across these boundaries.
-    void check_integrity(double& max_error);
+    void check_integrity(double& max_error) override;
 
   protected:
     /// Set up hanging node information.
@@ -334,7 +334,7 @@ namespace oomph
     /// condition at non-conforming element boundaries.
     void oc_hang_helper(const int& value_id,
                         const int& my_face,
-                        std::ofstream& output_hangfile);
+                        std::ofstream& output_hangfile) override;
   };
 
 } // namespace oomph

@@ -72,7 +72,7 @@ namespace oomph
     void operator=(const TriangleScaffoldMesh&) = delete;
 
     /// Empty destructor
-    ~TriangleScaffoldMesh() {}
+    ~TriangleScaffoldMesh() override {}
 
     /// Return the global node of each local node
     /// listed element-by-element e*n_local_node + n_local

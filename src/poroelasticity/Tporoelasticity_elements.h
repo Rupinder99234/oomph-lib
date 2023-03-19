@@ -68,15 +68,15 @@ namespace oomph
     TPoroelasticityElement();
 
     /// Destructor
-    ~TPoroelasticityElement();
+    ~TPoroelasticityElement() override;
 
     /// Number of values required at node n
-    unsigned required_nvalue(const unsigned& n) const
+    unsigned required_nvalue(const unsigned& n) const override
     {
       return Initial_Nvalue[n];
     }
 
-    unsigned u_index(const unsigned& n) const
+    unsigned u_index(const unsigned& n) const override
     {
 #ifdef RANGE_CHECKING
       if (n >= 2)
@@ -93,7 +93,7 @@ namespace oomph
     }
 
     /// Return the equation number of the n-th edge (flux) degree of freedom
-    int q_edge_local_eqn(const unsigned& n) const
+    int q_edge_local_eqn(const unsigned& n) const override
     {
 #ifdef RANGE_CHECKING
       if (n >= nq_basis_edge())
@@ -111,7 +111,7 @@ namespace oomph
 
     /// Return the equation number of the n-th internal (moment) degree of
     /// freedom
-    int q_internal_local_eqn(const unsigned& n) const
+    int q_internal_local_eqn(const unsigned& n) const override
     {
 #ifdef RANGE_CHECKING
       if (n >= (nq_basis() - nq_basis_edge()))
@@ -129,13 +129,13 @@ namespace oomph
 
     /// Return the index of the internal data where the q_internal
     /// degrees of freedom are stored
-    unsigned q_internal_index() const
+    unsigned q_internal_index() const override
     {
       return Q_internal_data_index;
     }
 
     /// Return the nodal index at which the nth edge unknown is stored
-    unsigned q_edge_index(const unsigned& n) const
+    unsigned q_edge_index(const unsigned& n) const override
     {
 #ifdef RANGE_CHECKING
       if (n >= (nq_basis_edge()))
@@ -152,7 +152,7 @@ namespace oomph
     }
 
     /// Return the number of the node where the nth edge unknown is stored
-    unsigned q_edge_node_number(const unsigned& n) const
+    unsigned q_edge_node_number(const unsigned& n) const override
     {
 #ifdef RANGE_CHECKING
       if (n >= (nq_basis_edge()))
@@ -169,7 +169,7 @@ namespace oomph
     }
 
     /// Return the values of the edge (flux) degrees of freedom
-    double q_edge(const unsigned& n) const
+    double q_edge(const unsigned& n) const override
     {
 #ifdef RANGE_CHECKING
       if (n >= (nq_basis_edge()))
@@ -187,7 +187,7 @@ namespace oomph
 
     /// Return the values of the edge (flux) degrees of freedom at time
     /// history level t
-    double q_edge(const unsigned& t, const unsigned& n) const
+    double q_edge(const unsigned& t, const unsigned& n) const override
     {
 #ifdef RANGE_CHECKING
       if (n >= (nq_basis_edge()))
@@ -204,7 +204,7 @@ namespace oomph
     }
 
     /// Return the values of the internal (moment) degrees of freedom
-    double q_internal(const unsigned& n) const
+    double q_internal(const unsigned& n) const override
     {
 #ifdef RANGE_CHECKING
       if (n >= (nq_basis() - nq_basis_edge()))
@@ -222,7 +222,7 @@ namespace oomph
 
     /// Return the values of the internal (moment) degrees of freedom at
     /// time history level t
-    double q_internal(const unsigned& t, const unsigned& n) const
+    double q_internal(const unsigned& t, const unsigned& n) const override
     {
 #ifdef RANGE_CHECKING
       // mjr TODO add time history level range checking
@@ -240,26 +240,26 @@ namespace oomph
     }
 
     /// Return the total number of computational basis functions for u
-    unsigned nq_basis() const;
+    unsigned nq_basis() const override;
 
     /// Return the number of edge basis functions for u
-    unsigned nq_basis_edge() const;
+    unsigned nq_basis_edge() const override;
 
     /// Returns the local form of the q basis at local coordinate s
-    void get_q_basis_local(const Vector<double>& s, Shape& q_basis) const;
+    void get_q_basis_local(const Vector<double>& s, Shape& q_basis) const override;
 
     /// Returns the local form of the q basis and dbasis/ds at local coordinate
     /// s
     void get_div_q_basis_local(const Vector<double>& s,
-                               Shape& div_q_basis_ds) const;
+                               Shape& div_q_basis_ds) const override;
 
     /// Returns the number of gauss points along each edge of the element
-    unsigned nedge_gauss_point() const;
+    unsigned nedge_gauss_point() const override;
 
     /// Returns the nth gauss point along an edge: if sign_edge(edge)==1,
     /// returns regular gauss point; if sign_edge(edge)==-1, returns 1-(gauss
     /// point)
-    double edge_gauss_point(const unsigned& edge, const unsigned& n) const
+    double edge_gauss_point(const unsigned& edge, const unsigned& n) const override
     {
 #ifdef RANGE_CHECKING
       if (edge >= 3)
@@ -287,7 +287,7 @@ namespace oomph
     /// Returns the global coordinates of the nth gauss point along an edge
     void edge_gauss_point_global(const unsigned& edge,
                                  const unsigned& n,
-                                 Vector<double>& x) const
+                                 Vector<double>& x) const override
     {
 #ifdef RANGE_CHECKING
       if (edge >= 3)
@@ -344,7 +344,7 @@ namespace oomph
     }
 
     /// Pin the nth internal q value
-    void pin_q_internal_value(const unsigned& n)
+    void pin_q_internal_value(const unsigned& n) override
     {
 #ifdef RANGE_CHECKING
       if (n >= (nq_basis() - nq_basis_edge()))
@@ -361,7 +361,7 @@ namespace oomph
     }
 
     /// Return the equation number of the n-th pressure degree of freedom
-    int p_local_eqn(const unsigned& n) const
+    int p_local_eqn(const unsigned& n) const override
     {
 #ifdef RANGE_CHECKING
       if (n >= np_basis())
@@ -378,7 +378,7 @@ namespace oomph
     }
 
     /// Return the nth pressure value
-    double p_value(unsigned& n) const
+    double p_value(unsigned& n) const override
     {
 #ifdef RANGE_CHECKING
       if (n >= np_basis())
@@ -395,13 +395,13 @@ namespace oomph
     }
 
     /// Return the total number of pressure basis functions
-    unsigned np_basis() const;
+    unsigned np_basis() const override;
 
     /// Return the pressure basis
-    void get_p_basis(const Vector<double>& s, Shape& p_basis) const;
+    void get_p_basis(const Vector<double>& s, Shape& p_basis) const override;
 
     /// Pin the nth pressure value
-    void pin_p_value(const unsigned& n, const double& p)
+    void pin_p_value(const unsigned& n, const double& p) override
     {
 #ifdef RANGE_CHECKING
       if (n >= np_basis())
@@ -419,7 +419,7 @@ namespace oomph
     }
 
     /// Scale the edge basis to allow arbitrary edge mappings
-    void scale_basis(Shape& basis) const
+    void scale_basis(Shape& basis) const override
     {
       // Storage for the lengths of the edges of the element
       Vector<double> length(3, 0.0);
@@ -472,14 +472,14 @@ namespace oomph
     }
 
     /// Output with default number of plot points
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       PoroelasticityEquations<2>::output(outfile);
     }
 
     /// Output FE representation of soln: x,y,u1,u2,div_q,p at
     /// Nplot^DIM plot points
-    void output(std::ostream& outfile, const unsigned& Nplot)
+    void output(std::ostream& outfile, const unsigned& Nplot) override
     {
       PoroelasticityEquations<2>::output(outfile, Nplot);
     }
@@ -499,7 +499,7 @@ namespace oomph
                                   Shape& p_basis,
                                   Shape& p_test,
                                   Shape& div_q_basis_ds,
-                                  Shape& div_q_test_ds) const
+                                  Shape& div_q_test_ds) const override
     {
       const unsigned n_q_basis = this->nq_basis();
 
@@ -538,7 +538,7 @@ namespace oomph
                                           Shape& p_basis,
                                           Shape& p_test,
                                           Shape& div_q_basis_ds,
-                                          Shape& div_q_test_ds) const
+                                          Shape& div_q_test_ds) const override
     {
       Vector<double> s(2);
       for (unsigned i = 0; i < 2; i++)

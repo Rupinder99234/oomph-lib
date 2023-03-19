@@ -75,14 +75,14 @@ namespace oomph
       delete;
 
     /// Number of 'flux' terms for Z2 error estimation
-    unsigned num_Z2_flux_terms()
+    unsigned num_Z2_flux_terms() override
     {
       return 2;
     }
 
     /// Get 'flux' for Z2 error recovery:
     /// Standard flux.from AdvectionDiffusion equations
-    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux)
+    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux) override
     {
       this->get_flux(s, flux);
     }
@@ -93,7 +93,7 @@ namespace oomph
     /// is usually called from black-box documentation or interpolation
     /// routines), the values Vector sets its own size in here.
     void get_interpolated_values(const Vector<double>& s,
-                                 Vector<double>& values)
+                                 Vector<double>& values) override
     {
       // Set size of Vector: u
       values.resize(1);
@@ -126,7 +126,7 @@ namespace oomph
     /// routines), the values Vector sets its own size in here.
     void get_interpolated_values(const unsigned& t,
                                  const Vector<double>& s,
-                                 Vector<double>& values)
+                                 Vector<double>& values) override
     {
       // Set size of Vector: u
       values.resize(1);
@@ -173,13 +173,13 @@ namespace oomph
     }
 
     /// Fill in the geometric Jacobian, which in this case is r*r*sin(theta)
-    double geometric_jacobian(const Vector<double>& x)
+    double geometric_jacobian(const Vector<double>& x) override
     {
       return x[0] * x[0] * sin(x[1]);
     }
 
     ///  Further build: Copy source function pointer from father element
-    void further_build()
+    void further_build() override
     {
       RefineableSphericalAdvectionDiffusionEquations* cast_father_element_pt =
         dynamic_cast<RefineableSphericalAdvectionDiffusionEquations*>(
@@ -203,7 +203,7 @@ namespace oomph
     /// information
     void dinterpolated_u_adv_diff_ddata(const Vector<double>& s,
                                         Vector<double>& du_ddata,
-                                        Vector<unsigned>& global_eqn_number)
+                                        Vector<unsigned>& global_eqn_number) override
     {
       // Find number of nodes
       unsigned n_node = this->nnode();
@@ -343,7 +343,7 @@ namespace oomph
       Vector<double>& residuals,
       DenseMatrix<double>& jacobian,
       DenseMatrix<double>& mass_matrix,
-      unsigned flag);
+      unsigned flag) override;
   };
 
 
@@ -379,36 +379,36 @@ namespace oomph
       const RefineableQSphericalAdvectionDiffusionElement<NNODE_1D>&) = delete;
 
     /// Number of continuously interpolated values: 1
-    unsigned ncont_interpolated_values() const
+    unsigned ncont_interpolated_values() const override
     {
       return 1;
     }
 
     /// Number of vertex nodes in the element
-    unsigned nvertex_node() const
+    unsigned nvertex_node() const override
     {
       return QSphericalAdvectionDiffusionElement<NNODE_1D>::nvertex_node();
     }
 
     /// Pointer to the j-th vertex node in the element
-    Node* vertex_node_pt(const unsigned& j) const
+    Node* vertex_node_pt(const unsigned& j) const override
     {
       return QSphericalAdvectionDiffusionElement<NNODE_1D>::vertex_node_pt(j);
     }
 
     /// Rebuild from sons: empty
-    void rebuild_from_sons(Mesh*& mesh_pt) {}
+    void rebuild_from_sons(Mesh*& mesh_pt) override {}
 
     /// Order of recovery shape functions for Z2 error estimation:
     /// Same order as shape functions.
-    unsigned nrecovery_order()
+    unsigned nrecovery_order() override
     {
       return (NNODE_1D - 1);
     }
 
     ///  Perform additional hanging node procedures for variables
     /// that are not interpolated by all nodes. Empty.
-    void further_setup_hanging_nodes() {}
+    void further_setup_hanging_nodes() override {}
   };
 
   ////////////////////////////////////////////////////////////////////////

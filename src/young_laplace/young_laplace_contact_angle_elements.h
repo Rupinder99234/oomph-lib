@@ -89,7 +89,7 @@ namespace oomph
 
 
     /// Add the element's contribution to its residual vector
-    void fill_in_contribution_to_residuals(Vector<double>& residuals);
+    void fill_in_contribution_to_residuals(Vector<double>& residuals) override;
 
     /// Get the local equation number of the (one and only) unknown
     /// stored at local node n (returns -1 if value is pinned).
@@ -108,28 +108,28 @@ namespace oomph
     /// indeterminacy if bulk element is SolidElement)
     double zeta_nodal(const unsigned& n,
                       const unsigned& k,
-                      const unsigned& i) const
+                      const unsigned& i) const override
     {
       return FaceElement::zeta_nodal(n, k, i);
     }
 
     /// Output function -- forward to broken version in FiniteElement
     /// until somebody decides what exactly they want to plot here...
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       FiniteElement::output(outfile);
     }
 
     /// Output function -- forward to broken version in FiniteElement
     /// until somebody decides what exactly they want to plot here...
-    void output(std::ostream& outfile, const unsigned& n_plot)
+    void output(std::ostream& outfile, const unsigned& n_plot) override
     {
       FiniteElement::output(outfile, n_plot);
     }
 
     /// C-style output function -- forward to broken version in FiniteElement
     /// until somebody decides what exactly they want to plot here...
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       FiniteElement::output(file_pt);
     }
@@ -137,7 +137,7 @@ namespace oomph
     /// C-style output function -- forward to broken version in
     /// FiniteElement until somebody decides what exactly they want to plot
     /// here...
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       FiniteElement::output(file_pt, n_plot);
     }

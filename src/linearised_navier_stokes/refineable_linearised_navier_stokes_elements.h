@@ -74,7 +74,7 @@ namespace oomph
     }
 
     /// Number of 'flux' terms for Z2 error estimation
-    unsigned num_Z2_flux_terms()
+    unsigned num_Z2_flux_terms() override
     {
       // 3 diagonal strain rates, 3 off diagonal real and imaginary parts
       return 2 * (DIM + ((DIM * DIM) - DIM) / 2);
@@ -82,7 +82,7 @@ namespace oomph
 
     /// Get 'flux' for Z2 error recovery:   Upper triangular entries
     /// in strain rate tensor.
-    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux)
+    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux) override
     {
 #ifdef PARANOID
       unsigned num_entries = 2 * (DIM + ((DIM * DIM) - DIM) / 2);
@@ -145,7 +145,7 @@ namespace oomph
     }
 
     ///  Further build: pass the pointers down to the sons
-    void further_build()
+    void further_build() override
     {
       // Find the father element
       RefineableLinearisedNavierStokesEquations* cast_father_element_pt =
@@ -222,7 +222,7 @@ namespace oomph
       Vector<double>& residuals,
       DenseMatrix<double>& jacobian,
       DenseMatrix<double>& mass_matrix,
-      unsigned flag);
+      unsigned flag) override;
 
   }; // End of RefineableLinearisedNavierStokesEquations class defn
 
@@ -243,7 +243,7 @@ namespace oomph
   {
   private:
     /// Unpin all the internal pressure freedoms
-    void unpin_elemental_pressure_dofs()
+    void unpin_elemental_pressure_dofs() override
     {
       const unsigned n_pres = this->npres_linearised_nst();
       // Loop over pressure dofs and unpin
@@ -268,13 +268,13 @@ namespace oomph
     }
 
     /// Number of continuously interpolated values: 4*DIM (velocities)
-    unsigned ncont_interpolated_values() const
+    unsigned ncont_interpolated_values() const override
     {
       return 4 * DIM;
     }
 
     /// Rebuild from sons: Reconstruct pressure from the (merged) sons
-    void rebuild_from_sons(Mesh*& mesh_pt)
+    void rebuild_from_sons(Mesh*& mesh_pt) override
     {
       using namespace QuadTreeNames;
 
@@ -387,19 +387,19 @@ namespace oomph
 
     /// Order of recovery shape functions for Z2 error estimation:
     /// Same order as shape functions.
-    unsigned nrecovery_order()
+    unsigned nrecovery_order() override
     {
       return 2;
     }
 
     /// Number of vertex nodes in the element
-    unsigned nvertex_node() const
+    unsigned nvertex_node() const override
     {
       return LinearisedQCrouzeixRaviartElement::nvertex_node();
     }
 
     /// Pointer to the j-th vertex node in the element
-    Node* vertex_node_pt(const unsigned& j) const
+    Node* vertex_node_pt(const unsigned& j) const override
     {
       return LinearisedQCrouzeixRaviartElement::vertex_node_pt(j);
     }
@@ -409,7 +409,7 @@ namespace oomph
     /// is usually called from black-box documentation or interpolation
     /// routines), the values Vector sets its own size in here.
     void get_interpolated_values(const Vector<double>& s,
-                                 Vector<double>& values)
+                                 Vector<double>& values) override
     {
       // Determine size of values Vector: U^C, U^S, W^C, W^S, V^C, V^S
       const unsigned n_values = 4 * DIM;
@@ -435,7 +435,7 @@ namespace oomph
     /// the current value.
     void get_interpolated_values(const unsigned& t,
                                  const Vector<double>& s,
-                                 Vector<double>& values)
+                                 Vector<double>& values) override
     {
       // Set size of Vector: U^C, U^S, W^C, W^S, V^C, V^S
       values.resize(4 * DIM);
@@ -467,13 +467,13 @@ namespace oomph
 
     /// Perform additional hanging node procedures for variables
     /// that are not interpolated by all nodes. Empty
-    void further_setup_hanging_nodes() {}
+    void further_setup_hanging_nodes() override {}
 
     /// Further build for Crouzeix_Raviart interpolates the internal
     /// pressure dofs from father element: Make sure pressure values and
     /// dp/ds agree between fathers and sons at the midpoints of the son
     /// elements.
-    void further_build()
+    void further_build() override
     {
       // Call the generic further build
       RefineableLinearisedNavierStokesEquations::further_build();
@@ -609,13 +609,13 @@ namespace oomph
   {
   private:
     /// Pointer to n_p-th pressure node
-    Node* pressure_node_pt(const unsigned& n_p)
+    Node* pressure_node_pt(const unsigned& n_p) override
     {
       return this->node_pt(this->Pconv[n_p]);
     }
 
     /// Unpin all pressure dofs
-    void unpin_elemental_pressure_dofs()
+    void unpin_elemental_pressure_dofs() override
     {
       // Determine number of nodes in element
       const unsigned n_node = this->nnode();
@@ -638,7 +638,7 @@ namespace oomph
     }
 
     ///  Unpin the proper nodal pressure dofs
-    void pin_elemental_redundant_nodal_pressure_dofs()
+    void pin_elemental_redundant_nodal_pressure_dofs() override
     {
       // Determine number of nodes in element
       const unsigned n_node = this->nnode();
@@ -687,36 +687,36 @@ namespace oomph
     /// Number of values (pinned or dofs) required at node n.
     /// Bumped up to 8 so we don't have to worry if a hanging mid-side node
     /// gets shared by a corner node (which has extra degrees of freedom)
-    unsigned required_nvalue(const unsigned& n) const
+    unsigned required_nvalue(const unsigned& n) const override
     {
       return 8;
     }
 
     /// Number of continuously interpolated values: 8
     /// (6 velocities + 2 pressures)
-    unsigned ncont_interpolated_values() const
+    unsigned ncont_interpolated_values() const override
     {
       return 8;
     }
 
     /// Rebuild from sons: empty
-    void rebuild_from_sons(Mesh*& mesh_pt) {}
+    void rebuild_from_sons(Mesh*& mesh_pt) override {}
 
     /// Order of recovery shape functions for Z2 error estimation:
     /// Same order as shape functions.
-    unsigned nrecovery_order()
+    unsigned nrecovery_order() override
     {
       return 2;
     }
 
     /// Number of vertex nodes in the element
-    unsigned nvertex_node() const
+    unsigned nvertex_node() const override
     {
       return LinearisedQTaylorHoodElement::nvertex_node();
     }
 
     /// Pointer to the j-th vertex node in the element
-    Node* vertex_node_pt(const unsigned& j) const
+    Node* vertex_node_pt(const unsigned& j) const override
     {
       return LinearisedQTaylorHoodElement::vertex_node_pt(j);
     }
@@ -726,7 +726,7 @@ namespace oomph
     /// is usually called from black-box documentation or interpolation
     /// routines), the values Vector sets its own size in here.
     void get_interpolated_values(const Vector<double>& s,
-                                 Vector<double>& values)
+                                 Vector<double>& values) override
     {
       // Determine size of values Vector:
       // U^C, U^S, W^C, W^S, V^C, V^S, P^C, P^S
@@ -754,7 +754,7 @@ namespace oomph
     /// routines), the values Vector sets its own size in here.
     void get_interpolated_values(const unsigned& t,
                                  const Vector<double>& s,
-                                 Vector<double>& values)
+                                 Vector<double>& values) override
     {
       // Set size of values Vector: U^C, U^S, W^C, W^S, V^C, V^S, P^C, P^S
       values.resize(2 * (DIM + 1));
@@ -794,7 +794,7 @@ namespace oomph
     ///  Perform additional hanging node procedures for variables
     /// that are not interpolated by all nodes. The two pressure components
     /// are stored at the 6th and 7th location in each node
-    void further_setup_hanging_nodes()
+    void further_setup_hanging_nodes() override
     {
       for (unsigned i = 0; i < 2; i++)
       {
@@ -806,7 +806,7 @@ namespace oomph
     /// interpolating the velocities are the geometric nodes. The
     /// pressure "nodes" are a subset of the nodes, so when n_value==6
     /// or 7, the n-th pressure node is returned.
-    Node* interpolating_node_pt(const unsigned& n, const int& n_value)
+    Node* interpolating_node_pt(const unsigned& n, const int& n_value) override
 
     {
       // The only different nodes are the pressure nodes
@@ -826,7 +826,7 @@ namespace oomph
     /// or 7, the fraction is the same as the 1d node number, 0 or 1.
     double local_one_d_fraction_of_interpolating_node(const unsigned& n1d,
                                                       const unsigned& i,
-                                                      const int& n_value)
+                                                      const int& n_value) override
     {
       if (n_value == (2 * DIM) || n_value == ((2 * DIM) + 1))
       {
@@ -845,7 +845,7 @@ namespace oomph
     /// as the geometric nodes, but by recalling that there are only two
     /// pressure nodes per edge.
     Node* get_interpolating_node_at_local_coordinate(const Vector<double>& s,
-                                                     const int& n_value)
+                                                     const int& n_value) override
     {
       // If we are calculating pressure nodes
       if (n_value == static_cast<int>(2 * DIM) ||
@@ -909,7 +909,7 @@ namespace oomph
 
     /// The number of 1d pressure nodes is 2, the number of 1d
     /// velocity nodes is the same as the number of 1d geometric nodes.
-    unsigned ninterpolating_node_1d(const int& n_value)
+    unsigned ninterpolating_node_1d(const int& n_value) override
     {
       if (n_value == (2 * DIM) || n_value == ((2 * DIM) + 1))
       {
@@ -923,7 +923,7 @@ namespace oomph
 
     /// The number of pressure nodes is 4. The number of
     /// velocity nodes is the same as the number of geometric nodes.
-    unsigned ninterpolating_node(const int& n_value)
+    unsigned ninterpolating_node(const int& n_value) override
     {
       if (n_value == (2 * DIM) || n_value == ((2 * DIM) + 1))
       {
@@ -939,7 +939,7 @@ namespace oomph
     /// / The basis interpolating the velocity is shape().
     void interpolating_basis(const Vector<double>& s,
                              Shape& psi,
-                             const int& n_value) const
+                             const int& n_value) const override
     {
       if (n_value == (2 * DIM) || n_value == ((2 * DIM) + 1))
       {

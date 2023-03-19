@@ -83,14 +83,14 @@ namespace oomph
     }
 
     /// Destructor. Delete the meshes
-    virtual ~BiharmonicProblem()
+    ~BiharmonicProblem() override
     {
       delete Bulk_element_mesh_pt;
       delete Face_element_mesh_pt;
     };
 
     /// actions before solve, performs self test
-    void actions_before_newton_solve()
+    void actions_before_newton_solve() override
     {
 #ifdef PARANOID
       if (0 == self_test())
@@ -105,7 +105,7 @@ namespace oomph
     }
 
     /// action after solve
-    void actions_after_newton_solve() {}
+    void actions_after_newton_solve() override {}
 
     /// documents the solution, and if an exact solution is provided,
     /// then the error between the numerical and exact solution is presented
@@ -240,7 +240,7 @@ namespace oomph
 
 
     /// actions before solve, performs self test
-    void actions_before_newton_solve()
+    void actions_before_newton_solve() override
     {
 #ifdef PARANOID
       if (0 == self_test())
@@ -256,7 +256,7 @@ namespace oomph
 
 
     /// action after solve
-    void actions_after_newton_solve() {}
+    void actions_after_newton_solve() override {}
 
 
     /// documents the solution, and if an exact solution is provided,
@@ -321,11 +321,11 @@ namespace oomph
     }
 
     /// Output function -- does nothing
-    void output(std::ostream& outfile) {}
+    void output(std::ostream& outfile) override {}
 
 
     /// Output function -- does nothing
-    void output(std::ostream& outfile, const unsigned& n_plot) {}
+    void output(std::ostream& outfile, const unsigned& n_plot) override {}
 
 
     /// Output function -- does nothing
@@ -333,25 +333,25 @@ namespace oomph
 
 
     /// C-style output function -- does nothing
-    void output(FILE* file_pt) {}
+    void output(FILE* file_pt) override {}
 
 
     /// C-style output function -- does nothing
-    void output(FILE* file_pt, const unsigned& n_plot) {}
+    void output(FILE* file_pt, const unsigned& n_plot) override {}
 
 
     /// compute_error -- does nothing
     void compute_error(std::ostream& outfile,
                        FiniteElement::SteadyExactSolutionFctPt exact_soln_pt,
                        double& error,
-                       double& norm)
+                       double& norm) override
     {
     }
 
 
     /// Compute the elemental residual vector - wrapper function called
     /// by get_residuals in GeneralisedElement
-    inline void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    inline void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       // create a dummy matrix
       DenseDoubleMatrix dummy(1);
@@ -365,7 +365,7 @@ namespace oomph
     /// Compute the elemental residual vector and jacobian matrix -
     /// wrapper function called by get_jacobian in GeneralisedElement
     inline void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                                 DenseMatrix<double>& jacobian)
+                                                 DenseMatrix<double>& jacobian) override
     {
       // call generic routine with flag set to 1
       fill_in_generic_residual_contribution_biharmonic_boundary(

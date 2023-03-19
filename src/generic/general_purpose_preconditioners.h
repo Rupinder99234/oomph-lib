@@ -52,7 +52,7 @@ namespace oomph
     MatrixBasedDiagPreconditioner(){};
 
     /// Destructor (empty)
-    ~MatrixBasedDiagPreconditioner(){};
+    ~MatrixBasedDiagPreconditioner() override{};
 
     /// Broken copy constructor
     MatrixBasedDiagPreconditioner(const MatrixBasedDiagPreconditioner&) =
@@ -62,11 +62,11 @@ namespace oomph
     void operator=(const MatrixBasedDiagPreconditioner&) = delete;
 
     /// Apply preconditioner to z, i.e. z=D^-1
-    void preconditioner_solve(const DoubleVector& r, DoubleVector& z);
+    void preconditioner_solve(const DoubleVector& r, DoubleVector& z) override;
 
     /// Setup the preconditioner (store diagonal) from the fully
     /// assembled matrix.
-    void setup();
+    void setup() override;
 
   private:
     /// Vector of inverse diagonal entries
@@ -91,7 +91,7 @@ namespace oomph
     };
 
     /// Destructor
-    ~MatrixBasedLumpedPreconditioner()
+    ~MatrixBasedLumpedPreconditioner() override
     {
       this->clean_up_memory();
     }
@@ -104,11 +104,11 @@ namespace oomph
     void operator=(const MatrixBasedLumpedPreconditioner&) = delete;
 
     /// Apply preconditioner to z, i.e. z=D^-1
-    void preconditioner_solve(const DoubleVector& r, DoubleVector& z);
+    void preconditioner_solve(const DoubleVector& r, DoubleVector& z) override;
 
     /// Setup the preconditioner (store diagonal) from the fully
     /// assembled matrix. Problem pointer is ignored.
-    void setup();
+    void setup() override;
 
     /// For some reason we need to remind the compiler that there is
     /// also a function named setup in the base class.
@@ -156,7 +156,7 @@ namespace oomph
     }
 
     /// clean up memory - just delete the inverse lumped vector
-    void clean_up_memory()
+    void clean_up_memory() override
     {
       delete[] Inv_lumped_diag_pt;
     }
@@ -272,7 +272,7 @@ namespace oomph
     ILUZeroPreconditioner(){};
 
     /// Destructor (empty)
-    ~ILUZeroPreconditioner(){};
+    ~ILUZeroPreconditioner() override{};
 
 
     /// Broken copy constructor
@@ -282,11 +282,11 @@ namespace oomph
     void operator=(const ILUZeroPreconditioner&) = delete;
 
     /// Apply preconditioner to r
-    void preconditioner_solve(const DoubleVector& r, DoubleVector& z);
+    void preconditioner_solve(const DoubleVector& r, DoubleVector& z) override;
 
     /// Setup the preconditioner (store diagonal) from the fully
     /// assembled matrix. Problem pointer is ignored.
-    void setup();
+    void setup() override;
 
   private:
     /// Column start for upper triangular matrix
@@ -323,14 +323,14 @@ namespace oomph
     void operator=(const ILUZeroPreconditioner&) = delete;
 
     /// Destructor (empty)
-    ~ILUZeroPreconditioner(){};
+    ~ILUZeroPreconditioner() override{};
 
     /// Apply preconditioner to r
-    void preconditioner_solve(const DoubleVector& r, DoubleVector& z);
+    void preconditioner_solve(const DoubleVector& r, DoubleVector& z) override;
 
     /// Setup the preconditioner (store diagonal) from the fully
     /// assembled matrix. Problem pointer is ignored.
-    void setup();
+    void setup() override;
 
 
   private:
@@ -397,14 +397,14 @@ namespace oomph
     }
 
     // destructor
-    ~InnerIterationPreconditioner()
+    ~InnerIterationPreconditioner() override
     {
       delete Solver_pt;
       delete Preconditioner_pt;
     }
 
     // clean the memory
-    void clean_up_memory()
+    void clean_up_memory() override
     {
       Preconditioner_pt->clean_up_memory();
       Solver_pt->clean_up_memory();
@@ -412,7 +412,7 @@ namespace oomph
 
     /// Preconditioner setup method. Setup the preconditioner for the
     /// inner iteration solver.
-    void setup()
+    void setup() override
     {
       // set the distribution
       DistributableLinearAlgebraObject* dist_pt =
@@ -444,7 +444,7 @@ namespace oomph
 
     /// Preconditioner solve method. Performs the specified number
     /// of Krylov iterations preconditioned with the specified preconditioner
-    void preconditioner_solve(const DoubleVector& r, DoubleVector& z)
+    void preconditioner_solve(const DoubleVector& r, DoubleVector& z) override
     {
       Solver_pt->resolve(r, z);
     }

@@ -76,14 +76,14 @@ namespace oomph
 
     ///  Required  # of `values' (pinned or dofs)
     /// at node n
-    inline unsigned required_nvalue(const unsigned& n) const
+    inline unsigned required_nvalue(const unsigned& n) const override
     {
       return Initial_Nvalue;
     }
 
     /// Output function:
     ///  x,y,u   or    x,y,z,u
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       WomersleyEquations<DIM>::output(outfile);
     }
@@ -91,7 +91,7 @@ namespace oomph
 
     ///  Output function:
     ///   x,y,u   or    x,y,z,u at n_plot^DIM plot points
-    void output(std::ostream& outfile, const unsigned& n_plot)
+    void output(std::ostream& outfile, const unsigned& n_plot) override
     {
       WomersleyEquations<DIM>::output(outfile, n_plot);
     }
@@ -99,7 +99,7 @@ namespace oomph
 
     /// C-style output function:
     ///  x,y,u   or    x,y,z,u
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       WomersleyEquations<DIM>::output(file_pt);
     }
@@ -107,7 +107,7 @@ namespace oomph
 
     ///  C-style output function:
     ///   x,y,u   or    x,y,z,u at n_plot^DIM plot points
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       WomersleyEquations<DIM>::output(file_pt, n_plot);
     }
@@ -117,7 +117,7 @@ namespace oomph
     ///  x,y,u_exact   or    x,y,z,u_exact at n_plot^DIM plot points
     void output_fct(std::ostream& outfile,
                     const unsigned& n_plot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt)
+                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override
     {
       WomersleyEquations<DIM>::output_fct(outfile, n_plot, exact_soln_pt);
     }
@@ -129,7 +129,7 @@ namespace oomph
     void output_fct(std::ostream& outfile,
                     const unsigned& n_plot,
                     const double& time,
-                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt)
+                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override
     {
       WomersleyEquations<DIM>::output_fct(outfile, n_plot, time, exact_soln_pt);
     }
@@ -142,7 +142,7 @@ namespace oomph
                                                       Shape& psi,
                                                       DShape& dpsidx,
                                                       Shape& test,
-                                                      DShape& dtestdx) const;
+                                                      DShape& dtestdx) const override;
 
 
     /// Shape/test functions and derivs w.r.t. to global coords at
@@ -152,7 +152,7 @@ namespace oomph
       Shape& psi,
       DShape& dpsidx,
       Shape& test,
-      DShape& dtestdx) const;
+      DShape& dtestdx) const override;
   };
 
 

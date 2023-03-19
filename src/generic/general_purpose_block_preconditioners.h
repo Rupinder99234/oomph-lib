@@ -95,7 +95,7 @@ namespace oomph
 
     /// Destructor: clean up memory then delete all subsidiary
     /// preconditioners.
-    virtual ~GeneralPurposeBlockPreconditioner()
+    ~GeneralPurposeBlockPreconditioner() override
     {
       this->clean_up_memory();
 
@@ -109,7 +109,7 @@ namespace oomph
     /// ??ds I think clean_up_memory is supposed to clear out any stuff
     /// that doesn't need to be stored between solves. Call clean up on any
     /// non-null subsidiary preconditioners.
-    virtual void clean_up_memory()
+    void clean_up_memory() override
     {
       // Call clean up in any subsidiary precondtioners that are set.
       for (unsigned j = 0, nj = Subsidiary_preconditioner_pt.size(); j < nj;
@@ -334,13 +334,13 @@ namespace oomph
     }
 
     /// Destructor - delete the preconditioner matrices
-    virtual ~BlockDiagonalPreconditioner()
+    ~BlockDiagonalPreconditioner() override
     {
       this->clean_up_memory();
     }
 
     /// clean up the memory
-    virtual void clean_up_memory()
+    void clean_up_memory() override
     {
       if (Use_two_level_parallelisation)
       {
@@ -359,10 +359,10 @@ namespace oomph
     void operator=(const BlockDiagonalPreconditioner&) = delete;
 
     /// Apply preconditioner to r
-    void preconditioner_solve(const DoubleVector& r, DoubleVector& z);
+    void preconditioner_solve(const DoubleVector& r, DoubleVector& z) override;
 
     /// Setup the preconditioner
-    virtual void setup();
+    void setup() override;
 
     /// Use two level parallelisation
     void enable_two_level_parallelisation()
@@ -467,13 +467,13 @@ namespace oomph
     }
 
     /// Destructor - delete the preconditioner matrices
-    virtual ~BlockTriangularPreconditioner()
+    ~BlockTriangularPreconditioner() override
     {
       this->clean_up_memory();
     }
 
     /// clean up the memory
-    virtual void clean_up_memory()
+    void clean_up_memory() override
     {
       // Delete anything in Off_diagonal_matrix_vector_products
       for (unsigned i = 0, ni = Off_diagonal_matrix_vector_products.nrow();
@@ -501,10 +501,10 @@ namespace oomph
     void operator=(const BlockTriangularPreconditioner&) = delete;
 
     /// Apply preconditioner to r
-    void preconditioner_solve(const DoubleVector& r, DoubleVector& z);
+    void preconditioner_solve(const DoubleVector& r, DoubleVector& z) override;
 
     /// Setup the preconditioner
-    void setup();
+    void setup() override;
 
     /// Use as an upper triangular preconditioner
     void upper_triangular()
@@ -545,7 +545,7 @@ namespace oomph
     ExactBlockPreconditioner() : GeneralPurposeBlockPreconditioner<MATRIX>() {}
 
     /// Destructor
-    virtual ~ExactBlockPreconditioner() {}
+    ~ExactBlockPreconditioner() override {}
 
     /// Broken copy constructor
     ExactBlockPreconditioner(const ExactBlockPreconditioner&) = delete;
@@ -554,10 +554,10 @@ namespace oomph
     void operator=(const ExactBlockPreconditioner&) = delete;
 
     /// Apply preconditioner to r
-    void preconditioner_solve(const DoubleVector& r, DoubleVector& z);
+    void preconditioner_solve(const DoubleVector& r, DoubleVector& z) override;
 
     /// Setup the preconditioner
-    void setup();
+    void setup() override;
 
     /// Access for the preconditioner pointer used to solve the
     /// system (stored in the vector of pointers in the base class);
@@ -583,7 +583,7 @@ namespace oomph
     /// function. Get the second index for block number i. Obviously for a
     /// diagonal preconditioner we want the blocks (i,i). For anti diagonal
     /// we will want blocks (i, nblock - i - 1).
-    unsigned get_other_diag_ds(const unsigned& i, const unsigned& nblock) const
+    unsigned get_other_diag_ds(const unsigned& i, const unsigned& nblock) const override
     {
       return nblock - i - 1;
     }
@@ -603,7 +603,7 @@ namespace oomph
     DummyBlockPreconditioner() : GeneralPurposeBlockPreconditioner<MATRIX>() {}
 
     /// Destructor
-    ~DummyBlockPreconditioner() {}
+    ~DummyBlockPreconditioner() override {}
 
     /// Broken copy constructor
     DummyBlockPreconditioner(const DummyBlockPreconditioner&) = delete;
@@ -612,13 +612,13 @@ namespace oomph
     void operator=(const DummyBlockPreconditioner&) = delete;
 
     /// Apply preconditioner to r (just copy r to z).
-    void preconditioner_solve(const DoubleVector& r, DoubleVector& z)
+    void preconditioner_solve(const DoubleVector& r, DoubleVector& z) override
     {
       z.build(r);
     }
 
     /// Setup the preconditioner
-    void setup()
+    void setup() override
     {
       // Set up the block look up schemes
       this->block_setup();

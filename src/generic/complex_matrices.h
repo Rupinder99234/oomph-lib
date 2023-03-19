@@ -216,13 +216,13 @@ namespace oomph
     void operator=(const DenseComplexMatrix&) = delete;
 
     /// Return the number of rows of the matrix
-    inline unsigned long nrow() const
+    inline unsigned long nrow() const override
     {
       return DenseMatrix<std::complex<double>>::nrow();
     }
 
     /// Return the number of columns of the matrix
-    inline unsigned long ncol() const
+    inline unsigned long ncol() const override
     {
       return DenseMatrix<std::complex<double>>::ncol();
     }
@@ -230,7 +230,7 @@ namespace oomph
     /// Overload the const version of the round-bracket access operator
     /// for read-only access.
     inline std::complex<double> operator()(const unsigned long& i,
-                                           const unsigned long& j) const
+                                           const unsigned long& j) const override
     {
       return DenseMatrix<std::complex<double>>::get_entry(i, j);
     }
@@ -244,30 +244,30 @@ namespace oomph
     }
 
     /// Destructor, delete the storage for Index vector and LU storage (if any)
-    virtual ~DenseComplexMatrix();
+    ~DenseComplexMatrix() override;
 
     /// Overload the LU decomposition.
     /// For this storage scheme the matrix storage will be over-writeen
     /// by its LU decomposition
-    int ludecompose();
+    int ludecompose() override;
 
     /// Overload the LU back substitution. Note that the rhs will be
     /// overwritten with the solution vector
-    void lubksub(Vector<std::complex<double>>& rhs);
+    void lubksub(Vector<std::complex<double>>& rhs) override;
 
     /// Find the residual of Ax=b, ie r=b-Ax for the
     /// "solution" x.
     void residual(const Vector<std::complex<double>>& x,
                   const Vector<std::complex<double>>& rhs,
-                  Vector<std::complex<double>>& residual);
+                  Vector<std::complex<double>>& residual) override;
 
     /// Multiply the matrix by the vector x: soln=Ax
     void multiply(const Vector<std::complex<double>>& x,
-                  Vector<std::complex<double>>& soln);
+                  Vector<std::complex<double>>& soln) override;
 
     /// Multiply the  transposed matrix by the vector x: soln=A^T x
     void multiply_transpose(const Vector<std::complex<double>>& x,
-                            Vector<std::complex<double>>& soln);
+                            Vector<std::complex<double>>& soln) override;
   };
 
 
@@ -326,7 +326,7 @@ namespace oomph
     void operator=(const CRComplexMatrix&) = delete;
 
     /// Destructor: Kill the LU decomposition if it has been computed
-    virtual ~CRComplexMatrix()
+    ~CRComplexMatrix() override
     {
       clean_up_memory();
     }
@@ -346,29 +346,29 @@ namespace oomph
     }
 
     /// Return the number of rows of the matrix
-    inline unsigned long nrow() const
+    inline unsigned long nrow() const override
     {
       return CRMatrix<std::complex<double>>::nrow();
     }
 
     /// Return the number of columns of the matrix
-    inline unsigned long ncol() const
+    inline unsigned long ncol() const override
     {
       return CRMatrix<std::complex<double>>::ncol();
     }
 
     /// Overload the round-bracket access operator for read-only access
     inline std::complex<double> operator()(const unsigned long& i,
-                                           const unsigned long& j) const
+                                           const unsigned long& j) const override
     {
       return CRMatrix<std::complex<double>>::get_entry(i, j);
     }
 
     /// LU decomposition using SuperLU
-    int ludecompose();
+    int ludecompose() override;
 
     /// LU back solve for given RHS
-    void lubksub(Vector<std::complex<double>>& rhs);
+    void lubksub(Vector<std::complex<double>>& rhs) override;
 
     /// LU clean up (perhaps this should happen in the destructor)
     void clean_up_memory();
@@ -376,16 +376,16 @@ namespace oomph
     /// Find the residual to x of Ax=b, i.e. r=b-Ax
     void residual(const Vector<std::complex<double>>& x,
                   const Vector<std::complex<double>>& b,
-                  Vector<std::complex<double>>& residual);
+                  Vector<std::complex<double>>& residual) override;
 
     /// Multiply the matrix by the vector x: soln=Ax
     void multiply(const Vector<std::complex<double>>& x,
-                  Vector<std::complex<double>>& soln);
+                  Vector<std::complex<double>>& soln) override;
 
 
     /// Multiply the  transposed matrix by the vector x: soln=A^T x
     void multiply_transpose(const Vector<std::complex<double>>& x,
-                            Vector<std::complex<double>>& soln);
+                            Vector<std::complex<double>>& soln) override;
 
     // \short Add the matrix to matrix_in (CRDoubleMatrix) and return result:
     // result_matrix = A + matrix_in
@@ -489,7 +489,7 @@ namespace oomph
     void operator=(const CCComplexMatrix&) = delete;
 
     /// Destructor: Kill the LU factors if they have been setup.
-    virtual ~CCComplexMatrix()
+    ~CCComplexMatrix() override
     {
       clean_up_memory();
     }
@@ -509,13 +509,13 @@ namespace oomph
     }
 
     /// Return the number of rows of the matrix
-    inline unsigned long nrow() const
+    inline unsigned long nrow() const override
     {
       return CCMatrix<std::complex<double>>::nrow();
     }
 
     /// Return the number of columns of the matrix
-    inline unsigned long ncol() const
+    inline unsigned long ncol() const override
     {
       return CCMatrix<std::complex<double>>::ncol();
     }
@@ -523,16 +523,16 @@ namespace oomph
     /// Overload the round-bracket access operator to provide
     /// read-only (const) access to the data
     inline std::complex<double> operator()(const unsigned long& i,
-                                           const unsigned long& j) const
+                                           const unsigned long& j) const override
     {
       return CCMatrix<std::complex<double>>::get_entry(i, j);
     }
 
     /// LU decomposition using SuperLU
-    int ludecompose();
+    int ludecompose() override;
 
     /// LU back solve for given RHS
-    void lubksub(Vector<std::complex<double>>& rhs);
+    void lubksub(Vector<std::complex<double>>& rhs) override;
 
     /// LU clean up (perhaps this should happen in the destructor)
     void clean_up_memory();
@@ -540,17 +540,17 @@ namespace oomph
     /// Find the residulal to x of Ax=b, ie r=b-Ax
     void residual(const Vector<std::complex<double>>& x,
                   const Vector<std::complex<double>>& b,
-                  Vector<std::complex<double>>& residual);
+                  Vector<std::complex<double>>& residual) override;
 
 
     /// Multiply the matrix by the vector x: soln=Ax
     void multiply(const Vector<std::complex<double>>& x,
-                  Vector<std::complex<double>>& soln);
+                  Vector<std::complex<double>>& soln) override;
 
 
     /// Multiply the  transposed matrix by the vector x: soln=A^T x
     void multiply_transpose(const Vector<std::complex<double>>& x,
-                            Vector<std::complex<double>>& soln);
+                            Vector<std::complex<double>>& soln) override;
   };
 } // namespace oomph
 

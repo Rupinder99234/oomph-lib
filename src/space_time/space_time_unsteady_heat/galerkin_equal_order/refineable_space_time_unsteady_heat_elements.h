@@ -69,7 +69,7 @@ namespace oomph
       delete;
 
     /// Number of 'flux' terms for Z2 error estimation
-    unsigned num_Z2_flux_terms()
+    unsigned num_Z2_flux_terms() override
     {
       // The flux terms are associated with spatial AND temporal derivatives
       return SPATIAL_DIM + 1;
@@ -79,7 +79,7 @@ namespace oomph
     /// Get 'flux' for Z2 error recovery:
     /// Different to the get_flux function in the base class as we also
     /// have to include du/dt as we're doing temporal adaptivity too
-    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux)
+    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux) override
     {
       // Find out how many nodes there are in the element
       unsigned n_node = nnode();
@@ -121,7 +121,7 @@ namespace oomph
     /// called from black-box documentation or interpolation routines), the
     /// values Vector sets its own size in here.
     void get_interpolated_values(const Vector<double>& s,
-                                 Vector<double>& values)
+                                 Vector<double>& values) override
     {
       // Set the size of the vector u
       values.resize(1);
@@ -156,7 +156,7 @@ namespace oomph
     /// values Vector sets its own size in here.
     void get_interpolated_values(const unsigned& t,
                                  const Vector<double>& s,
-                                 Vector<double>& values)
+                                 Vector<double>& values) override
     {
       // Set the size of the vector u
       values.resize(1);
@@ -186,7 +186,7 @@ namespace oomph
 
 
     /// Further build: Copy source function pointer from father element
-    void further_build()
+    void further_build() override
     {
       // Get pointer to the father
       RefineableSpaceTimeUnsteadyHeatEquations<SPATIAL_DIM>*
@@ -206,10 +206,10 @@ namespace oomph
     /// Jacobian matrix
     /// flag=0: compute residual vector only
     /// flag=1: compute both
-    virtual void fill_in_generic_residual_contribution_ust_heat(
+    void fill_in_generic_residual_contribution_ust_heat(
       Vector<double>& residuals,
       DenseMatrix<double>& jacobian,
-      const unsigned& flag);
+      const unsigned& flag) override;
   }; // End of RefineableSpaceTimeUnsteadyHeatEquations class
 
 
@@ -239,16 +239,16 @@ namespace oomph
         dummy) = delete;
 
     /// Rebuild from sons (empty)
-    void rebuild_from_sons(Mesh*& mesh_pt) {}
+    void rebuild_from_sons(Mesh*& mesh_pt) override {}
 
 
     /// Perform additional hanging node procedures for variables
     /// that are not interpolated by all nodes (empty).
-    void further_setup_hanging_nodes() {}
+    void further_setup_hanging_nodes() override {}
 
 
     /// Number of continuously interpolated values: 1
-    unsigned ncont_interpolated_values() const
+    unsigned ncont_interpolated_values() const override
     {
       // Return the appropriate value
       return 1;
@@ -256,7 +256,7 @@ namespace oomph
 
 
     /// Number of vertex nodes in the element
-    unsigned nvertex_node() const
+    unsigned nvertex_node() const override
     {
       // Call the base class function
       return QUnsteadyHeatSpaceTimeElement<SPATIAL_DIM,
@@ -265,7 +265,7 @@ namespace oomph
 
 
     /// Pointer to the j-th vertex node in the element
-    Node* vertex_node_pt(const unsigned& j) const
+    Node* vertex_node_pt(const unsigned& j) const override
     {
       // Call the base class function
       return QUnsteadyHeatSpaceTimeElement<SPATIAL_DIM,
@@ -275,7 +275,7 @@ namespace oomph
 
     /// Order of recovery shape functions for Z2 error estimation:
     /// Same order as shape functions.
-    unsigned nrecovery_order()
+    unsigned nrecovery_order() override
     {
       // Return the approriate value
       return (NNODE_1D - 1);

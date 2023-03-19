@@ -144,7 +144,7 @@ namespace oomph
     }
 
     /// destructor
-    virtual ~PseudoElasticPreconditioner()
+    ~PseudoElasticPreconditioner() override
     {
       this->clean_up_memory();
     }
@@ -162,12 +162,12 @@ namespace oomph
      (const PseudoElasticPreconditioner&) = delete;*/
 
     /// Setup method for the PseudoElasticPreconditioner.
-    void setup();
+    void setup() override;
 
     /// Apply the preconditioner. Method implemented in two
     /// other methods (elastic and lagrange multiplier subsidiary
     /// preocnditioner) for the PseudoElasticFSIPreconditioner
-    void preconditioner_solve(const DoubleVector& r, DoubleVector& z)
+    void preconditioner_solve(const DoubleVector& r, DoubleVector& z) override
     {
       this->elastic_preconditioner_solve(r, z);
       this->lagrange_multiplier_preconditioner_solve(r, z);
@@ -232,7 +232,7 @@ namespace oomph
     }
 
     /// Clears the memory.
-    void clean_up_memory();
+    void clean_up_memory() override;
 
   private:
     /// Apply the elastic subsidiary preconditioner.
@@ -347,7 +347,7 @@ namespace oomph
     }
 
     /// destructor
-    virtual ~PseudoElasticPreconditionerOld()
+    ~PseudoElasticPreconditionerOld() override
     {
       this->clean_up_memory();
     }
@@ -360,12 +360,12 @@ namespace oomph
     /*void operator=(const PseudoElasticPreconditionerOld&) = delete;*/
 
     /// Setup method for the PseudoElasticPreconditionerOld.
-    void setup();
+    void setup() override;
 
     /// Apply the preconditioner. Method implemented in two
     /// other methods (elastic and lagrange multiplier subsidiary
     /// preocnditioner) for the PseudoElasticFSIPreconditioner
-    void preconditioner_solve(const DoubleVector& r, DoubleVector& z)
+    void preconditioner_solve(const DoubleVector& r, DoubleVector& z) override
     {
       this->elastic_preconditioner_solve(r, z);
       this->lagrange_multiplier_preconditioner_solve(r, z);
@@ -430,7 +430,7 @@ namespace oomph
     }
 
     /// Clears the memory.
-    void clean_up_memory();
+    void clean_up_memory() override;
 
   private:
     /// Apply the elastic subsidiary preconditioner.
@@ -512,7 +512,7 @@ namespace oomph
     }
 
     /// Destructor
-    ~PseudoElasticPreconditionerSubsidiaryPreconditionerOld()
+    ~PseudoElasticPreconditionerSubsidiaryPreconditionerOld() override
     {
       this->clean_up_memory();
     }
@@ -526,10 +526,10 @@ namespace oomph
      PseudoElasticPreconditionerSubsidiaryPreconditionerOld&) = delete;*/
 
     // Setup the preconditioner
-    void setup();
+    void setup() override;
 
     // Apply the preconditioner
-    void preconditioner_solve(const DoubleVector& r, DoubleVector& z);
+    void preconditioner_solve(const DoubleVector& r, DoubleVector& z) override;
 
     /// Specify the scaling. Default is 1.0  Must be called before
     /// setup(...).
@@ -547,7 +547,7 @@ namespace oomph
 
   private:
     /// clears the memory
-    void clean_up_memory()
+    void clean_up_memory() override
     {
       delete Preconditioner_pt;
       Preconditioner_pt = 0;
@@ -607,7 +607,7 @@ namespace oomph
     };
 
     /// Destructor
-    ~PseudoElasticPreconditionerSubsidiaryBlockPreconditionerOld()
+    ~PseudoElasticPreconditionerSubsidiaryBlockPreconditionerOld() override
     {
       this->clean_up_memory();
     }
@@ -623,13 +623,13 @@ namespace oomph
      delete;*/
 
     /// clean up the memory
-    void clean_up_memory();
+    void clean_up_memory() override;
 
     /// Setup the preconditioner
-    void setup();
+    void setup() override;
 
     /// Apply preconditioner to r
-    void preconditioner_solve(const DoubleVector& res, DoubleVector& z);
+    void preconditioner_solve(const DoubleVector& res, DoubleVector& z) override;
 
     /// access function to set the subsidiary preconditioner function.
     void set_subsidiary_preconditioner_function(
@@ -738,7 +738,7 @@ namespace oomph
     }
 
     /// Destructor.
-    ~PseudoElasticPreconditionerScalingHelperOld()
+    ~PseudoElasticPreconditionerScalingHelperOld() override
     {
       this->clear_block_preconditioner_base();
     }
@@ -762,7 +762,7 @@ namespace oomph
     }
 
     // broken preconditioner setup
-    void setup()
+    void setup() override
     {
       std::ostringstream error_message;
       error_message << "This method is intentionally broken. This class is not "
@@ -773,7 +773,7 @@ namespace oomph
     }
 
     // broken preconditioner solve
-    void preconditioner_solve(const DoubleVector& r, DoubleVector& z)
+    void preconditioner_solve(const DoubleVector& r, DoubleVector& z) override
     {
       std::ostringstream error_message;
       error_message << "This method is intentionally broken. This class is not "

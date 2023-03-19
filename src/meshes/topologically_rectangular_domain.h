@@ -84,7 +84,7 @@ namespace oomph
     void operator=(const TopologicallyRectangularDomain&) = delete;
 
     /// Destructor - empty; clean up done in base class
-    ~TopologicallyRectangularDomain() {}
+    ~TopologicallyRectangularDomain() override {}
 
 
     /// allows the boundary derivate function pointers to be set. To
@@ -122,7 +122,7 @@ namespace oomph
                                 const unsigned& i_macro,
                                 const unsigned& i_direct,
                                 const Vector<double>& s,
-                                Vector<double>& f);
+                                Vector<double>& f) override;
 
     /// returns the derivates of the global coordinate position (f) wrt to the
     /// macro element coordinate at macro macro element position s on boundary
@@ -131,7 +131,7 @@ namespace oomph
                                  const unsigned& i_macro,
                                  const unsigned& i_direct,
                                  const Vector<double>& s,
-                                 Vector<double>& f);
+                                 Vector<double>& f) override;
 
     /// returns the second derivates of the global coordinate position (f) wrt
     /// to the macro element coordinate at macro macro element position s on
@@ -140,7 +140,7 @@ namespace oomph
                                   const unsigned& i_macro,
                                   const unsigned& i_direct,
                                   const Vector<double>& s,
-                                  Vector<double>& f);
+                                  Vector<double>& f) override;
 
   private:
     /// Function pointer to prescribe the north boundary of this

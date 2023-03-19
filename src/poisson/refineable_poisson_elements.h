@@ -74,13 +74,13 @@ namespace oomph
     void operator=(const RefineablePoissonEquations<DIM>&) = delete;
 
     /// Number of 'flux' terms for Z2 error estimation
-    unsigned num_Z2_flux_terms()
+    unsigned num_Z2_flux_terms() override
     {
       return DIM;
     }
 
     /// Get 'flux' for Z2 error recovery:  Standard flux.from Poisson equations
-    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux)
+    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux) override
     {
       this->get_flux(s, flux);
     }
@@ -90,14 +90,14 @@ namespace oomph
       std::ostream& outfile,
       FiniteElement::SteadyExactSolutionFctPt exact_flux_pt,
       double& error,
-      double& norm);
+      double& norm) override;
 
     /// Get the function value u in Vector.
     /// Note: Given the generality of the interface (this function
     /// is usually called from black-box documentation or interpolation
     /// routines), the values Vector sets its own size in here.
     void get_interpolated_values(const Vector<double>& s,
-                                 Vector<double>& values)
+                                 Vector<double>& values) override
     {
       // Set size of Vector: u
       values.resize(1);
@@ -131,7 +131,7 @@ namespace oomph
     /// routines), the values Vector sets its own size in here.
     void get_interpolated_values(const unsigned& t,
                                  const Vector<double>& s,
-                                 Vector<double>& values)
+                                 Vector<double>& values) override
     {
       if (t != 0)
       {
@@ -153,7 +153,7 @@ namespace oomph
 
 
     ///  Further build: Copy source function pointer from father element
-    void further_build()
+    void further_build() override
     {
       this->Source_fct_pt = dynamic_cast<RefineablePoissonEquations<DIM>*>(
                               this->father_element_pt())
@@ -169,14 +169,14 @@ namespace oomph
     void fill_in_generic_residual_contribution_poisson(
       Vector<double>& residuals,
       DenseMatrix<double>& jacobian,
-      const unsigned& flag);
+      const unsigned& flag) override;
 
     /// Compute derivatives of elemental residual vector with respect
     /// to nodal coordinates. Overwrites default implementation in
     /// FiniteElement base class.
     /// dresidual_dnodal_coordinates(l,i,j) = d res(l) / dX_{ij}
-    virtual void get_dresidual_dnodal_coordinates(
-      RankThreeTensor<double>& dresidual_dnodal_coordinates);
+    void get_dresidual_dnodal_coordinates(
+      RankThreeTensor<double>& dresidual_dnodal_coordinates) override;
   };
 
 
@@ -210,36 +210,36 @@ namespace oomph
     void operator=(const RefineableQPoissonElement<DIM, NNODE_1D>&) = delete;
 
     /// Number of continuously interpolated values: 1
-    unsigned ncont_interpolated_values() const
+    unsigned ncont_interpolated_values() const override
     {
       return 1;
     }
 
     /// Number of vertex nodes in the element
-    unsigned nvertex_node() const
+    unsigned nvertex_node() const override
     {
       return QPoissonElement<DIM, NNODE_1D>::nvertex_node();
     }
 
     /// Pointer to the j-th vertex node in the element
-    Node* vertex_node_pt(const unsigned& j) const
+    Node* vertex_node_pt(const unsigned& j) const override
     {
       return QPoissonElement<DIM, NNODE_1D>::vertex_node_pt(j);
     }
 
     /// Rebuild from sons: empty
-    void rebuild_from_sons(Mesh*& mesh_pt) {}
+    void rebuild_from_sons(Mesh*& mesh_pt) override {}
 
     /// Order of recovery shape functions for Z2 error estimation:
     /// Same order as shape functions.
-    unsigned nrecovery_order()
+    unsigned nrecovery_order() override
     {
       return (NNODE_1D - 1);
     }
 
     ///  Perform additional hanging node procedures for variables
     /// that are not interpolated by all nodes. Empty.
-    void further_setup_hanging_nodes() {}
+    void further_setup_hanging_nodes() override {}
   };
 
 
@@ -267,7 +267,7 @@ namespace oomph
     }
 
     /// Destructor (to avoid memory leaks)
-    ~PRefineableQPoissonElement()
+    ~PRefineableQPoissonElement() override
     {
       delete this->integral_pt();
     }
@@ -280,22 +280,22 @@ namespace oomph
     /// Broken assignment operator
     void operator=(const PRefineableQPoissonElement<DIM>&) = delete;
 
-    void further_build();
+    void further_build() override;
 
     /// Number of continuously interpolated values: 1
-    unsigned ncont_interpolated_values() const
+    unsigned ncont_interpolated_values() const override
     {
       return 1;
     }
 
     /// Number of vertex nodes in the element
-    unsigned nvertex_node() const
+    unsigned nvertex_node() const override
     {
       return QPoissonElement<DIM, 2>::nvertex_node();
     }
 
     /// Pointer to the j-th vertex node in the element
-    Node* vertex_node_pt(const unsigned& j) const
+    Node* vertex_node_pt(const unsigned& j) const override
     {
       return QPoissonElement<DIM, 2>::vertex_node_pt(j);
     }
@@ -309,7 +309,7 @@ namespace oomph
     // }
     /// - Constant recovery order, since recovery order of the first element
     ///   is used for the whole mesh.
-    unsigned nrecovery_order()
+    unsigned nrecovery_order() override
     {
       return 3;
     }

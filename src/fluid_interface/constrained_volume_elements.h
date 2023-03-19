@@ -118,7 +118,7 @@ namespace oomph
                             const unsigned& index_of_traded_pressure);
 
     /// Empty destructor
-    ~VolumeConstraintElement() {}
+    ~VolumeConstraintElement() override {}
 
     /// Access to Data that contains the traded pressure
     inline Data* p_traded_data_pt()
@@ -149,7 +149,7 @@ namespace oomph
 
 
     /// Fill in the residuals for the volume constraint
-    void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       this->fill_in_generic_contribution_to_residuals_volume_constraint(
         residuals);
@@ -157,7 +157,7 @@ namespace oomph
 
     /// Fill in the residuals and jacobian for the volume constraint
     void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian)
+                                          DenseMatrix<double>& jacobian) override
     {
       // No contribution to jacobian; see comment in that function
       this->fill_in_generic_contribution_to_residuals_volume_constraint(
@@ -169,7 +169,7 @@ namespace oomph
     void fill_in_contribution_to_jacobian_and_mass_matrix(
       Vector<double>& residuals,
       DenseMatrix<double>& jacobian,
-      DenseMatrix<double>& mass_matrix)
+      DenseMatrix<double>& mass_matrix) override
     {
       // No contribution to jacobian or mass matrix; see comment in that
       // function
@@ -239,10 +239,10 @@ namespace oomph
     VolumeConstraintBoundingElement() : Traded_pressure_stored_at_node(false) {}
 
     /// Empty Destructor
-    ~VolumeConstraintBoundingElement() {}
+    ~VolumeConstraintBoundingElement() override {}
 
     /// Fill in contribution to residuals and Jacobian
-    void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       // Call the generic routine
       this->fill_in_generic_residual_contribution_volume_constraint(residuals);
@@ -336,14 +336,14 @@ namespace oomph
     /// the associated VolumeConstraintElement). This is specific for
     /// 1D line elements that bound 2D cartesian fluid elements.
     void fill_in_generic_residual_contribution_volume_constraint(
-      Vector<double>& residuals);
+      Vector<double>& residuals) override;
 
   public:
     /// Empty Contructor
     LineVolumeConstraintBoundingElement() : VolumeConstraintBoundingElement() {}
 
     /// Empty Destructor
-    ~LineVolumeConstraintBoundingElement() {}
+    ~LineVolumeConstraintBoundingElement() override {}
 
     /// Return this element's contribution to the total volume enclosed
     double contribution_to_enclosed_volume();
@@ -386,7 +386,7 @@ namespace oomph
     /// to solid-based elements in which derivatives w.r.t. to nodal
     /// positions are evaluated by finite differencing
     void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian)
+                                          DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine
       this->fill_in_generic_residual_contribution_volume_constraint(residuals);
@@ -401,7 +401,7 @@ namespace oomph
     /// the FaceElement representation, by default
     double zeta_nodal(const unsigned& n,
                       const unsigned& k,
-                      const unsigned& i) const
+                      const unsigned& i) const override
     {
       return FaceElement::zeta_nodal(n, k, i);
     }
@@ -440,7 +440,7 @@ namespace oomph
     /// to spine based elements in which the shape derivatives are evaluated
     /// using geometric data
     void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian)
+                                          DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine
       this->fill_in_generic_residual_contribution_volume_constraint(residuals);
@@ -454,7 +454,7 @@ namespace oomph
     /// the FaceElement representation, by default
     double zeta_nodal(const unsigned& n,
                       const unsigned& k,
-                      const unsigned& i) const
+                      const unsigned& i) const override
     {
       return FaceElement::zeta_nodal(n, k, i);
     }
@@ -487,7 +487,7 @@ namespace oomph
     /// the associated VolumeConstraintElement). This is specific for
     /// 1D line elements that bound 2D cartesian fluid elements.
     void fill_in_generic_residual_contribution_volume_constraint(
-      Vector<double>& residuals);
+      Vector<double>& residuals) override;
 
   public:
     /// Empty Contructor
@@ -497,7 +497,7 @@ namespace oomph
     }
 
     /// Empty Destructor
-    ~AxisymmetricVolumeConstraintBoundingElement() {}
+    ~AxisymmetricVolumeConstraintBoundingElement() override {}
 
     /// Return this element's contribution to the total volume enclosed
     double contribution_to_enclosed_volume();
@@ -619,7 +619,7 @@ namespace oomph
     /// to solid-based elements in which derivatives w.r.t. to nodal
     /// positions are evaluated by finite differencing
     void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian)
+                                          DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine
       this->fill_in_generic_residual_contribution_volume_constraint(residuals);
@@ -634,7 +634,7 @@ namespace oomph
     /// the FaceElement representation, by default
     double zeta_nodal(const unsigned& n,
                       const unsigned& k,
-                      const unsigned& i) const
+                      const unsigned& i) const override
     {
       return FaceElement::zeta_nodal(n, k, i);
     }
@@ -674,7 +674,7 @@ namespace oomph
     /// to spine based elements in which the shape derivatives are evaluated
     /// using geometric data
     void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian)
+                                          DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine
       this->fill_in_generic_residual_contribution_volume_constraint(residuals);
@@ -688,7 +688,7 @@ namespace oomph
     /// the FaceElement representation, by default
     double zeta_nodal(const unsigned& n,
                       const unsigned& k,
-                      const unsigned& i) const
+                      const unsigned& i) const override
     {
       return FaceElement::zeta_nodal(n, k, i);
     }
@@ -721,7 +721,7 @@ namespace oomph
     /// the associated VolumeConstraintElement). This is specific for
     /// 2D surface elements that bound 3D cartesian fluid elements.
     void fill_in_generic_residual_contribution_volume_constraint(
-      Vector<double>& residuals);
+      Vector<double>& residuals) override;
 
   public:
     /// Empty Contructor
@@ -730,7 +730,7 @@ namespace oomph
     }
 
     /// Empty Desctructor
-    ~SurfaceVolumeConstraintBoundingElement() {}
+    ~SurfaceVolumeConstraintBoundingElement() override {}
   };
 
 
@@ -771,7 +771,7 @@ namespace oomph
     /// to solid-based elements in which derivatives w.r.t. to nodal
     /// positions are evaluated by finite differencing
     void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian)
+                                          DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine
       this->fill_in_generic_residual_contribution_volume_constraint(residuals);
@@ -787,7 +787,7 @@ namespace oomph
     /// the FaceElement representation, by default
     double zeta_nodal(const unsigned& n,
                       const unsigned& k,
-                      const unsigned& i) const
+                      const unsigned& i) const override
     {
       return FaceElement::zeta_nodal(n, k, i);
     }
@@ -832,7 +832,7 @@ namespace oomph
     /// to spine based elements in which the shape derivatives are evaluated
     /// using geometric data
     void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian)
+                                          DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine
       this->fill_in_generic_residual_contribution_volume_constraint(residuals);
@@ -847,7 +847,7 @@ namespace oomph
     /// the FaceElement representation, by default
     double zeta_nodal(const unsigned& n,
                       const unsigned& k,
-                      const unsigned& i) const
+                      const unsigned& i) const override
     {
       return FaceElement::zeta_nodal(n, k, i);
     }

@@ -127,7 +127,7 @@ namespace oomph
     }
 
     /// Output with default number of plot points
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       const unsigned n_plot = 5;
       output(outfile, n_plot);
@@ -135,10 +135,10 @@ namespace oomph
 
     /// Output FE representation of soln: x,y,w at
     /// n_plot^DIM plot points
-    void output(std::ostream& outfile, const unsigned& n_plot);
+    void output(std::ostream& outfile, const unsigned& n_plot) override;
 
     /// C_style output with default number of plot points
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       const unsigned n_plot = 5;
       output(file_pt, n_plot);
@@ -146,21 +146,21 @@ namespace oomph
 
     /// C-style output FE representation of soln: x,y,w at
     /// n_plot^DIM plot points
-    void output(FILE* file_pt, const unsigned& n_plot);
+    void output(FILE* file_pt, const unsigned& n_plot) override;
 
     /// Output exact soln: x,y,w_exact at n_plot^DIM plot points
     void output_fct(std::ostream& outfile,
                     const unsigned& n_plot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt);
+                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
 
     /// Output exact soln: x,y,w_exact at
     /// n_plot^DIM plot points (dummy time-dependent version to
     /// keep intel compiler happy)
-    virtual void output_fct(
+    void output_fct(
       std::ostream& outfile,
       const unsigned& n_plot,
       const double& time,
-      FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt)
+      FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override
     {
       throw OomphLibError(
         "There is no time-dependent output_fct() for Foeppl von Karman"
@@ -174,7 +174,7 @@ namespace oomph
     void compute_error(std::ostream& outfile,
                        FiniteElement::SteadyExactSolutionFctPt exact_soln_pt,
                        double& error,
-                       double& norm);
+                       double& norm) override;
 
 
     /// Dummy, time dependent error checker
@@ -182,7 +182,7 @@ namespace oomph
                        FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt,
                        const double& time,
                        double& error,
-                       double& norm)
+                       double& norm) override
     {
       throw OomphLibError(
         "There is no time-dependent compute_error() for Foeppl von Karman"
@@ -451,7 +451,7 @@ namespace oomph
     void fill_in_contribution_to_jacobian_and_mass_matrix(
       Vector<double>& residuals,
       DenseMatrix<double>& jacobian,
-      DenseMatrix<double>& mass_matrix)
+      DenseMatrix<double>& mass_matrix) override
     {
       // Get Jacobian from base class (FD-ed)
       FiniteElement::fill_in_contribution_to_jacobian(residuals, jacobian);
@@ -467,7 +467,7 @@ namespace oomph
 
 
     /// Fill in the residuals with this element's contribution
-    void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       // Find out how many nodes there are
       const unsigned n_node = nnode();
@@ -683,7 +683,7 @@ namespace oomph
     }
 
     /// Self-test: Return 0 for OK
-    unsigned self_test();
+    unsigned self_test() override;
 
     /// Sets a flag to signify that we are solving the linear, pure
     /// bending equations, and pin all the nodal values that will not be used in

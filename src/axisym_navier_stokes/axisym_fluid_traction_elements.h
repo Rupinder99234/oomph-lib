@@ -150,7 +150,7 @@ namespace oomph
 
 
     /// Return the residuals
-    void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       fill_in_contribution_to_residuals_axisymmetric_nst_traction(residuals);
     }
@@ -158,7 +158,7 @@ namespace oomph
 
     /// Fill in contribution from Jacobian
     void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian)
+                                          DenseMatrix<double>& jacobian) override
     {
       // Call the residuals
       fill_in_contribution_to_residuals_axisymmetric_nst_traction(residuals);
@@ -171,13 +171,13 @@ namespace oomph
     /// indeterminacy if bulk element is SolidElement)
     double zeta_nodal(const unsigned& n,
                       const unsigned& k,
-                      const unsigned& i) const
+                      const unsigned& i) const override
     {
       return FaceElement::zeta_nodal(n, k, i);
     }
 
     /// Output function
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       unsigned nplot = 5;
       output(outfile, nplot);
@@ -185,7 +185,7 @@ namespace oomph
 
     /// Number of scalars/fields output by this element. Reimplements
     /// broken virtual function in base class.
-    unsigned nscalar_paraview() const
+    unsigned nscalar_paraview() const override
     {
       // Number of dimensions
       unsigned n_dim = this->nodal_dimension();
@@ -197,7 +197,7 @@ namespace oomph
     /// to be implemented for each new specific element type.
     void scalar_value_paraview(std::ofstream& file_out,
                                const unsigned& k,
-                               const unsigned& nplot) const
+                               const unsigned& nplot) const override
     {
       // Number of dimensions
       unsigned n_dim = this->nodal_dimension();
@@ -279,7 +279,7 @@ namespace oomph
     /// Name of the i-th scalar field. Default implementation
     /// returns V1 for the first one, V2 for the second etc. Can (should!) be
     /// overloaded with more meaningful names in specific elements.
-    std::string scalar_name_paraview(const unsigned& i) const
+    std::string scalar_name_paraview(const unsigned& i) const override
     {
       // Number of dimensions
       unsigned n_dim = this->nodal_dimension();
@@ -307,7 +307,7 @@ namespace oomph
     }
 
     /// Output function
-    void output(std::ostream& outfile, const unsigned& n_plot)
+    void output(std::ostream& outfile, const unsigned& n_plot) override
     {
       // Number of dimensions
       unsigned n_dim = this->nodal_dimension();
@@ -387,13 +387,13 @@ namespace oomph
     }
 
     /// C_style output function
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       FiniteElement::output(file_pt);
     }
 
     /// C-style output function
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       FiniteElement::output(file_pt, n_plot);
     }
@@ -656,7 +656,7 @@ namespace oomph
     }
 
     /// Add the element's contribution to its residual vector
-    inline void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    inline void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       // Call the generic residuals function with flag set to 0
       // using a dummy matrix argument
@@ -668,7 +668,7 @@ namespace oomph
     /// Add the element's contribution to its residual vector and its
     /// Jacobian matrix
     inline void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                                 DenseMatrix<double>& jacobian)
+                                                 DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine with the flag set to 1
       fill_in_generic_residual_contribution_fsi_no_slip_axisym(
@@ -679,7 +679,7 @@ namespace oomph
     }
 
     /// Output function
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       // Dummy
       unsigned nplot = 0;
@@ -687,7 +687,7 @@ namespace oomph
     }
 
     /// Output function: Output at Gauss points; n_plot is ignored.
-    void output(std::ostream& outfile, const unsigned& n_plot)
+    void output(std::ostream& outfile, const unsigned& n_plot) override
     {
       outfile << "ZONE\n";
 
@@ -727,13 +727,13 @@ namespace oomph
 
 
     /// C-style output function
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       FaceGeometry<FLUID_BULK_ELEMENT>::output(file_pt);
     }
 
     /// C-style output function
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       FaceGeometry<FLUID_BULK_ELEMENT>::output(file_pt, n_plot);
     }

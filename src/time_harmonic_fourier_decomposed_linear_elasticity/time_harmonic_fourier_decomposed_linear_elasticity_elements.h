@@ -260,7 +260,7 @@ namespace oomph
     /// The number of "DOF types" that degrees of freedom in this element
     /// are sub-divided into: for now lump them all into one DOF type.
     /// Can be adjusted later
-    unsigned ndof_types() const
+    unsigned ndof_types() const override
     {
       return 1;
     }
@@ -272,7 +272,7 @@ namespace oomph
     /// (Function can obviously only be called if the equation numbering
     /// scheme has been set up.)
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override
     {
       // temporary pair (used to store dof lookup prior to being added
       // to list)
@@ -355,14 +355,14 @@ namespace oomph
     TimeHarmonicFourierDecomposedLinearElasticityEquations() {}
 
     /// Number of values required at node n.
-    unsigned required_nvalue(const unsigned& n) const
+    unsigned required_nvalue(const unsigned& n) const override
     {
       return 6;
     }
 
     /// Return the residuals for the equations (the discretised
     /// principle of virtual displacements)
-    void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       fill_in_generic_contribution_to_residuals_fourier_decomp_time_harmonic_linear_elasticity(
         residuals, GeneralisedElement::Dummy_matrix, 0);
@@ -373,7 +373,7 @@ namespace oomph
     /// We need only to take finite differences w.r.t. positional variables
     /// For this element
     void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian)
+                                          DenseMatrix<double>& jacobian) override
     {
       // Add the contribution to the residuals
       this
@@ -387,32 +387,32 @@ namespace oomph
                     DenseMatrix<std::complex<double>>& strain);
 
     /// Compute norm of solution: square of the L2 norm
-    void compute_norm(double& norm);
+    void compute_norm(double& norm) override;
 
     /// Output exact solution: r,z, u_r_real, u_z_real, ..., u_theta_imag
     void output_fct(std::ostream& outfile,
                     const unsigned& nplot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt);
+                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
 
     /// Output: r,z, u_r_real, u_z_real, ..., u_theta_imag
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       unsigned n_plot = 5;
       output(outfile, n_plot);
     }
 
     /// Output: r,z, u_r_real, u_z_real, ..., u_theta_imag
-    void output(std::ostream& outfile, const unsigned& n_plot);
+    void output(std::ostream& outfile, const unsigned& n_plot) override;
 
     /// C-style output: r,z, u_r_real, u_z_real, ..., u_theta_imag
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       unsigned n_plot = 5;
       output(file_pt, n_plot);
     }
 
     /// Output:  r,z, u_r_real, u_z_real, ..., u_theta_imag
-    void output(FILE* file_pt, const unsigned& n_plot);
+    void output(FILE* file_pt, const unsigned& n_plot) override;
 
     /// Validate against exact solution.
     /// Solution is provided via function pointer.
@@ -421,7 +421,7 @@ namespace oomph
     void compute_error(std::ostream& outfile,
                        FiniteElement::SteadyExactSolutionFctPt exact_soln_pt,
                        double& error,
-                       double& norm);
+                       double& norm) override;
 
 
   private:
@@ -455,13 +455,13 @@ namespace oomph
     }
 
     /// Output function
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       TimeHarmonicFourierDecomposedLinearElasticityEquations::output(outfile);
     }
 
     /// Output function
-    void output(std::ostream& outfile, const unsigned& n_plot)
+    void output(std::ostream& outfile, const unsigned& n_plot) override
     {
       TimeHarmonicFourierDecomposedLinearElasticityEquations::output(outfile,
                                                                      n_plot);
@@ -469,13 +469,13 @@ namespace oomph
 
 
     /// C-style output function
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       TimeHarmonicFourierDecomposedLinearElasticityEquations::output(file_pt);
     }
 
     /// C-style output function
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       TimeHarmonicFourierDecomposedLinearElasticityEquations::output(file_pt,
                                                                      n_plot);
@@ -522,26 +522,26 @@ namespace oomph
     }
 
     /// Output function
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       TimeHarmonicFourierDecomposedLinearElasticityEquations::output(outfile);
     }
 
     /// Output function
-    void output(std::ostream& outfile, const unsigned& n_plot)
+    void output(std::ostream& outfile, const unsigned& n_plot) override
     {
       TimeHarmonicFourierDecomposedLinearElasticityEquations::output(outfile,
                                                                      n_plot);
     }
 
     /// C-style output function
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       TimeHarmonicFourierDecomposedLinearElasticityEquations::output(file_pt);
     }
 
     /// C-style output function
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       TimeHarmonicFourierDecomposedLinearElasticityEquations::output(file_pt,
                                                                      n_plot);
@@ -549,26 +549,26 @@ namespace oomph
 
 
     /// Number of vertex nodes in the element
-    unsigned nvertex_node() const
+    unsigned nvertex_node() const override
     {
       return TElement<2, NNODE_1D>::nvertex_node();
     }
 
     /// Pointer to the j-th vertex node in the element
-    Node* vertex_node_pt(const unsigned& j) const
+    Node* vertex_node_pt(const unsigned& j) const override
     {
       return TElement<2, NNODE_1D>::vertex_node_pt(j);
     }
 
     /// Order of recovery shape functions for Z2 error estimation:
     /// Same order as shape functions.
-    unsigned nrecovery_order()
+    unsigned nrecovery_order() override
     {
       return NNODE_1D - 1;
     }
 
     /// Number of 'flux' terms for Z2 error estimation
-    unsigned num_Z2_flux_terms()
+    unsigned num_Z2_flux_terms() override
     {
       // 3 Diagonal strain rates and 3 off diagonal terms for real and imag part
       return 12;
@@ -576,7 +576,7 @@ namespace oomph
 
     /// Get 'flux' for Z2 error recovery:   Upper triangular entries
     /// in strain tensor.
-    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux)
+    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux) override
     {
 #ifdef PARANOID
       unsigned num_entries = 12;

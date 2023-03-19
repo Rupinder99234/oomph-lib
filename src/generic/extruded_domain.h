@@ -69,7 +69,7 @@ namespace oomph
                    const double& t_max);
 
     /// Destructor: Empty; the extruded macro elements will be deleted in Domain
-    ~ExtrudedDomain() {}
+    ~ExtrudedDomain() override {}
 
     /// Broken copy constructor
     ExtrudedDomain(const ExtrudedDomain&) = delete;
@@ -94,7 +94,7 @@ namespace oomph
                                 const unsigned& i_macro,
                                 const unsigned& i_direct,
                                 const Vector<double>& s,
-                                Vector<double>& x);
+                                Vector<double>& x) override;
 
   private:
     /// Pointer to the Domain

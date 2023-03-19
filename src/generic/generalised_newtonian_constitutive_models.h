@@ -78,14 +78,14 @@ namespace oomph
     }
 
     /// in the Newtonian case the viscosity is constant
-    double viscosity(const double& second_invariant_of_rate_of_strain_tensor)
+    double viscosity(const double& second_invariant_of_rate_of_strain_tensor) override
     {
       return Viscosity_ratio;
     }
 
     /// the derivative w.r.t. I2 is zero
     double dviscosity_dinvariant(
-      const double& second_invariant_of_rate_of_strain_tensor)
+      const double& second_invariant_of_rate_of_strain_tensor) override
     {
       return 0.0;
     }

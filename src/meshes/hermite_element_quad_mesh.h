@@ -141,7 +141,7 @@ namespace oomph
     }
 
     /// Destructor - does nothing - handled in mesh base class
-    ~HermiteQuadMesh(){};
+    ~HermiteQuadMesh() override{};
 
     /// Access function for number of elements in mesh in each dimension
     unsigned& nelement_in_dim(const unsigned& d)
@@ -209,7 +209,7 @@ namespace oomph
     /// boundary. This is required when hijacking the BiharmonicElement to apply
     /// the BiharmonicFluidBoundaryElement in
     /// BiharmonicFluidProblem::impose_traction_free_edge(...)
-    virtual void setup_boundary_element_info()
+    void setup_boundary_element_info() override
     {
       std::ofstream outfile;
       setup_boundary_element_info(outfile);
@@ -223,7 +223,7 @@ namespace oomph
     /// boundary. This is required when hijacking the BiharmonicElement to apply
     /// the BiharmonicFluidBoundaryElement in
     /// BiharmonicFluidProblem::impose_traction_free_edge(...)
-    virtual void setup_boundary_element_info(std::ostream& outfile);
+    void setup_boundary_element_info(std::ostream& outfile) override;
 
 
     /// number of elements in each coordinate direction

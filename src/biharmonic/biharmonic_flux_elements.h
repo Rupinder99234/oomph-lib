@@ -122,7 +122,7 @@ namespace oomph
     }
 
     /// Add the element's contribution to its residual vector
-    inline void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    inline void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       // Call the generic residuals function
       fill_in_generic_residual_contribution_biharmonic_flux(residuals);
@@ -132,7 +132,7 @@ namespace oomph
     /// Add the element's contribution to its residual vector and its
     /// Jacobian matrix (note - no contributions are made to the jacobian)
     inline void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                                 DenseMatrix<double>& jacobian)
+                                                 DenseMatrix<double>& jacobian) override
     {
       // Call the generic residuals routine
       fill_in_generic_residual_contribution_biharmonic_flux(residuals);
@@ -146,41 +146,41 @@ namespace oomph
     /// indeterminacy if bulk element is SolidElement)
     double zeta_nodal(const unsigned& n,
                       const unsigned& k,
-                      const unsigned& i) const
+                      const unsigned& i) const override
     {
       return FaceElement::zeta_nodal(n, k, i);
     }
 
 
     /// Output function -- does nothing
-    void output(std::ostream& outfile) {}
+    void output(std::ostream& outfile) override {}
 
 
     /// Output function -- does nothing
-    void output(std::ostream& outfile, const unsigned& n_plot) {}
+    void output(std::ostream& outfile, const unsigned& n_plot) override {}
 
 
     /// C-style output function -- does nothing
-    void output(FILE* file_pt) {}
+    void output(FILE* file_pt) override {}
 
 
     /// C-style output function -- does nothing
-    void output(FILE* file_pt, const unsigned& n_plot) {}
+    void output(FILE* file_pt, const unsigned& n_plot) override {}
 
 
     /// compute_error -- does nothing
     void compute_error(std::ostream& outfile,
                        FiniteElement::SteadyExactSolutionFctPt exact_soln_pt,
                        double& error,
-                       double& norm)
+                       double& norm) override
     {
     }
 
 
-    virtual void output_fct(
+    void output_fct(
       std::ostream& outfile,
       const unsigned& nplot,
-      FiniteElement::SteadyExactSolutionFctPt exact_soln_pt)
+      FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override
     {
     }
 
@@ -219,7 +219,7 @@ namespace oomph
 
     /// Calculate the Jacobian of the mapping between local and global
     /// coordinates at the position s for face elements
-    double J_eulerian(const Vector<double>& s) const;
+    double J_eulerian(const Vector<double>& s) const override;
 
     /// Add the element's contribution to its residual vector. Flux
     /// elements only make contribution to the residual vector

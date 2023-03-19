@@ -82,58 +82,58 @@ namespace oomph
       delete;
 
     /// Output function:
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       AxisymmetricLinearElasticityEquations::output(outfile);
     }
 
     ///  Output function:
-    void output(std::ostream& outfile, const unsigned& nplot)
+    void output(std::ostream& outfile, const unsigned& nplot) override
     {
       AxisymmetricLinearElasticityEquations::output(outfile, nplot);
     }
 
 
     /// C-style output function:
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       AxisymmetricLinearElasticityEquations::output(file_pt);
     }
 
     ///  C-style output function:
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       AxisymmetricLinearElasticityEquations::output(file_pt, n_plot);
     }
 
     /// Number of vertex nodes in the element
-    unsigned nvertex_node() const
+    unsigned nvertex_node() const override
     {
       return TElement<2, NNODE_1D>::nvertex_node();
     }
 
     /// Pointer to the j-th vertex node in the element
-    Node* vertex_node_pt(const unsigned& j) const
+    Node* vertex_node_pt(const unsigned& j) const override
     {
       return TElement<2, NNODE_1D>::vertex_node_pt(j);
     }
 
     /// Order of recovery shape functions for Z2 error estimation:
     /// Same order as shape functions.
-    unsigned nrecovery_order()
+    unsigned nrecovery_order() override
     {
       return NNODE_1D - 1;
     }
 
     /// Number of 'flux' terms for Z2 error estimation
-    unsigned num_Z2_flux_terms()
+    unsigned num_Z2_flux_terms() override
     {
       return 6;
     }
 
     /// Get 'flux' for Z2 error recovery:   Upper triangular entries
     /// in strain tensor.
-    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux)
+    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux) override
     {
 #ifdef PARANOID
       unsigned num_entries = 6;

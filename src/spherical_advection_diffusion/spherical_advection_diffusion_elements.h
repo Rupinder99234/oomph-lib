@@ -124,10 +124,10 @@ namespace oomph
 
     /// Disable ALE -- empty overload to suppress warning.
     /// ALE isn't implemented anyway
-    void disable_ALE() {}
+    void disable_ALE() override {}
 
     /// Output with default number of plot points
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       unsigned nplot = 5;
       output(outfile, nplot);
@@ -135,11 +135,11 @@ namespace oomph
 
     /// Output FE representation of soln: r,z,u  at
     /// nplot^2 plot points
-    void output(std::ostream& outfile, const unsigned& nplot);
+    void output(std::ostream& outfile, const unsigned& nplot) override;
 
 
     /// C_style output with default number of plot points
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       unsigned n_plot = 5;
       output(file_pt, n_plot);
@@ -147,19 +147,19 @@ namespace oomph
 
     /// C-style output FE representation of soln: r,z,u  at
     /// n_plot^2 plot points
-    void output(FILE* file_pt, const unsigned& n_plot);
+    void output(FILE* file_pt, const unsigned& n_plot) override;
 
 
     /// Output exact soln: r,z,u_exact at nplot^2 plot points
     void output_fct(std::ostream& outfile,
                     const unsigned& nplot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt);
+                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
 
     /// Get error against and norm of exact solution
     void compute_error(std::ostream& outfile,
                        FiniteElement::SteadyExactSolutionFctPt exact_soln_pt,
                        double& error,
-                       double& norm);
+                       double& norm) override;
 
     /// Access function: Pointer to source function
     inline SphericalAdvectionDiffusionSourceFctPt& source_fct_pt()
@@ -295,7 +295,7 @@ namespace oomph
 
 
     /// Add the element's contribution to its residual vector (wrapper)
-    void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       // Call the generic residuals function with flag set to 0 and using
       // a dummy matrix
@@ -310,7 +310,7 @@ namespace oomph
     /// Add the element's contribution to its residual vector and
     /// the element Jacobian matrix (wrapper)
     void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian)
+                                          DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine with the flag set to 1
       fill_in_generic_residual_contribution_spherical_adv_diff(
@@ -322,7 +322,7 @@ namespace oomph
     void fill_in_contribution_to_jacobian_and_mass_matrix(
       Vector<double>& residuals,
       DenseMatrix<double>& jacobian,
-      DenseMatrix<double>& mass_matrix)
+      DenseMatrix<double>& mass_matrix) override
     {
       // Call the generic routine with the flag set to 2
       fill_in_generic_residual_contribution_spherical_adv_diff(
@@ -418,7 +418,7 @@ namespace oomph
 
 
     /// Self-test: Return 0 for OK
-    unsigned self_test();
+    unsigned self_test() override;
 
   protected:
     /// Shape/test functions and derivs w.r.t. to global coords at
@@ -507,21 +507,21 @@ namespace oomph
 
     ///  Required  # of `values' (pinned or dofs)
     /// at node n
-    inline unsigned required_nvalue(const unsigned& n) const
+    inline unsigned required_nvalue(const unsigned& n) const override
     {
       return Initial_Nvalue;
     }
 
     /// Output function:
     ///  r,z,u
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       SphericalAdvectionDiffusionEquations::output(outfile);
     }
 
     /// Output function:
     ///  r,z,u  at n_plot^2 plot points
-    void output(std::ostream& outfile, const unsigned& n_plot)
+    void output(std::ostream& outfile, const unsigned& n_plot) override
     {
       SphericalAdvectionDiffusionEquations::output(outfile, n_plot);
     }
@@ -529,14 +529,14 @@ namespace oomph
 
     /// C-style output function:
     ///  r,z,u
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       SphericalAdvectionDiffusionEquations::output(file_pt);
     }
 
     ///  C-style output function:
     ///   r,z,u at n_plot^2 plot points
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       SphericalAdvectionDiffusionEquations::output(file_pt, n_plot);
     }
@@ -545,7 +545,7 @@ namespace oomph
     ///  r,z,u_exact at n_plot^2 plot points
     void output_fct(std::ostream& outfile,
                     const unsigned& n_plot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt)
+                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override
     {
       SphericalAdvectionDiffusionEquations::output_fct(
         outfile, n_plot, exact_soln_pt);
@@ -560,7 +560,7 @@ namespace oomph
       Shape& psi,
       DShape& dpsidx,
       Shape& test,
-      DShape& dtestdx) const;
+      DShape& dtestdx) const override;
 
     /// Shape, test functions & derivs. w.r.t. to global coords. at
     /// integration point ipt. Return Jacobian.
@@ -569,7 +569,7 @@ namespace oomph
       Shape& psi,
       DShape& dpsidx,
       Shape& test,
-      DShape& dtestdx) const;
+      DShape& dtestdx) const override;
 
   }; // End class QSphericalAdvectionDiffusionElement
 
@@ -715,7 +715,7 @@ namespace oomph
 
 
     /// Add the element's contribution to its residual vector
-    inline void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    inline void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       // Call the generic residuals function with flag set to 0
       // using a dummy matrix
@@ -727,7 +727,7 @@ namespace oomph
     /// Add the element's contribution to its residual vector and
     /// its Jacobian matrix
     inline void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                                 DenseMatrix<double>& jacobian)
+                                                 DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine with the flag set to 1
       fill_in_generic_residual_contribution_spherical_adv_diff_flux(
@@ -741,21 +741,21 @@ namespace oomph
     /// indeterminacy if bulk element is SolidElement)
     double zeta_nodal(const unsigned& n,
                       const unsigned& k,
-                      const unsigned& i) const
+                      const unsigned& i) const override
     {
       return FaceElement::zeta_nodal(n, k, i);
     }
 
     /// Output function -- forward to broken version in FiniteElement
     /// until somebody decides what exactly they want to plot here...
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       FiniteElement::output(outfile);
     }
 
     /// Output function -- forward to broken version in FiniteElement
     /// until somebody decides what exactly they want to plot here...
-    void output(std::ostream& outfile, const unsigned& nplot)
+    void output(std::ostream& outfile, const unsigned& nplot) override
     {
       FiniteElement::output(outfile, nplot);
     }

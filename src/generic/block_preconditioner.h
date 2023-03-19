@@ -503,7 +503,7 @@ namespace oomph
 
 
     /// Destructor
-    virtual ~BlockPreconditioner()
+    ~BlockPreconditioner() override
     {
       this->clear_block_preconditioner_base();
     } // EOFunc destructor
@@ -517,7 +517,7 @@ namespace oomph
     /// Access function to matrix_pt. If this is the master then cast
     /// the matrix pointer to MATRIX*, error check and return. Otherwise ask
     /// the master for its matrix pointer.
-    MATRIX* matrix_pt() const
+    MATRIX* matrix_pt() const override
     {
       if (is_subsidiary_block_preconditioner())
       {
@@ -591,7 +591,7 @@ namespace oomph
     /// vector.
     void turn_into_subsidiary_block_preconditioner(
       BlockPreconditioner<MATRIX>* master_block_prec_pt,
-      const Vector<unsigned>& doftype_in_master_preconditioner_coarse);
+      const Vector<unsigned>& doftype_in_master_preconditioner_coarse) override;
 
     /// Function to turn this preconditioner into a
     /// subsidiary preconditioner that operates within a bigger
@@ -634,7 +634,7 @@ namespace oomph
     void turn_into_subsidiary_block_preconditioner(
       BlockPreconditioner<MATRIX>* master_block_prec_pt,
       const Vector<unsigned>& doftype_in_master_preconditioner_coarse,
-      const Vector<Vector<unsigned>>& doftype_coarsen_map_coarse);
+      const Vector<Vector<unsigned>>& doftype_coarsen_map_coarse) override;
 
 
     /// Determine the size of the matrix blocks and setup the

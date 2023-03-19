@@ -68,7 +68,7 @@ namespace oomph
     void operator=(const Preconditioner&) = delete;
 
     /// Destructor (empty)
-    virtual ~Preconditioner() {}
+    ~Preconditioner() override {}
 
     /// Apply the preconditioner. Pure virtual generic interface
     /// function. This method should apply the preconditioner operator to the
@@ -261,10 +261,10 @@ namespace oomph
     void operator=(const IdentityPreconditioner&) = delete;
 
     /// Destructor (empty)
-    virtual ~IdentityPreconditioner() {}
+    ~IdentityPreconditioner() override {}
 
     /// setup method - just sets the distribution
-    virtual void setup()
+    void setup() override
     {
       // first attempt to cast to DistributableLinearAlgebraObject
       DistributableLinearAlgebraObject* dist_matrix_pt =
@@ -289,7 +289,7 @@ namespace oomph
 
     /// Apply the preconditioner. This method should apply the
     /// preconditioner operator to the vector r and return the vector z.
-    virtual void preconditioner_solve(const DoubleVector& r, DoubleVector& z)
+    void preconditioner_solve(const DoubleVector& r, DoubleVector& z) override
     {
 #ifdef PARANOID
       if (*r.distribution_pt() != *this->distribution_pt())
@@ -325,7 +325,7 @@ namespace oomph
 
     /// Apply the preconditioner. This method should apply the
     /// preconditioner operator to the vector r and return the vector z.
-    void preconditioner_solve_transpose(const DoubleVector& r, DoubleVector& z)
+    void preconditioner_solve_transpose(const DoubleVector& r, DoubleVector& z) override
     {
       // Applying the preconditioner to the transposed system is exactly the
       // same as applying the preconditioner to the original system

@@ -63,7 +63,7 @@ namespace oomph
     BiharmonicEquations() : Source_fct_pt(0) {}
 
 
-    ~BiharmonicEquations(){};
+    ~BiharmonicEquations() override{};
 
     /// Access function: Nodal function value at local node n
     /// Uses suitably interpolated value for hanging nodes.
@@ -90,7 +90,7 @@ namespace oomph
 
 
     /// wrapper function, adds contribution to residual
-    void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       // create a dummy matrix
       DenseDoubleMatrix dummy(1);
@@ -102,7 +102,7 @@ namespace oomph
 
     /// wrapper function, adds contribution to residual and generic
     void fill_in_contribution_to_jacobian(Vector<double>& residual,
-                                          DenseMatrix<double>& jacobian)
+                                          DenseMatrix<double>& jacobian) override
     {
       // call generic routine with flag set to 1
       fill_in_generic_residual_contribution_biharmonic(residual, jacobian, 1);
@@ -110,7 +110,7 @@ namespace oomph
 
 
     /// output with nplot points
-    void output(std::ostream& outfile, const unsigned& nplot)
+    void output(std::ostream& outfile, const unsigned& nplot) override
     {
       // Vector of local coordinates
       Vector<double> s(DIM);
@@ -139,19 +139,19 @@ namespace oomph
 
 
     /// Output at default number of plot points
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       FiniteElement::output(outfile);
     }
 
     /// C-style output
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       FiniteElement::output(file_pt);
     }
 
     /// C_style output at n_plot points
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       FiniteElement::output(file_pt, n_plot);
     }
@@ -227,7 +227,7 @@ namespace oomph
     /// output analytic solution
     void output_fct(std::ostream& outfile,
                     const unsigned& nplot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt)
+                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override
     {
       // Vector of local coordinates
       Vector<double> s(DIM);
@@ -273,7 +273,7 @@ namespace oomph
     void output_fct(std::ostream& outfile,
                     const unsigned& nplot,
                     const double& time,
-                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt)
+                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override
     {
       FiniteElement::output_fct(outfile, nplot, time, exact_soln_pt);
     }
@@ -283,7 +283,7 @@ namespace oomph
     void compute_error(std::ostream& outfile,
                        FiniteElement::SteadyExactSolutionFctPt exact_soln_pt,
                        double& error,
-                       double& norm)
+                       double& norm) override
     {
       // Initialise
       error = 0.0;
@@ -363,7 +363,7 @@ namespace oomph
                        FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt,
                        const double& time,
                        double& error,
-                       double& norm)
+                       double& norm) override
     {
       FiniteElement::compute_error(outfile, exact_soln_pt, time, error, norm);
     }
@@ -401,7 +401,7 @@ namespace oomph
 
 
     /// self test wrapper
-    unsigned self_test()
+    unsigned self_test() override
     {
       bool passed = true;
 
@@ -432,7 +432,7 @@ namespace oomph
 
     /// The number of "DOF types" that degrees of freedom in this element
     /// are sub-divided into (for block preconditioning)
-    unsigned ndof_types() const
+    unsigned ndof_types() const override
     {
       return this->required_nvalue(1);
     }
@@ -445,7 +445,7 @@ namespace oomph
     /// (Function can obviously only be called if the equation numbering
     /// scheme has been set up.) (for block preconditioning)
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override
     {
       // number of nodes
       int n_node = this->nnode();
@@ -527,7 +527,7 @@ namespace oomph
   {
   public:
     /// access function for value, kth dof of node n
-    inline double u(const unsigned& n, const unsigned& k) const
+    inline double u(const unsigned& n, const unsigned& k) const override
     {
       return this->node_pt(n)->value(k);
     }
@@ -538,37 +538,37 @@ namespace oomph
     BiharmonicElement() : QHermiteElement<DIM>(), BiharmonicEquations<DIM>() {}
 
 
-    ~BiharmonicElement(){};
+    ~BiharmonicElement() override{};
 
 
     ///  Required  # of `values' (pinned or dofs)
     /// at node n
-    inline unsigned required_nvalue(const unsigned& n) const
+    inline unsigned required_nvalue(const unsigned& n) const override
     {
       return DIM * 2;
     }
 
 
     /// Output
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       BiharmonicEquations<DIM>::output(outfile);
     }
 
     /// output wrapper
-    void output(std::ostream& outfile, const unsigned& n_plot)
+    void output(std::ostream& outfile, const unsigned& n_plot) override
     {
       BiharmonicEquations<DIM>::output(outfile, n_plot);
     }
 
     /// C-style output
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       BiharmonicEquations<DIM>::output(file_pt);
     }
 
     /// C_style output at n_plot points
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       BiharmonicEquations<DIM>::output(file_pt, n_plot);
     }
@@ -577,7 +577,7 @@ namespace oomph
     /// analytic solution wrapper
     void output_fct(std::ostream& outfile,
                     const unsigned& nplot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt)
+                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override
     {
       BiharmonicEquations<DIM>::output_fct(outfile, nplot, exact_soln_pt);
     }
@@ -587,7 +587,7 @@ namespace oomph
     void output_fct(std::ostream& outfile,
                     const unsigned& nplot,
                     const double& time,
-                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt)
+                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override
     {
       BiharmonicEquations<DIM>::output_fct(outfile, nplot, time, exact_soln_pt);
     }
@@ -597,7 +597,7 @@ namespace oomph
     void compute_error(std::ostream& outfile,
                        FiniteElement::SteadyExactSolutionFctPt exact_soln_pt,
                        double& error,
-                       double& norm)
+                       double& norm) override
     {
       BiharmonicEquations<DIM>::compute_error(
         outfile, exact_soln_pt, error, norm);
@@ -608,7 +608,7 @@ namespace oomph
                        FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt,
                        const double& time,
                        double& error,
-                       double& norm)
+                       double& norm) override
     {
       BiharmonicEquations<DIM>::compute_error(
         outfile, exact_soln_pt, time, error, norm);

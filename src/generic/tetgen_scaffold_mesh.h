@@ -58,7 +58,7 @@ namespace oomph
     TetgenScaffoldMesh(tetgenio& tetgen_data);
 
     /// Empty destructor
-    ~TetgenScaffoldMesh() {}
+    ~TetgenScaffoldMesh() override {}
 
     /// Return the global node of each local node
     /// listed element-by-element e*n_local_node + n_local

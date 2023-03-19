@@ -74,7 +74,7 @@ namespace oomph
     /// and FaceElements overload zeta_nodal.
     double zeta_nodal(const unsigned& n,
                       const unsigned& k,
-                      const unsigned& i) const
+                      const unsigned& i) const override
     {
       return FaceElement::zeta_nodal(n, k, i);
     }

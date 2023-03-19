@@ -62,7 +62,7 @@ namespace oomph
     /// routines), the values Vector sets its own size in here.
     void get_interpolated_values(const unsigned& t,
                                  const Vector<double>& s,
-                                 Vector<double>& values)
+                                 Vector<double>& values) override
     {
       // Create enough initialised storage
       values.resize(DIM, 0.0);
@@ -91,14 +91,14 @@ namespace oomph
     /// is usually called from black-box documentation or interpolation
     /// routines),the values Vector sets its own size in here.
     void get_interpolated_values(const Vector<double>& s,
-                                 Vector<double>& values)
+                                 Vector<double>& values) override
     {
       values.resize(DIM);
       this->interpolated_u_linear_elasticity(s, values);
     }
 
     /// Number of 'flux' terms for Z2 error estimation
-    unsigned num_Z2_flux_terms()
+    unsigned num_Z2_flux_terms() override
     {
       // DIM Diagonal strain rates and DIM*(DIM-1)/2 off diagonal terms
       return DIM + DIM * (DIM - 1) / 2;
@@ -106,7 +106,7 @@ namespace oomph
 
     /// Get 'flux' for Z2 error recovery:   Upper triangular entries
     /// in strain tensor.
-    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux)
+    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux) override
     {
 #ifdef PARANOID
       unsigned num_entries = DIM + ((DIM * DIM) - DIM) / 2;
@@ -148,13 +148,13 @@ namespace oomph
     }
 
     /// Number of continuously interpolated values: DIM
-    unsigned ncont_interpolated_values() const
+    unsigned ncont_interpolated_values() const override
     {
       return DIM;
     }
 
     /// Further build function, pass the pointers down to the sons
-    void further_build()
+    void further_build() override
     {
       RefineableLinearElasticityEquations<DIM>* cast_father_element_pt =
         dynamic_cast<RefineableLinearElasticityEquations<DIM>*>(
@@ -178,7 +178,7 @@ namespace oomph
   private:
     /// Overloaded helper function to take hanging nodes into account
     void fill_in_generic_contribution_to_residuals_linear_elasticity(
-      Vector<double>& residuals, DenseMatrix<double>& jacobian, unsigned flag);
+      Vector<double>& residuals, DenseMatrix<double>& jacobian, unsigned flag) override;
   };
 
 
@@ -256,7 +256,7 @@ namespace oomph
     }
 
     /// Destructor (to avoid memory leaks)
-    ~PRefineableQLinearElasticityElement()
+    ~PRefineableQLinearElasticityElement() override
     {
       delete this->integral_pt();
     }
@@ -270,22 +270,22 @@ namespace oomph
     /* void operator=(const PRefineableQLinearElasticityElement<DIM>&) =
      * delete;*/
 
-    void further_build();
+    void further_build() override;
 
     /// Number of continuously interpolated values: 1
-    unsigned ncont_interpolated_values() const
+    unsigned ncont_interpolated_values() const override
     {
       return 1;
     }
 
     /// Number of vertex nodes in the element
-    unsigned nvertex_node() const
+    unsigned nvertex_node() const override
     {
       return QLinearElasticityElement<DIM, 2>::nvertex_node();
     }
 
     /// Pointer to the j-th vertex node in the element
-    Node* vertex_node_pt(const unsigned& j) const
+    Node* vertex_node_pt(const unsigned& j) const override
     {
       return QLinearElasticityElement<DIM, 2>::vertex_node_pt(j);
     }
@@ -299,7 +299,7 @@ namespace oomph
     // }
     /// - Constant recovery order, since recovery order of the first element
     ///   is used for the whole mesh.
-    unsigned nrecovery_order()
+    unsigned nrecovery_order() override
     {
       return 3;
     }

@@ -205,7 +205,7 @@ namespace oomph
     } // constructor
 
     /// Destructor
-    virtual ~LagrangeEnforcedFlowPreconditioner()
+    ~LagrangeEnforcedFlowPreconditioner() override
     {
       this->clean_up_memory();
     }
@@ -218,11 +218,11 @@ namespace oomph
     void operator=(const LagrangeEnforcedFlowPreconditioner&) = delete;
 
     /// Setup method for the LagrangeEnforcedFlowPreconditioner.
-    void setup();
+    void setup() override;
 
     /// Apply the preconditioner.
     /// r is the residual (rhs), z will contain the solution.
-    void preconditioner_solve(const DoubleVector& r, DoubleVector& z);
+    void preconditioner_solve(const DoubleVector& r, DoubleVector& z) override;
 
     /// Set the meshes,
     /// the first mesh in the vector must be the bulk mesh.
@@ -297,7 +297,7 @@ namespace oomph
     }
 
     /// Clears the memory.
-    void clean_up_memory();
+    void clean_up_memory() override;
 
   private:
     /// Control flag is true if the preconditioner has been setup

@@ -482,7 +482,7 @@ namespace oomph
     /// Output functionget_vels(const Vector<double>& x_to_get,
     /// Vector<double>& vels): x,y,[z],u,v,[w],p in tecplot format. Default
     /// number of plot points
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       unsigned nplot = 5;
       output(outfile, nplot);
@@ -490,11 +490,11 @@ namespace oomph
 
     /// Output function: x,y,[z],u,v,[w],p
     /// in tecplot format. nplot points in each coordinate direction
-    void output(std::ostream& outfile, const unsigned& nplot);
+    void output(std::ostream& outfile, const unsigned& nplot) override;
 
     /// C-style output function: x,y,[z],u,v,[w],p
     /// in tecplot format. Default number of plot points
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       unsigned nplot = 5;
       output(file_pt, nplot);
@@ -502,7 +502,7 @@ namespace oomph
 
     /// C-style output function: x,y,[z],u,v,[w],p
     /// in tecplot format. nplot points in each coordinate direction
-    void output(FILE* file_pt, const unsigned& nplot);
+    void output(FILE* file_pt, const unsigned& nplot) override;
 
     /// Full output function:
     /// x,y,[z],u,v,[w],p,du/dt,dv/dt,[dw/dt],dissipation
@@ -531,7 +531,7 @@ namespace oomph
     /// many components as are returned in solution Vector
     void output_fct(std::ostream& outfile,
                     const unsigned& nplot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt);
+                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
 
     /// Output exact solution specified via function pointer
     /// at a given time and at a given number of plot points.
@@ -539,7 +539,7 @@ namespace oomph
     void output_fct(std::ostream& outfile,
                     const unsigned& nplot,
                     const double& time,
-                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt);
+                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override;
 
     /// Validate against exact solution at given time
     /// Solution is provided via function pointer.
@@ -549,7 +549,7 @@ namespace oomph
                        FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt,
                        const double& time,
                        double& error,
-                       double& norm);
+                       double& norm) override;
 
     /// Validate against exact solution.
     /// Solution is provided via function pointer.
@@ -558,10 +558,10 @@ namespace oomph
     void compute_error(std::ostream& outfile,
                        FiniteElement::SteadyExactSolutionFctPt exact_soln_pt,
                        double& error,
-                       double& norm);
+                       double& norm) override;
 
     /// Compute the element's residual Vector
-    void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       // Call the generic residuals function with flag set to 0
       fill_in_generic_residual_contribution(residuals,
@@ -573,7 +573,7 @@ namespace oomph
     /// Compute the element's residual Vector and the jacobian matrix
     /// Virtual function can be overloaded by hanging-node version
     void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian)
+                                          DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine with the flag set to 1
       fill_in_generic_residual_contribution(
@@ -643,7 +643,7 @@ namespace oomph
     void fill_in_contribution_to_jacobian_and_mass_matrix(
       Vector<double>& residuals,
       DenseMatrix<double>& jacobian,
-      DenseMatrix<double>& mass_matrix)
+      DenseMatrix<double>& mass_matrix) override
     {
       // Call the generic routine with the flag set to 2
       fill_in_generic_residual_contribution(
@@ -786,7 +786,7 @@ namespace oomph
                                                  Shape& psi,
                                                  DShape& dpsidx,
                                                  Shape& test,
-                                                 DShape& dtestdx) const;
+                                                 DShape& dtestdx) const override;
 
     /// Velocity shape and test functions and their derivs
     /// w.r.t. to global coords at ipt-th integation point (taken from geometry)
@@ -795,18 +795,18 @@ namespace oomph
                                                          Shape& psi,
                                                          DShape& dpsidx,
                                                          Shape& test,
-                                                         DShape& dtestdx) const;
+                                                         DShape& dtestdx) const override;
 
     /// Pressure shape functions at local coordinate s
-    inline void pshape_pnst(const Vector<double>& s, Shape& psi) const;
+    inline void pshape_pnst(const Vector<double>& s, Shape& psi) const override;
 
     /// Pressure shape and test functions at local coordinte s
     inline void pshape_pnst(const Vector<double>& s,
                             Shape& psi,
-                            Shape& test) const;
+                            Shape& test) const override;
 
     /// Return the local equation numbers for the pressure values.
-    inline int p_local_eqn(const unsigned& n)
+    inline int p_local_eqn(const unsigned& n) override
     {
       return this->internal_local_eqn(P_pnst_internal_index, n);
     }
@@ -822,11 +822,11 @@ namespace oomph
     }
 
     /// Number of values (pinned or dofs) required at local node n.
-    virtual unsigned required_nvalue(const unsigned& n) const;
+    unsigned required_nvalue(const unsigned& n) const override;
 
     /// Return the velocity component u[i] at local node
     /// n. Uses suitably interpolated value for hanging nodes.
-    double u_pnst(const unsigned& n, const unsigned& i) const
+    double u_pnst(const unsigned& n, const unsigned& i) const override
     {
       return this->nodal_value(n, i);
     }
@@ -834,7 +834,7 @@ namespace oomph
     /// Return the velocity component u[i] at local node
     /// n at timestep t (t=0: present; t>0: previous timestep).
     /// Uses suitably interpolated value for hanging nodes.
-    double u_pnst(const unsigned& t, const unsigned& n, const unsigned& i) const
+    double u_pnst(const unsigned& t, const unsigned& n, const unsigned& i) const override
     {
       return this->nodal_value(t, n, i);
     }
@@ -842,20 +842,20 @@ namespace oomph
     /// Return the pressure values at internal dof i_internal
     /// (Discontinous pressure interpolation -- no need to cater for hanging
     /// nodes).
-    double p_pnst(const unsigned& i_internal) const
+    double p_pnst(const unsigned& i_internal) const override
     {
       return *this->internal_data_pt(P_pnst_internal_index)
                 ->value_pt(i_internal);
     }
 
     /// Return number of pressure values
-    unsigned npres_pnst() const
+    unsigned npres_pnst() const override
     {
       return 3;
     }
 
     /// Pin p_dof-th pressure dof and set it to value specified by p_value.
-    void fix_pressure(const unsigned& p_dof, const double& p_value)
+    void fix_pressure(const unsigned& p_dof, const double& p_value) override
     {
       this->internal_data_pt(P_pnst_internal_index)->pin(p_dof);
       *this->internal_data_pt(P_pnst_internal_index)->value_pt(p_dof) = p_value;
@@ -868,26 +868,26 @@ namespace oomph
     void get_load_data(std::set<std::pair<Data*, unsigned>>& paired_load_data);
 
     /// Redirect output to NavierStokesEquations output
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       PolarNavierStokesEquations::output(outfile);
     }
 
     /// Redirect output to NavierStokesEquations output
-    void output(std::ostream& outfile, const unsigned& Nplot)
+    void output(std::ostream& outfile, const unsigned& Nplot) override
     {
       PolarNavierStokesEquations::output(outfile, Nplot);
     }
 
 
     /// Redirect output to NavierStokesEquations output
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       PolarNavierStokesEquations::output(file_pt);
     }
 
     /// Redirect output to NavierStokesEquations output
-    void output(FILE* file_pt, const unsigned& Nplot)
+    void output(FILE* file_pt, const unsigned& Nplot) override
     {
       PolarNavierStokesEquations::output(file_pt, Nplot);
     }
@@ -1028,7 +1028,7 @@ namespace oomph
                                                  Shape& psi,
                                                  DShape& dpsidx,
                                                  Shape& test,
-                                                 DShape& dtestdx) const;
+                                                 DShape& dtestdx) const override;
 
     /// Velocity shape and test functions and their derivs
     /// w.r.t. to global coords  at local coordinate s (taken from geometry)
@@ -1037,18 +1037,18 @@ namespace oomph
                                                          Shape& psi,
                                                          DShape& dpsidx,
                                                          Shape& test,
-                                                         DShape& dtestdx) const;
+                                                         DShape& dtestdx) const override;
 
     /// Pressure shape functions at local coordinate s
-    inline void pshape_pnst(const Vector<double>& s, Shape& psi) const;
+    inline void pshape_pnst(const Vector<double>& s, Shape& psi) const override;
 
     /// Pressure shape and test functions at local coordinte s
     inline void pshape_pnst(const Vector<double>& s,
                             Shape& psi,
-                            Shape& test) const;
+                            Shape& test) const override;
 
     /// Return the local equation numbers for the pressure values.
-    inline int p_local_eqn(const unsigned& n)
+    inline int p_local_eqn(const unsigned& n) override
     {
       return this->nodal_local_eqn(Pconv[n], p_nodal_index_pnst());
     }
@@ -1059,26 +1059,26 @@ namespace oomph
 
     /// Number of values (pinned or dofs) required at node n. Can
     /// be overwritten for hanging node version
-    inline virtual unsigned required_nvalue(const unsigned& n) const
+    inline unsigned required_nvalue(const unsigned& n) const override
     {
       return Initial_Nvalue[n];
     }
 
     /// Which nodal value represents the pressure?
-    virtual int p_nodal_index_pnst()
+    int p_nodal_index_pnst() override
     {
       return 2;
     }
 
     /// Pointer to n_p-th pressure node
-    Node* pressure_node_pt(const unsigned& n_p)
+    Node* pressure_node_pt(const unsigned& n_p) override
     {
       return this->node_pt(Pconv[n_p]);
     }
 
     /// Return the velocity component u[i] at local node
     /// n. Uses suitably interpolated value for hanging nodes.
-    double u_pnst(const unsigned& n, const unsigned& i) const
+    double u_pnst(const unsigned& n, const unsigned& i) const override
     {
       return this->nodal_value(n, i);
     }
@@ -1086,27 +1086,27 @@ namespace oomph
     /// Return the velocity component u[i] at local node
     /// n at timestep t (t=0: present; t>0: previous timestep).
     /// Uses suitably interpolated value for hanging nodes.
-    double u_pnst(const unsigned& t, const unsigned& n, const unsigned& i) const
+    double u_pnst(const unsigned& t, const unsigned& n, const unsigned& i) const override
     {
       return this->nodal_value(t, n, i);
     }
 
     /// Access function for the pressure values at local pressure
     /// node n_p (const version)
-    double p_pnst(const unsigned& n_p) const
+    double p_pnst(const unsigned& n_p) const override
     {
       return this->nodal_value(Pconv[n_p], 2);
     }
     // {return this->nodal_value(Pconv[n_p],this->p_nodal_index_pnst());}
 
     /// Return number of pressure values
-    unsigned npres_pnst() const
+    unsigned npres_pnst() const override
     {
       return 4;
     }
 
     /// Pin p_dof-th pressure dof and set it to value specified by p_value.
-    void fix_pressure(const unsigned& p_dof, const double& p_value)
+    void fix_pressure(const unsigned& p_dof, const double& p_value) override
     {
       this->node_pt(Pconv[p_dof])->pin(this->p_nodal_index_pnst());
       *this->node_pt(Pconv[p_dof])->value_pt(this->p_nodal_index_pnst()) =
@@ -1121,25 +1121,25 @@ namespace oomph
     void get_load_data(std::set<std::pair<Data*, unsigned>>& paired_load_data);
 
     /// Redirect output to NavierStokesEquations output
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       PolarNavierStokesEquations::output(outfile);
     }
 
     /// Redirect output to NavierStokesEquations output
-    void output(std::ostream& outfile, const unsigned& Nplot)
+    void output(std::ostream& outfile, const unsigned& Nplot) override
     {
       PolarNavierStokesEquations::output(outfile, Nplot);
     }
 
     /// Redirect output to NavierStokesEquations output
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       PolarNavierStokesEquations::output(file_pt);
     }
 
     /// Redirect output to NavierStokesEquations output
-    void output(FILE* file_pt, const unsigned& Nplot)
+    void output(FILE* file_pt, const unsigned& Nplot) override
     {
       PolarNavierStokesEquations::output(file_pt, Nplot);
     }

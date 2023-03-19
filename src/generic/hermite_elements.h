@@ -117,7 +117,7 @@ namespace oomph
     void operator=(const QHermiteElement&) = delete;
 
     /// Check whether the local coordinate are valid or not
-    bool local_coord_is_valid(const Vector<double>& s)
+    bool local_coord_is_valid(const Vector<double>& s) override
     {
       unsigned ncoord = dim();
       for (unsigned i = 0; i < ncoord; i++)
@@ -133,7 +133,7 @@ namespace oomph
 
     /// Adjust local coordinates so that they're located inside
     /// the element
-    void move_local_coord_back_into_element(Vector<double>& s) const
+    void move_local_coord_back_into_element(Vector<double>& s) const override
     {
       unsigned ncoord = dim();
       for (unsigned i = 0; i < ncoord; i++)
@@ -146,13 +146,13 @@ namespace oomph
 
     /// Function to calculate the geometric shape functions at local coordinate
     /// s
-    void shape(const Vector<double>& s, Shape& psi) const;
+    void shape(const Vector<double>& s, Shape& psi) const override;
 
     /// Function to compute the  geometric shape functions and
     /// derivatives w.r.t. local coordinates at local coordinate s
     void dshape_local(const Vector<double>& s,
                       Shape& psi,
-                      DShape& dpsids) const;
+                      DShape& dpsids) const override;
 
     /// Function to compute the geometric shape functions and
     /// also first and second derivatives wrt local coordinates at
@@ -174,14 +174,14 @@ namespace oomph
     void d2shape_local(const Vector<double>& s,
                        Shape& psi,
                        DShape& dpsids,
-                       DShape& d2psids) const;
+                       DShape& d2psids) const override;
 
 
     /// Overload the template-free interface for the calculation of
     /// the inverse jacobian. The element dimension must be passed to
     /// the function
     double invert_jacobian_mapping(const DenseMatrix<double>& jacobian,
-                                   DenseMatrix<double>& inverse_jacobian) const
+                                   DenseMatrix<double>& inverse_jacobian) const override
     {
       return invert_jacobian<DIM>(jacobian, inverse_jacobian);
     }
@@ -194,27 +194,27 @@ namespace oomph
       const DenseMatrix<double>& inverse_jacobian,
       const DenseMatrix<double>& jacobian2,
       DShape& dbasis,
-      DShape& d2basis) const
+      DShape& d2basis) const override
     {
       transform_second_derivatives_template<DIM>(
         jacobian, inverse_jacobian, jacobian2, dbasis, d2basis);
     }
 
     /// Min. value of local coordinate
-    double s_min() const
+    double s_min() const override
     {
       return -1.0;
     }
 
     /// Max. value of local coordinate
-    double s_max() const
+    double s_max() const override
     {
       return 1.0;
     }
 
 
     /// Get local coordinates of node j in the element; vector sets its own size
-    void local_coordinate_of_node(const unsigned& j, Vector<double>& s) const
+    void local_coordinate_of_node(const unsigned& j, Vector<double>& s) const override
     {
       s.resize(DIM);
       Vector<unsigned> j_sub(DIM);
@@ -231,7 +231,7 @@ namespace oomph
     }
 
     /// Get local fraction of node j in the element; vector sets its own size
-    void local_fraction_of_node(const unsigned& j, Vector<double>& s_fraction)
+    void local_fraction_of_node(const unsigned& j, Vector<double>& s_fraction) override
     {
       s_fraction.resize(DIM);
       Vector<unsigned> j_sub(DIM);
@@ -247,7 +247,7 @@ namespace oomph
 
     /// Get the local fraction of any node in the n-th position
     /// in a one dimensional expansion along the i-th local coordinate
-    double local_one_d_fraction_of_node(const unsigned& n1d, const unsigned& i)
+    double local_one_d_fraction_of_node(const unsigned& n1d, const unsigned& i) override
     {
       // The spacing is just the node number because there are only two
       // nodes
@@ -255,22 +255,22 @@ namespace oomph
     }
 
     /// Return number of nodes along each element edge
-    unsigned nnode_1d() const
+    unsigned nnode_1d() const override
     {
       return 2;
     }
 
     /// Output
-    void output(std::ostream& outfile);
+    void output(std::ostream& outfile) override;
 
     /// Output at n_plot points
-    void output(std::ostream& outfile, const unsigned& n_plot);
+    void output(std::ostream& outfile, const unsigned& n_plot) override;
 
     /// C-style output
-    void output(FILE* file_pt);
+    void output(FILE* file_pt) override;
 
     /// C_style output at n_plot points
-    void output(FILE* file_pt, const unsigned& n_plot);
+    void output(FILE* file_pt, const unsigned& n_plot) override;
 
     ///  Get cector of local coordinates of plot point i (when plotting
     /// nplot points in each "coordinate direction).
@@ -278,15 +278,15 @@ namespace oomph
       const unsigned& i,
       const unsigned& nplot,
       Vector<double>& s,
-      const bool& use_equally_spaced_interior_sample_points = false) const;
+      const bool& use_equally_spaced_interior_sample_points = false) const override;
 
     /// Return string for tecplot zone header (when plotting
     /// nplot points in each "coordinate direction)
-    std::string tecplot_zone_string(const unsigned& nplot) const;
+    std::string tecplot_zone_string(const unsigned& nplot) const override;
 
     /// Return total number of plot points (when plotting
     /// nplot points in each "coordinate direction)
-    unsigned nplot_points(const unsigned& nplot) const;
+    unsigned nplot_points(const unsigned& nplot) const override;
 
     /// Build the lower-dimensional FaceElement of the type
     /// QHermiteElement<DIM-1>. The face index takes a value that
@@ -310,7 +310,7 @@ namespace oomph
     /// -3 (Back)   s[2] = -1.0
     /// +3 (Front)  s[2] =  1.0
     void build_face_element(const int& face_index,
-                            FaceElement* face_element_pt);
+                            FaceElement* face_element_pt) override;
   };
 
   // Inline functions:
@@ -438,7 +438,7 @@ namespace oomph
     /// the inverse jacobian. Pass the dimension of the element to the
     /// invert_jacobian function.
     double invert_jacobian_mapping(const DenseMatrix<double>& jacobian,
-                                   DenseMatrix<double>& inverse_jacobian) const
+                                   DenseMatrix<double>& inverse_jacobian) const override
     {
       return FiniteElement::invert_jacobian<DIM>(jacobian, inverse_jacobian);
     }
@@ -448,7 +448,7 @@ namespace oomph
     double local_to_eulerian_mapping(
       const DShape& dpsids,
       DenseMatrix<double>& jacobian,
-      DenseMatrix<double>& inverse_jacobian) const
+      DenseMatrix<double>& inverse_jacobian) const override
     {
       return this->local_to_eulerian_mapping_diagonal(
         dpsids, jacobian, inverse_jacobian);
@@ -457,7 +457,7 @@ namespace oomph
     /// Overload the template-free interface for the transformation
     /// of derivatives, so that the diagonal version is used.
     void transform_derivatives(const DenseMatrix<double>& inverse_jacobian,
-                               DShape& dbasis) const
+                               DShape& dbasis) const override
     {
       FiniteElement::transform_derivatives_diagonal(inverse_jacobian, dbasis);
     }
@@ -469,7 +469,7 @@ namespace oomph
       const DenseMatrix<double>& inverse_jacobian,
       const DenseMatrix<double>& jacobian2,
       DShape& dbasis,
-      DShape& d2basis) const
+      DShape& d2basis) const override
     {
       FiniteElement::transform_second_derivatives_diagonal<DIM>(
         jacobian, inverse_jacobian, jacobian2, dbasis, d2basis);
@@ -521,16 +521,16 @@ namespace oomph
     void operator=(const SolidQHermiteElement&) = delete;
 
     /// Overload the output function
-    void output(std::ostream& outfile);
+    void output(std::ostream& outfile) override;
 
     /// Output at n_plot points
-    void output(std::ostream& outfile, const unsigned& n_plot);
+    void output(std::ostream& outfile, const unsigned& n_plot) override;
 
     /// C-style output
-    void output(FILE* file_pt);
+    void output(FILE* file_pt) override;
 
     /// C_style output at n_plot points
-    void output(FILE* file_pt, const unsigned& n_plot);
+    void output(FILE* file_pt, const unsigned& n_plot) override;
 
     /// Build the lower-dimensional FaceElement of the type
     /// SolidQHermiteElement<DIM-1>. The face index takes a value that
@@ -554,7 +554,7 @@ namespace oomph
     /// -3 (Back)   s[2] = -1.0
     /// +3 (Front)  s[2] =  1.0
     void build_face_element(const int& face_index,
-                            FaceElement* face_element_pt);
+                            FaceElement* face_element_pt) override;
   };
 
   //============================================================================
@@ -586,7 +586,7 @@ namespace oomph
     double local_to_lagrangian_mapping(
       const DShape& dpsids,
       DenseMatrix<double>& jacobian,
-      DenseMatrix<double>& inverse_jacobian) const
+      DenseMatrix<double>& inverse_jacobian) const override
     {
       return this->local_to_lagrangian_mapping_diagonal(
         dpsids, jacobian, inverse_jacobian);

@@ -70,7 +70,7 @@ namespace oomph
     /*void operator=(const RefineableQuadMesh&) = delete;*/
 
     /// Destructor:
-    virtual ~RefineableQuadMesh() {}
+    ~RefineableQuadMesh() override {}
 
 
     /// Set up the tree forest associated with the Mesh.

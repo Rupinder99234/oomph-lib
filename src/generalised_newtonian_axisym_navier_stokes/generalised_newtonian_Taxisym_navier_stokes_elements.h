@@ -78,7 +78,7 @@ namespace oomph
                                                     Shape& psi,
                                                     DShape& dpsidx,
                                                     Shape& test,
-                                                    DShape& dtestdx) const;
+                                                    DShape& dtestdx) const override;
 
     /// Velocity shape and test functions and their derivs
     /// w.r.t. to global coords at ipt-th integation point (taken from geometry)
@@ -88,7 +88,7 @@ namespace oomph
       Shape& psi,
       DShape& dpsidx,
       Shape& test,
-      DShape& dtestdx) const;
+      DShape& dtestdx) const override;
 
     /// Shape/test functions and derivs w.r.t. to global coords at
     /// integration point ipt; return Jacobian of mapping (J). Also compute
@@ -101,7 +101,7 @@ namespace oomph
       Shape& test,
       DShape& dtestdx,
       RankFourTensor<double>& d_dtestdx_dX,
-      DenseMatrix<double>& djacobian_dX) const;
+      DenseMatrix<double>& djacobian_dX) const override;
 
     /// Pressure shape and test functions and their derivs
     /// w.r.t. to global coords  at local coordinate s (taken from geometry)
@@ -114,18 +114,18 @@ namespace oomph
 
   public:
     /// Pressure shape functions at local coordinate s
-    inline void pshape_axi_nst(const Vector<double>& s, Shape& psi) const;
+    inline void pshape_axi_nst(const Vector<double>& s, Shape& psi) const override;
 
     /// Pressure shape and test functions at local coordinte s
     inline void pshape_axi_nst(const Vector<double>& s,
                                Shape& psi,
-                               Shape& test) const;
+                               Shape& test) const override;
 
     /// Unpin all internal pressure dofs
     void unpin_all_internal_pressure_dofs();
 
     /// Return the local equation numbers for the pressure values.
-    inline int p_local_eqn(const unsigned& n) const
+    inline int p_local_eqn(const unsigned& n) const override
     {
       return this->internal_local_eqn(P_axi_nst_internal_index, n);
     }
@@ -152,7 +152,7 @@ namespace oomph
 
 
     /// Number of values (pinned or dofs) required at local node n.
-    inline virtual unsigned required_nvalue(const unsigned& n) const
+    inline unsigned required_nvalue(const unsigned& n) const override
     {
       return 3;
     }
@@ -161,13 +161,13 @@ namespace oomph
     /// Return the pressure values at internal dof i_internal
     /// (Discontinous pressure interpolation -- no need to cater for hanging
     /// nodes).
-    double p_axi_nst(const unsigned& i) const
+    double p_axi_nst(const unsigned& i) const override
     {
       return this->internal_data_pt(P_axi_nst_internal_index)->value(i);
     }
 
     /// Return number of pressure values
-    unsigned npres_axi_nst() const
+    unsigned npres_axi_nst() const override
     {
       return 3;
     }
@@ -199,26 +199,26 @@ namespace oomph
       std::set<std::pair<Data*, unsigned>>& paired_pressure_data);
 
     /// Redirect output to NavierStokesEquations output
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       GeneralisedNewtonianAxisymmetricNavierStokesEquations::output(outfile);
     }
 
     /// Redirect output to NavierStokesEquations output
-    void output(std::ostream& outfile, const unsigned& nplot)
+    void output(std::ostream& outfile, const unsigned& nplot) override
     {
       GeneralisedNewtonianAxisymmetricNavierStokesEquations::output(outfile,
                                                                     nplot);
     }
 
     /// Redirect output to NavierStokesEquations output
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       GeneralisedNewtonianAxisymmetricNavierStokesEquations::output(file_pt);
     }
 
     /// Redirect output to NavierStokesEquations output
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       GeneralisedNewtonianAxisymmetricNavierStokesEquations::output(file_pt,
                                                                     n_plot);
@@ -227,25 +227,25 @@ namespace oomph
 
     /// Order of recovery shape functions for Z2 error estimation:
     /// Same order as unenriched shape functions.
-    unsigned nrecovery_order()
+    unsigned nrecovery_order() override
     {
       return 2;
     }
 
     /// Number of vertex nodes in the element
-    unsigned nvertex_node() const
+    unsigned nvertex_node() const override
     {
       return 3;
     }
 
     /// Pointer to the j-th vertex node in the element
-    Node* vertex_node_pt(const unsigned& j) const
+    Node* vertex_node_pt(const unsigned& j) const override
     {
       return node_pt(j);
     }
 
     /// Number of 'flux' terms for Z2 error estimation
-    unsigned num_Z2_flux_terms()
+    unsigned num_Z2_flux_terms() override
     {
       // 3 diagonal strain rates, 3 off diagonal
       return 6;
@@ -253,7 +253,7 @@ namespace oomph
 
     /// Get 'flux' for Z2 error recovery:   Upper triangular entries
     /// in strain rate tensor.
-    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux)
+    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux) override
     {
 #ifdef PARANOID
       unsigned num_entries = 6;
@@ -297,7 +297,7 @@ namespace oomph
 
     /// The number of "DOF types" that degrees of freedom in this element
     /// are sub-divided into: Velocity and pressure.
-    unsigned ndof_types() const
+    unsigned ndof_types() const override
     {
       return 4;
     }
@@ -309,7 +309,7 @@ namespace oomph
     /// (Function can obviously only be called if the equation numbering
     /// scheme has been set up.) Velocity=0; Pressure=1
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override
     {
       // number of nodes
       unsigned n_node = this->nnode();
@@ -581,7 +581,7 @@ namespace oomph
                                                     Shape& psi,
                                                     DShape& dpsidx,
                                                     Shape& test,
-                                                    DShape& dtestdx) const;
+                                                    DShape& dtestdx) const override;
 
     /// Velocity shape and test functions and their derivs
     /// w.r.t. to global coords  at local coordinate s (taken from geometry)
@@ -591,7 +591,7 @@ namespace oomph
       Shape& psi,
       DShape& dpsidx,
       Shape& test,
-      DShape& dtestdx) const;
+      DShape& dtestdx) const override;
 
     /// Shape/test functions and derivs w.r.t. to global coords at
     /// integration point ipt; return Jacobian of mapping (J). Also compute
@@ -604,7 +604,7 @@ namespace oomph
       Shape& test,
       DShape& dtestdx,
       RankFourTensor<double>& d_dtestdx_dX,
-      DenseMatrix<double>& djacobian_dX) const;
+      DenseMatrix<double>& djacobian_dX) const override;
 
     /// Compute the pressure shape and test functions and derivatives
     /// w.r.t. global coords at local coordinate s.
@@ -644,7 +644,7 @@ namespace oomph
 
     /// Number of values (pinned or dofs) required at node n. Can
     /// be overwritten for hanging node version
-    inline virtual unsigned required_nvalue(const unsigned& n) const
+    inline unsigned required_nvalue(const unsigned& n) const override
     {
       return Initial_Nvalue[n];
     }
@@ -655,12 +655,12 @@ namespace oomph
 
 
     /// Pressure shape functions at local coordinate s
-    inline void pshape_axi_nst(const Vector<double>& s, Shape& psi) const;
+    inline void pshape_axi_nst(const Vector<double>& s, Shape& psi) const override;
 
     /// Pressure shape and test functions at local coordinte s
     inline void pshape_axi_nst(const Vector<double>& s,
                                Shape& psi,
-                               Shape& test) const;
+                               Shape& test) const override;
 
     /// Which nodal value represents the pressure?
     unsigned p_index_axi_nst()
@@ -673,26 +673,26 @@ namespace oomph
     //{return this->Node_pt[Pconv[n_p]];}
 
     /// Return the local equation numbers for the pressure values.
-    inline int p_local_eqn(const unsigned& n) const
+    inline int p_local_eqn(const unsigned& n) const override
     {
       return this->nodal_local_eqn(Pconv[n], 3);
     }
 
     /// Access function for the pressure values at local pressure
     /// node n_p (const version)
-    double p_axi_nst(const unsigned& n_p) const
+    double p_axi_nst(const unsigned& n_p) const override
     {
       return this->nodal_value(Pconv[n_p], 3);
     }
 
     /// Set the value at which the pressure is stored in the nodes
-    int p_nodal_index_axi_nst() const
+    int p_nodal_index_axi_nst() const override
     {
       return static_cast<int>(3);
     }
 
     /// Return number of pressure values
-    unsigned npres_axi_nst() const
+    unsigned npres_axi_nst() const override
     {
       return 3;
     }
@@ -726,26 +726,26 @@ namespace oomph
       std::set<std::pair<Data*, unsigned>>& paired_pressure_data);
 
     /// Redirect output to NavierStokesEquations output
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       GeneralisedNewtonianAxisymmetricNavierStokesEquations::output(outfile);
     }
 
     /// Redirect output to NavierStokesEquations output
-    void output(std::ostream& outfile, const unsigned& nplot)
+    void output(std::ostream& outfile, const unsigned& nplot) override
     {
       GeneralisedNewtonianAxisymmetricNavierStokesEquations::output(outfile,
                                                                     nplot);
     }
 
     /// Redirect output to NavierStokesEquations output
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       GeneralisedNewtonianAxisymmetricNavierStokesEquations::output(file_pt);
     }
 
     /// Redirect output to NavierStokesEquations output
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       GeneralisedNewtonianAxisymmetricNavierStokesEquations::output(file_pt,
                                                                     n_plot);
@@ -753,26 +753,26 @@ namespace oomph
 
     /// Order of recovery shape functions for Z2 error estimation:
     /// Same order as shape functions.
-    unsigned nrecovery_order()
+    unsigned nrecovery_order() override
     {
       return 2;
     }
 
     /// Number of vertex nodes in the element
-    unsigned nvertex_node() const
+    unsigned nvertex_node() const override
     {
       return 3;
     }
 
     /// Pointer to the j-th vertex node in the element
-    Node* vertex_node_pt(const unsigned& j) const
+    Node* vertex_node_pt(const unsigned& j) const override
     {
       return node_pt(j);
     }
 
 
     /// Number of 'flux' terms for Z2 error estimation
-    unsigned num_Z2_flux_terms()
+    unsigned num_Z2_flux_terms() override
     {
       // 3 diagonal strain rates, 3 off diagonal rates
       return 6;
@@ -780,7 +780,7 @@ namespace oomph
 
     /// Get 'flux' for Z2 error recovery:   Upper triangular entries
     /// in strain rate tensor.
-    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux)
+    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux) override
     {
 #ifdef PARANOID
       unsigned num_entries = 6;
@@ -823,7 +823,7 @@ namespace oomph
 
     /// The number of "DOF types" that degrees of freedom in this element
     /// are sub-divided into: Velocities and pressure.
-    unsigned ndof_types() const
+    unsigned ndof_types() const override
     {
       return 4;
     }
@@ -835,7 +835,7 @@ namespace oomph
     /// (Function can obviously only be called if the equation numbering
     /// scheme has been set up.) Velocity=0; Pressure=1
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override
     {
       // number of nodes
       unsigned n_node = this->nnode();

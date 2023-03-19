@@ -153,7 +153,7 @@ namespace oomph
     }
 
     /// Destructor
-    ~PressureBasedSolidLSCPreconditioner()
+    ~PressureBasedSolidLSCPreconditioner() override
     {
       clean_up_memory();
     }
@@ -171,10 +171,10 @@ namespace oomph
     /*void operator=(const PressureBasedSolidLSCPreconditioner&) = delete;*/
 
     /// Setup the preconditioner
-    void setup();
+    void setup() override;
 
     /// Apply preconditioner to Vector r
-    void preconditioner_solve(const DoubleVector& r, DoubleVector& z);
+    void preconditioner_solve(const DoubleVector& r, DoubleVector& z) override;
 
     /// specify the mesh containing the mesh containing the
     /// block-preconditionable solid elements. The dimension of the
@@ -288,7 +288,7 @@ namespace oomph
     }
 
     /// Helper function to delete preconditioner data.
-    void clean_up_memory();
+    void clean_up_memory() override;
 
   private:
     // oomph-lib objects

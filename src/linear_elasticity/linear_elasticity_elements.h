@@ -296,7 +296,7 @@ namespace oomph
     /// The number of "DOF types" that degrees of freedom in this element
     /// are sub-divided into: for now lump them all into one DOF type.
     /// Can be adjusted later
-    unsigned ndof_types() const
+    unsigned ndof_types() const override
     {
       return 2;
       // return 1;
@@ -309,7 +309,7 @@ namespace oomph
     /// (Function can obviously only be called if the equation numbering
     /// scheme has been set up.)
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override
     {
       // temporary pair (used to store dof lookup prior to being added
       // to list)
@@ -383,14 +383,14 @@ namespace oomph
     LinearElasticityEquations() {}
 
     /// Number of values required at node n.
-    unsigned required_nvalue(const unsigned& n) const
+    unsigned required_nvalue(const unsigned& n) const override
     {
       return DIM;
     }
 
     /// Return the residuals for the solid equations (the discretised
     /// principle of virtual displacements)
-    void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       fill_in_generic_contribution_to_residuals_linear_elasticity(
         residuals, GeneralisedElement::Dummy_matrix, 0);
@@ -400,7 +400,7 @@ namespace oomph
     /// We need only to take finite differences w.r.t. positional variables
     /// For this element
     void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian)
+                                          DenseMatrix<double>& jacobian) override
     {
       // Add the contribution to the residuals
       this->fill_in_generic_contribution_to_residuals_linear_elasticity(
@@ -409,40 +409,40 @@ namespace oomph
 
     /// Return the Cauchy stress tensor, as calculated
     /// from the elasticity tensor at specified local coordinate
-    void get_stress(const Vector<double>& s, DenseMatrix<double>& sigma) const;
+    void get_stress(const Vector<double>& s, DenseMatrix<double>& sigma) const override;
 
 
     /// Output exact solution x,y,[z],u,v,[w]
     void output_fct(std::ostream& outfile,
                     const unsigned& nplot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt);
+                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
 
     /// Output exact solution x,y,[z],u,v,[w] (unsteady version)
     void output_fct(std::ostream& outfile,
                     const unsigned& nplot,
                     const double& time,
-                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt);
+                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override;
 
     /// Output: x,y,[z],u,v,[w]
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       unsigned n_plot = 5;
       output(outfile, n_plot);
     }
 
     /// Output: x,y,[z],u,v,[w]
-    void output(std::ostream& outfile, const unsigned& n_plot);
+    void output(std::ostream& outfile, const unsigned& n_plot) override;
 
 
     /// C-style output: x,y,[z],u,v,[w]
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       unsigned n_plot = 5;
       output(file_pt, n_plot);
     }
 
     /// Output: x,y,[z],u,v,[w]
-    void output(FILE* file_pt, const unsigned& n_plot);
+    void output(FILE* file_pt, const unsigned& n_plot) override;
 
     /// Validate against exact solution.
     /// Solution is provided via function pointer.
@@ -451,7 +451,7 @@ namespace oomph
     void compute_error(std::ostream& outfile,
                        FiniteElement::SteadyExactSolutionFctPt exact_soln_pt,
                        double& error,
-                       double& norm);
+                       double& norm) override;
 
     /// Validate against exact solution.
     /// Solution is provided via function pointer.
@@ -462,7 +462,7 @@ namespace oomph
                        FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt,
                        const double& time,
                        double& error,
-                       double& norm);
+                       double& norm) override;
 
   private:
     /// Private helper function to compute residuals and (if requested
@@ -495,32 +495,32 @@ namespace oomph
     /// Output exact solution x,y,[z],u,v,[w]
     void output_fct(std::ostream& outfile,
                     const unsigned& nplot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt)
+                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override
     {
       LinearElasticityEquations<DIM>::output_fct(outfile, nplot, exact_soln_pt);
     }
 
     /// Output function
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       LinearElasticityEquations<DIM>::output(outfile);
     }
 
     /// Output function
-    void output(std::ostream& outfile, const unsigned& n_plot)
+    void output(std::ostream& outfile, const unsigned& n_plot) override
     {
       LinearElasticityEquations<DIM>::output(outfile, n_plot);
     }
 
 
     /// C-style output function
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       LinearElasticityEquations<DIM>::output(file_pt);
     }
 
     /// C-style output function
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       LinearElasticityEquations<DIM>::output(file_pt, n_plot);
     }

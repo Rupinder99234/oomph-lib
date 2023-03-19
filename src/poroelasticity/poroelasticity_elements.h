@@ -249,7 +249,7 @@ namespace oomph
     void get_strain(const Vector<double>& s, DenseMatrix<double>& strain) const;
 
     /// Number of values required at node n
-    virtual unsigned required_nvalue(const unsigned& n) const = 0;
+    unsigned required_nvalue(const unsigned& n) const override = 0;
 
     /// Return the nodal index of the n-th solid displacement unknown
     virtual unsigned u_index(const unsigned& n) const = 0;
@@ -365,7 +365,7 @@ namespace oomph
     }
 
     /// Fill in contribution to residuals for the Darcy equations
-    void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       this->fill_in_generic_residual_contribution(
         residuals, GeneralisedElement::Dummy_matrix, 0);
@@ -373,7 +373,7 @@ namespace oomph
 
     /// Fill in the Jacobian matrix for the Newton method
     void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian)
+                                          DenseMatrix<double>& jacobian) override
     {
       this->fill_in_generic_residual_contribution(residuals, jacobian, 1);
     }
@@ -697,13 +697,13 @@ namespace oomph
       this->internal_data_pt(q_index)->set_time_stepper(time_stepper_pt, false);
     }
 
-    unsigned self_test()
+    unsigned self_test() override
     {
       return 0;
     }
 
     /// Output with default number of plot points
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       unsigned nplot = 5;
       output(outfile, nplot);
@@ -711,27 +711,27 @@ namespace oomph
 
     /// Output FE representation of soln: x,y,u1,u2,div_q,p at
     /// Nplot^DIM plot points
-    void output(std::ostream& outfile, const unsigned& nplot);
+    void output(std::ostream& outfile, const unsigned& nplot) override;
 
     /// Output FE representation of exact soln: x,y,u1,u2,div_q,p at
     /// Nplot^DIM plot points
     void output_fct(std::ostream& outfile,
                     const unsigned& nplot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt);
+                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
 
     /// Output FE representation of exact soln: x,y,u1,u2,div_q,p at
     /// Nplot^DIM plot points. Unsteady version
     void output_fct(std::ostream& outfile,
                     const unsigned& nplot,
                     const double& time,
-                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt);
+                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override;
 
     /// Compute the error between the FE solution and the exact solution
     /// using the H(div) norm for q and L^2 norm for p
     void compute_error(std::ostream& outfile,
                        FiniteElement::SteadyExactSolutionFctPt exact_soln_pt,
                        Vector<double>& error,
-                       Vector<double>& norm);
+                       Vector<double>& norm) override;
 
     /// Compute the error between the FE solution and the exact solution
     /// using the H(div) norm for q and L^2 norm for p. Unsteady version
@@ -739,7 +739,7 @@ namespace oomph
                        FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt,
                        const double& time,
                        Vector<double>& error,
-                       Vector<double>& norm);
+                       Vector<double>& norm) override;
 
   protected:
     /// Returns the geometric basis, and the q, p and divergence basis

@@ -157,7 +157,7 @@ namespace oomph
     }
 
     /// Output with default number of plot points
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       const unsigned n_plot = 5;
       output(outfile, n_plot);
@@ -165,7 +165,7 @@ namespace oomph
 
     /// Output FE representation of soln: x,y,u_re,u_im or
     /// x,y,z,u_re,u_im at  n_plot^2 plot points
-    void output(std::ostream& outfile, const unsigned& n_plot);
+    void output(std::ostream& outfile, const unsigned& n_plot) override;
 
     /// Output function for real part of full time-dependent solution
     /// u = Re( (u_r +i u_i) exp(-i omega t)
@@ -177,7 +177,7 @@ namespace oomph
                      const unsigned& n_plot);
 
     /// C_style output with default number of plot points
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       const unsigned n_plot = 5;
       output(file_pt, n_plot);
@@ -185,21 +185,21 @@ namespace oomph
 
     /// C-style output FE representation of soln: r,z,u_re,u_im or
     /// at n_plot^2 plot points
-    void output(FILE* file_pt, const unsigned& n_plot);
+    void output(FILE* file_pt, const unsigned& n_plot) override;
 
     /// Output exact soln: r,z,u_re_exact,u_im_exact
     /// at n_plot^2 plot points
     void output_fct(std::ostream& outfile,
                     const unsigned& n_plot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt);
+                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
 
     /// Output exact soln: (dummy time-dependent version to
     /// keep intel compiler happy)
-    virtual void output_fct(
+    void output_fct(
       std::ostream& outfile,
       const unsigned& n_plot,
       const double& time,
-      FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt)
+      FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override
     {
       throw OomphLibError("There is no time-dependent output_fct() for "
                           "FourierDecomposedHelmholtz elements ",
@@ -223,7 +223,7 @@ namespace oomph
     void compute_error(std::ostream& outfile,
                        FiniteElement::SteadyExactSolutionFctPt exact_soln_pt,
                        double& error,
-                       double& norm);
+                       double& norm) override;
 
 
     /// Dummy, time dependent error checker
@@ -231,7 +231,7 @@ namespace oomph
                        FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt,
                        const double& time,
                        double& error,
-                       double& norm)
+                       double& norm) override
     {
       throw OomphLibError("There is no time-dependent compute_error() for "
                           "FourierDecomposedHelmholtz elements",
@@ -240,7 +240,7 @@ namespace oomph
     }
 
     /// Compute norm of fe solution
-    void compute_norm(double& norm);
+    void compute_norm(double& norm) override;
 
     /// Access function: Pointer to source function
     FourierDecomposedHelmholtzSourceFctPt& source_fct_pt()
@@ -315,7 +315,7 @@ namespace oomph
 
 
     /// Add the element's contribution to its residual vector (wrapper)
-    void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       // Call the generic residuals function with flag set to 0
       // using a dummy matrix argument
@@ -327,7 +327,7 @@ namespace oomph
     /// Add the element's contribution to its residual vector and
     /// element Jacobian matrix (wrapper)
     void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian)
+                                          DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine with the flag set to 1
       fill_in_generic_residual_contribution_fourier_decomposed_helmholtz(
@@ -373,7 +373,7 @@ namespace oomph
 
 
     /// Self-test: Return 0 for OK
-    unsigned self_test();
+    unsigned self_test() override;
 
 
   protected:
@@ -453,20 +453,20 @@ namespace oomph
 
     ///  Required  # of `values' (pinned or dofs)
     /// at node n
-    inline unsigned required_nvalue(const unsigned& n) const
+    inline unsigned required_nvalue(const unsigned& n) const override
     {
       return Initial_Nvalue;
     }
 
     /// Output function: r,z,u
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       FourierDecomposedHelmholtzEquations::output(outfile);
     }
 
     ///  Output function:
     ///   r,z,u at n_plot^2 plot points
-    void output(std::ostream& outfile, const unsigned& n_plot)
+    void output(std::ostream& outfile, const unsigned& n_plot) override
     {
       FourierDecomposedHelmholtzEquations::output(outfile, n_plot);
     }
@@ -484,14 +484,14 @@ namespace oomph
     }
 
     /// C-style output function:  r,z,u
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       FourierDecomposedHelmholtzEquations::output(file_pt);
     }
 
     ///  C-style output function:
     ///   r,z,u  at n_plot^2 plot points
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       FourierDecomposedHelmholtzEquations::output(file_pt, n_plot);
     }
@@ -500,7 +500,7 @@ namespace oomph
     /// r,z,u_exact at n_plot^2 plot points
     void output_fct(std::ostream& outfile,
                     const unsigned& n_plot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt)
+                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override
     {
       FourierDecomposedHelmholtzEquations::output_fct(
         outfile, n_plot, exact_soln_pt);
@@ -527,7 +527,7 @@ namespace oomph
     void output_fct(std::ostream& outfile,
                     const unsigned& n_plot,
                     const double& time,
-                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt)
+                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override
     {
       FourierDecomposedHelmholtzEquations::output_fct(
         outfile, n_plot, time, exact_soln_pt);
@@ -541,7 +541,7 @@ namespace oomph
       Shape& psi,
       DShape& dpsidx,
       Shape& test,
-      DShape& dtestdx) const;
+      DShape& dtestdx) const override;
 
 
     /// Shape, test functions & derivs. w.r.t. to global coords. at
@@ -551,7 +551,7 @@ namespace oomph
       Shape& psi,
       DShape& dpsidx,
       Shape& test,
-      DShape& dtestdx) const;
+      DShape& dtestdx) const override;
   };
 
 

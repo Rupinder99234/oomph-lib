@@ -58,7 +58,7 @@ namespace oomph
     TemplateFreeNavierStokesFluxControlElementBase() {}
 
     /// Empty virtual destructor
-    virtual ~TemplateFreeNavierStokesFluxControlElementBase() {}
+    ~TemplateFreeNavierStokesFluxControlElementBase() override {}
 
     /// Pure virtual function to calculate integral of the volume flux
     virtual double get_volume_flux() = 0;
@@ -145,7 +145,7 @@ namespace oomph
 
 
     /// Empty Destructor - Data gets deleted automatically
-    ~NetFluxControlElement() {}
+    ~NetFluxControlElement() override {}
 
     /// Broken copy constructor
     NetFluxControlElement(const NetFluxControlElement& dummy) = delete;
@@ -175,7 +175,7 @@ namespace oomph
 
     /// Add the element's contribution to its residual vector:
     /// i.e. the flux constraint.
-    inline void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    inline void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       // Call the generic routine
       fill_in_generic_residual_contribution_flux_control(residuals);
@@ -186,7 +186,7 @@ namespace oomph
     /// the NavierStokesFluxControlElements which impose the traction
     /// used to control the flux.
     inline void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                                 DenseMatrix<double>& jacobian)
+                                                 DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine
       fill_in_generic_residual_contribution_flux_control(residuals);
@@ -197,7 +197,7 @@ namespace oomph
     /// are sub-divided into - it's set to Dof_number_for_unknown+1
     /// because it's expected this element is added to a fluid mesh
     /// containing navier stokes elements
-    unsigned ndof_types() const
+    unsigned ndof_types() const override
     {
 #ifdef PARANOID
       if (Dof_number_for_unknown == UINT_MAX)
@@ -242,7 +242,7 @@ namespace oomph
     /// assumed that the user has set the Dof_number_for_unknown variable to
     /// the velocity DOF type using the function dof_number_for_unknown()).
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override
     {
 #ifdef PARANOID
       if (Dof_number_for_unknown == UINT_MAX)
@@ -390,10 +390,10 @@ namespace oomph
     }
 
     /// Destructor should not delete anything
-    ~NavierStokesFluxControlElement() {}
+    ~NavierStokesFluxControlElement() override {}
 
     /// This function returns just the residuals
-    inline void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    inline void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       // Call the generic residuals function using a dummy matrix argument
       fill_in_generic_residual_contribution_fluid_traction(
@@ -405,7 +405,7 @@ namespace oomph
     /// master element with respect to dof in this
     /// element
     inline void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                                 DenseMatrix<double>& jacobian)
+                                                 DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine
       fill_in_generic_residual_contribution_fluid_traction(
@@ -413,7 +413,7 @@ namespace oomph
     }
 
     /// Function to get the integral of the volume flux
-    double get_volume_flux()
+    double get_volume_flux() override
     {
       return NavierStokesSurfacePowerElement<ELEMENT>::get_volume_flux();
     }
@@ -575,19 +575,19 @@ namespace oomph
     }
 
     /// Destructor should not delete anything
-    ~RefineableNavierStokesFluxControlElement() {}
+    ~RefineableNavierStokesFluxControlElement() override {}
 
 
     /// Number of continuously interpolated values are the
     /// same as those in the bulk element.
-    unsigned ncont_interpolated_values() const
+    unsigned ncont_interpolated_values() const override
     {
       return dynamic_cast<ELEMENT*>(this->bulk_element_pt())
         ->ncont_interpolated_values();
     }
 
     /// This function returns just the residuals
-    inline void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    inline void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       // Call the generic residuals function using a dummy matrix argument
       refineable_fill_in_generic_residual_contribution_fluid_traction(
@@ -599,7 +599,7 @@ namespace oomph
     /// master element with respect to dof in this
     /// element
     inline void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                                 DenseMatrix<double>& jacobian)
+                                                 DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine
       refineable_fill_in_generic_residual_contribution_fluid_traction(

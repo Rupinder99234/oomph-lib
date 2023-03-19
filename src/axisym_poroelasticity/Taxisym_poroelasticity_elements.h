@@ -79,16 +79,16 @@ namespace oomph
     TAxisymmetricPoroelasticityElement();
 
     /// Destructor
-    ~TAxisymmetricPoroelasticityElement();
+    ~TAxisymmetricPoroelasticityElement() override;
 
     /// Number of values required at node n
-    unsigned required_nvalue(const unsigned& n) const
+    unsigned required_nvalue(const unsigned& n) const override
     {
       return Initial_Nvalue[n];
     }
 
     /// Return the face index associated with specified edge
-    unsigned face_index_of_edge(const unsigned& j) const
+    unsigned face_index_of_edge(const unsigned& j) const override
     {
       return (j + 2) % 3;
     }
@@ -96,7 +96,7 @@ namespace oomph
     /// Compute the face element coordinates of the nth flux
     /// interpolation point along specified edge
     void face_local_coordinate_of_flux_interpolation_point(
-      const unsigned& edge, const unsigned& n, Vector<double>& s) const
+      const unsigned& edge, const unsigned& n, Vector<double>& s) const override
     {
       // Get the location of the n-th flux interpolation point along
       // the edge in terms of the distance along the edge itself
@@ -124,14 +124,14 @@ namespace oomph
     }
 
     /// Return the face index associated with j-th edge flux degree of freedom
-    unsigned face_index_of_q_edge_basis_fct(const unsigned& j) const
+    unsigned face_index_of_q_edge_basis_fct(const unsigned& j) const override
     {
       return Face_index_of_edge_flux[j];
     }
 
     /// Return the nodal index of the j-th solid displacement unknown
     /// [0: r; 1: z]
-    unsigned u_index_axisym_poroelasticity(const unsigned& j) const
+    unsigned u_index_axisym_poroelasticity(const unsigned& j) const override
     {
 #ifdef RANGE_CHECKING
       if (j >= 2)
@@ -148,7 +148,7 @@ namespace oomph
 
 
     /// Return the equation number of the j-th edge (flux) degree of freedom
-    int q_edge_local_eqn(const unsigned& j) const
+    int q_edge_local_eqn(const unsigned& j) const override
     {
 #ifdef RANGE_CHECKING
       if (j >= nq_basis_edge())
@@ -165,7 +165,7 @@ namespace oomph
     }
 
     /// Return the equation number of the j-th internal degree of freedom
-    int q_internal_local_eqn(const unsigned& j) const
+    int q_internal_local_eqn(const unsigned& j) const override
     {
 #ifdef RANGE_CHECKING
       if (j >= nq_basis_internal())
@@ -183,7 +183,7 @@ namespace oomph
 
     /// Return vector of pointers to the Data objects that store the
     /// edge flux values
-    Vector<Data*> q_edge_data_pt() const
+    Vector<Data*> q_edge_data_pt() const override
     {
       // It's the mid-side nodes:
       Vector<Data*> data_pt(3);
@@ -194,20 +194,20 @@ namespace oomph
     }
 
     /// Return pointer to the Data object that stores the internal flux values
-    Data* q_internal_data_pt() const
+    Data* q_internal_data_pt() const override
     {
       return this->internal_data_pt(Q_internal_data_index);
     }
 
     /// Return the index of the internal data where the q_internal
     /// degrees of freedom are stored
-    unsigned q_internal_index() const
+    unsigned q_internal_index() const override
     {
       return Q_internal_data_index;
     }
 
     /// Return the nodal index at which the jth edge unknown is stored
-    unsigned q_edge_index(const unsigned& j) const
+    unsigned q_edge_index(const unsigned& j) const override
     {
 #ifdef RANGE_CHECKING
       if (j >= (nq_basis_edge()))
@@ -224,7 +224,7 @@ namespace oomph
     }
 
     /// Return the number of the node where the jth edge unknown is stored
-    unsigned q_edge_node_number(const unsigned& j) const
+    unsigned q_edge_node_number(const unsigned& j) const override
     {
 #ifdef RANGE_CHECKING
       if (j >= (nq_basis_edge()))
@@ -248,7 +248,7 @@ namespace oomph
     }
 
     /// Return the values of the j-th edge (flux) degree of freedom
-    double q_edge(const unsigned& j) const
+    double q_edge(const unsigned& j) const override
     {
 #ifdef RANGE_CHECKING
       if (j >= (nq_basis_edge()))
@@ -266,7 +266,7 @@ namespace oomph
 
     /// Return the values of the j-th edge (flux) degree of
     /// freedom at time history level t
-    double q_edge(const unsigned& t, const unsigned& j) const
+    double q_edge(const unsigned& t, const unsigned& j) const override
     {
 #ifdef RANGE_CHECKING
       if (j >= (nq_basis_edge()))
@@ -283,7 +283,7 @@ namespace oomph
     }
 
     /// Return the values of the internal degree of freedom
-    double q_internal(const unsigned& j) const
+    double q_internal(const unsigned& j) const override
     {
 #ifdef RANGE_CHECKING
       if (j >= nq_basis_internal())
@@ -301,7 +301,7 @@ namespace oomph
 
     /// Return the value of the j-th internal degree of freedom at
     /// time history level t
-    double q_internal(const unsigned& t, const unsigned& j) const
+    double q_internal(const unsigned& t, const unsigned& j) const override
     {
 #ifdef RANGE_CHECKING
       if (j >= nq_basis_internal())
@@ -318,28 +318,28 @@ namespace oomph
     }
 
     /// Pin the j-th edge (flux) degree of freedom and set it to specified value
-    void pin_q_edge_value(const unsigned& j, const double& value)
+    void pin_q_edge_value(const unsigned& j, const double& value) override
     {
       node_pt(q_edge_node_number(j))->pin(q_edge_index(j));
       node_pt(q_edge_node_number(j))->set_value(q_edge_index(j), value);
     }
 
     /// Set the values of the j-th edge (flux) degree of freedom
-    void set_q_edge(const unsigned& j, const double& value)
+    void set_q_edge(const unsigned& j, const double& value) override
     {
       node_pt(q_edge_node_number(j))->set_value(q_edge_index(j), value);
     }
 
     /// Set the values of the j-th edge (flux) degree of freedom at
     /// time history level t
-    void set_q_edge(const unsigned& t, const unsigned& j, const double& value)
+    void set_q_edge(const unsigned& t, const unsigned& j, const double& value) override
     {
       node_pt(q_edge_node_number(j))->set_value(t, q_edge_index(j), value);
     }
 
 
     /// Set the values of the j-th internal degree of freedom
-    void set_q_internal(const unsigned& j, const double& value)
+    void set_q_internal(const unsigned& j, const double& value) override
     {
       this->internal_data_pt(q_internal_index())->set_value(j, value);
     }
@@ -348,33 +348,33 @@ namespace oomph
     /// time history level t
     void set_q_internal(const unsigned& t,
                         const unsigned& j,
-                        const double& value)
+                        const double& value) override
     {
       this->internal_data_pt(q_internal_index())->set_value(t, j, value);
     }
 
     /// Return the number of edge basis functions for flux q
-    unsigned nq_basis_edge() const;
+    unsigned nq_basis_edge() const override;
 
     /// Return the number of internal basis functions for flux q
-    unsigned nq_basis_internal() const;
+    unsigned nq_basis_internal() const override;
 
     /// Returns the local form of the q basis at local coordinate s
-    void get_q_basis_local(const Vector<double>& s, Shape& q_basis) const;
+    void get_q_basis_local(const Vector<double>& s, Shape& q_basis) const override;
 
     /// Returns the local form of the q basis and dbasis/ds at local coordinate
     /// s
     void get_div_q_basis_local(const Vector<double>& s,
-                               Shape& div_q_basis_ds) const;
+                               Shape& div_q_basis_ds) const override;
 
     /// Returns the number of flux_interpolation points along each
     /// edge of the element
-    unsigned nedge_flux_interpolation_point() const;
+    unsigned nedge_flux_interpolation_point() const override;
 
     /// Returns the local coordinate of the jth flux_interpolation point
     /// along specified edge
     Vector<double> edge_flux_interpolation_point(const unsigned& edge,
-                                                 const unsigned& j) const
+                                                 const unsigned& j) const override
     {
 #ifdef RANGE_CHECKING
       if (edge >= 3)
@@ -406,7 +406,7 @@ namespace oomph
     /// point along specified edge
     void edge_flux_interpolation_point_global(const unsigned& edge,
                                               const unsigned& j,
-                                              Vector<double>& x) const
+                                              Vector<double>& x) const override
     {
 #ifdef RANGE_CHECKING
       if (edge >= 3)
@@ -464,7 +464,7 @@ namespace oomph
     }
 
     /// Pin the jth internal q value and set it to specified value
-    void pin_q_internal_value(const unsigned& j, const double& q)
+    void pin_q_internal_value(const unsigned& j, const double& q) override
     {
 #ifdef RANGE_CHECKING
       if (j >= nq_basis_internal())
@@ -482,7 +482,7 @@ namespace oomph
     }
 
     /// Return the equation number of the j-th pressure degree of freedom
-    int p_local_eqn(const unsigned& j) const
+    int p_local_eqn(const unsigned& j) const override
     {
 #ifdef RANGE_CHECKING
       if (j >= np_basis())
@@ -499,7 +499,7 @@ namespace oomph
     }
 
     /// Return the jth pressure value
-    double p_value(const unsigned& j) const
+    double p_value(const unsigned& j) const override
     {
 #ifdef RANGE_CHECKING
       if (j >= np_basis())
@@ -516,13 +516,13 @@ namespace oomph
     }
 
     /// Return the total number of pressure basis functions
-    unsigned np_basis() const;
+    unsigned np_basis() const override;
 
     /// Return the pressure basis
-    void get_p_basis(const Vector<double>& s, Shape& p_basis) const;
+    void get_p_basis(const Vector<double>& s, Shape& p_basis) const override;
 
     /// Pin the jth pressure value and set to specified value
-    void pin_p_value(const unsigned& j, const double& p)
+    void pin_p_value(const unsigned& j, const double& p) override
     {
 #ifdef RANGE_CHECKING
       if (j >= np_basis())
@@ -540,19 +540,19 @@ namespace oomph
     }
 
     /// Return pointer to the Data object that stores the pressure values
-    Data* p_data_pt() const
+    Data* p_data_pt() const override
     {
       return this->internal_data_pt(P_internal_data_index);
     }
 
     /// Set the jth pressure value
-    void set_p_value(const unsigned& j, const double& value)
+    void set_p_value(const unsigned& j, const double& value) override
     {
       this->internal_data_pt(P_internal_data_index)->set_value(j, value);
     }
 
     /// Scale the edge basis to allow arbitrary edge mappings
-    void scale_basis(Shape& basis) const
+    void scale_basis(Shape& basis) const override
     {
       // Storage for the lengths of the edges of the element
       Vector<double> length(3, 0.0);
@@ -605,33 +605,33 @@ namespace oomph
     }
 
     /// Output with default number of plot points
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       AxisymmetricPoroelasticityEquations::output(outfile);
     }
 
     /// Output FE representation of soln: x,y,u1,u2,div_q,p at
     /// Nplot^DIM plot points
-    void output(std::ostream& outfile, const unsigned& Nplot)
+    void output(std::ostream& outfile, const unsigned& Nplot) override
     {
       AxisymmetricPoroelasticityEquations::output(outfile, Nplot);
     }
 
 
     /// Number of vertex nodes in the element
-    unsigned nvertex_node() const
+    unsigned nvertex_node() const override
     {
       return TElement<2, 3>::nvertex_node();
     }
 
     /// Pointer to the j-th vertex node in the element
-    Node* vertex_node_pt(const unsigned& j) const
+    Node* vertex_node_pt(const unsigned& j) const override
     {
       return TElement<2, 3>::vertex_node_pt(j);
     }
 
     /// Recovery order for Z2 error estimator
-    unsigned nrecovery_order()
+    unsigned nrecovery_order() override
     {
       return 2; // need to experiment with this...
     }
@@ -651,7 +651,7 @@ namespace oomph
                                   Shape& p_basis,
                                   Shape& p_test,
                                   Shape& div_q_basis_ds,
-                                  Shape& div_q_test_ds) const
+                                  Shape& div_q_test_ds) const override
     {
       const unsigned n_q_basis = this->nq_basis();
 
@@ -690,7 +690,7 @@ namespace oomph
                                           Shape& p_basis,
                                           Shape& p_test,
                                           Shape& div_q_basis_ds,
-                                          Shape& div_q_test_ds) const
+                                          Shape& div_q_test_ds) const override
     {
       Vector<double> s(2);
       for (unsigned i = 0; i < 2; i++)

@@ -59,25 +59,25 @@ namespace oomph
     void fill_in_generic_contribution_to_residuals_pvd(
       Vector<double>& residuals,
       DenseMatrix<double>& jacobian,
-      const unsigned& flag);
+      const unsigned& flag) override;
 
     /// No values are interpolated in this element (pure solid)
     void get_interpolated_values(const unsigned& t,
                                  const Vector<double>& s,
-                                 Vector<double>& values)
+                                 Vector<double>& values) override
     {
       values.clear();
     }
 
     /// No values are interpolated in this element (pure solid)
     void get_interpolated_values(const Vector<double>& s,
-                                 Vector<double>& values)
+                                 Vector<double>& values) override
     {
       values.clear();
     }
 
     /// Number of 'flux' terms for Z2 error estimation
-    unsigned num_Z2_flux_terms()
+    unsigned num_Z2_flux_terms() override
     {
       // DIM Diagonal strain rates and DIM*(DIM-1)/2 off diagonal terms
       return DIM + DIM * (DIM - 1) / 2;
@@ -85,7 +85,7 @@ namespace oomph
 
     /// Get 'flux' for Z2 error recovery:   Upper triangular entries
     /// in strain tensor.
-    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux)
+    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux) override
     {
 #ifdef PARANOID
       unsigned num_entries = DIM + ((DIM * DIM) - DIM) / 2;
@@ -127,7 +127,7 @@ namespace oomph
     }
 
     /// Number of continuously interpolated values: 0 (pure solid problem)
-    unsigned ncont_interpolated_values() const
+    unsigned ncont_interpolated_values() const override
     {
       return 0;
     }
@@ -141,7 +141,7 @@ namespace oomph
     }
 
     /// Further build function, pass the pointers down to the sons
-    void further_build()
+    void further_build() override
     {
       RefineablePVDEquations<DIM>* cast_father_element_pt =
         dynamic_cast<RefineablePVDEquations<DIM>*>(this->father_element_pt());
@@ -300,25 +300,25 @@ namespace oomph
       Vector<double>& residuals,
       DenseMatrix<double>& jacobian,
       DenseMatrix<double>& mass_matrix,
-      const unsigned& flag);
+      const unsigned& flag) override;
 
     /// No values are interpolated in this element (pure solid)
     void get_interpolated_values(const unsigned& t,
                                  const Vector<double>& s,
-                                 Vector<double>& values)
+                                 Vector<double>& values) override
     {
       values.clear();
     }
 
     /// No values are interpolated in this element (pure solid)
     void get_interpolated_values(const Vector<double>& s,
-                                 Vector<double>& values)
+                                 Vector<double>& values) override
     {
       values.clear();
     }
 
     /// Number of 'flux' terms for Z2 error estimation
-    unsigned num_Z2_flux_terms()
+    unsigned num_Z2_flux_terms() override
     {
       // DIM Diagonal strain rates and DIM*(DIM-1)/2 off diagonal terms
       return DIM + DIM * (DIM - 1) / 2;
@@ -327,7 +327,7 @@ namespace oomph
     // Get 'flux' for Z2 error recovery:   Upper triangular entries
     /// in strain tensor.
     //----------------------------------------------------------------
-    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux)
+    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux) override
     {
       // Find the dimension of the problem
 #ifdef PARANOID
@@ -370,7 +370,7 @@ namespace oomph
     }
 
     /// Number of continuously interpolated values: 0 (pure solid problem)
-    unsigned ncont_interpolated_values() const
+    unsigned ncont_interpolated_values() const override
     {
       return 0;
     }
@@ -383,7 +383,7 @@ namespace oomph
 
 
     /// Pass the generic stuff down to the sons
-    void further_build()
+    void further_build() override
     {
       RefineablePVDEquationsWithPressure<DIM>* cast_father_element_pt =
         dynamic_cast<RefineablePVDEquationsWithPressure<DIM>*>(
@@ -419,7 +419,7 @@ namespace oomph
 
     /// Compute the diagonal of the displacement mass matrix for
     /// LSC preconditioner
-    void get_mass_matrix_diagonal(Vector<double>& mass_diag);
+    void get_mass_matrix_diagonal(Vector<double>& mass_diag) override;
   };
 
   //===========================================================================
@@ -436,7 +436,7 @@ namespace oomph
   {
   private:
     /// Unpin all solid pressure dofs
-    void unpin_elemental_solid_pressure_dofs()
+    void unpin_elemental_solid_pressure_dofs() override
     {
       unsigned n_pres = this->npres_solid();
       // loop over pressure dofs and unpin them
@@ -460,38 +460,38 @@ namespace oomph
 
     /// Reconstruct the pressure from the sons
     /// Must be specialized for each dimension
-    inline void rebuild_from_sons(Mesh*& mesh_pt);
+    inline void rebuild_from_sons(Mesh*& mesh_pt) override;
 
     /// Number of vertex nodes in the element
-    unsigned nvertex_node() const
+    unsigned nvertex_node() const override
     {
       return QPVDElementWithPressure<DIM>::nvertex_node();
     }
 
     /// Pointer to the j-th vertex node in the element
-    Node* vertex_node_pt(const unsigned& j) const
+    Node* vertex_node_pt(const unsigned& j) const override
     {
       return QPVDElementWithPressure<DIM>::vertex_node_pt(j);
     }
 
     /// Order of recovery shape functions for Z2 error estimation:
     /// Same order as shape functions.
-    unsigned nrecovery_order()
+    unsigned nrecovery_order() override
     {
       return 2;
     } // NNODE_1D-1;}
 
     ///  No additional hanging node procedures are required for
     /// discontinuous solid pressures.
-    void further_setup_hanging_nodes() {}
+    void further_setup_hanging_nodes() override {}
 
     ///  Further build: Interpolate the solid pressure values
     /// Again this must be specialised for each dimension
-    inline void further_build();
+    inline void further_build() override;
 
 
     /// Number of continuously interpolated values: 0 (pure solid problem)
-    unsigned ncont_interpolated_values() const
+    unsigned ncont_interpolated_values() const override
     {
       return 0;
     }

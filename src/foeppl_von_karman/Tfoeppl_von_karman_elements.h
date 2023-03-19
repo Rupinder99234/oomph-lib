@@ -80,21 +80,21 @@ namespace oomph
 
     ///  Access function for Nvalue: # of `values' (pinned or dofs)
     /// at node n (always returns the same value at every node, 8)
-    inline unsigned required_nvalue(const unsigned& n) const
+    inline unsigned required_nvalue(const unsigned& n) const override
     {
       return Initial_Nvalue;
     }
 
     /// Output function:
     ///  x,y,w
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       FoepplvonKarmanEquations::output(outfile);
     }
 
     ///  Output function:
     ///   x,y,w at n_plot^2 plot points
-    void output(std::ostream& outfile, const unsigned& n_plot)
+    void output(std::ostream& outfile, const unsigned& n_plot) override
     {
       FoepplvonKarmanEquations::output(outfile, n_plot);
     }
@@ -102,7 +102,7 @@ namespace oomph
 
     /// C-style output function:
     ///  x,y,w
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       FoepplvonKarmanEquations::output(file_pt);
     }
@@ -110,7 +110,7 @@ namespace oomph
 
     ///  C-style output function:
     ///   x,y,w at n_plot^2 plot points
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       FoepplvonKarmanEquations::output(file_pt, n_plot);
     }
@@ -120,7 +120,7 @@ namespace oomph
     ///  x,y,w_exact
     void output_fct(std::ostream& outfile,
                     const unsigned& n_plot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt)
+                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override
     {
       FoepplvonKarmanEquations::output_fct(outfile, n_plot, exact_soln_pt);
     }
@@ -131,7 +131,7 @@ namespace oomph
     void output_fct(std::ostream& outfile,
                     const unsigned& n_plot,
                     const double& time,
-                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt)
+                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override
     {
       FoepplvonKarmanEquations::output_fct(
         outfile, n_plot, time, exact_soln_pt);
@@ -144,7 +144,7 @@ namespace oomph
                                                 Shape& psi,
                                                 DShape& dpsidx,
                                                 Shape& test,
-                                                DShape& dtestdx) const;
+                                                DShape& dtestdx) const override;
 
 
     /// Shape, test functions & derivs. w.r.t. to global coords. Return
@@ -153,35 +153,35 @@ namespace oomph
                                                         Shape& psi,
                                                         DShape& dpsidx,
                                                         Shape& test,
-                                                        DShape& dtestdx) const;
+                                                        DShape& dtestdx) const override;
 
     /// Order of recovery shape functions for Z2 error estimation:
     /// Same order as shape functions.
-    unsigned nrecovery_order()
+    unsigned nrecovery_order() override
     {
       return (NNODE_1D - 1);
     }
 
     /// Number of 'flux' terms for Z2 error estimation
-    unsigned num_Z2_flux_terms()
+    unsigned num_Z2_flux_terms() override
     {
       return 2;
     }
 
     /// Get 'flux' for Z2 error recovery:  Standard flux.from FvK equations
-    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux)
+    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux) override
     {
       this->get_gradient_of_deflection(s, flux);
     }
 
     /// Number of vertex nodes in the element
-    unsigned nvertex_node() const
+    unsigned nvertex_node() const override
     {
       return TElement<2, NNODE_1D>::nvertex_node();
     }
 
     /// Pointer to the j-th vertex node in the element
-    Node* vertex_node_pt(const unsigned& j) const
+    Node* vertex_node_pt(const unsigned& j) const override
     {
       return TElement<2, NNODE_1D>::vertex_node_pt(j);
     }

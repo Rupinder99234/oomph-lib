@@ -85,7 +85,7 @@ namespace oomph
     }
 
     /// Fill in the residuals by calling the generic function
-    void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       fill_in_contribution_to_residuals_axisym_pvd(residuals);
     }
@@ -281,7 +281,7 @@ namespace oomph
     // could overload the get_jacobian function here if desired
 
     /// Overload/implement the function to calculate the volume of the element
-    double compute_physical_size() const
+    double compute_physical_size() const override
     {
       unsigned n_node = nnode();
       unsigned n_position_type = 1;
@@ -386,7 +386,7 @@ namespace oomph
 
     /// Assign the contribution to the residual using only finite differences
     inline void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                                 DenseMatrix<double>& jacobian)
+                                                 DenseMatrix<double>& jacobian) override
     {
       // Add the solid contribution to the residuals
       fill_in_contribution_to_residuals_axisym_pvd(residuals);
@@ -404,13 +404,13 @@ namespace oomph
 
 
     /// Overload the output function
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       FiniteElement::output(outfile);
     }
 
     /// Output function
-    void output(std::ostream& outfile, const unsigned& n_plot)
+    void output(std::ostream& outfile, const unsigned& n_plot) override
     {
       // Set the output Vector
       Vector<double> s(2);
@@ -445,14 +445,14 @@ namespace oomph
 
 
     /// Overload the output function
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       FiniteElement::output(file_pt);
     }
 
 
     /// Output function
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       // Set the output Vector
       Vector<double> s(2);
@@ -504,25 +504,25 @@ namespace oomph
     AxisymQPVDElement() : SolidQElement<2, 3>(), AxisymmetricPVDEquations() {}
 
     /// Overload the output function
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       FiniteElement::output(outfile);
     }
 
     /// Output function
-    void output(std::ostream& outfile, const unsigned& n_plot)
+    void output(std::ostream& outfile, const unsigned& n_plot) override
     {
       AxisymmetricPVDEquations::output(outfile, n_plot);
     }
 
     /// Overload the output function
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       FiniteElement::output(file_pt);
     }
 
     /// Output function
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       AxisymmetricPVDEquations::output(file_pt, n_plot);
     }
@@ -552,13 +552,13 @@ namespace oomph
     }
 
     /// Overload the output function
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       FiniteElement::output(outfile);
     }
 
     /// Output function
-    void output(std::ostream& outfile, const unsigned& n_plot)
+    void output(std::ostream& outfile, const unsigned& n_plot) override
     {
       // Set the output Vector
       Vector<double> s(2);
@@ -593,14 +593,14 @@ namespace oomph
 
 
     /// Overload the output function
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       FiniteElement::output(file_pt);
     }
 
 
     /// Output function
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       // Set the output Vector
       Vector<double> s(2);
@@ -768,7 +768,7 @@ namespace oomph
     virtual double solid_p(const unsigned& l) = 0;
 
     /// Return the residuals
-    inline void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    inline void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       // Call the generic residuals function with flag set to 0
       // using a dummy matrix argument
@@ -778,7 +778,7 @@ namespace oomph
 
     /// Return the residuals and the jacobian
     inline void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                                 DenseMatrix<double>& jacobian)
+                                                 DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine with the flag set to 1
       fill_in_generic_residual_contribution_axisym_pvd_with_pressure(
@@ -1129,7 +1129,7 @@ namespace oomph
     // could overload the get_jacobian function here if desired
 
     /// Overload/implement the size function
-    double compute_physical_size() const
+    double compute_physical_size() const override
     {
       unsigned n_node = nnode();
       unsigned n_position_type = 1;
@@ -1254,13 +1254,13 @@ namespace oomph
     }
 
     /// Overload the output function
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       FiniteElement::output(outfile);
     }
 
     /// Output function
-    void output(std::ostream& outfile, const unsigned& n_plot)
+    void output(std::ostream& outfile, const unsigned& n_plot) override
     {
       // Set the output Vector
       Vector<double> s(2);
@@ -1295,14 +1295,14 @@ namespace oomph
     }
 
     /// Overload the output function
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       FiniteElement::output(file_pt);
     }
 
 
     /// Output function
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       // Set the output Vector
       Vector<double> s(2);
@@ -1354,18 +1354,18 @@ namespace oomph
     unsigned P_solid_internal_index;
 
     /// Overload the access function for the solid pressure equation numbers
-    inline int solid_p_local_eqn(const unsigned& i)
+    inline int solid_p_local_eqn(const unsigned& i) override
     {
       return internal_local_eqn(P_solid_internal_index, i);
     }
 
     /// Return the pressure shape functions
-    inline void solid_pshape(const Vector<double>& s, Shape& psi) const;
+    inline void solid_pshape(const Vector<double>& s, Shape& psi) const override;
 
   public:
     /// There is internal solid data so we can't use the automatic
     /// assignment of consistent initial conditions for time-dependent problems.
-    bool has_internal_solid_data()
+    bool has_internal_solid_data() override
     {
       return true;
     }
@@ -1380,13 +1380,13 @@ namespace oomph
     }
 
     /// Return the l-th pressure value
-    double solid_p(const unsigned& l)
+    double solid_p(const unsigned& l) override
     {
       return this->internal_data_pt(P_solid_internal_index)->value(l);
     }
 
     /// Return number of pressure values
-    unsigned nsolid_pres() const
+    unsigned nsolid_pres() const override
     {
       return 3;
     }
@@ -1399,26 +1399,26 @@ namespace oomph
     }
 
     /// Overload the output function
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       FiniteElement::output(outfile);
     }
 
     /// Output function
-    void output(std::ostream& outfile, const unsigned& n_plot)
+    void output(std::ostream& outfile, const unsigned& n_plot) override
     {
       AxisymmetricPVDEquationsWithPressure::output(outfile, n_plot);
     }
 
 
     /// Overload the output function
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       FiniteElement::output(file_pt);
     }
 
     /// Output function
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       AxisymmetricPVDEquationsWithPressure::output(file_pt, n_plot);
     }

@@ -89,7 +89,7 @@ namespace oomph
     void operator=(const IterativeLinearSolver&) = delete;
 
     /// Destructor (empty)
-    virtual ~IterativeLinearSolver() {}
+    ~IterativeLinearSolver() override {}
 
     /// Access function to preconditioner
     Preconditioner*& preconditioner_pt()
@@ -165,13 +165,13 @@ namespace oomph
 
     ///  returns the time taken to assemble the jacobian matrix and
     /// residual vector
-    double jacobian_setup_time() const
+    double jacobian_setup_time() const override
     {
       return Jacobian_setup_time;
     }
 
     /// return the time taken to solve the linear system
-    double linear_solver_solution_time() const
+    double linear_solver_solution_time() const override
     {
       return Solution_time;
     }
@@ -294,7 +294,7 @@ namespace oomph
 
 
     /// Destructor (cleanup storage)
-    virtual ~CG()
+    ~CG() override
     {
       clean_up_memory();
     }
@@ -306,7 +306,7 @@ namespace oomph
     void operator=(const CG&) = delete;
 
     /// Overload disable resolve so that it cleans up memory too
-    void disable_resolve()
+    void disable_resolve() override
     {
       LinearSolver::disable_resolve();
       clean_up_memory();
@@ -316,13 +316,13 @@ namespace oomph
     /// Solver: Takes pointer to problem and returns the results vector
     /// which contains the solution of the linear system defined by
     /// the problem's fully assembled Jacobian and residual vector.
-    void solve(Problem* const& problem_pt, DoubleVector& result);
+    void solve(Problem* const& problem_pt, DoubleVector& result) override;
 
     /// Linear-algebra-type solver: Takes pointer to a matrix and rhs
     /// vector and returns the solution of the linear system.
     void solve(DoubleMatrixBase* const& matrix_pt,
                const DoubleVector& rhs,
-               DoubleVector& solution)
+               DoubleVector& solution) override
     {
       // Store the matrix if required
       if ((Enable_resolve) && (!Resolving))
@@ -355,10 +355,10 @@ namespace oomph
     /// Re-solve the system defined by the last assembled Jacobian
     /// and the rhs vector specified here. Solution is returned in the
     /// vector result.
-    void resolve(const DoubleVector& rhs, DoubleVector& result);
+    void resolve(const DoubleVector& rhs, DoubleVector& result) override;
 
     /// Number of iterations taken
-    unsigned iterations() const
+    unsigned iterations() const override
     {
       return Iterations;
     }
@@ -372,7 +372,7 @@ namespace oomph
 
 
     /// Cleanup data that's stored for resolve (if any has been stored)
-    void clean_up_memory()
+    void clean_up_memory() override
     {
       if ((Matrix_pt != 0) && (Matrix_can_be_deleted))
       {
@@ -420,7 +420,7 @@ namespace oomph
 
 
     /// Destructor (cleanup storage)
-    virtual ~BiCGStab()
+    ~BiCGStab() override
     {
       clean_up_memory();
     }
@@ -432,7 +432,7 @@ namespace oomph
     void operator=(const BiCGStab&) = delete;
 
     /// Overload disable resolve so that it cleans up memory too
-    void disable_resolve()
+    void disable_resolve() override
     {
       LinearSolver::disable_resolve();
       clean_up_memory();
@@ -441,13 +441,13 @@ namespace oomph
     /// Solver: Takes pointer to problem and returns the results vector
     /// which contains the solution of the linear system defined by
     /// the problem's fully assembled Jacobian and residual vector.
-    void solve(Problem* const& problem_pt, DoubleVector& result);
+    void solve(Problem* const& problem_pt, DoubleVector& result) override;
 
     /// Linear-algebra-type solver: Takes pointer to a matrix and rhs
     /// vector and returns the solution of the linear system.
     void solve(DoubleMatrixBase* const& matrix_pt,
                const DoubleVector& rhs,
-               DoubleVector& solution)
+               DoubleVector& solution) override
     {
       // Store the matrix if required
       if ((Enable_resolve) && (!Resolving))
@@ -483,7 +483,7 @@ namespace oomph
     /// implement it
     void solve(DoubleMatrixBase* const& matrix_pt,
                const Vector<double>& rhs,
-               Vector<double>& result)
+               Vector<double>& result) override
     {
       LinearSolver::solve(matrix_pt, rhs, result);
     }
@@ -492,11 +492,11 @@ namespace oomph
     /// Re-solve the system defined by the last assembled Jacobian
     /// and the rhs vector specified here. Solution is returned in the
     /// vector result.
-    void resolve(const DoubleVector& rhs, DoubleVector& result);
+    void resolve(const DoubleVector& rhs, DoubleVector& result) override;
 
 
     /// Number of iterations taken
-    unsigned iterations() const
+    unsigned iterations() const override
     {
       return Iterations;
     }
@@ -509,7 +509,7 @@ namespace oomph
                       DoubleVector& solution);
 
     /// Cleanup data that's stored for resolve (if any has been stored)
-    void clean_up_memory()
+    void clean_up_memory() override
     {
       if ((Matrix_pt != 0) && (Matrix_can_be_deleted))
       {
@@ -553,7 +553,7 @@ namespace oomph
     Smoother() : Use_as_smoother(false) {}
 
     /// Virtual empty destructor
-    virtual ~Smoother(){};
+    ~Smoother() override{};
 
     /// The smoother_solve function performs fixed number of iterations
     /// on the system A*result=rhs. The number of (smoothing) iterations is
@@ -608,7 +608,7 @@ namespace oomph
     }
 
     /// Destructor (cleanup storage)
-    virtual ~GS()
+    ~GS() override
     {
       clean_up_memory();
     }
@@ -620,14 +620,14 @@ namespace oomph
     void operator=(const GS&) = delete;
 
     /// Overload disable resolve so that it cleans up memory too
-    void disable_resolve()
+    void disable_resolve() override
     {
       LinearSolver::disable_resolve();
       clean_up_memory();
     } // End of disable_resolve
 
     /// Set up the smoother for the matrix specified by the pointer
-    void smoother_setup(DoubleMatrixBase* matrix_pt)
+    void smoother_setup(DoubleMatrixBase* matrix_pt) override
     {
       // Assume the matrix has been passed in from the outside so we must
       // not delete it. This is needed to avoid pre- and post-smoothers
@@ -644,7 +644,7 @@ namespace oomph
     /// on the system A*result=rhs. The number of (smoothing) iterations is
     /// the same as the max. number of iterations in the underlying
     /// IterativeLinearSolver class.
-    void smoother_solve(const DoubleVector& rhs, DoubleVector& result)
+    void smoother_solve(const DoubleVector& rhs, DoubleVector& result) override
     {
       // If you use a smoother but you don't want to calculate the residual
       Use_as_smoother = true;
@@ -656,13 +656,13 @@ namespace oomph
     /// Solver: Takes pointer to problem and returns the results
     /// vector which contains the solution of the linear system defined
     /// by the problem's fully assembled Jacobian and residual vector.
-    void solve(Problem* const& problem_pt, DoubleVector& result);
+    void solve(Problem* const& problem_pt, DoubleVector& result) override;
 
     /// Linear-algebra-type solver: Takes pointer to a matrix and rhs
     /// vector and returns the solution of the linear system.
     void solve(DoubleMatrixBase* const& matrix_pt,
                const DoubleVector& rhs,
-               DoubleVector& solution)
+               DoubleVector& solution) override
     {
       // Reset the Use_as_smoother_flag as the solver is not being used
       // as a smoother
@@ -691,7 +691,7 @@ namespace oomph
     /// implement it
     void solve(DoubleMatrixBase* const& matrix_pt,
                const Vector<double>& rhs,
-               Vector<double>& result)
+               Vector<double>& result) override
     {
       LinearSolver::solve(matrix_pt, rhs, result);
     } // End of solve
@@ -699,7 +699,7 @@ namespace oomph
     /// Re-solve the system defined by the last assembled Jacobian
     /// and the rhs vector specified here. Solution is returned in the
     /// vector result.
-    void resolve(const DoubleVector& rhs, DoubleVector& result)
+    void resolve(const DoubleVector& rhs, DoubleVector& result) override
     {
       // We are re-solving
       Resolving = true;
@@ -721,7 +721,7 @@ namespace oomph
     } // End of resolve
 
     /// Returns the time taken to set up the preconditioner
-    double preconditioner_setup_time() const
+    double preconditioner_setup_time() const override
     {
       throw OomphLibError(
         "Gauss Seidel is not a preconditionable iterative solver",
@@ -731,7 +731,7 @@ namespace oomph
     } // End of preconditioner_setup_time
 
     /// Number of iterations taken
-    unsigned iterations() const
+    unsigned iterations() const override
     {
       return Iterations;
     } // End of iterations
@@ -743,7 +743,7 @@ namespace oomph
                       DoubleVector& solution);
 
     /// Cleanup data that's stored for resolve (if any has been stored)
-    void clean_up_memory()
+    void clean_up_memory() override
     {
       // If the matrix pointer isn't null and we're allowed to delete it
       // delete the matrix and assign the pointer the value NULL
@@ -794,7 +794,7 @@ namespace oomph
     }
 
     /// Destructor (cleanup storage)
-    virtual ~GS()
+    ~GS() override
     {
       clean_up_memory();
     }
@@ -809,7 +809,7 @@ namespace oomph
     /// on the system A*result=rhs. The number of (smoothing) iterations is
     /// the same as the max. number of iterations in the underlying
     /// IterativeLinearSolver class.
-    void smoother_solve(const DoubleVector& rhs, DoubleVector& result)
+    void smoother_solve(const DoubleVector& rhs, DoubleVector& result) override
     {
       // If you use a smoother but you don't want to calculate the residual
       Use_as_smoother = true;
@@ -819,14 +819,14 @@ namespace oomph
     } // End of smoother_solve
 
     /// Overload disable resolve so that it cleans up memory too
-    void disable_resolve()
+    void disable_resolve() override
     {
       LinearSolver::disable_resolve();
       clean_up_memory();
     } // End of disable_resolve
 
     /// Set up the smoother for the matrix specified by the pointer
-    void smoother_setup(DoubleMatrixBase* matrix_pt)
+    void smoother_setup(DoubleMatrixBase* matrix_pt) override
     {
       // Assume the matrix has been passed in from the outside so we must
       // not delete it. This is needed to avoid pre- and post-smoothers
@@ -846,13 +846,13 @@ namespace oomph
     /// Solver: Takes pointer to problem and returns the results vector
     /// which contains the solution of the linear system defined by
     /// the problem's fully assembled Jacobian and residual vector.
-    void solve(Problem* const& problem_pt, DoubleVector& result);
+    void solve(Problem* const& problem_pt, DoubleVector& result) override;
 
     /// Linear-algebra-type solver: Takes pointer to a matrix and rhs
     /// vector and returns the solution of the linear system.
     void solve(DoubleMatrixBase* const& matrix_pt,
                const DoubleVector& rhs,
-               DoubleVector& solution)
+               DoubleVector& solution) override
     {
       // Reset the Use_as_smoother_flag as the solver is not being used
       // as a smoother
@@ -895,7 +895,7 @@ namespace oomph
     /// implement it
     void solve(DoubleMatrixBase* const& matrix_pt,
                const Vector<double>& rhs,
-               Vector<double>& result)
+               Vector<double>& result) override
     {
       LinearSolver::solve(matrix_pt, rhs, result);
     } // End of solve
@@ -903,7 +903,7 @@ namespace oomph
     /// Re-solve the system defined by the last assembled Jacobian
     /// and the rhs vector specified here. Solution is returned in the
     /// vector result.
-    void resolve(const DoubleVector& rhs, DoubleVector& result)
+    void resolve(const DoubleVector& rhs, DoubleVector& result) override
     {
       // We are re-solving
       Resolving = true;
@@ -926,7 +926,7 @@ namespace oomph
     } // End of resolve
 
     /// Returns the time taken to set up the preconditioner
-    double preconditioner_setup_time() const
+    double preconditioner_setup_time() const override
     {
       // Create the error message
       std::string error_output_string = "Gauss Seidel is not a ";
@@ -942,7 +942,7 @@ namespace oomph
     } // End of preconditioner_setup_time
 
     /// Number of iterations taken
-    unsigned iterations() const
+    unsigned iterations() const override
     {
       // Return the number of iterations
       return Iterations;
@@ -955,7 +955,7 @@ namespace oomph
                       DoubleVector& solution);
 
     /// Clean up data that's stored for resolve (if any has been stored)
-    void clean_up_memory()
+    void clean_up_memory() override
     {
       // If the matrix pointer isn't null AND we're allowed to delete the
       // matrix which is only when we create the matrix ourselves
@@ -1009,7 +1009,7 @@ namespace oomph
     }
 
     /// Empty destructor
-    ~DampedJacobi()
+    ~DampedJacobi() override
     {
       // Run the generic clean up function
       clean_up_memory();
@@ -1022,7 +1022,7 @@ namespace oomph
     void operator=(const DampedJacobi&) = delete;
 
     /// Cleanup data that's stored for resolve (if any has been stored)
-    void clean_up_memory()
+    void clean_up_memory() override
     {
       // If the matrix pointer isn't null AND we're allowed to delete the
       // matrix which is only when we create the matrix ourselves
@@ -1037,7 +1037,7 @@ namespace oomph
     } // End of clean_up_memory
 
     /// Setup: Pass pointer to the matrix and store in cast form
-    void smoother_setup(DoubleMatrixBase* matrix_pt)
+    void smoother_setup(DoubleMatrixBase* matrix_pt) override
     {
       // Assume the matrix has been passed in from the outside so we must not
       // delete it
@@ -1110,7 +1110,7 @@ namespace oomph
     /// on the system A*result=rhs. The number of (smoothing) iterations is
     /// the same as the max. number of iterations in the underlying
     /// IterativeLinearSolver class.
-    void smoother_solve(const DoubleVector& rhs, DoubleVector& solution)
+    void smoother_solve(const DoubleVector& rhs, DoubleVector& solution) override
     {
       // If you use a smoother but you don't want to calculate the residual
       Use_as_smoother = true;
@@ -1123,13 +1123,13 @@ namespace oomph
     /// This obtains the Jacobian matrix J and the residual vector r
     /// (needed for the Newton method) from the problem's get_jacobian
     /// function and returns the result of Jx=r.
-    void solve(Problem* const& problem_pt, DoubleVector& result);
+    void solve(Problem* const& problem_pt, DoubleVector& result) override;
 
     /// Linear-algebra-type solver: Takes pointer to a matrix and rhs
     /// vector and returns the solution of the linear system.
     void solve(DoubleMatrixBase* const& matrix_pt,
                const DoubleVector& rhs,
-               DoubleVector& solution)
+               DoubleVector& solution) override
     {
       // Matrix has been passed in from the outside so we must not delete it
       Matrix_can_be_deleted = false;
@@ -1157,7 +1157,7 @@ namespace oomph
     /// Re-solve the system defined by the last assembled Jacobian
     /// and the rhs vector specified here. Solution is returned in the
     /// vector result.
-    void resolve(const DoubleVector& rhs, DoubleVector& result)
+    void resolve(const DoubleVector& rhs, DoubleVector& result) override
     {
       // We are re-solving
       Resolving = true;
@@ -1179,7 +1179,7 @@ namespace oomph
     } // End of resolve
 
     /// Number of iterations taken
-    unsigned iterations() const
+    unsigned iterations() const override
     {
       // Return the value of Iterations
       return Iterations;
@@ -1239,7 +1239,7 @@ namespace oomph
     }
 
     /// Destructor (cleanup storage)
-    virtual ~GMRES()
+    ~GMRES() override
     {
       clean_up_memory();
     }
@@ -1251,14 +1251,14 @@ namespace oomph
     void operator=(const GMRES&) = delete;
 
     /// Overload disable resolve so that it cleans up memory too
-    void disable_resolve()
+    void disable_resolve() override
     {
       LinearSolver::disable_resolve();
       clean_up_memory();
     }
 
     /// function to enable the computation of the gradient
-    void enable_computation_of_gradient()
+    void enable_computation_of_gradient() override
     {
       Compute_gradient = true;
     }
@@ -1266,13 +1266,13 @@ namespace oomph
     /// Solver: Takes pointer to problem and returns the results vector
     /// which contains the solution of the linear system defined by
     /// the problem's fully assembled Jacobian and residual vector.
-    void solve(Problem* const& problem_pt, DoubleVector& result);
+    void solve(Problem* const& problem_pt, DoubleVector& result) override;
 
     /// Linear-algebra-type solver: Takes pointer to a matrix and rhs
     /// vector and returns the solution of the linear system.
     void solve(DoubleMatrixBase* const& matrix_pt,
                const DoubleVector& rhs,
-               DoubleVector& solution)
+               DoubleVector& solution) override
     {
       // setup the distribution
       this->build_distribution(rhs.distribution_pt());
@@ -1298,7 +1298,7 @@ namespace oomph
     /// implement it
     void solve(DoubleMatrixBase* const& matrix_pt,
                const Vector<double>& rhs,
-               Vector<double>& result)
+               Vector<double>& result) override
     {
       LinearSolver::solve(matrix_pt, rhs, result);
     }
@@ -1306,10 +1306,10 @@ namespace oomph
     /// Re-solve the system defined by the last assembled Jacobian
     /// and the rhs vector specified here. Solution is returned in the
     /// vector result.
-    void resolve(const DoubleVector& rhs, DoubleVector& result);
+    void resolve(const DoubleVector& rhs, DoubleVector& result) override;
 
     /// Number of iterations taken
-    unsigned iterations() const
+    unsigned iterations() const override
     {
       return Iterations;
     }
@@ -1354,7 +1354,7 @@ namespace oomph
                       DoubleVector& solution);
 
     /// Cleanup data that's stored for resolve (if any has been stored)
-    void clean_up_memory()
+    void clean_up_memory() override
     {
       if ((Matrix_pt != 0) && (Matrix_can_be_deleted))
       {
@@ -1568,7 +1568,7 @@ namespace oomph
     }
 
     /// Destructor: Clean up storage
-    virtual ~AugmentedProblemGMRES()
+    ~AugmentedProblemGMRES() override
     {
       clean_up_memory();
     }
@@ -1580,7 +1580,7 @@ namespace oomph
     void operator=(const AugmentedProblemGMRES&) = delete;
 
     /// Overload disable resolve so that it cleans up memory too
-    void disable_resolve()
+    void disable_resolve() override
     {
       LinearSolver::disable_resolve();
       clean_up_memory();
@@ -1589,13 +1589,13 @@ namespace oomph
     /// Solver: Takes pointer to problem and returns the results vector
     /// which contains the solution of the linear system defined by
     /// the problem's fully assembled Jacobian and residual vector.
-    void solve(Problem* const& problem_pt, DoubleVector& result);
+    void solve(Problem* const& problem_pt, DoubleVector& result) override;
 
     /// Linear-algebra-type solver: Takes pointer to a matrix and rhs
     /// vector and returns the solution of the linear system.
     void solve(DoubleMatrixBase* const& matrix_pt,
                const DoubleVector& rhs,
-               DoubleVector& solution)
+               DoubleVector& solution) override
     {
       // Upcast to a CRDoubleMatrix
       CRDoubleMatrix* cr_matrix_pt = dynamic_cast<CRDoubleMatrix*>(matrix_pt);
@@ -1633,7 +1633,7 @@ namespace oomph
     /// implement it
     void solve(DoubleMatrixBase* const& matrix_pt,
                const Vector<double>& rhs,
-               Vector<double>& result)
+               Vector<double>& result) override
     {
       LinearSolver::solve(matrix_pt, rhs, result);
     }
@@ -1641,10 +1641,10 @@ namespace oomph
     /// Re-solve the system defined by the last assembled Jacobian
     /// and the rhs vector specified here. Solution is returned in the
     /// vector result.
-    void resolve(const DoubleVector& rhs, DoubleVector& result);
+    void resolve(const DoubleVector& rhs, DoubleVector& result) override;
 
     /// Number of iterations taken
-    unsigned iterations() const
+    unsigned iterations() const override
     {
       return Iterations;
     }
@@ -1684,7 +1684,7 @@ namespace oomph
 
   private:
     /// Cleanup data that's stored for resolve (if any has been stored)
-    void clean_up_memory()
+    void clean_up_memory() override
     {
       if ((Matrix_pt != 0) && (Matrix_can_be_deleted))
       {

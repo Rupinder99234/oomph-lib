@@ -62,7 +62,7 @@ namespace oomph
     /// routines), the values Vector sets its own size in here.
     void get_interpolated_values(const unsigned& t,
                                  const Vector<double>& s,
-                                 Vector<double>& values)
+                                 Vector<double>& values) override
     {
       // Create enough initialised storage
       values.resize(2 * DIM, 0.0);
@@ -94,13 +94,13 @@ namespace oomph
     /// is usually called from black-box documentation or interpolation
     /// routines) ,the values Vector sets its own size in here.
     void get_interpolated_values(const Vector<double>& s,
-                                 Vector<double>& values)
+                                 Vector<double>& values) override
     {
       this->get_interpolated_values(0, s, values);
     }
 
     /// Number of 'flux' terms for Z2 error estimation
-    unsigned num_Z2_flux_terms()
+    unsigned num_Z2_flux_terms() override
     {
       // DIM Diagonal strain rates and DIM*(DIM-1)/2 off diagonal terms
       return 2 * (DIM + DIM * (DIM - 1) / 2);
@@ -108,7 +108,7 @@ namespace oomph
 
     /// Get 'flux' for Z2 error recovery:   Upper triangular entries
     /// in strain tensor.
-    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux)
+    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux) override
     {
 #ifdef PARANOID
       unsigned num_entries = 2 * (DIM + ((DIM * DIM) - DIM) / 2);
@@ -154,13 +154,13 @@ namespace oomph
     }
 
     /// Number of continuously interpolated values: 2*DIM
-    unsigned ncont_interpolated_values() const
+    unsigned ncont_interpolated_values() const override
     {
       return 2 * DIM;
     }
 
     /// Further build function, pass the pointers down to the sons
-    void further_build()
+    void further_build() override
     {
       RefineableTimeHarmonicLinearElasticityEquations<DIM>*
         cast_father_element_pt =
@@ -182,7 +182,7 @@ namespace oomph
   private:
     /// Overloaded helper function to take hanging nodes into account
     void fill_in_generic_contribution_to_residuals_time_harmonic_linear_elasticity(
-      Vector<double>& residuals, DenseMatrix<double>& jacobian, unsigned flag);
+      Vector<double>& residuals, DenseMatrix<double>& jacobian, unsigned flag) override;
   };
 
 

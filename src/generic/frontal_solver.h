@@ -131,7 +131,7 @@ namespace oomph
     }
 
     /// Destructor, clean up the allocated memory
-    ~HSL_MA42()
+    ~HSL_MA42() override
     {
       clean_up_memory();
     }
@@ -143,7 +143,7 @@ namespace oomph
     void operator=(const HSL_MA42&) = delete;
 
     /// Clean up memory
-    void clean_up_memory()
+    void clean_up_memory() override
     {
       if (IW)
       {
@@ -160,7 +160,7 @@ namespace oomph
     }
 
     /// Overload disable resolve so that it cleans up memory too
-    void disable_resolve()
+    void disable_resolve() override
     {
       LinearSolver::disable_resolve();
       clean_up_memory();
@@ -169,7 +169,7 @@ namespace oomph
     /// Solver: Takes pointer to problem and returns the results Vector
     /// which contains the solution of the linear system defined by
     /// the problem's fully assembled Jacobian and residual Vector.
-    void solve(Problem* const& problem_pt, DoubleVector& result);
+    void solve(Problem* const& problem_pt, DoubleVector& result) override;
 
     /// Linear-algebra-type solver: Takes pointer to a matrix and rhs
     /// vector and returns the solution of the linear system.
@@ -177,7 +177,7 @@ namespace oomph
     /// it
     void solve(DoubleMatrixBase* const& matrix_pt,
                const DoubleVector& rhs,
-               DoubleVector& result)
+               DoubleVector& result) override
     {
       LinearSolver::solve(matrix_pt, rhs, result);
     }
@@ -189,7 +189,7 @@ namespace oomph
     /// implement it
     void solve(DoubleMatrixBase* const& matrix_pt,
                const Vector<double>& rhs,
-               Vector<double>& result)
+               Vector<double>& result) override
     {
       LinearSolver::solve(matrix_pt, rhs, result);
     }
@@ -198,7 +198,7 @@ namespace oomph
     /// Return the solution to the linear system Ax = result, where
     /// A is the most recently factorised jacobian matrix of the problem
     /// problem_pt. The solution is returned in the result vector.
-    void resolve(const DoubleVector& rhs, DoubleVector& result);
+    void resolve(const DoubleVector& rhs, DoubleVector& result) override;
 
     /// Function to reorder the elements based on Sloan's algorithm
     void reorder_elements(Problem* const& problem_pt);

@@ -114,7 +114,7 @@ namespace oomph
     /// for shape function storage. Internal and external data get
     /// wiped by the GeneralisedElement destructor; nodes get
     /// killed in mesh destructor.
-    virtual ~StorableShapeElementBase();
+    ~StorableShapeElementBase() override;
 
     /// Broken copy constructor
     StorableShapeElementBase(const StorableShapeElementBase&) = delete;
@@ -156,7 +156,7 @@ namespace oomph
     /// Set the spatial integration scheme -- overloaded from the
     /// finite element base class since a change in the integration scheme
     /// forces a recomputation of the shape fcts at the integration points.
-    virtual void set_integration_scheme(Integral* const& integral_pt);
+    void set_integration_scheme(Integral* const& integral_pt) override;
 
     /// Return a pointer to the vector of pointers to the
     /// stored shape functions
@@ -290,7 +290,7 @@ namespace oomph
 
     /// Return the geometric shape function at the ipt-th integration
     /// point
-    void shape_at_knot(const unsigned& ipt, Shape& psi) const;
+    void shape_at_knot(const unsigned& ipt, Shape& psi) const override;
 
     /// Calculate the shape functions and first derivatives w.r.t. local
     /// coordinatess at the integration points and store the results internally
@@ -301,7 +301,7 @@ namespace oomph
     /// values have been stored, they will be used.
     void dshape_local_at_knot(const unsigned& ipt,
                               Shape& psi,
-                              DShape& dpsids) const;
+                              DShape& dpsids) const override;
 
     /// Calculate the second derivatives of the shape functions
     /// w.r.t. local coordinates at the integration points and store the
@@ -315,7 +315,7 @@ namespace oomph
     void d2shape_local_at_knot(const unsigned& ipt,
                                Shape& psi,
                                DShape& dpsids,
-                               DShape& d2psids) const;
+                               DShape& d2psids) const override;
 
     /// Calculate the Jacobian of the mapping from local to global
     /// coordinates at the integration points and store the results
@@ -324,7 +324,7 @@ namespace oomph
 
     /// Return the Jacobian of the mapping from local to global
     /// coordinates at the ipt-th integration point
-    double J_eulerian_at_knot(const unsigned& ipt) const;
+    double J_eulerian_at_knot(const unsigned& ipt) const override;
 
     /// Calculate the first derivatives of the shape functions
     /// w.r.t the global coordinates at the integration points and store
@@ -337,7 +337,7 @@ namespace oomph
     /// pre-computed, these will be used
     double dshape_eulerian_at_knot(const unsigned& ipt,
                                    Shape& psi,
-                                   DShape& dpsidx) const;
+                                   DShape& dpsidx) const override;
 
 
     /// Calculate the first and second derivatives of the shape
@@ -352,7 +352,7 @@ namespace oomph
     double d2shape_eulerian_at_knot(const unsigned& ipt,
                                     Shape& psi,
                                     DShape& dpsidx,
-                                    DShape& d2psidx) const;
+                                    DShape& d2psidx) const override;
 
 
     /*  /// Diagnostic */
@@ -407,7 +407,7 @@ namespace oomph
     }
 
     /// Destructor to clean up any allocated memory
-    virtual ~StorableShapeSolidElementBase()
+    ~StorableShapeSolidElementBase() override
     {
       delete_all_dshape_lagrangian_stored();
     }
@@ -437,7 +437,7 @@ namespace oomph
 
     /// Overload the set_integration_scheme to recompute any stored
     /// derivatives w.r.t. Lagrangian coordinates
-    void set_integration_scheme(Integral* const& integral_pt)
+    void set_integration_scheme(Integral* const& integral_pt) override
     {
       StorableShapeElementBase::set_integration_scheme(integral_pt);
 
@@ -513,7 +513,7 @@ namespace oomph
     /// pre-computed, they will be used.
     double dshape_lagrangian_at_knot(const unsigned& ipt,
                                      Shape& psi,
-                                     DShape& dpsidxi) const;
+                                     DShape& dpsidxi) const override;
 
     /// Calculate the first and second derivatives of the
     /// shape functions w.r.t
@@ -529,7 +529,7 @@ namespace oomph
     double d2shape_lagrangian_at_knot(const unsigned& ipt,
                                       Shape& psi,
                                       DShape& dpsidxi,
-                                      DShape& d2psidxi) const;
+                                      DShape& d2psidxi) const override;
 
 
     /// Set the derivatives of stored shape functions with respect
@@ -566,7 +566,7 @@ namespace oomph
     }
 
     /// Empty virtual destructor
-    virtual ~StorableShapeElement() {}
+    ~StorableShapeElement() override {}
 
     /// Broken copy constructor
     StorableShapeElement(const StorableShapeElement&) = delete;
@@ -603,7 +603,7 @@ namespace oomph
     }
 
     /// Destructor to clean up any allocated memory
-    virtual ~StorableShapeSolidElement() {}
+    ~StorableShapeSolidElement() override {}
 
 
     /// Broken copy constructor

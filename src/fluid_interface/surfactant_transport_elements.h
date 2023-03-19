@@ -75,7 +75,7 @@ namespace oomph
     /// The surface tension function is linear in the
     /// concentration with constant of proportionality equal
     /// to the elasticity  number.
-    double sigma(const Vector<double>& s);
+    double sigma(const Vector<double>& s) override;
 
     /// Return the derivative of sigma with respect to C
     /// For use in computing the Jacobian
@@ -99,7 +99,7 @@ namespace oomph
       const Vector<double>& interpolated_x,
       const Vector<double>& interpolated_n,
       const double& W,
-      const double& J);
+      const double& J) override;
 
 
     /// Add the element's contribution to its residuals vector,
@@ -107,7 +107,7 @@ namespace oomph
     void fill_in_contribution_to_jacobian_and_mass_matrix(
       Vector<double>& residuals,
       DenseMatrix<double>& jacobian,
-      DenseMatrix<double>& mass_matrix)
+      DenseMatrix<double>& mass_matrix) override
     {
       // Add the contribution to the jacobian
       this->fill_in_contribution_to_jacobian(residuals, jacobian);
@@ -169,21 +169,21 @@ namespace oomph
 
 
     /// Overload the output function
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       FiniteElement::output(outfile);
     }
 
-    void output(std::ostream& outfile, const unsigned& n_plot);
+    void output(std::ostream& outfile, const unsigned& n_plot) override;
 
     /// Overload the C-style output function
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       FiniteElement::output(file_pt);
     }
 
     /// C-style Output function
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       FiniteElement::output(file_pt, n_plot);
     }

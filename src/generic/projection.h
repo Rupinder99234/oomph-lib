@@ -183,7 +183,7 @@ namespace oomph
   {
   protected:
     /// Overloaded version of fill_in_contribution_to_residuals
-    void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       // Do projection
       if (Do_projection)
@@ -207,7 +207,7 @@ namespace oomph
     /// call hierarchy of this function when called from
     /// Problem::describe_dofs(...)
     void describe_local_dofs(std::ostream& out,
-                             const std::string& current_string) const
+                             const std::string& current_string) const override
     {
       ElementWithExternalElement::describe_local_dofs(out, current_string);
       ELEMENT::describe_local_dofs(out, current_string);
@@ -215,7 +215,7 @@ namespace oomph
 
     /// Overloaded version of fill_in_contribution_to_jacobian
     void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian)
+                                          DenseMatrix<double>& jacobian) override
     {
       // Do projection
       if (Do_projection)
@@ -530,7 +530,7 @@ namespace oomph
     /// when doing projection
     double zeta_nodal(const unsigned& n,
                       const unsigned& k,
-                      const unsigned& i) const
+                      const unsigned& i) const override
     {
       if (Do_projection)
       {
@@ -1403,7 +1403,7 @@ namespace oomph
     }
 
     // Destructor
-    ~ProjectionProblem()
+    ~ProjectionProblem() override
     {
       if (Iterative_solver_projection_pt != 0)
       {

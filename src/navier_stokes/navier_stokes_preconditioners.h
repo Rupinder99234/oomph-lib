@@ -98,11 +98,11 @@ namespace oomph
     }
 
     /// Empty virtual destructor
-    virtual ~FpPreconditionerAssemblyHandler() {}
+    ~FpPreconditionerAssemblyHandler() override {}
 
     /// Return the contribution to the residuals of the element elem_pt
     void get_residuals(GeneralisedElement* const& elem_pt,
-                       Vector<double>& residuals)
+                       Vector<double>& residuals) override
     {
       unsigned n_dof = elem_pt->ndof();
       for (unsigned i = 0; i < n_dof; i++)
@@ -118,7 +118,7 @@ namespace oomph
     /// / d variable" for elem_pt.
     void get_jacobian(GeneralisedElement* const& elem_pt,
                       Vector<double>& residuals,
-                      DenseMatrix<double>& jacobian)
+                      DenseMatrix<double>& jacobian) override
     {
       // Initialise
       unsigned n_dof = elem_pt->ndof();
@@ -661,7 +661,7 @@ namespace oomph
     }
 
     /// Destructor
-    virtual ~NavierStokesSchurComplementPreconditioner()
+    ~NavierStokesSchurComplementPreconditioner() override
     {
       clean_up_memory();
     }
@@ -717,14 +717,14 @@ namespace oomph
 
 
     /// Setup the preconditioner
-    void setup();
+    void setup() override;
 
     /// for some reason we have to remind the compiler that there is a
     /// setup() function in Preconditioner base class.
     using Preconditioner::setup;
 
     /// Apply preconditioner to Vector r
-    void preconditioner_solve(const DoubleVector& r, DoubleVector& z);
+    void preconditioner_solve(const DoubleVector& r, DoubleVector& z) override;
 
     /// Specify the mesh containing the block-preconditionable Navier-Stokes
     /// elements. The optional argument indicates if there are multiple types
@@ -814,7 +814,7 @@ namespace oomph
     }
 
     /// Helper function to delete preconditioner data.
-    void clean_up_memory();
+    void clean_up_memory() override;
 
     /// Use  Robin BC elements for the Fp preconditioner
     void enable_robin_for_fp()

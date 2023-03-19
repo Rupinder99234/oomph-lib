@@ -119,7 +119,7 @@ namespace oomph
     }
 
     /// Number of values required at node n
-    virtual unsigned required_nvalue(const unsigned& n) const = 0;
+    unsigned required_nvalue(const unsigned& n) const override = 0;
 
     /// Return the equation number of the n-th edge (flux) degree of freedom
     virtual int q_edge_local_eqn(const unsigned& n) const = 0;
@@ -255,7 +255,7 @@ namespace oomph
                            Shape& q_basis) const;
 
     /// Fill in contribution to residuals for the Darcy equations
-    void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       this->fill_in_generic_residual_contribution(
         residuals, GeneralisedElement::Dummy_matrix, 0);
@@ -414,13 +414,13 @@ namespace oomph
 
 
     /// Self test -- empty for now.
-    unsigned self_test()
+    unsigned self_test() override
     {
       return 0;
     }
 
     /// Output with default number of plot points
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       unsigned nplot = 5;
       output(outfile, nplot);
@@ -428,7 +428,7 @@ namespace oomph
 
     /// Output FE representation of soln: x,y,q1,q2,div_q,p at
     /// Nplot^DIM plot points
-    void output(std::ostream& outfile, const unsigned& nplot);
+    void output(std::ostream& outfile, const unsigned& nplot) override;
 
 
     /// Output incl. projection of fluxes into direction of
@@ -442,27 +442,27 @@ namespace oomph
     /// Nplot^DIM plot points
     void output_fct(std::ostream& outfile,
                     const unsigned& nplot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt);
+                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
 
     /// Compute the error between the FE solution and the exact solution
     /// using the H(div) norm for q and L^2 norm for p
     void compute_error(std::ostream& outfile,
                        FiniteElement::SteadyExactSolutionFctPt exact_soln_pt,
                        Vector<double>& error,
-                       Vector<double>& norm);
+                       Vector<double>& norm) override;
 
 
     // Z2 stuff:
 
 
     /// Number off flux terms for Z2 error estimator (use actual flux)
-    unsigned num_Z2_flux_terms()
+    unsigned num_Z2_flux_terms() override
     {
       return DIM;
     }
 
     /// Z2 flux (use actual flux)
-    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux)
+    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux) override
     {
       interpolated_q(s, flux);
     }
@@ -526,7 +526,7 @@ namespace oomph
     /// Specify the values associated with field fld.
     /// The information is returned in a vector of pairs which comprise
     /// the Data object and the value within it, that correspond to field fld.
-    Vector<std::pair<Data*, unsigned>> data_values_of_field(const unsigned& fld)
+    Vector<std::pair<Data*, unsigned>> data_values_of_field(const unsigned& fld) override
     {
 #ifdef PARANOID
       if (fld > 1)
@@ -580,14 +580,14 @@ namespace oomph
     }
 
     /// Number of fields to be projected: 2 (pressure and flux)
-    unsigned nfields_for_projection()
+    unsigned nfields_for_projection() override
     {
       return 2;
     }
 
     /// Number of history values to be stored for fld-th field.
     /// (Note: count includes current value!)
-    unsigned nhistory_values_for_projection(const unsigned& fld)
+    unsigned nhistory_values_for_projection(const unsigned& fld) override
     {
 #ifdef PARANOID
       if (fld > 1)
@@ -604,7 +604,7 @@ namespace oomph
 
     /// Number of positional history values
     /// (Note: count includes current value!)
-    unsigned nhistory_values_for_coordinate_projection()
+    unsigned nhistory_values_for_coordinate_projection() override
     {
       return this->node_pt(0)->position_time_stepper_pt()->ntstorage();
     }
@@ -613,7 +613,7 @@ namespace oomph
     /// at local coordinate s
     double jacobian_and_shape_of_field(const unsigned& fld,
                                        const Vector<double>& s,
-                                       Shape& psi)
+                                       Shape& psi) override
     {
 #ifdef PARANOID
       if (fld > 1)
@@ -678,7 +678,7 @@ namespace oomph
     /// level t (t=0: present; t>0: history values)
     double get_field(const unsigned& t,
                      const unsigned& fld,
-                     const Vector<double>& s)
+                     const Vector<double>& s) override
     {
 #ifdef PARANOID
       if (fld > 1)
@@ -710,7 +710,7 @@ namespace oomph
 
 
     /// Return number of values in field fld
-    unsigned nvalue_of_field(const unsigned& fld)
+    unsigned nvalue_of_field(const unsigned& fld) override
     {
 #ifdef PARANOID
       if (fld > 1)
@@ -738,7 +738,7 @@ namespace oomph
 
 
     /// Return local equation number of value j in field fld.
-    int local_equation(const unsigned& fld, const unsigned& j)
+    int local_equation(const unsigned& fld, const unsigned& j) override
     {
 #ifdef PARANOID
       if (fld > 1)

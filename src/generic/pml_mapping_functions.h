@@ -73,7 +73,7 @@ namespace oomph
     std::complex<double> gamma(const double& nu_i,
                                const double& pml_width_i,
                                const double& wavenumber_squared,
-                               const double& alpha_shift = 0.0)
+                               const double& alpha_shift = 0.0) override
     {
       /// return \f$\gamma=1 + (1/k)(i/|outer_boundary - x|)\f$
       return 1.0 + MathematicalConstants::I / sqrt(wavenumber_squared) *
@@ -98,7 +98,7 @@ namespace oomph
     std::complex<double> gamma(const double& nu_i,
                                const double& pml_width_i,
                                const double& wavenumber_squared,
-                               const double& alpha_shift = 0.0)
+                               const double& alpha_shift = 0.0) override
     {
       /// return \f$\gamma=1 + (i/k)(1/|outer_boundary - x|-1/|pml width|)\f$
       return 1.0 + MathematicalConstants::I / sqrt(wavenumber_squared) *

@@ -62,7 +62,7 @@ namespace oomph
     void operator=(const RefineableLineMesh&) = delete;
 
     /// Destructor:
-    virtual ~RefineableLineMesh() {}
+    ~RefineableLineMesh() override {}
 
     /// Set up the tree forest associated with the Mesh.
     /// Forwards call to setup_binary_tree_forest().

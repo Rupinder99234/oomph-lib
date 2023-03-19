@@ -311,7 +311,7 @@ namespace oomph
 
 
     /// returns the number of DOF types associated with this element.
-    unsigned ndof_types() const
+    unsigned ndof_types() const override
     {
       return DIM;
     }
@@ -327,7 +327,7 @@ namespace oomph
     /// 1 - y displacement
     /// 2 - z displacement
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override
     {
       // temporary pair (used to store dof lookup prior to being added to list
       std::pair<unsigned, unsigned> dof_lookup;
@@ -444,11 +444,11 @@ namespace oomph
 
     /// Return the 2nd Piola Kirchoff stress tensor, as calculated
     /// from the constitutive law at specified local coordinate
-    void get_stress(const Vector<double>& s, DenseMatrix<double>& sigma);
+    void get_stress(const Vector<double>& s, DenseMatrix<double>& sigma) override;
 
     /// Fill in the residuals for the solid equations (the discretised
     /// principle of virtual displacements)
-    void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       fill_in_generic_contribution_to_residuals_pvd(
         residuals, GeneralisedElement::Dummy_matrix, 0);
@@ -457,7 +457,7 @@ namespace oomph
     /// Fill in contribution to Jacobian (either by FD or analytically,
     /// control this via evaluate_jacobian_by_fd()
     void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian)
+                                          DenseMatrix<double>& jacobian) override
     {
       // Solve for the consistent acceleration in Newmark scheme?
       if (this->Solve_for_consistent_newmark_accel_flag)
@@ -503,25 +503,25 @@ namespace oomph
 
 
     /// Output: x,y,[z],xi0,xi1,[xi2],gamma
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       unsigned n_plot = 5;
       output(outfile, n_plot);
     }
 
     /// Output: x,y,[z],xi0,xi1,[xi2],gamma
-    void output(std::ostream& outfile, const unsigned& n_plot);
+    void output(std::ostream& outfile, const unsigned& n_plot) override;
 
 
     /// C-style output: x,y,[z],xi0,xi1,[xi2],gamma
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       unsigned n_plot = 5;
       output(file_pt, n_plot);
     }
 
     /// Output: x,y,[z],xi0,xi1,[xi2],gamma
-    void output(FILE* file_pt, const unsigned& n_plot);
+    void output(FILE* file_pt, const unsigned& n_plot) override;
 
 
     /// Output: x,y,[z],xi0,xi1,[xi2],gamma and the strain and stress
@@ -593,7 +593,7 @@ namespace oomph
 
   private:
     /// Unpin all solid pressure dofs -- empty as there are no pressures
-    void unpin_elemental_solid_pressure_dofs() {}
+    void unpin_elemental_solid_pressure_dofs() override {}
   };
 
 
@@ -869,7 +869,7 @@ namespace oomph
 
     /// Return the 2nd Piola Kirchoff stress tensor, as calculated
     /// from the constitutive law at specified local coordinate
-    void get_stress(const Vector<double>& s, DenseMatrix<double>& sigma);
+    void get_stress(const Vector<double>& s, DenseMatrix<double>& sigma) override;
 
     /// Return whether the material is incompressible
     bool is_incompressible() const
@@ -896,7 +896,7 @@ namespace oomph
     virtual void set_solid_p(const unsigned& l, const double& p_value) = 0;
 
     /// Fill in the residuals
-    void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       // Call the generic residuals function with flag set to 0
       // using a dummy matrix argument
@@ -912,7 +912,7 @@ namespace oomph
     /// evaluate_jacobian_by_fd(). Note: Jacobian entries arising from
     /// derivatives w.r.t. pressure terms are always computed analytically.
     void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian)
+                                          DenseMatrix<double>& jacobian) override
     {
       // Solve for the consistent acceleration in the Newmark scheme
       // Note that this replaces solid entries only
@@ -958,7 +958,7 @@ namespace oomph
     void fill_in_contribution_to_jacobian_and_mass_matrix(
       Vector<double>& residuals,
       DenseMatrix<double>& jacobian,
-      DenseMatrix<double>& mass_matrix)
+      DenseMatrix<double>& mass_matrix) override
     {
       // Solve for the consistent acceleration in the Newmark scheme
       // Note that this replaces solid entries only
@@ -1030,25 +1030,25 @@ namespace oomph
 
 
     /// Output: x,y,[z],xi0,xi1,[xi2],p,gamma
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       unsigned n_plot = 5;
       output(outfile, n_plot);
     }
 
     /// Output: x,y,[z],xi0,xi1,[xi2],p,gamma
-    void output(std::ostream& outfile, const unsigned& n_plot);
+    void output(std::ostream& outfile, const unsigned& n_plot) override;
 
 
     /// C-style output: x,y,[z],xi0,xi1,[xi2],p,gamma
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       unsigned n_plot = 5;
       output(file_pt, n_plot);
     }
 
     /// C-style output: x,y,[z],xi0,xi1,[xi2],p,gamma
-    void output(FILE* file_pt, const unsigned& n_plot);
+    void output(FILE* file_pt, const unsigned& n_plot) override;
 
     /// Output: x,y,[z],xi0,xi1,[xi2],gamma and the strain and stress
     /// components
@@ -1057,11 +1057,11 @@ namespace oomph
 
     /// Compute the diagonal of the displacement mass matrix for
     /// LSC preconditioner
-    void get_mass_matrix_diagonal(Vector<double>& mass_diag);
+    void get_mass_matrix_diagonal(Vector<double>& mass_diag) override;
 
     /// returns the number of DOF types associated with this element:
     ///  displacement components and pressure
-    unsigned ndof_types() const
+    unsigned ndof_types() const override
     {
       return DIM + 1;
     }
@@ -1075,7 +1075,7 @@ namespace oomph
     /// There are DIM+1 types of DOF: displacement compnents and
     /// pressure
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override
     {
       // temporary pair (used to store dof lookup prior to being added to list
       std::pair<unsigned, unsigned> dof_lookup;
@@ -1331,7 +1331,7 @@ namespace oomph
                                   public virtual PVDEquationsWithPressure<DIM>
   {
     /// Unpin all solid pressure dofs in the element
-    void unpin_elemental_solid_pressure_dofs()
+    void unpin_elemental_solid_pressure_dofs() override
     {
       unsigned n_pres = this->npres_solid();
       // loop over pressure dofs and unpin them
@@ -1349,18 +1349,18 @@ namespace oomph
     /// Overload the access function
     /// that is used to return local equation corresponding to the i-th
     /// solid pressure value
-    inline int solid_p_local_eqn(const unsigned& i) const
+    inline int solid_p_local_eqn(const unsigned& i) const override
     {
       return this->internal_local_eqn(P_solid_internal_index, i);
     }
 
     /// Return the pressure shape functions
-    inline void solid_pshape(const Vector<double>& s, Shape& psi) const;
+    inline void solid_pshape(const Vector<double>& s, Shape& psi) const override;
 
   public:
     /// There is internal solid data so we can't use the automatic
     /// assignment of consistent initial conditions for time-dependent problems.
-    bool has_internal_solid_data()
+    bool has_internal_solid_data() override
     {
       return true;
     }
@@ -1375,19 +1375,19 @@ namespace oomph
     }
 
     /// Return the lth pressure value
-    double solid_p(const unsigned& l)
+    double solid_p(const unsigned& l) override
     {
       return this->internal_data_pt(P_solid_internal_index)->value(l);
     }
 
     /// Set the l-th pressure value to p_value
-    void set_solid_p(const unsigned& l, const double& p_value)
+    void set_solid_p(const unsigned& l, const double& p_value) override
     {
       this->internal_data_pt(P_solid_internal_index)->set_value(l, p_value);
     }
 
     /// Return number of pressure values
-    unsigned npres_solid() const
+    unsigned npres_solid() const override
     {
       return DIM + 1;
     }
@@ -1400,26 +1400,26 @@ namespace oomph
     }
 
     /// Generic FiniteElement output function
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       FiniteElement::output(outfile);
     }
 
     /// PVDEquationsWithPressure output function
-    void output(std::ostream& outfile, const unsigned& n_plot)
+    void output(std::ostream& outfile, const unsigned& n_plot) override
     {
       PVDEquationsWithPressure<DIM>::output(outfile, n_plot);
     }
 
 
     /// C-style Generic FiniteElement output function
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       FiniteElement::output(file_pt);
     }
 
     /// C-style PVDEquationsWithPressure output function
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       PVDEquationsWithPressure<DIM>::output(file_pt, n_plot);
     }
@@ -1527,7 +1527,7 @@ namespace oomph
     static const unsigned Initial_Nvalue[];
 
     /// Unpin all solid pressure dofs in the element
-    void unpin_elemental_solid_pressure_dofs()
+    void unpin_elemental_solid_pressure_dofs() override
     {
       // find the index at which the pressure is stored
       int p_index = this->solid_p_nodal_index();
@@ -1547,13 +1547,13 @@ namespace oomph
     /// Overload the access function
     /// that is used to return local equation corresponding to the i-th
     /// solid pressure value
-    inline int solid_p_local_eqn(const unsigned& i) const
+    inline int solid_p_local_eqn(const unsigned& i) const override
     {
       return this->nodal_local_eqn(Pconv[i], this->solid_p_nodal_index());
     }
 
     /// Return the pressure shape functions
-    inline void solid_pshape(const Vector<double>& s, Shape& psi) const;
+    inline void solid_pshape(const Vector<double>& s, Shape& psi) const override;
 
   public:
     /// Constructor
@@ -1563,33 +1563,33 @@ namespace oomph
     }
 
     /// Set the value at which the solid pressure is stored in the nodes
-    inline int solid_p_nodal_index() const
+    inline int solid_p_nodal_index() const override
     {
       return 0;
     }
 
     /// Number of values (pinned or dofs) required at node n. Can
     /// be overwritten for hanging node version
-    inline virtual unsigned required_nvalue(const unsigned& n) const
+    inline unsigned required_nvalue(const unsigned& n) const override
     {
       return Initial_Nvalue[n];
     }
 
     /// Return the l-th pressure value, make sure to use the hanging
     /// representation if there is one!
-    double solid_p(const unsigned& l)
+    double solid_p(const unsigned& l) override
     {
       return this->nodal_value(Pconv[l], this->solid_p_nodal_index());
     }
 
     /// Set the l-th solid pressure value to p_value
-    void set_solid_p(const unsigned& l, const double& p_value)
+    void set_solid_p(const unsigned& l, const double& p_value) override
     {
       this->node_pt(Pconv[l])->set_value(this->solid_p_nodal_index(), p_value);
     }
 
     /// Return number of pressure values
-    unsigned npres_solid() const
+    unsigned npres_solid() const override
     {
       return static_cast<unsigned>(pow(2.0, static_cast<int>(DIM)));
     }
@@ -1602,26 +1602,26 @@ namespace oomph
     }
 
     /// Generic FiniteElement output function
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       FiniteElement::output(outfile);
     }
 
     /// PVDEquationsWithPressure output function
-    void output(std::ostream& outfile, const unsigned& n_plot)
+    void output(std::ostream& outfile, const unsigned& n_plot) override
     {
       PVDEquationsWithPressure<DIM>::output(outfile, n_plot);
     }
 
 
     /// C-style generic FiniteElement output function
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       FiniteElement::output(file_pt);
     }
 
     /// C-style PVDEquationsWithPressure output function
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       PVDEquationsWithPressure<DIM>::output(file_pt, n_plot);
     }
@@ -1759,45 +1759,45 @@ namespace oomph
     TPVDElement() : SolidTElement<DIM, NNODE_1D>(), PVDEquations<DIM>() {}
 
     /// Output function
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       PVDEquations<DIM>::output(outfile);
     }
 
     /// Output function
-    void output(std::ostream& outfile, const unsigned& n_plot)
+    void output(std::ostream& outfile, const unsigned& n_plot) override
     {
       PVDEquations<DIM>::output(outfile, n_plot);
     }
 
 
     /// C-style output function
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       PVDEquations<DIM>::output(file_pt);
     }
 
     /// C-style output function
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       PVDEquations<DIM>::output(file_pt, n_plot);
     }
 
     /// Order of recovery shape functions for Z2 error estimation:
     /// Same order as shape functions.
-    unsigned nrecovery_order()
+    unsigned nrecovery_order() override
     {
       return (NNODE_1D - 1);
     }
 
     /// Number of vertex nodes in the element
-    unsigned nvertex_node() const
+    unsigned nvertex_node() const override
     {
       return TElement<DIM, NNODE_1D>::nvertex_node();
     }
 
     /// Pointer to the j-th vertex node in the element
-    Node* vertex_node_pt(const unsigned& j) const
+    Node* vertex_node_pt(const unsigned& j) const override
     {
       return TElement<DIM, NNODE_1D>::vertex_node_pt(j);
     }
@@ -1813,7 +1813,7 @@ namespace oomph
     using SolidFiniteElement::describe_local_dofs;
 
     /// Number of 'flux' terms for Z2 error estimation
-    unsigned num_Z2_flux_terms()
+    unsigned num_Z2_flux_terms() override
     {
       // DIM Diagonal strain rates and DIM*(DIM-1)/2 off diagonal terms
       return DIM + DIM * (DIM - 1) / 2;
@@ -1821,7 +1821,7 @@ namespace oomph
 
     /// Get 'flux' for Z2 error recovery:   Upper triangular entries
     /// in strain tensor.
-    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux)
+    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux) override
     {
 #ifdef PARANOID
       unsigned num_entries = DIM + ((DIM * DIM) - DIM) / 2;
@@ -1941,26 +1941,26 @@ namespace oomph
     }
 
     /// Output function
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       PVDEquations<DIM>::output(outfile);
     }
 
     /// Output function
-    void output(std::ostream& outfile, const unsigned& n_plot)
+    void output(std::ostream& outfile, const unsigned& n_plot) override
     {
       PVDEquations<DIM>::output(outfile, n_plot);
     }
 
 
     /// C-style output function
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       PVDEquations<DIM>::output(file_pt);
     }
 
     /// C-style output function
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       PVDEquations<DIM>::output(file_pt, n_plot);
     }
@@ -1968,25 +1968,25 @@ namespace oomph
 
     /// Order of recovery shape functions for Z2 error estimation:
     /// Same order as shape functions.
-    unsigned nrecovery_order()
+    unsigned nrecovery_order() override
     {
       return (NNODE_1D - 1);
     }
 
     /// Number of vertex nodes in the element
-    unsigned nvertex_node() const
+    unsigned nvertex_node() const override
     {
       return TElement<DIM, NNODE_1D>::nvertex_node();
     }
 
     /// Pointer to the j-th vertex node in the element
-    Node* vertex_node_pt(const unsigned& j) const
+    Node* vertex_node_pt(const unsigned& j) const override
     {
       return TElement<DIM, NNODE_1D>::vertex_node_pt(j);
     }
 
     /// Number of 'flux' terms for Z2 error estimation
-    unsigned num_Z2_flux_terms()
+    unsigned num_Z2_flux_terms() override
     {
       // DIM Diagonal strain rates and DIM*(DIM-1)/2 off diagonal terms
       return DIM + DIM * (DIM - 1) / 2;
@@ -1994,7 +1994,7 @@ namespace oomph
 
     /// Get 'flux' for Z2 error recovery:   Upper triangular entries
     /// in strain tensor.
-    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux)
+    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux) override
     {
 #ifdef PARANOID
       unsigned num_entries = DIM + ((DIM * DIM) - DIM) / 2;
@@ -2106,7 +2106,7 @@ namespace oomph
     static const unsigned Initial_Nvalue[];
 
     /// Unpin all solid pressure dofs in the element
-    void unpin_elemental_solid_pressure_dofs()
+    void unpin_elemental_solid_pressure_dofs() override
     {
       // find the index at which the pressure is stored
       int p_index = this->solid_p_nodal_index();
@@ -2126,13 +2126,13 @@ namespace oomph
     /// Overload the access function
     /// that is used to return local equation corresponding to the i-th
     /// solid pressure value
-    inline int solid_p_local_eqn(const unsigned& i) const
+    inline int solid_p_local_eqn(const unsigned& i) const override
     {
       return this->nodal_local_eqn(Pconv[i], this->solid_p_nodal_index());
     }
 
     /// Pressure shape functions at local coordinate s
-    inline void solid_pshape(const Vector<double>& s, Shape& psi) const;
+    inline void solid_pshape(const Vector<double>& s, Shape& psi) const override;
 
   public:
     /// Constructor
@@ -2155,33 +2155,33 @@ namespace oomph
     /*void operator=(const TPVDElementWithContinuousPressure<DIM>&) = delete;*/
 
     /// Set the value at which the solid pressure is stored in the nodes
-    inline int solid_p_nodal_index() const
+    inline int solid_p_nodal_index() const override
     {
       return 0;
     }
 
     /// Number of values (pinned or dofs) required at node n. Can
     /// be overwritten for hanging node version
-    inline virtual unsigned required_nvalue(const unsigned& n) const
+    inline unsigned required_nvalue(const unsigned& n) const override
     {
       return Initial_Nvalue[n];
     }
 
     /// Return the l-th pressure value, make sure to use the hanging
     /// representation if there is one!
-    double solid_p(const unsigned& l)
+    double solid_p(const unsigned& l) override
     {
       return this->nodal_value(Pconv[l], this->solid_p_nodal_index());
     }
 
     /// Set the l-th solid pressure value to p_value
-    void set_solid_p(const unsigned& l, const double& p_value)
+    void set_solid_p(const unsigned& l, const double& p_value) override
     {
       this->node_pt(Pconv[l])->set_value(this->solid_p_nodal_index(), p_value);
     }
 
     /// Return number of pressure values
-    unsigned npres_solid() const;
+    unsigned npres_solid() const override;
 
     /// Fix the pressure dof l to be the value pvalue
     void fix_solid_pressure(const unsigned& l, const double& pvalue)
@@ -2191,51 +2191,51 @@ namespace oomph
     }
 
     /// Generic FiniteElement output function
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       FiniteElement::output(outfile);
     }
 
     /// PVDEquationsWithPressure output function
-    void output(std::ostream& outfile, const unsigned& n_plot)
+    void output(std::ostream& outfile, const unsigned& n_plot) override
     {
       PVDEquationsWithPressure<DIM>::output(outfile, n_plot);
     }
 
 
     /// C-style generic FiniteElement output function
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       FiniteElement::output(file_pt);
     }
 
     /// C-style PVDEquationsWithPressure output function
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       PVDEquationsWithPressure<DIM>::output(file_pt, n_plot);
     }
 
     /// Order of recovery shape functions for Z2 error estimation:
     /// Same order as shape functions.
-    unsigned nrecovery_order()
+    unsigned nrecovery_order() override
     {
       return 2;
     }
 
     /// Number of vertex nodes in the element
-    unsigned nvertex_node() const
+    unsigned nvertex_node() const override
     {
       return TElement<DIM, 3>::nvertex_node();
     }
 
     /// Pointer to the j-th vertex node in the element
-    Node* vertex_node_pt(const unsigned& j) const
+    Node* vertex_node_pt(const unsigned& j) const override
     {
       return TElement<DIM, 3>::vertex_node_pt(j);
     }
 
     /// Number of 'flux' terms for Z2 error estimation
-    unsigned num_Z2_flux_terms()
+    unsigned num_Z2_flux_terms() override
     {
       // DIM Diagonal strain rates and DIM*(DIM-1)/2 off diagonal terms
       return DIM + DIM * (DIM - 1) / 2;
@@ -2243,7 +2243,7 @@ namespace oomph
 
     /// Get 'flux' for Z2 error recovery:   Upper triangular entries
     /// in strain tensor.
-    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux)
+    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux) override
     {
 #ifdef PARANOID
       unsigned num_entries = DIM + ((DIM * DIM) - DIM) / 2;

@@ -86,21 +86,21 @@ namespace oomph
 
     ///  Access function for Nvalue: # of `values' (pinned or dofs)
     /// at node n (always returns the same value at every node, 1)
-    inline unsigned required_nvalue(const unsigned& n) const
+    inline unsigned required_nvalue(const unsigned& n) const override
     {
       return NREAGENT;
     }
 
     /// Output function:
     ///  x,y,u   or    x,y,z,u
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       AdvectionDiffusionReactionEquations<NREAGENT, DIM>::output(outfile);
     }
 
     ///  Output function:
     ///   x,y,u   or    x,y,z,u at n_plot^DIM plot points
-    void output(std::ostream& outfile, const unsigned& n_plot)
+    void output(std::ostream& outfile, const unsigned& n_plot) override
     {
       AdvectionDiffusionReactionEquations<NREAGENT, DIM>::output(outfile,
                                                                  n_plot);
@@ -109,7 +109,7 @@ namespace oomph
 
     /// C-style output function:
     ///  x,y,u   or    x,y,z,u
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       AdvectionDiffusionReactionEquations<NREAGENT, DIM>::output(file_pt);
     }
@@ -117,7 +117,7 @@ namespace oomph
 
     ///  C-style output function:
     ///   x,y,u   or    x,y,z,u at n_plot^DIM plot points
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       AdvectionDiffusionReactionEquations<NREAGENT, DIM>::output(file_pt,
                                                                  n_plot);
@@ -128,7 +128,7 @@ namespace oomph
     ///  x,y,u_exact
     void output_fct(std::ostream& outfile,
                     const unsigned& n_plot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt)
+                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override
     {
       AdvectionDiffusionReactionEquations<NREAGENT, DIM>::output_fct(
         outfile, n_plot, exact_soln_pt);
@@ -140,7 +140,7 @@ namespace oomph
     void output_fct(std::ostream& outfile,
                     const unsigned& n_plot,
                     const double& time,
-                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt)
+                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override
     {
       AdvectionDiffusionReactionEquations<NREAGENT, DIM>::output_fct(
         outfile, n_plot, time, exact_soln_pt);
@@ -154,7 +154,7 @@ namespace oomph
       Shape& psi,
       DShape& dpsidx,
       Shape& test,
-      DShape& dtestdx) const;
+      DShape& dtestdx) const override;
 
 
     /// Shape, test functions & derivs. w.r.t. to global coords. Return
@@ -164,7 +164,7 @@ namespace oomph
       Shape& psi,
       DShape& dpsidx,
       Shape& test,
-      DShape& dtestdx) const;
+      DShape& dtestdx) const override;
 
     /// Shape/test functions and derivs w.r.t. to global coords at
     /// integration point ipt; return Jacobian of mapping (J). Also compute
@@ -181,32 +181,32 @@ namespace oomph
 
     /// Order of recovery shape functions for Z2 error estimation:
     /// Same order as shape functions.
-    unsigned nrecovery_order()
+    unsigned nrecovery_order() override
     {
       return (NNODE_1D - 1);
     }
 
     /// Number of 'flux' terms for Z2 error estimation
-    unsigned num_Z2_flux_terms()
+    unsigned num_Z2_flux_terms() override
     {
       return NREAGENT * DIM;
     }
 
     /// Get 'flux' for Z2 error recovery:  Standard flux.from
     /// AdvectionDiffusionReaction equations
-    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux)
+    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux) override
     {
       this->get_flux(s, flux);
     }
 
     /// Number of vertex nodes in the element
-    unsigned nvertex_node() const
+    unsigned nvertex_node() const override
     {
       return TElement<DIM, NNODE_1D>::nvertex_node();
     }
 
     /// Pointer to the j-th vertex node in the element
-    Node* vertex_node_pt(const unsigned& j) const
+    Node* vertex_node_pt(const unsigned& j) const override
     {
       return TElement<DIM, NNODE_1D>::vertex_node_pt(j);
     }

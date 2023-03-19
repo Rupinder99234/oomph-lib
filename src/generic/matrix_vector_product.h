@@ -67,7 +67,7 @@ namespace oomph
     void operator=(const MatrixVectorProduct&) = delete;
 
     /// Destructor
-    ~MatrixVectorProduct()
+    ~MatrixVectorProduct() override
     {
       this->clean_up_memory();
     }

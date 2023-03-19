@@ -55,16 +55,16 @@ namespace oomph
 
   protected:
     /// A single flux is interpolated
-    inline unsigned nflux() const
+    inline unsigned nflux() const override
     {
       return 1;
     }
 
     /// Return the flux as a function of the unknown
-    void flux(const Vector<double>& u, DenseMatrix<double>& f);
+    void flux(const Vector<double>& u, DenseMatrix<double>& f) override;
 
     /// Return the flux derivatives as a function of the unknowns
-    void dflux_du(const Vector<double>& u, RankThreeTensor<double>& df_du);
+    void dflux_du(const Vector<double>& u, RankThreeTensor<double>& df_du) override;
 
     /// Return the wind at a given position
     inline virtual void get_wind_scalar_adv(const unsigned& ipt,
@@ -106,7 +106,7 @@ namespace oomph
     }
 
     /// The number of unknowns at each node is the number of values
-    unsigned required_nvalue(const unsigned& n) const
+    unsigned required_nvalue(const unsigned& n) const override
     {
       return 1;
     }
@@ -118,7 +118,7 @@ namespace oomph
       FiniteElement::UnsteadyExactSolutionFctPt initial_condition_pt,
       const double& t,
       Vector<double>& error,
-      Vector<double>& norm)
+      Vector<double>& norm) override
     {
       // Find the number of fluxes
       const unsigned n_flux = this->nflux();
@@ -406,7 +406,7 @@ namespace oomph
 
 
     // There is a single required n_flux
-    unsigned required_nflux()
+    unsigned required_nflux() override
     {
       return 1;
     }
@@ -416,7 +416,7 @@ namespace oomph
     void numerical_flux(const Vector<double>& n_out,
                         const Vector<double>& u_int,
                         const Vector<double>& u_ext,
-                        Vector<double>& flux)
+                        Vector<double>& flux) override
     {
       const unsigned dim = this->nodal_dimension();
       Vector<double> Wind(dim);
@@ -476,13 +476,13 @@ namespace oomph
 
   public:
     // There is a single required n_flux
-    unsigned required_nflux()
+    unsigned required_nflux() override
     {
       return 1;
     }
 
     // Calculate averages
-    void calculate_element_averages(double*& average_value)
+    void calculate_element_averages(double*& average_value) override
     {
       FluxTransportEquations<1>::calculate_element_averages(average_value);
     }
@@ -493,9 +493,9 @@ namespace oomph
     {
     }
 
-    ~DGSpectralScalarAdvectionElement() {}
+    ~DGSpectralScalarAdvectionElement() override {}
 
-    void build_all_faces()
+    void build_all_faces() override
     {
       // Make the two faces
       Face_element_pt.resize(2);
@@ -530,7 +530,7 @@ namespace oomph
     /// overloaded specific elements in which time and memory saving tricks can
     /// be applied)
     //============================================================================
-    void get_inverse_mass_matrix_times_residuals(Vector<double>& minv_res)
+    void get_inverse_mass_matrix_times_residuals(Vector<double>& minv_res) override
     {
       // If there are external data this is not going to work
       if (nexternal_data() > 0)
@@ -614,13 +614,13 @@ namespace oomph
 
   public:
     // Calculate averages
-    void calculate_element_averages(double*& average_value)
+    void calculate_element_averages(double*& average_value) override
     {
       FluxTransportEquations<2>::calculate_element_averages(average_value);
     }
 
     // There is a single required n_flux
-    unsigned required_nflux()
+    unsigned required_nflux() override
     {
       return 1;
     }
@@ -631,9 +631,9 @@ namespace oomph
     {
     }
 
-    ~DGSpectralScalarAdvectionElement() {}
+    ~DGSpectralScalarAdvectionElement() override {}
 
-    void build_all_faces()
+    void build_all_faces() override
     {
       Face_element_pt.resize(4);
       Face_element_pt[0] = new DGScalarAdvectionFaceElement<
@@ -883,13 +883,13 @@ namespace oomph
 
   public:
     // There is a single required n_flux
-    unsigned required_nflux()
+    unsigned required_nflux() override
     {
       return 1;
     }
 
     // Calculate averages
-    void calculate_element_averages(double*& average_value)
+    void calculate_element_averages(double*& average_value) override
     {
       FluxTransportEquations<1>::calculate_element_averages(average_value);
     }
@@ -900,9 +900,9 @@ namespace oomph
     {
     }
 
-    ~DGScalarAdvectionElement() {}
+    ~DGScalarAdvectionElement() override {}
 
-    void build_all_faces()
+    void build_all_faces() override
     {
       // Make the two faces
       Face_element_pt.resize(2);
@@ -958,13 +958,13 @@ namespace oomph
 
   public:
     // There is a single required n_flux
-    unsigned required_nflux()
+    unsigned required_nflux() override
     {
       return 1;
     }
 
     // Calculate averages
-    void calculate_element_averages(double*& average_value)
+    void calculate_element_averages(double*& average_value) override
     {
       FluxTransportEquations<2>::calculate_element_averages(average_value);
     }
@@ -975,9 +975,9 @@ namespace oomph
     {
     }
 
-    ~DGScalarAdvectionElement() {}
+    ~DGScalarAdvectionElement() override {}
 
-    void build_all_faces()
+    void build_all_faces() override
     {
       Face_element_pt.resize(4);
       Face_element_pt[0] =

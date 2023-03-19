@@ -212,7 +212,7 @@ namespace oomph
 
 
     /// Overload the independent coefficient function
-    inline std::complex<double> independent_component(const unsigned& i) const
+    inline std::complex<double> independent_component(const unsigned& i) const override
     {
       return C[StaticIndex[i]];
     }

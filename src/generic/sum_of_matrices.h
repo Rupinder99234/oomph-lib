@@ -313,7 +313,7 @@ namespace oomph
 
     /// Destructor: delete matrices as instructed by
     /// Should_delete_added_matrix vector and Should_delete_main_matrix.
-    ~SumOfMatrices()
+    ~SumOfMatrices() override
     {
       for (unsigned i_matrix = 0; i_matrix < Added_matrix_pt.size(); i_matrix++)
       {
@@ -350,7 +350,7 @@ namespace oomph
     /// Output the "bottom right" entry regardless of it being
     /// zero or not (this allows automatic detection of matrix size in
     /// e.g. matlab, python).
-    void output_bottom_right_zero_helper(std::ostream& outfile) const
+    void output_bottom_right_zero_helper(std::ostream& outfile) const override
     {
       int last_row = this->nrow() - 1;
       int last_col = this->ncol() - 1;
@@ -366,7 +366,7 @@ namespace oomph
 
     /// Output the matrix in sparse format. Note that this is going to be
     /// slow because we have to check every entry of every matrix for non-zeros.
-    void sparse_indexed_output_helper(std::ostream& outfile) const
+    void sparse_indexed_output_helper(std::ostream& outfile) const override
     {
       for (unsigned long i = 0; i < nrow(); i++)
       {
@@ -498,7 +498,7 @@ namespace oomph
     }
 
     /// Return the number of rows of the main matrix.
-    inline unsigned long nrow() const
+    inline unsigned long nrow() const override
     {
 #ifdef PARANOID
       if (Main_matrix_pt == 0)
@@ -512,7 +512,7 @@ namespace oomph
     }
 
     /// Return the number of columns of the main matrix.
-    inline unsigned long ncol() const
+    inline unsigned long ncol() const override
     {
 #ifdef PARANOID
       if (Main_matrix_pt == 0)
@@ -533,7 +533,7 @@ namespace oomph
 
     /// Multiply: just call multiply on each of the matrices and add up
     /// the results (with appropriate bookeeping of the relative positions).
-    void multiply(const DoubleVector& x, DoubleVector& soln) const;
+    void multiply(const DoubleVector& x, DoubleVector& soln) const override;
 
     /// Broken operator() because it does not make sense to return
     /// anything by reference.
@@ -549,7 +549,7 @@ namespace oomph
     /// Access function to get the total value of entries in position
     /// (i,j). Warning: this way of getting entries is far too slow to use
     /// inside of loops.
-    double operator()(const unsigned long& i, const unsigned long& j) const
+    double operator()(const unsigned long& i, const unsigned long& j) const override
     {
       // Get contributions from all matrices
       double sum = main_matrix_pt()->operator()(i, j);
@@ -570,8 +570,8 @@ namespace oomph
 
     /// Dummy overload of a pure virtual function. I'm not sure how best
     /// to implement this and I don't think I need it.
-    virtual void multiply_transpose(const DoubleVector& x,
-                                    DoubleVector& soln) const
+    void multiply_transpose(const DoubleVector& x,
+                                    DoubleVector& soln) const override
     {
       std::ostringstream error_msg;
       error_msg << "Function not yet implemented.";
