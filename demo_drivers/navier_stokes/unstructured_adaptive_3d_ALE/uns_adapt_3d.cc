@@ -361,126 +361,11 @@ public:
 /// ////////////////////////////////////////////////////////////////////////
 /// ////////////////////////////////////////////////////////////////////////
 
-
-//=============================================================
-/// TetMeshFacetedSurface that defines outer boundary
-//=============================================================
-class CubicTetMeshFacetedSurface : public virtual TetMeshFacetedClosedSurface
-{
-
-
-public: 
-
- /// Constructor
- CubicTetMeshFacetedSurface()
-  {
-   const double box_width = Global_Parameters::Box_width;
-   const double box_length = Global_Parameters::Box_length;
-
-   // Make vertices
-   unsigned n_vertex=8;
-   Vertex_pt.resize(n_vertex);
-   Vector<double> box_point(3);
-
-   box_point[0] = -box_width;
-   box_point[1] = -box_width;
-   box_point[2] = -box_length;
-   Vertex_pt[0]=new TetMeshVertex(box_point);
-  
-   box_point[0] = -box_width;
-   box_point[1] =  box_width;
-   box_point[2] = -box_length;
-   Vertex_pt[1]=new TetMeshVertex(box_point);
-
-   box_point[0] = -box_width;
-   box_point[1] =  box_width;
-   box_point[2] =  box_length;
-   Vertex_pt[2]=new TetMeshVertex(box_point);
-   
-   box_point[0] = -box_width;
-   box_point[1] = -box_width;
-   box_point[2] =  box_length;
-   Vertex_pt[3]=new TetMeshVertex(box_point);
-
-   box_point[0] =  box_width;
-   box_point[1] = -box_width;
-   box_point[2] = -box_length;
-   Vertex_pt[4]=new TetMeshVertex(box_point);
-   
-   box_point[0] =  box_width;
-   box_point[1] =  box_width;
-   box_point[2] = -box_length;
-   Vertex_pt[5]=new TetMeshVertex(box_point);
-   
-   box_point[0] =  box_width;
-   box_point[1] =  box_width;
-   box_point[2] =  box_length;
-   Vertex_pt[6]=new TetMeshVertex(box_point);
-   
-   box_point[0] =  box_width;
-   box_point[1] =  -box_width;
-   box_point[2] =  box_length;
-   Vertex_pt[7]=new TetMeshVertex(box_point);
-   
-
-   // Make facets
-   unsigned n_facet=6;
-   Facet_pt.resize(n_facet);
-   
-   unsigned n_vertex_on_facet=4;
-   Facet_pt[0]=new TetMeshFacet(n_vertex_on_facet);
-   unsigned one_based_boundary_id=2;
-   Facet_pt[0]->set_one_based_boundary_id(one_based_boundary_id);
-   Facet_pt[0]->set_vertex_pt(0,Vertex_pt[0]);
-   Facet_pt[0]->set_vertex_pt(1,Vertex_pt[4]);
-   Facet_pt[0]->set_vertex_pt(2,Vertex_pt[7]);
-   Facet_pt[0]->set_vertex_pt(3,Vertex_pt[3]);
-
-   Facet_pt[1]=new TetMeshFacet(n_vertex_on_facet);
-   one_based_boundary_id=3;
-   Facet_pt[1]->set_one_based_boundary_id(one_based_boundary_id);
-   Facet_pt[1]->set_vertex_pt(0,Vertex_pt[4]);
-   Facet_pt[1]->set_vertex_pt(1,Vertex_pt[5]);
-   Facet_pt[1]->set_vertex_pt(2,Vertex_pt[6]);
-   Facet_pt[1]->set_vertex_pt(3,Vertex_pt[7]);
-
-   // top
-   Facet_pt[2]=new TetMeshFacet(n_vertex_on_facet);
-   one_based_boundary_id=4;
-   Facet_pt[2]->set_one_based_boundary_id(one_based_boundary_id);
-   Facet_pt[2]->set_vertex_pt(0,Vertex_pt[3]);
-   Facet_pt[2]->set_vertex_pt(1,Vertex_pt[7]);
-   Facet_pt[2]->set_vertex_pt(2,Vertex_pt[6]);
-   Facet_pt[2]->set_vertex_pt(3,Vertex_pt[2]);
-
-   Facet_pt[3]=new TetMeshFacet(n_vertex_on_facet);
-   one_based_boundary_id=5;
-   Facet_pt[3]->set_one_based_boundary_id(one_based_boundary_id);
-   Facet_pt[3]->set_vertex_pt(0,Vertex_pt[6]);
-   Facet_pt[3]->set_vertex_pt(1,Vertex_pt[5]);
-   Facet_pt[3]->set_vertex_pt(2,Vertex_pt[1]);
-   Facet_pt[3]->set_vertex_pt(3,Vertex_pt[2]);
-
-   Facet_pt[4]=new TetMeshFacet(n_vertex_on_facet);
-   one_based_boundary_id=6;
-   Facet_pt[4]->set_one_based_boundary_id(one_based_boundary_id);
-   Facet_pt[4]->set_vertex_pt(0,Vertex_pt[3]);
-   Facet_pt[4]->set_vertex_pt(1,Vertex_pt[2]);
-   Facet_pt[4]->set_vertex_pt(2,Vertex_pt[1]);
-   Facet_pt[4]->set_vertex_pt(3,Vertex_pt[0]);
-
-   // bottom
-   Facet_pt[5]=new TetMeshFacet(n_vertex_on_facet);
-   one_based_boundary_id=7;
-   Facet_pt[5]->set_one_based_boundary_id(one_based_boundary_id);
-   Facet_pt[5]->set_vertex_pt(0,Vertex_pt[5]);
-   Facet_pt[5]->set_vertex_pt(1,Vertex_pt[1]);
-   Facet_pt[5]->set_vertex_pt(2,Vertex_pt[0]);
-   Facet_pt[5]->set_vertex_pt(3,Vertex_pt[4]);
-  }
-
-};
-
+// Don't set one_based_region_id
+// offset = 0,0,0
+// box_half_width = Global_Parameters::Box_width
+// box_half_length = Global_Parameters::Box_length
+// one_based_boundary_id_offset = 1
 
 /// ////////////////////////////////////////////////////////////////////////
 /// ////////////////////////////////////////////////////////////////////////
@@ -678,8 +563,15 @@ FallingBlockProblem<ELEMENT>::FallingBlockProblem()
  //Add a steady time stepper
  this->add_time_stepper_pt(new Steady<0>);
 
+ // Don't set one_based_region_id
+// offset = 0,0,0
+// box_half_width = Global_Parameters::Box_width
+// box_half_length = Global_Parameters::Box_length
+// one_based_boundary_id_offset = 1
+
  //Make the outer boundary object
- Outer_boundary_pt=new CubicTetMeshFacetedSurface;
+ unsigned one_based_boundary_id_offset = 1;
+ Outer_boundary_pt=new CubicTetMeshFacetedSurface(Global_Parameters::Box_width, Global_Parameters::Box_length, one_based_boundary_id_offset);
  Outer_boundary_pt->output("outer.dat");
 
  //Create the inner boundary object

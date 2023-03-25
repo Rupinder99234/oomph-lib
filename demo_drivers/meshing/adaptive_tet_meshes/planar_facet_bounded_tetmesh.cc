@@ -41,7 +41,7 @@
 #include "meshes/gmsh_tet_mesh.h"
 
 // Get the faceted surfaces
-#include "tetmesh_faceted_surfaces.h"
+// #include "tetmesh_faceted_surfaces.h"
 
 // Tetgen or Gmsh
 //#define DO_TETGEN
