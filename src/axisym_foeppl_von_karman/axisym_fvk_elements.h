@@ -102,7 +102,7 @@ namespace oomph
     }
 
     /// Output with default number of plot points
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       const unsigned n_plot = 5;
       output(outfile, n_plot);
@@ -110,10 +110,10 @@ namespace oomph
 
     /// Output FE representation of soln: r,w,sigma_r_r,sigma_phi_phi
     /// at n_plot plot points
-    void output(std::ostream& outfile, const unsigned& n_plot);
+    void output(std::ostream& outfile, const unsigned& n_plot) override;
 
     /// C_style output with default number of plot points
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       const unsigned n_plot = 5;
       output(file_pt, n_plot);
@@ -121,21 +121,21 @@ namespace oomph
 
     /// C-style output FE representation of soln: r,w at
     /// n_plot plot points
-    void output(FILE* file_pt, const unsigned& n_plot);
+    void output(FILE* file_pt, const unsigned& n_plot) override;
 
     /// Output exact soln: r,w_exact at n_plot plot points
     void output_fct(std::ostream& outfile,
                     const unsigned& n_plot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt);
+                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
 
     /// Output exact soln: r,w_exact at
     /// n_plot plot points (dummy time-dependent version to
     /// keep intel compiler happy)
-    virtual void output_fct(
+    void output_fct(
       std::ostream& outfile,
       const unsigned& n_plot,
       const double& time,
-      FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt)
+      FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override
     {
       throw OomphLibError(
         "There is no time-dependent output_fct() for Foeppl von Karman"
@@ -148,7 +148,7 @@ namespace oomph
     void compute_error(std::ostream& outfile,
                        FiniteElement::SteadyExactSolutionFctPt exact_soln_pt,
                        double& error,
-                       double& norm);
+                       double& norm) override;
 
 
     /// Dummy, time dependent error checker
@@ -156,7 +156,7 @@ namespace oomph
                        FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt,
                        const double& time,
                        double& error,
-                       double& norm)
+                       double& norm) override
     {
       throw OomphLibError(
         "There is no time-dependent compute_error() for Foeppl von Karman"
@@ -257,7 +257,7 @@ namespace oomph
     }
 
     /// Fill in the residuals with this element's contribution
-    void fill_in_contribution_to_residuals(Vector<double>& residuals);
+    void fill_in_contribution_to_residuals(Vector<double>& residuals) override;
 
 
     // hierher Jacobian not yet implemented
@@ -300,7 +300,7 @@ namespace oomph
 
 
     /// Self-test: Return 0 for OK
-    unsigned self_test();
+    unsigned self_test() override;
 
     /// Sets a flag to signify that we are solving the linear,
     /// pure bending equations, and pin all the nodal values that will
@@ -410,7 +410,7 @@ namespace oomph
 
     ///  Required  # of `values' (pinned or dofs)
     /// at node n
-    inline unsigned required_nvalue(const unsigned& n) const
+    inline unsigned required_nvalue(const unsigned& n) const override
     {
       return Initial_Nvalue;
     }
@@ -418,28 +418,28 @@ namespace oomph
 
     /// Output function:
     ///  r,w,sigma_r_r,sigma_phi_phi
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       AxisymFoepplvonKarmanEquations::output(outfile);
     }
 
     ///  Output function:
     ///   r,w,sigma_r_r,sigma_phi_phi at n_plot plot points
-    void output(std::ostream& outfile, const unsigned& n_plot)
+    void output(std::ostream& outfile, const unsigned& n_plot) override
     {
       AxisymFoepplvonKarmanEquations::output(outfile, n_plot);
     }
 
     /// C-style output function:
     ///  r,w
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       AxisymFoepplvonKarmanEquations::output(file_pt);
     }
 
     ///  C-style output function:
     ///   r,w at n_plot plot points
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       AxisymFoepplvonKarmanEquations::output(file_pt, n_plot);
     }
@@ -448,7 +448,7 @@ namespace oomph
     ///  r,w_exact at n_plot plot points
     void output_fct(std::ostream& outfile,
                     const unsigned& n_plot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt)
+                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override
     {
       AxisymFoepplvonKarmanEquations::output_fct(
         outfile, n_plot, exact_soln_pt);
@@ -460,7 +460,7 @@ namespace oomph
     void output_fct(std::ostream& outfile,
                     const unsigned& n_plot,
                     const double& time,
-                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt)
+                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override
     {
       AxisymFoepplvonKarmanEquations::output_fct(
         outfile, n_plot, time, exact_soln_pt);
@@ -474,7 +474,7 @@ namespace oomph
                                                        Shape& psi,
                                                        DShape& dpsidr,
                                                        Shape& test,
-                                                       DShape& dtestdr) const;
+                                                       DShape& dtestdr) const override;
 
     /// Shape, test functions & derivs. w.r.t. to global coords. at
     /// integration point ipt. Return Jacobian.
@@ -483,7 +483,7 @@ namespace oomph
       Shape& psi,
       DShape& dpsidr,
       Shape& test,
-      DShape& dtestdr) const;
+      DShape& dtestdr) const override;
   };
 
 
@@ -569,7 +569,7 @@ namespace oomph
     }
 
     /// Empty virtual destructor
-    virtual ~FSIAxisymFoepplvonKarmanElement() {}
+    ~FSIAxisymFoepplvonKarmanElement() override {}
 
     /// Return the ratio of the stress scales used to non-dimensionalise
     /// the fluid and elasticity equations.
@@ -587,14 +587,14 @@ namespace oomph
 
     /// How many items of Data does the shape of the object depend on?
     /// All nodal data
-    virtual unsigned ngeom_data() const
+    unsigned ngeom_data() const override
     {
       return this->nnode();
     }
 
     /// Return pointer to the j-th Data item that the object's
     /// shape depends on.
-    virtual Data* geom_data_pt(const unsigned& j)
+    Data* geom_data_pt(const unsigned& j) override
     {
       return this->node_pt(j);
     }
@@ -602,7 +602,7 @@ namespace oomph
     /// Overloaded position function: Return 2D position vector:
     /// (r(zeta),z(zeta)) of material point whose "Lagrangian coordinate"
     /// is given by zeta. Here r=zeta!
-    void position(const Vector<double>& zeta, Vector<double>& r) const
+    void position(const Vector<double>& zeta, Vector<double>& r) const override
     {
       const unsigned t = 0;
       this->position(t, zeta, r);
@@ -613,7 +613,7 @@ namespace oomph
     /// is given by zeta.
     void position(const unsigned& t,
                   const Vector<double>& zeta,
-                  Vector<double>& r) const
+                  Vector<double>& r) const override
     {
       // Find number of nodes
       const unsigned n_node = this->nnode();
@@ -647,7 +647,7 @@ namespace oomph
     /// \f$ \frac{d^{j} r(\zeta)}{dt^j} \f$.
     void dposition_dt(const Vector<double>& zeta,
                       const unsigned& j,
-                      Vector<double>& drdt)
+                      Vector<double>& drdt) override
     {
       // Find number of nodes
       const unsigned n_node = this->nnode();
@@ -798,22 +798,14 @@ namespace oomph
 
     /// Perform any auxiliary node update fcts of the adjacent
     /// fluid elements
-    void update_before_external_interaction_geometric_fd()
+    void update_before_external_interaction_geometric_fd() override
     {
       node_update_adjacent_fluid_elements();
     }
 
     /// Perform any auxiliary node update fcts of the adjacent
     /// fluid elements
-    void reset_after_external_interaction_geometric_fd()
-    {
-      node_update_adjacent_fluid_elements();
-    }
-
-
-    /// Perform any auxiliary node update fcts of the adjacent
-    /// fluid elements
-    void update_in_external_interaction_geometric_fd(const unsigned& i)
+    void reset_after_external_interaction_geometric_fd() override
     {
       node_update_adjacent_fluid_elements();
     }
@@ -821,7 +813,15 @@ namespace oomph
 
     /// Perform any auxiliary node update fcts of the adjacent
     /// fluid elements
-    void reset_in_external_interaction_geometric_fd(const unsigned& i)
+    void update_in_external_interaction_geometric_fd(const unsigned& i) override
+    {
+      node_update_adjacent_fluid_elements();
+    }
+
+
+    /// Perform any auxiliary node update fcts of the adjacent
+    /// fluid elements
+    void reset_in_external_interaction_geometric_fd(const unsigned& i) override
     {
       node_update_adjacent_fluid_elements();
     }
@@ -861,7 +861,7 @@ namespace oomph
 
     /// Output FE representation of soln:
     /// r,w,dwdt,sigma_r_r,sigma_phi_phi at n_plot plot points
-    void output(std::ostream& outfile, const unsigned& n_plot)
+    void output(std::ostream& outfile, const unsigned& n_plot) override
     {
       // Vector of local coordinates
       Vector<double> s(1);

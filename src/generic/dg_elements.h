@@ -81,7 +81,7 @@ namespace oomph
     DGFaceElement() : FaceElement() {}
 
     /// Empty Destructor
-    virtual ~DGFaceElement() {}
+    ~DGFaceElement() override {}
 
     /// Access function for neighbouring face information
     FaceElement* neighbour_face_pt(const unsigned& i)
@@ -209,7 +209,7 @@ namespace oomph
 
     /// Virtual destructor, destroy the mass matrix, if we created it
     /// Clean-up storage associated with average values
-    virtual ~DGElement()
+    ~DGElement() override
     {
       if ((M_pt != 0) && Can_delete_mass_matrix)
       {
@@ -465,7 +465,7 @@ namespace oomph
 
     DGMesh() : Mesh() {}
 
-    virtual ~DGMesh() {}
+    ~DGMesh() override {}
 
     virtual void neighbour_finder(FiniteElement* const& bulk_element_pt,
                                   const int& face_index,
@@ -559,7 +559,7 @@ namespace oomph
     }
 
     /// Empty destructor
-    virtual ~MinModLimiter() {}
+    ~MinModLimiter() override {}
 
     /// The basic minmod function
     double minmod(Vector<double>& args);
@@ -570,7 +570,7 @@ namespace oomph
 
     /// The limit function
     void limit(const unsigned& i,
-               const Vector<DGElement*>& required_element_pt);
+               const Vector<DGElement*>& required_element_pt) override;
   };
 
 

@@ -52,7 +52,7 @@ namespace oomph
     void operator=(const GeompackQuadScaffoldMesh&) = delete;
 
     /// Empty destructor
-    ~GeompackQuadScaffoldMesh() {}
+    ~GeompackQuadScaffoldMesh() override {}
   }; // end class
 
 } // namespace oomph

@@ -222,7 +222,7 @@ namespace oomph
 
 
     /// Overload the independent coefficient function
-    inline double independent_component(const unsigned& i) const
+    inline double independent_component(const unsigned& i) const override
     {
       return C[StaticIndex[i]];
     }
@@ -260,7 +260,7 @@ namespace oomph
     }
 
     /// Overload the independent coefficient function
-    inline double independent_component(const unsigned& i) const
+    inline double independent_component(const unsigned& i) const override
     {
       return C[i];
     }
@@ -270,7 +270,7 @@ namespace oomph
                    const unsigned& j,
                    const unsigned& k,
                    const unsigned& l,
-                   const double& value)
+                   const double& value) override
     {
       C[this->Index[i][j][k][l]] = value;
     }

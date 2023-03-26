@@ -73,7 +73,7 @@ namespace oomph
 
 
     /// Destructor - delete the preconditioner matrices
-    virtual ~ExactDGPBlockPreconditioner()
+    ~ExactDGPBlockPreconditioner() override
     {
       // Forward the call to a helper clean-up function
       this->clean_up_memory();
@@ -81,7 +81,7 @@ namespace oomph
 
 
     /// Clean up the memory
-    virtual void clean_up_memory()
+    void clean_up_memory() override
     {
       // Clean up the base class too
       GeneralPurposeBlockPreconditioner<MATRIX>::clean_up_memory();
@@ -95,11 +95,11 @@ namespace oomph
     void operator=(const ExactDGPBlockPreconditioner&) = delete;
 
     /// Apply preconditioner to r
-    void preconditioner_solve(const DoubleVector& r, DoubleVector& z);
+    void preconditioner_solve(const DoubleVector& r, DoubleVector& z) override;
 
 
     /// Setup the preconditioner
-    void setup();
+    void setup() override;
 
 
     /// Document the memory usage
@@ -220,7 +220,7 @@ namespace oomph
 
 
     /// Destructor - delete the preconditioner matrices
-    virtual ~BandedBlockTriangularPreconditioner()
+    ~BandedBlockTriangularPreconditioner() override
     {
       // Forward the call to a helper clean-up function
       this->clean_up_memory();
@@ -228,7 +228,7 @@ namespace oomph
 
 
     /// Clean up the memory
-    virtual void clean_up_memory()
+    void clean_up_memory() override
     {
       // Delete anything in Off_diagonal_matrix_vector_products
       for (unsigned i = 0, ni = Off_diagonal_matrix_vector_products.nrow();
@@ -260,11 +260,11 @@ namespace oomph
     void operator=(const BandedBlockTriangularPreconditioner&) = delete;
 
     /// Apply preconditioner to r
-    void preconditioner_solve(const DoubleVector& r, DoubleVector& z);
+    void preconditioner_solve(const DoubleVector& r, DoubleVector& z) override;
 
 
     /// Setup the preconditioner
-    void setup();
+    void setup() override;
 
 
     /// Set the block bandwidth of the preconditioner

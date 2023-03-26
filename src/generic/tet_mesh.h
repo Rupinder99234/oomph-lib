@@ -544,7 +544,7 @@ namespace oomph
     }
 
     /// Empty destructor
-    virtual ~TetMeshFacetedClosedSurface() {}
+    ~TetMeshFacetedClosedSurface() override {}
 
     /// Declare closed surface to represent hole for gmsh
     void enable_faceted_volume_represents_hole_for_gmsh()
@@ -640,7 +640,7 @@ namespace oomph
       Vector<unsigned> const& facet_boundary_id);
 
     // Destructor
-    virtual ~TetMeshFacetedClosedSurfaceForRemesh();
+    ~TetMeshFacetedClosedSurfaceForRemesh() override;
   };
 
 
@@ -670,7 +670,7 @@ namespace oomph
     void operator=(const TetMeshBase&) = delete;
 
     /// Destructor (empty)
-    virtual ~TetMeshBase() {}
+    ~TetMeshBase() override {}
 
     /// Global static data that specifies the permitted
     /// error in the setup of the boundary coordinates
@@ -1004,7 +1004,7 @@ namespace oomph
 
     /// Setup lookup schemes which establish which elements are located
     /// next to mesh's boundaries (wrapper to suppress doc).
-    void setup_boundary_element_info()
+    void setup_boundary_element_info() override
     {
       std::ofstream outfile;
       this->setup_boundary_element_info(outfile);
@@ -1013,7 +1013,7 @@ namespace oomph
 
     /// Setup lookup schemes which establish which elements are located
     /// next to mesh's boundaries. Doc in outfile (if it's open).
-    void setup_boundary_element_info(std::ostream& outfile);
+    void setup_boundary_element_info(std::ostream& outfile) override;
 
 
   protected:

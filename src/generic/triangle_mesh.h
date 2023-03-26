@@ -75,7 +75,7 @@ namespace oomph
     /*void operator=(const TriangleMeshBase&) = delete;*/
 
     /// Destructor (empty)
-    virtual ~TriangleMeshBase()
+    ~TriangleMeshBase() override
     {
 #ifdef OOMPH_HAS_TRIANGLE_LIB
       // Clear the triangulate data structure
@@ -85,7 +85,7 @@ namespace oomph
 
     /// Setup lookup schemes which establish whic elements are located
     /// next to mesh's boundaries (wrapper to suppress doc).
-    void setup_boundary_element_info()
+    void setup_boundary_element_info() override
     {
       std::ofstream outfile;
       setup_boundary_element_info(outfile);
@@ -93,7 +93,7 @@ namespace oomph
 
     /// Setup lookup schemes which establish which elements are located
     /// next to mesh's boundaries. Doc in outfile (if it's open).
-    void setup_boundary_element_info(std::ostream& outfile);
+    void setup_boundary_element_info(std::ostream& outfile) override;
 
 #ifdef OOMPH_HAS_TRIANGLE_LIB
     /// const access for Use_triangulateio_restart.
@@ -239,10 +239,10 @@ namespace oomph
     }
 
     /// Virtual function to perform the reset boundary elements info rutines
-    virtual void reset_boundary_element_info(
+    void reset_boundary_element_info(
       Vector<unsigned>& ntmp_boundary_elements,
       Vector<Vector<unsigned>>& ntmp_boundary_elements_in_region,
-      Vector<FiniteElement*>& deleted_elements)
+      Vector<FiniteElement*>& deleted_elements) override
     {
       std::ostringstream error_stream;
       error_stream << "Empty default reset boundary element info function"

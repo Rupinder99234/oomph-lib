@@ -256,7 +256,7 @@ namespace oomph
     void get_normal(const Vector<double>& s, Vector<double>& N);
 
     /// Overload the standard fill in residuals contribution
-    void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       // Simply call the shell residuals
       fill_in_contribution_to_residuals_shell(residuals);
@@ -264,7 +264,7 @@ namespace oomph
 
     /// Return the jacobian is calculated by finite differences by default,
     void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian);
+                                          DenseMatrix<double>& jacobian) override;
 
     /// Get potential (strain) and kinetic energy of the element
     void get_energy(double& pot_en, double& kin_en);
@@ -290,25 +290,25 @@ namespace oomph
     double load_rate_of_work();
 
     /// Generic FiniteElement output function
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       FiniteElement::output(outfile);
     }
 
     /// Generic FiniteElement output function
-    void output(std::ostream& outfile, const unsigned& n_plot)
+    void output(std::ostream& outfile, const unsigned& n_plot) override
     {
       FiniteElement::output(outfile, n_plot);
     }
 
     /// Generic FiniteElement output function
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       FiniteElement::output(file_pt);
     }
 
     /// Generic FiniteElement output function
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       FiniteElement::output(file_pt, n_plot);
     }
@@ -359,22 +359,22 @@ namespace oomph
                                          const unsigned& n_plot);
 
     /// Overload the output function
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       SolidQHermiteElement<2>::output(outfile);
     }
 
     /// Output function
-    void output(std::ostream& outfile, const unsigned& n_plot);
+    void output(std::ostream& outfile, const unsigned& n_plot) override;
 
     /// Overload the output function
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       SolidQHermiteElement<2>::output(file_pt);
     }
 
     /// Output function
-    void output(FILE* file_pt, const unsigned& n_plot);
+    void output(FILE* file_pt, const unsigned& n_plot) override;
   };
 
 
@@ -439,12 +439,12 @@ namespace oomph
     /// (not all of the input arguments will be
     /// required for all specific load functions but the list should
     /// cover all cases).
-    virtual void load_vector_for_rate_of_work_computation(
+    void load_vector_for_rate_of_work_computation(
       const unsigned& intpt,
       const Vector<double>& xi,
       const Vector<double>& x,
       const Vector<double>& N,
-      Vector<double>& load)
+      Vector<double>& load) override
     {
       /// Get fluid-only load vector
       if (Compute_rate_of_work_by_load_with_fluid_load_only)
@@ -484,7 +484,7 @@ namespace oomph
     }
 
     /// Destructor: empty
-    ~FSIDiagHermiteShellElement() {}
+    ~FSIDiagHermiteShellElement() override {}
 
     /// Set the normal computed by
     /// KirchhoffLoveShellEquations::get_normal(...) to point into the fluid
@@ -533,7 +533,7 @@ namespace oomph
                      const Vector<double>& xi,
                      const Vector<double>& x,
                      const Vector<double>& N,
-                     Vector<double>& load)
+                     Vector<double>& load) override
     {
       // Initially call the standard Load_vector_fct_pt
       Load_vector_fct_pt(xi, x, N, load);
@@ -561,8 +561,8 @@ namespace oomph
     /// Get the Jacobian and residuals. Wrapper to generic FSI version;
     /// that catches the case when we replace the Jacobian by the
     /// mass matrix (for the consistent assignment of initial conditions).
-    virtual void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                                  DenseMatrix<double>& jacobian)
+    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
+                                                  DenseMatrix<double>& jacobian) override
     {
       // Call the basic shell jacobian
       DiagHermiteShellElement::fill_in_contribution_to_jacobian(residuals,
@@ -574,7 +574,7 @@ namespace oomph
 
     /// The number of "DOF types" that degrees of freedom in this element
     /// are sub-divided into: Just the solid degrees of freedom themselves.
-    unsigned ndof_types() const
+    unsigned ndof_types() const override
     {
       return 1;
     }
@@ -586,7 +586,7 @@ namespace oomph
     /// (Function can obviously only be called if the equation numbering
     /// scheme has been set up.)
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const;
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override;
   };
 
 
@@ -662,7 +662,7 @@ namespace oomph
     }
 
     /// Fill in the element's contribution to its residual vector
-    void fill_in_contribution_to_residuals(Vector<double>& residuals);
+    void fill_in_contribution_to_residuals(Vector<double>& residuals) override;
 
 
     /// ///////////////////////////////////////////////////////////////
@@ -673,7 +673,7 @@ namespace oomph
 
     /// Calculate the geometric shape functions
     /// at local coordinate s. Set any "superfluous" shape functions to zero.
-    void shape(const Vector<double>& s, Shape& psi) const
+    void shape(const Vector<double>& s, Shape& psi) const override
     {
       // Initialise all of them to zero
       unsigned n = psi.nindex1();
@@ -691,7 +691,7 @@ namespace oomph
 
     /// Calculate the geometric shape functions
     /// at local coordinate s. Set any "superfluous" shape functions to zero.
-    void dshape_local(const Vector<double>& s, Shape& psi, DShape& dpsids) const
+    void dshape_local(const Vector<double>& s, Shape& psi, DShape& dpsids) const override
     {
       // Initialise all of them to zero
       unsigned n = psi.nindex1();
@@ -721,17 +721,17 @@ namespace oomph
 
     /// Output function -- forward to broken version in FiniteElement
     /// until somebody decides what exactly they want to plot here...
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       FiniteElement::output(outfile);
     }
 
     /// Output function
-    void output(std::ostream& outfile, const unsigned& n_plot);
+    void output(std::ostream& outfile, const unsigned& n_plot) override;
 
     /// C-style output function -- forward to broken version in FiniteElement
     /// until somebody decides what exactly they want to plot here...
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       FiniteElement::output(file_pt);
     }
@@ -739,14 +739,14 @@ namespace oomph
     /// C-style output function -- forward to broken version in
     /// FiniteElement until somebody decides what exactly they want to plot
     /// here...
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       FiniteElement::output(file_pt, n_plot);
     }
 
     /// The number of "DOF types" that degrees of freedom in this element
     /// are sub-divided into: Just the solid degrees of freedom themselves.
-    unsigned ndof_types() const
+    unsigned ndof_types() const override
     {
       return 1;
     }
@@ -758,7 +758,7 @@ namespace oomph
     /// (Function can obviously only be called if the equation numbering
     /// scheme has been set up.)
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const;
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override;
 
 
   private:

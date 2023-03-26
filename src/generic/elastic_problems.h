@@ -108,10 +108,10 @@ namespace oomph
     void operator=(const SolidICProblem&) = delete;
 
     /// Update after solve (empty)
-    void actions_after_newton_solve() {}
+    void actions_after_newton_solve() override {}
 
     /// Update the problem specs before solve.  (empty)
-    void actions_before_newton_solve() {}
+    void actions_before_newton_solve() override {}
 
     /// Force the elastic structure that is discretised on the specified
     /// mesh to deform in the shape of the initial condition object

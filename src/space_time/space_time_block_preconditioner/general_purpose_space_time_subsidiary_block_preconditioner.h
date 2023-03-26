@@ -87,14 +87,14 @@ namespace oomph
     }
 
     /// Destructor - delete the preconditioner matrices
-    virtual ~SpaceTimeNavierStokesSubsidiaryPreconditioner()
+    ~SpaceTimeNavierStokesSubsidiaryPreconditioner() override
     {
       // Call the auxiliary clean up function
       this->clean_up_memory();
     } // End of ~SpaceTimeNavierStokesSubsidiaryPreconditioner
 
     /// Clean up the memory
-    virtual void clean_up_memory()
+    void clean_up_memory() override
     {
       // If we've actually set the preconditioner up
       if (Preconditioner_has_been_setup)
@@ -129,10 +129,10 @@ namespace oomph
     using Preconditioner::setup;
 
     /// Setup the preconditioner
-    void setup();
+    void setup() override;
 
     /// Apply preconditioner to r
-    void preconditioner_solve(const DoubleVector& r, DoubleVector& z);
+    void preconditioner_solve(const DoubleVector& r, DoubleVector& z) override;
 
 
     /// Document the memory usage
@@ -263,14 +263,14 @@ namespace oomph
     } // End of GMRESBlockPreconditioner
 
     /// Destructor
-    virtual ~GMRESBlockPreconditioner()
+    ~GMRESBlockPreconditioner() override
     {
       // Call the auxiliary clean up function
       this->clean_up_memory();
     } // End of ~GMRESBlockPreconditioner
 
     /// Clean up the memory (empty for now...)
-    virtual void clean_up_memory()
+    void clean_up_memory() override
     {
       // If the block preconditioner has been set up previously
       if (Preconditioner_has_been_setup)
@@ -300,15 +300,15 @@ namespace oomph
     using Preconditioner::setup;
 
     /// Setup the preconditioner
-    void setup();
+    void setup() override;
 
     /// Apply preconditioner to r
-    void preconditioner_solve(const DoubleVector& r, DoubleVector& z);
+    void preconditioner_solve(const DoubleVector& r, DoubleVector& z) override;
 
     /// Solver: Takes pointer to problem and returns the results vector
     /// which contains the solution of the linear system defined by
     /// the problem's fully assembled Jacobian and residual vector.
-    void solve(Problem* const& problem_pt, DoubleVector& result)
+    void solve(Problem* const& problem_pt, DoubleVector& result) override
     {
       // Broken
       throw OomphLibError("Can't use this interface!",
@@ -317,7 +317,7 @@ namespace oomph
     } // End of solve
 
     /// Handle to the number of iterations taken
-    unsigned iterations() const
+    unsigned iterations() const override
     {
       // Return the number of iterations
       return Iterations;

@@ -279,7 +279,7 @@ namespace oomph
 
 
     /// Output with default number of plot points
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       unsigned nplot = 5;
       output(outfile, nplot);
@@ -293,11 +293,11 @@ namespace oomph
 
     /// Output FE representation of soln: x,y,u or x,y,z,u at
     /// n_plot^DIM plot points
-    void output(std::ostream& outfile, const unsigned& nplot);
+    void output(std::ostream& outfile, const unsigned& nplot) override;
 
 
     /// C_style output with default number of plot points
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       unsigned n_plot = 5;
       output(file_pt, n_plot);
@@ -306,29 +306,29 @@ namespace oomph
 
     /// C-style output FE representation of soln: x,y,u or x,y,z,u at
     /// n_plot^DIM plot points
-    void output(FILE* file_pt, const unsigned& n_plot);
+    void output(FILE* file_pt, const unsigned& n_plot) override;
 
 
     /// Output exact soln: x,y,u_exact or x,y,z,u_exact at nplot^DIM plot points
     void output_fct(std::ostream& outfile,
                     const unsigned& nplot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt);
+                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
 
 
     /// Output exact soln: x,y,u_exact or x,y,z,u_exact at
     /// nplot^DIM plot points (time-dependent version)
-    virtual void output_fct(
+    void output_fct(
       std::ostream& outfile,
       const unsigned& nplot,
       const double& time,
-      FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt);
+      FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override;
 
 
     /// Get error against and norm of exact solution
     void compute_error(std::ostream& outfile,
                        FiniteElement::SteadyExactSolutionFctPt exact_soln_pt,
                        double& error,
-                       double& norm);
+                       double& norm) override;
 
 
     /// Get error against and norm of exact solution
@@ -336,7 +336,7 @@ namespace oomph
                        FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt,
                        const double& time,
                        double& error,
-                       double& norm);
+                       double& norm) override;
 
     /// Get flux: flux[i] = du/dx_i
     void get_flux(const Vector<double>& s, Vector<double>& flux) const
@@ -373,7 +373,7 @@ namespace oomph
 
 
     /// Compute element residual Vector (wrapper)
-    void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       // Call the generic residuals function with flag set to 0
       // using a dummy matrix argument
@@ -384,7 +384,7 @@ namespace oomph
 
     /// Compute element residual Vector and element Jacobian matrix (wrapper)
     void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian)
+                                          DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine with the flag set to 1
       fill_in_generic_residual_contribution_womersley(residuals, jacobian, 1);
@@ -419,7 +419,7 @@ namespace oomph
     }
 
     /// Self-test: Return 0 for OK
-    unsigned self_test();
+    unsigned self_test() override;
 
     /// Compute total volume flux through element
     double get_volume_flux();
@@ -572,7 +572,7 @@ namespace oomph
     /// Compute residual vector: the volume flux constraint
     /// determines this element's one-and-only internal Data which represents
     /// the pressure gradient
-    void get_residuals(Vector<double>& residuals)
+    void get_residuals(Vector<double>& residuals) override
     {
       // Local equation number of volume flux constraint -- associated
       // with the internal data (the unknown pressure gradient)
@@ -589,7 +589,7 @@ namespace oomph
     /// velocity dofs are added by the Womersley elements; the current
     /// element's internal Data (the pressure gradient) does not feature
     /// in the volume constraint.
-    void get_jacobian(Vector<double>& residuals, DenseMatrix<double>& jacobian)
+    void get_jacobian(Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Initialise Jacobian
       unsigned n_dof = ndof();
@@ -650,14 +650,14 @@ namespace oomph
 
     ///  Required  # of `values' (pinned or dofs)
     /// at node n
-    inline unsigned required_nvalue(const unsigned& n) const
+    inline unsigned required_nvalue(const unsigned& n) const override
     {
       return Initial_Nvalue;
     }
 
     /// Output function:
     ///  x,y,u   or    x,y,z,u
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       WomersleyEquations<DIM>::output(outfile);
     }
@@ -665,7 +665,7 @@ namespace oomph
 
     ///  Output function:
     ///   x,y,u   or    x,y,z,u at n_plot^DIM plot points
-    void output(std::ostream& outfile, const unsigned& n_plot)
+    void output(std::ostream& outfile, const unsigned& n_plot) override
     {
       WomersleyEquations<DIM>::output(outfile, n_plot);
     }
@@ -673,7 +673,7 @@ namespace oomph
 
     /// C-style output function:
     ///  x,y,u   or    x,y,z,u
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       WomersleyEquations<DIM>::output(file_pt);
     }
@@ -681,7 +681,7 @@ namespace oomph
 
     ///  C-style output function:
     ///   x,y,u   or    x,y,z,u at n_plot^DIM plot points
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       WomersleyEquations<DIM>::output(file_pt, n_plot);
     }
@@ -691,7 +691,7 @@ namespace oomph
     ///  x,y,u_exact   or    x,y,z,u_exact at n_plot^DIM plot points
     void output_fct(std::ostream& outfile,
                     const unsigned& n_plot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt)
+                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override
     {
       WomersleyEquations<DIM>::output_fct(outfile, n_plot, exact_soln_pt);
     }
@@ -703,7 +703,7 @@ namespace oomph
     void output_fct(std::ostream& outfile,
                     const unsigned& n_plot,
                     const double& time,
-                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt)
+                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override
     {
       WomersleyEquations<DIM>::output_fct(outfile, n_plot, time, exact_soln_pt);
     }
@@ -716,7 +716,7 @@ namespace oomph
                                                       Shape& psi,
                                                       DShape& dpsidx,
                                                       Shape& test,
-                                                      DShape& dtestdx) const;
+                                                      DShape& dtestdx) const override;
 
 
     /// Shape/test functions and derivs w.r.t. to global coords at
@@ -726,7 +726,7 @@ namespace oomph
       Shape& psi,
       DShape& dpsidx,
       Shape& test,
-      DShape& dtestdx) const;
+      DShape& dtestdx) const override;
   };
 
 
@@ -774,18 +774,18 @@ namespace oomph
                      Mesh* womersley_mesh_pt);
 
     /// Destructor to clean up memory
-    ~WomersleyProblem();
+    ~WomersleyProblem() override;
 
     /// Update the problem specs after solve (empty)
-    void actions_after_newton_solve() {}
+    void actions_after_newton_solve() override {}
 
     /// Update the problem specs before solve (empty)
-    void actions_before_newton_solve() {}
+    void actions_before_newton_solve() override {}
 
 
     /// Update the problem specs before next timestep:
     /// Update time-varying pressure gradient (if prescribed)
-    void actions_before_implicit_timestep()
+    void actions_before_implicit_timestep() override
     {
       /// Assign current prescribed pressure gradient to Data
       if (Prescribed_pressure_gradient_fct_pt != 0)
@@ -1372,7 +1372,7 @@ namespace oomph
     /// imposed, instantaneous volume flux q prescribed by
     /// total_volume_flux_into_impedance_tube(), and its
     /// derivative, dp_in/dq.
-    void get_response(double& p_in, double& dp_in_dq)
+    void get_response(double& p_in, double& dp_in_dq) override
     {
       // Set currently imposed flux
       *Current_volume_flux_pt = total_volume_flux_into_impedance_tube();
@@ -2083,7 +2083,7 @@ namespace oomph
 
 
     /// Destructor should not delete anything
-    ~NavierStokesImpedanceTractionElement() {}
+    ~NavierStokesImpedanceTractionElement() override {}
 
     /// Access to mesh containing all
     /// NavierStokesImpedanceTractionElements that contribute to the volume flux
@@ -2094,7 +2094,7 @@ namespace oomph
     }
 
     /// Get integral of volume flux through element
-    double get_volume_flux()
+    double get_volume_flux() override
     {
       // Initialise
       double volume_flux_integral = 0.0;
@@ -2194,7 +2194,7 @@ namespace oomph
     /// as external Data for this element (unless the nodes
     /// are also the element's own nodes, of course).
     void set_external_data_from_navier_stokes_outflow_mesh(
-      Mesh* navier_stokes_outflow_mesh_pt)
+      Mesh* navier_stokes_outflow_mesh_pt) override
     {
       // Store pointer to mesh of NavierStokesImpedanceTractionElement
       // that contribute to the volume flux into the "impedance tube" that
@@ -2236,7 +2236,7 @@ namespace oomph
     /// the derivative of the total volume flux through the
     /// outflow boundary of the (higher-dimensional) Navier-Stokes mesh w.r.t.
     /// to the discrete (global) (velocity) degrees of freedom.
-    void set_aux_integral_pt(std::map<unsigned, double>* aux_integral_pt)
+    void set_aux_integral_pt(std::map<unsigned, double>* aux_integral_pt) override
     {
       Aux_integral_pt = aux_integral_pt;
     }
@@ -2282,7 +2282,7 @@ namespace oomph
     /// Set pointer to "impedance tube" that provides the flow
     /// resistance
     void set_impedance_tube_pt(
-      TemplateFreeWomersleyImpedanceTubeBase* impedance_tube_pt)
+      TemplateFreeWomersleyImpedanceTubeBase* impedance_tube_pt) override
     {
       Impedance_tube_pt =
         dynamic_cast<WomersleyImpedanceTubeBase<WOMERSLEY_ELEMENT, DIM>*>(
@@ -2295,7 +2295,7 @@ namespace oomph
     /// outflow boundary of the (higher-dimensional) Navier-Stokes mesh w.r.t.
     /// to the discrete (global) (velocity) degrees of freedom.
     void add_element_contribution_to_aux_integral(
-      std::map<unsigned, double>* aux_integral_pt)
+      std::map<unsigned, double>* aux_integral_pt) override
     {
       // Spatial dimension of element
       // unsigned ndim=dim();
@@ -2360,7 +2360,7 @@ namespace oomph
 
 
     /// Fill in the element's contribution to the element's residual vector
-    inline void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    inline void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       // Call the generic residuals function with flag set to 0
       // using a dummy matrix argument
@@ -2372,7 +2372,7 @@ namespace oomph
     /// Fill in the element's contribution to the element's residual
     /// vector and Jacobian matrix
     inline void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                                 DenseMatrix<double>& jacobian)
+                                                 DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine with the flag set to 1
       fill_in_generic_residual_contribution_fluid_traction(
@@ -2387,20 +2387,20 @@ namespace oomph
     /// indeterminacy if bulk element is SolidElement)
     double zeta_nodal(const unsigned& n,
                       const unsigned& k,
-                      const unsigned& i) const
+                      const unsigned& i) const override
     {
       return FaceElement::zeta_nodal(n, k, i);
     }
 
 
     /// Overload the output function
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       FiniteElement::output(outfile);
     }
 
     /// Output function: x,y,[z],u,v,[w],p in tecplot format
-    void output(std::ostream& outfile, const unsigned& nplot)
+    void output(std::ostream& outfile, const unsigned& nplot) override
     {
       FiniteElement::output(outfile, nplot);
     }
@@ -2591,10 +2591,10 @@ namespace oomph
     }
 
     /// Destructor should not delete anything
-    ~NavierStokesWomersleyPressureControlElement() {}
+    ~NavierStokesWomersleyPressureControlElement() override {}
 
     /// This function returns the residuals
-    inline void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    inline void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       // Call the generic residuals function using a dummy matrix argument
       fill_in_generic_residual_contribution_pressure_control(
@@ -2606,7 +2606,7 @@ namespace oomph
     /// NetFluxControlElementForWomersleyPressureControl
     /// with respect to unknowns in this element
     inline void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                                 DenseMatrix<double>& jacobian)
+                                                 DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine
       fill_in_generic_residual_contribution_pressure_control(
@@ -2629,7 +2629,7 @@ namespace oomph
 
     /// The number of "DOF types" that degrees of freedom in this element
     /// are sub-divided into - set to 1
-    unsigned ndof_types() const
+    unsigned ndof_types() const override
     {
       return 1;
     }
@@ -2641,7 +2641,7 @@ namespace oomph
     /// (Function can obviously only be called if the equation numbering
     /// scheme has been set up.)
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override
     {
       // pair to store dof lookup prior to being added to list
       std::pair<unsigned, unsigned> dof_lookup;
@@ -2755,7 +2755,7 @@ namespace oomph
     }
 
     /// Empty Destructor - Data gets deleted automatically
-    ~NetFluxControlElementForWomersleyPressureControl() {}
+    ~NetFluxControlElementForWomersleyPressureControl() override {}
 
     /// Broken copy constructor
     NetFluxControlElementForWomersleyPressureControl(
@@ -2769,7 +2769,7 @@ namespace oomph
 
     /// The number of "DOF types" that degrees of freedom in this element
     /// are sub-divided into - set to 1
-    unsigned ndof_types() const
+    unsigned ndof_types() const override
     {
       return 1;
     }
@@ -2781,7 +2781,7 @@ namespace oomph
     /// (Function can obviously only be called if the equation numbering
     /// scheme has been set up.)
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override
     {
       // pair to store dof lookup prior to being added to list
       std::pair<unsigned, unsigned> dof_lookup;

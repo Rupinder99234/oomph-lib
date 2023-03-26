@@ -78,72 +78,72 @@ namespace oomph
     }
 
     /// Destructor
-    virtual ~IMRBase() {}
+    ~IMRBase() override {}
 
     /// Setup weights for time derivative calculations.
-    virtual void set_weights() = 0;
+    void set_weights() override = 0;
 
     /// Number of history values to interpolate over to get the "current"
     /// value.
-    virtual unsigned nprev_values_for_value_at_evaluation_time() const = 0;
+    unsigned nprev_values_for_value_at_evaluation_time() const override = 0;
 
     /// Actual order (accuracy) of the scheme
-    unsigned order() const
+    unsigned order() const override
     {
       return 2;
     }
 
     /// Number of timestep increments that are required by the scheme
-    unsigned ndt() const
+    unsigned ndt() const override
     {
       return nprev_values();
     }
 
     /// ??ds
-    unsigned nprev_values() const
+    unsigned nprev_values() const override
     {
       return 4;
     }
 
     /// This function advances the Data's time history so that
     /// we can move on to the next timestep
-    void shift_time_values(Data* const& data_pt);
+    void shift_time_values(Data* const& data_pt) override;
 
     /// This function advances the time history of the positions
     /// at a node.
-    void shift_time_positions(Node* const& node_pt);
+    void shift_time_positions(Node* const& node_pt) override;
 
     /// Set the weights for the error computation. This is not used
     /// by midpoint rule.
-    void set_error_weights() {}
+    void set_error_weights() override {}
 
     /// Set the weights for the predictor previous timestep. This is not
     /// used by midpint rule.
-    void set_predictor_weights() {}
+    void set_predictor_weights() override {}
 
     /// not implemented (??ds TODO)
-    void assign_initial_values_impulsive(Data* const& data_pt)
+    void assign_initial_values_impulsive(Data* const& data_pt) override
     {
       std::string err = "Not implemented";
       throw OomphLibError(
         err, OOMPH_CURRENT_FUNCTION, OOMPH_EXCEPTION_LOCATION);
     }
-    void assign_initial_positions_impulsive(Node* const& node_pt)
-    {
-      std::string err = "Not implemented";
-      throw OomphLibError(
-        err, OOMPH_CURRENT_FUNCTION, OOMPH_EXCEPTION_LOCATION);
-    }
-
-
-    void calculate_predicted_positions(Node* const& node_pt)
+    void assign_initial_positions_impulsive(Node* const& node_pt) override
     {
       std::string err = "Not implemented";
       throw OomphLibError(
         err, OOMPH_CURRENT_FUNCTION, OOMPH_EXCEPTION_LOCATION);
     }
 
-    double temporal_error_in_position(Node* const& node_pt, const unsigned& i)
+
+    void calculate_predicted_positions(Node* const& node_pt) override
+    {
+      std::string err = "Not implemented";
+      throw OomphLibError(
+        err, OOMPH_CURRENT_FUNCTION, OOMPH_EXCEPTION_LOCATION);
+    }
+
+    double temporal_error_in_position(Node* const& node_pt, const unsigned& i) override
     {
       std::string err = "Not implemented";
       throw OomphLibError(
@@ -151,8 +151,8 @@ namespace oomph
     }
 
     // Adaptivity
-    void calculate_predicted_values(Data* const& data_pt);
-    double temporal_error_in_value(Data* const& data_pt, const unsigned& i);
+    void calculate_predicted_values(Data* const& data_pt) override;
+    double temporal_error_in_value(Data* const& data_pt, const unsigned& i) override;
   };
 
   /// The "real" implementation of the implicit midpoint rule. Implemented
@@ -176,10 +176,10 @@ namespace oomph
     IMR(const bool& adaptive = false) : IMRBase(adaptive) {}
 
     /// Destructor, predictor_pt handled by base
-    virtual ~IMR() {}
+    ~IMR() override {}
 
     /// Setup weights for time derivative calculations.
-    void set_weights()
+    void set_weights() override
     {
       // Set the weights for zero-th derivative (i.e. the value to use in
       // newton solver calculations, implicit midpoint method uses the
@@ -195,7 +195,7 @@ namespace oomph
 
     /// Number of history values to interpolate over to get the
     /// "current" value.
-    unsigned nprev_values_for_value_at_evaluation_time() const
+    unsigned nprev_values_for_value_at_evaluation_time() const override
     {
       return 2;
     }
@@ -226,10 +226,10 @@ namespace oomph
     }
 
     /// Destructor
-    virtual ~IMRByBDF() {}
+    ~IMRByBDF() override {}
 
     /// Setup weights for time derivative calculations.
-    void set_weights()
+    void set_weights() override
     {
       // Use weights from bdf1
       double dt = Time_pt->dt(0);
@@ -240,17 +240,17 @@ namespace oomph
     /// Number of history values to interpolate over to get the
     /// "current" value. Evaluation time is the end of the bdf1 "half-step",
     /// so only need one value as normal.
-    unsigned nprev_values_for_value_at_evaluation_time() const
+    unsigned nprev_values_for_value_at_evaluation_time() const override
     {
       return 1;
     }
 
     /// Half the timestep before starting solve
-    void actions_before_timestep(Problem* problem_pt);
+    void actions_before_timestep(Problem* problem_pt) override;
 
     /// Take problem from t={n+1/2} to t=n+1 by algebraic update and restore
     /// time step.
-    void actions_after_timestep(Problem* problem_pt);
+    void actions_after_timestep(Problem* problem_pt) override;
 
     /// Should we update pinned variables after the half-step?
     bool Update_pinned;

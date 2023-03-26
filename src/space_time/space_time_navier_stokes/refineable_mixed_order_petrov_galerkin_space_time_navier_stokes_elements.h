@@ -68,10 +68,10 @@ namespace oomph
     /// This function returns the residuals for the traction
     /// function. If construct_jacobian_flag=1 (or 0): do (or don't)
     /// compute the Jacobian as well.
-    virtual void fill_in_generic_residual_contribution_fp_press_adv_diff_robin_bc(
+    void fill_in_generic_residual_contribution_fp_press_adv_diff_robin_bc(
       Vector<double>& residuals,
       DenseMatrix<double>& jacobian,
-      const unsigned& construct_jacobian_flag);
+      const unsigned& construct_jacobian_flag) override;
   };
 
 
@@ -419,11 +419,11 @@ namespace oomph
     void get_pressure_and_velocity_mass_matrix_diagonal(
       Vector<double>& press_mass_diag,
       Vector<double>& veloc_mass_diag,
-      const unsigned& which_one = 0);
+      const unsigned& which_one = 0) override;
 
 
     /// Number of 'flux' terms for Z2 error estimation
-    unsigned num_Z2_flux_terms()
+    unsigned num_Z2_flux_terms() override
     {
       // DIM diagonal strain rates, DIM(DIM-1)/2 off diagonal rates (plus
       // DIM velocity time-derivatives)
@@ -433,7 +433,7 @@ namespace oomph
 
     /// Get 'flux' for Z2 error recovery: Upper triangular entries
     /// in strain rate tensor.
-    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux)
+    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux) override
     {
 #ifdef PARANOID
       // Calculate the number of entries there should be
@@ -517,7 +517,7 @@ namespace oomph
 
 
     ///  Further build, pass the pointers down to the sons
-    void further_build()
+    void further_build() override
     {
       // Find the father element
       RefineableSpaceTimeNavierStokesMixedOrderEquations<
@@ -579,7 +579,7 @@ namespace oomph
     void dinterpolated_u_nst_ddata(const Vector<double>& s,
                                    const unsigned& i,
                                    Vector<double>& du_ddata,
-                                   Vector<unsigned>& global_eqn_number)
+                                   Vector<unsigned>& global_eqn_number) override
     {
       // Find the number of nodes in the element
       unsigned n_node = this->nnode();
@@ -729,7 +729,7 @@ namespace oomph
       Vector<double>& residuals,
       DenseMatrix<double>& jacobian,
       DenseMatrix<double>& mass_matrix,
-      const unsigned& compute_jacobian_flag);
+      const unsigned& compute_jacobian_flag) override;
 
 
     /// Compute the residuals for the associated pressure advection
@@ -738,15 +738,15 @@ namespace oomph
     void fill_in_generic_pressure_advection_diffusion_contribution_nst(
       Vector<double>& residuals,
       DenseMatrix<double>& jacobian,
-      const unsigned& compute_jacobian_flag);
+      const unsigned& compute_jacobian_flag) override;
 
 
     /// Compute derivatives of elemental residual vector with respect
     /// to nodal coordinates. Overwrites default implementation in
     /// FiniteElement base class.
     /// dresidual_dnodal_coordinates(l,i,j) = d res(l) / dX_{ij}
-    virtual void get_dresidual_dnodal_coordinates(
-      RankThreeTensor<double>& dresidual_dnodal_coordinates);
+    void get_dresidual_dnodal_coordinates(
+      RankThreeTensor<double>& dresidual_dnodal_coordinates) override;
   };
 
 
@@ -774,7 +774,7 @@ namespace oomph
     /// Number of values required at local node n. In order to simplify
     /// matters, we allocate storage for pressure variables at all the nodes
     /// and then pin those that are not used.
-    unsigned required_nvalue(const unsigned& n) const
+    unsigned required_nvalue(const unsigned& n) const override
     {
       // There are DIM velocity components and 1 pressure component
       return DIM + 1;
@@ -782,7 +782,7 @@ namespace oomph
 
 
     /// Number of continuously interpolated values
-    unsigned ncont_interpolated_values() const
+    unsigned ncont_interpolated_values() const override
     {
       // There are DIM velocities and 1 pressure component
       return DIM + 1;
@@ -790,12 +790,12 @@ namespace oomph
 
 
     /// Rebuild from sons: empty
-    void rebuild_from_sons(Mesh*& mesh_pt) {}
+    void rebuild_from_sons(Mesh*& mesh_pt) override {}
 
 
     /// Order of recovery shape functions for Z2 error estimation:
     /// Same order as shape functions.
-    unsigned nrecovery_order()
+    unsigned nrecovery_order() override
     {
       // Using quadratic interpolation
       return 2;
@@ -803,7 +803,7 @@ namespace oomph
 
 
     /// Number of vertex nodes in the element
-    unsigned nvertex_node() const
+    unsigned nvertex_node() const override
     {
       // Call the base class implementation of the function
       return QTaylorHoodMixedOrderSpaceTimeElement<DIM>::nvertex_node();
@@ -811,7 +811,7 @@ namespace oomph
 
 
     /// Pointer to the j-th vertex node in the element
-    Node* vertex_node_pt(const unsigned& j) const
+    Node* vertex_node_pt(const unsigned& j) const override
     {
       // Call the base class implementation of the function
       return QTaylorHoodMixedOrderSpaceTimeElement<DIM>::vertex_node_pt(j);
@@ -823,7 +823,7 @@ namespace oomph
     /// called from black-box documentation or interpolation routines), the
     /// values Vector sets its own size in here.
     void get_interpolated_values(const Vector<double>& s,
-                                 Vector<double>& values)
+                                 Vector<double>& values) override
     {
       // Set size of Vector: u,v,p and initialise to zero
       values.resize(DIM + 1, 0.0);
@@ -846,7 +846,7 @@ namespace oomph
     /// routines), the values Vector sets its own size in here.
     void get_interpolated_values(const unsigned& t,
                                  const Vector<double>& s,
-                                 Vector<double>& values)
+                                 Vector<double>& values) override
     {
       // The only time this makes sense (if you can even say that...)
       if (t == 0)
@@ -874,7 +874,7 @@ namespace oomph
     /// Perform additional hanging node procedures for variables
     /// that are not interpolated by all nodes. The pressures are stored
     /// at the p_nodal_index_nst-th location in each node
-    void further_setup_hanging_nodes()
+    void further_setup_hanging_nodes() override
     {
       // Set up the hang info for the pressure nodes
       this->setup_hang_for_value(this->p_nodal_index_nst());
@@ -882,7 +882,7 @@ namespace oomph
 
 
     /// Pointer to n_p-th pressure node
-    Node* pressure_node_pt(const unsigned& n_p)
+    Node* pressure_node_pt(const unsigned& n_p) override
     {
       // Return a pointer to the n_p-th pressure node
       return this->node_pt(this->Pconv[n_p]);
@@ -893,7 +893,7 @@ namespace oomph
     /// the velocities are the geometric nodes. The pressure "nodes" are a
     /// subset of the nodes, so when value_id==DIM, the n-th pressure
     /// node is returned.
-    Node* interpolating_node_pt(const unsigned& n, const int& value_id)
+    Node* interpolating_node_pt(const unsigned& n, const int& value_id) override
 
     {
       // The only different nodes are the pressure nodes
@@ -915,7 +915,7 @@ namespace oomph
     /// the fraction is the same as the 1D node number, 0 or 1.
     double local_one_d_fraction_of_interpolating_node(const unsigned& n_1d,
                                                       const unsigned& i,
-                                                      const int& value_id)
+                                                      const int& value_id) override
     {
       // If we're dealing with a pressure node
       if (value_id == DIM)
@@ -937,7 +937,7 @@ namespace oomph
     /// the geometric nodes, but by recalling that there are only two pressure
     /// nodes per edge.
     Node* get_interpolating_node_at_local_coordinate(const Vector<double>& s,
-                                                     const int& value_id)
+                                                     const int& value_id) override
     {
       // If we are calculating pressure nodes
       if (value_id == DIM)
@@ -1010,7 +1010,7 @@ namespace oomph
 
     /// The number of 1D pressure nodes is 2, the number of 1D velocity
     /// nodes is the same as the number of 1D geometric nodes.
-    unsigned ninterpolating_node_1d(const int& value_id)
+    unsigned ninterpolating_node_1d(const int& value_id) override
     {
       // If we're dealing with the pressure nodes
       if (value_id == DIM)
@@ -1029,7 +1029,7 @@ namespace oomph
 
     /// The number of pressure nodes is 2^DIM. The number of
     /// velocity nodes is the same as the number of geometric nodes.
-    unsigned ninterpolating_node(const int& value_id)
+    unsigned ninterpolating_node(const int& value_id) override
     {
       // If we want the pressure basis functions
       if (value_id == DIM)
@@ -1050,7 +1050,7 @@ namespace oomph
     /// / The basis interpolating the velocity is shape().
     void interpolating_basis(const Vector<double>& s,
                              Shape& psi,
-                             const int& value_id) const
+                             const int& value_id) const override
     {
       // If we want the pressure basis functions
       if (value_id == DIM)
@@ -1070,7 +1070,7 @@ namespace oomph
     /// Build FaceElements that apply the Robin boundary condition
     /// to the pressure advection diffusion problem required by
     /// Fp preconditioner
-    void build_fp_press_adv_diff_robin_bc_element(const unsigned& face_index)
+    void build_fp_press_adv_diff_robin_bc_element(const unsigned& face_index) override
     {
       this->Pressure_advection_diffusion_robin_element_pt.push_back(
         new RefineableFpPressureAdvDiffRobinBCMixedOrderSpaceTimeElement<
@@ -1089,7 +1089,7 @@ namespace oomph
     /// (Overloads non-refineable version and takes hanging nodes
     /// into account)
     void identify_load_data(
-      std::set<std::pair<Data*, unsigned>>& paired_load_data)
+      std::set<std::pair<Data*, unsigned>>& paired_load_data) override
     {
       // Allocate space for the velocity component indices
       unsigned u_index[DIM];
@@ -1189,7 +1189,7 @@ namespace oomph
 
   private:
     /// Unpin all pressure dofs
-    void unpin_elemental_pressure_dofs()
+    void unpin_elemental_pressure_dofs() override
     {
       // Find the index at which the pressure is stored
       int p_index = this->p_nodal_index_nst();
@@ -1207,7 +1207,7 @@ namespace oomph
 
 
     /// Pin all nodal pressure dofs that are not required
-    void pin_elemental_redundant_nodal_pressure_dofs()
+    void pin_elemental_redundant_nodal_pressure_dofs() override
     {
       // Find the pressure index
       int p_index = this->p_nodal_index_nst();

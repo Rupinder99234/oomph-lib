@@ -108,7 +108,7 @@ namespace oomph
     /// The geometric data of the parent element is included as
     /// external data and so a (bulk) node update must take place after
     /// the variation of any of this external data
-    inline void update_in_external_fd(const unsigned& i)
+    inline void update_in_external_fd(const unsigned& i) override
     {
       // Update the bulk element
       bulk_element_pt()->node_update();
@@ -117,11 +117,11 @@ namespace oomph
     /// The only external data are these geometric data so
     /// We can omit the reset function (relying on the next update
     // function to take care of the remesh)
-    inline void reset_in_external_fd(const unsigned& i) {}
+    inline void reset_in_external_fd(const unsigned& i) override {}
 
     /// We require a final node update in the bulk element
     /// after all finite differencing
-    inline void reset_after_external_fd()
+    inline void reset_after_external_fd() override
     {
       // Update the bulk element
       bulk_element_pt()->node_update();
@@ -211,7 +211,7 @@ namespace oomph
     }
 
     /// Calculate the residuals
-    void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       // Add the residual contributions using a dummy matrix
       fill_in_generic_residual_contribution_interface_boundary(
@@ -244,25 +244,25 @@ namespace oomph
     }
 
     /// Overload the output function
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       FiniteElement::output(outfile);
     }
 
     /// Output function
-    void output(std::ostream& outfile, const unsigned& n_plot)
+    void output(std::ostream& outfile, const unsigned& n_plot) override
     {
       FiniteElement::output(outfile, n_plot);
     }
 
     /// Overload the C-style output function
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       FiniteElement::output(file_pt);
     }
 
     /// C-style Output function
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       FiniteElement::output(file_pt, n_plot);
     }
@@ -282,7 +282,7 @@ namespace oomph
     /// Specific additional contributions may be provided in
     /// add_additional_residual_contributions_interface_boundary(...)
     void fill_in_generic_residual_contribution_interface_boundary(
-      Vector<double>& residuals, DenseMatrix<double>& jacobian, unsigned flag);
+      Vector<double>& residuals, DenseMatrix<double>& jacobian, unsigned flag) override;
 
   public:
     /// Constructor
@@ -302,7 +302,7 @@ namespace oomph
     /// Specific additional contributions may be provided in
     /// add_additional_residual_contributions_interface_boundary()
     void fill_in_generic_residual_contribution_interface_boundary(
-      Vector<double>& residuals, DenseMatrix<double>& jacobian, unsigned flag);
+      Vector<double>& residuals, DenseMatrix<double>& jacobian, unsigned flag) override;
 
   public:
     /// Constructor
@@ -461,7 +461,7 @@ namespace oomph
     }
 
     /// Calculate the residuals by calling the generic residual contribution.
-    void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       // Add the residual contributions
       fill_in_generic_residual_contribution_interface(
@@ -633,22 +633,22 @@ namespace oomph
       const Vector<unsigned>& bulk_node_number) = 0;
 
     /// Overload the output function
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       FiniteElement::output(outfile);
     }
 
     /// Output function
-    void output(std::ostream& outfile, const unsigned& n_plot);
+    void output(std::ostream& outfile, const unsigned& n_plot) override;
 
     /// Overload the C-style output function
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       FiniteElement::output(file_pt);
     }
 
     /// C-style Output function
-    void output(FILE* file_pt, const unsigned& n_plot);
+    void output(FILE* file_pt, const unsigned& n_plot) override;
   };
 
 

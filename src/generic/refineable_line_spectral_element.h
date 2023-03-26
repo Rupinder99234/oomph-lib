@@ -71,7 +71,7 @@ namespace oomph
     /*void operator=(const RefineableQSpectralElement<1>&) = delete;*/
 
     /// Destructor
-    virtual ~RefineableQSpectralElement()
+    ~RefineableQSpectralElement() override
     {
 #ifdef LEAK_CHECK
       LeakCheckNames::RefineableQSpectralElement<1> _build -= 1;
@@ -79,7 +79,7 @@ namespace oomph
     }
 
     /// The only thing to add is rebuild from sons
-    void rebuild_from_sons(Mesh*& mesh_pt)
+    void rebuild_from_sons(Mesh*& mesh_pt) override
     {
       // The timestepper should be the same for all nodes and node 0 should
       // never be deleted.
@@ -257,7 +257,7 @@ namespace oomph
 
 
     /// Overload the nodes built function
-    virtual bool nodes_built()
+    bool nodes_built() override
     {
       const unsigned n_node = this->nnode();
       for (unsigned n = 0; n < n_node; n++)

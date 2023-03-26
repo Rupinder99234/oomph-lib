@@ -114,7 +114,7 @@ namespace oomph
     }
 
     /// Output with default number of plot points
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       const unsigned n_plot = 5;
       output(outfile, n_plot);
@@ -122,10 +122,10 @@ namespace oomph
 
     /// Output FE representation of soln: r,w,u,sigma_r_r,sigma_phi_phi
     /// at n_plot plot points
-    void output(std::ostream& outfile, const unsigned& n_plot);
+    void output(std::ostream& outfile, const unsigned& n_plot) override;
 
     /// C_style output with default number of plot points
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       const unsigned n_plot = 5;
       output(file_pt, n_plot);
@@ -133,21 +133,21 @@ namespace oomph
 
     /// C-style output FE representation of soln: r,w at
     /// n_plot plot points
-    void output(FILE* file_pt, const unsigned& n_plot);
+    void output(FILE* file_pt, const unsigned& n_plot) override;
 
     /// Output exact soln: r,w_exact at n_plot plot points
     void output_fct(std::ostream& outfile,
                     const unsigned& n_plot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt);
+                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
 
     /// Output exact soln: r,w_exact at
     /// n_plot plot points (dummy time-dependent version to
     /// keep intel compiler happy)
-    virtual void output_fct(
+    void output_fct(
       std::ostream& outfile,
       const unsigned& n_plot,
       const double& time,
-      FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt)
+      FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override
     {
       throw OomphLibError(
         "There is no time-dependent output_fct() for Foeppl von Karman"
@@ -160,7 +160,7 @@ namespace oomph
     void compute_error(std::ostream& outfile,
                        FiniteElement::SteadyExactSolutionFctPt exact_soln_pt,
                        double& error,
-                       double& norm);
+                       double& norm) override;
 
 
     /// Dummy, time dependent error checker
@@ -168,7 +168,7 @@ namespace oomph
                        FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt,
                        const double& time,
                        double& error,
-                       double& norm)
+                       double& norm) override
     {
       throw OomphLibError(
         "There is no time-dependent compute_error() for Foeppl von Karman"
@@ -237,7 +237,7 @@ namespace oomph
     }
 
     /// Fill in the residuals with this element's contribution
-    void fill_in_contribution_to_residuals(Vector<double>& residuals);
+    void fill_in_contribution_to_residuals(Vector<double>& residuals) override;
 
 
     // hierher Jacobian not yet implemented
@@ -309,7 +309,7 @@ namespace oomph
 
 
     /// Self-test: Return 0 for OK
-    unsigned self_test();
+    unsigned self_test() override;
 
 
     // switch back on and test!
@@ -424,7 +424,7 @@ namespace oomph
 
     ///  Required  # of `values' (pinned or dofs)
     /// at node n
-    inline unsigned required_nvalue(const unsigned& n) const
+    inline unsigned required_nvalue(const unsigned& n) const override
     {
       return Initial_Nvalue;
     }
@@ -432,28 +432,28 @@ namespace oomph
 
     /// Output function:
     ///  r,w,u,sigma_r_r,sigma_phi_phi
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       AxisymFoepplvonKarmanEquations::output(outfile);
     }
 
     ///  Output function:
     ///   r,w,u,sigma_r_r,sigma_phi_phi at n_plot plot points
-    void output(std::ostream& outfile, const unsigned& n_plot)
+    void output(std::ostream& outfile, const unsigned& n_plot) override
     {
       AxisymFoepplvonKarmanEquations::output(outfile, n_plot);
     }
 
     /// C-style output function:
     ///  r,w
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       AxisymFoepplvonKarmanEquations::output(file_pt);
     }
 
     ///  C-style output function:
     ///   r,w at n_plot plot points
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       AxisymFoepplvonKarmanEquations::output(file_pt, n_plot);
     }
@@ -462,7 +462,7 @@ namespace oomph
     ///  r,w_exact at n_plot plot points
     void output_fct(std::ostream& outfile,
                     const unsigned& n_plot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt)
+                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override
     {
       AxisymFoepplvonKarmanEquations::output_fct(
         outfile, n_plot, exact_soln_pt);
@@ -474,7 +474,7 @@ namespace oomph
     void output_fct(std::ostream& outfile,
                     const unsigned& n_plot,
                     const double& time,
-                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt)
+                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override
     {
       AxisymFoepplvonKarmanEquations::output_fct(
         outfile, n_plot, time, exact_soln_pt);
@@ -488,7 +488,7 @@ namespace oomph
                                                        Shape& psi,
                                                        DShape& dpsidr,
                                                        Shape& test,
-                                                       DShape& dtestdr) const;
+                                                       DShape& dtestdr) const override;
 
     /// Shape, test functions & derivs. w.r.t. to global coords. at
     /// integration point ipt. Return Jacobian.
@@ -497,7 +497,7 @@ namespace oomph
       Shape& psi,
       DShape& dpsidr,
       Shape& test,
-      DShape& dtestdr) const;
+      DShape& dtestdr) const override;
   };
 
 

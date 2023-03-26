@@ -166,7 +166,7 @@ namespace oomph
     /// Output function:
     /// x,y,u,w_x,w_y,tau_supg  or    x,y,z,u,w_x,w_y,w_z,tau_supg
     /// nplot points in each coordinate direction
-    void output(std::ostream& outfile, const unsigned& nplot)
+    void output(std::ostream& outfile, const unsigned& nplot) override
     {
       // Vector of local coordinates
       Vector<double> s(DIM);
@@ -210,19 +210,19 @@ namespace oomph
     }
 
     /// Output at default number of plot points
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       FiniteElement::output(outfile);
     }
 
     /// C-style output
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       FiniteElement::output(file_pt);
     }
 
     /// C_style output at n_plot points
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       FiniteElement::output(file_pt, n_plot);
     }
@@ -235,7 +235,7 @@ namespace oomph
                                               Shape& psi,
                                               DShape& dpsidx,
                                               Shape& test,
-                                              DShape& dtestdx) const;
+                                              DShape& dtestdx) const override;
 
 
     /// Shape, test functions & derivs. w.r.t. to global coords. Return
@@ -244,7 +244,7 @@ namespace oomph
                                                       Shape& psi,
                                                       DShape& dpsidx,
                                                       Shape& test,
-                                                      DShape& dtestdx) const;
+                                                      DShape& dtestdx) const override;
 
     /// SUPG stabilisation parameter
     double Tau_SUPG;
@@ -289,36 +289,36 @@ namespace oomph
       const RefineableQSUPGAdvectionDiffusionElement<DIM, NNODE_1D>&) = delete;
 
     /// Number of continuously interpolated values: 1
-    unsigned ncont_interpolated_values() const
+    unsigned ncont_interpolated_values() const override
     {
       return 1;
     }
 
     /// Number of vertex nodes in the element
-    unsigned nvertex_node() const
+    unsigned nvertex_node() const override
     {
       return QSUPGAdvectionDiffusionElement<DIM, NNODE_1D>::nvertex_node();
     }
 
     /// Pointer to the j-th vertex node in the element
-    Node* vertex_node_pt(const unsigned& j) const
+    Node* vertex_node_pt(const unsigned& j) const override
     {
       return QSUPGAdvectionDiffusionElement<DIM, NNODE_1D>::vertex_node_pt(j);
     }
 
     /// Rebuild from sons: empty
-    void rebuild_from_sons(Mesh*& mesh_pt) {}
+    void rebuild_from_sons(Mesh*& mesh_pt) override {}
 
     /// Order of recovery shape functions for Z2 error estimation:
     /// Same order as shape functions.
-    unsigned nrecovery_order()
+    unsigned nrecovery_order() override
     {
       return (NNODE_1D - 1);
     }
 
     ///  Perform additional hanging node procedures for variables
     /// that are not interpolated by all nodes. Empty.
-    void further_setup_hanging_nodes() {}
+    void further_setup_hanging_nodes() override {}
   };
 
 

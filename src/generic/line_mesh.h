@@ -63,11 +63,11 @@ namespace oomph
     void operator=(const LineMeshBase&) = delete;
 
     /// Destructor (empty)
-    virtual ~LineMeshBase() {}
+    ~LineMeshBase() override {}
 
     /// Set up lookup schemes which establish which elements are located
     /// next to mesh's boundaries (wrapper to suppress doc)
-    void setup_boundary_element_info()
+    void setup_boundary_element_info() override
     {
       std::ofstream outfile;
       setup_boundary_element_info(outfile);
@@ -75,7 +75,7 @@ namespace oomph
 
     /// Set up lookup schemes which establish which elements are
     /// located next to mesh's boundaries. Doc in outfile (if it's open).
-    void setup_boundary_element_info(std::ostream& outfile);
+    void setup_boundary_element_info(std::ostream& outfile) override;
   };
 
 } // namespace oomph

@@ -382,7 +382,7 @@ namespace oomph
     void operator=(const WarpedCircularDisk&) = delete;
 
     /// Destructor
-    virtual ~WarpedCircularDisk()
+    ~WarpedCircularDisk() override
     {
       unsigned n = nboundary();
       for (unsigned b = 0; b < n; b++)
@@ -399,7 +399,7 @@ namespace oomph
     }
 
     /// Position Vector at Lagrangian coordinate zeta
-    void position(const Vector<double>& zeta, Vector<double>& r) const
+    void position(const Vector<double>& zeta, Vector<double>& r) const override
     {
       // Position Vector
       r[0] = zeta[0];
@@ -415,7 +415,7 @@ namespace oomph
     /// timestep. Object is steady so calls time-independent version
     void position(const unsigned& t,
                   const Vector<double>& zeta,
-                  Vector<double>& r) const
+                  Vector<double>& r) const override
     {
       position(zeta, r);
     }
@@ -427,7 +427,7 @@ namespace oomph
                         Vector<double>& r,
                         Vector<double>& tangent,
                         Vector<double>& normal,
-                        Vector<double>& binormal)
+                        Vector<double>& binormal) override
     {
       double phi = zeta_bound;
 
@@ -556,7 +556,7 @@ namespace oomph
       delete;
 
     /// Destructor (empty; cleanup happens in base class)
-    virtual ~WarpedCircularDiskWithAnnularInternalBoundary() {}
+    ~WarpedCircularDiskWithAnnularInternalBoundary() override {}
 
 
     /// Thickness of annular region (distance of internal boundary

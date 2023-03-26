@@ -94,7 +94,7 @@ namespace oomph
     void operator=(const ExtrudedMacroElement&) = delete;
 
     /// Empty destructor
-    virtual ~ExtrudedMacroElement()
+    ~ExtrudedMacroElement() override
     {
 #ifdef LEAK_CHECK
       LeakCheckNames::ExtrudedMacroElement_build -= 1;
@@ -173,10 +173,10 @@ namespace oomph
     void operator=(const QExtrudedMacroElement&) = delete;
 
     /// Empty destructor
-    virtual ~QExtrudedMacroElement() {}
+    ~QExtrudedMacroElement() override {}
 
     /// Plot: x,y,t in tecplot format
-    void output(const unsigned& t, std::ostream& outfile, const unsigned& nplot)
+    void output(const unsigned& t, std::ostream& outfile, const unsigned& nplot) override
     {
       // Make sure that t=0 otherwise this doesn't make sense
       if (t != 0)
@@ -244,12 +244,12 @@ namespace oomph
     /// Get the global position r(s) at the continuous time, t
     void macro_map(const unsigned& t,
                    const Vector<double>& s,
-                   Vector<double>& r);
+                   Vector<double>& r) override;
 
 
     /// Output all macro element boundaries as tecplot zones
     void output_macro_element_boundaries(std::ostream& outfile,
-                                         const unsigned& nplot);
+                                         const unsigned& nplot) override;
   };
 } // End of namespace oomph
 

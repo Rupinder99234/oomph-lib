@@ -107,10 +107,10 @@ namespace oomph
     FluxTransportEquations() : FiniteElement() {}
 
     /// Empty destructor
-    virtual ~FluxTransportEquations() {}
+    ~FluxTransportEquations() override {}
 
     /// Compute the element's residual Vector
-    void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       // Call the generic residuals function with flag set to 0
       // and using a dummy matrix argument
@@ -124,7 +124,7 @@ namespace oomph
     /// Compute the element's residual Vector and the jacobian matrix
     /// Virtual function can be overloaded by hanging-node version
     void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian)
+                                          DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine with the flag set to 1
       fill_in_generic_residual_contribution_flux_transport(
@@ -136,7 +136,7 @@ namespace oomph
     void fill_in_contribution_to_jacobian_and_mass_matrix(
       Vector<double>& residuals,
       DenseMatrix<double>& jacobian,
-      DenseMatrix<double>& mass_matrix)
+      DenseMatrix<double>& mass_matrix) override
     {
       // Call the generic routine with the flag set to 2
       fill_in_generic_residual_contribution_flux_transport(
@@ -145,7 +145,7 @@ namespace oomph
 
     /// Assemble the contributions to the mass matrix and residuals
     void fill_in_contribution_to_mass_matrix(Vector<double>& residuals,
-                                             DenseMatrix<double>& mass_matrix)
+                                             DenseMatrix<double>& mass_matrix) override
     {
       fill_in_generic_residual_contribution_flux_transport(
         residuals, GeneralisedElement::Dummy_matrix, mass_matrix, 3);
@@ -172,13 +172,13 @@ namespace oomph
     void calculate_element_averages(double*& average_values);
 
     // Default output function
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       unsigned nplot = 5;
       output(outfile, nplot);
     }
 
-    void output(std::ostream& outfile, const unsigned& nplot);
+    void output(std::ostream& outfile, const unsigned& nplot) override;
   };
 
 } // namespace oomph

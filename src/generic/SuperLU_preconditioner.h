@@ -47,7 +47,7 @@ namespace oomph
     }
 
     /// Destructor.
-    ~SuperLUPreconditioner() {}
+    ~SuperLUPreconditioner() override {}
 
     /// Broken copy constructor.
     SuperLUPreconditioner(const SuperLUPreconditioner&) = delete;
@@ -60,7 +60,7 @@ namespace oomph
     /// before using preconditioner_solve.
     /// Note: matrix_pt must point to an object of class
     /// CRDoubleMatrix or CCDoubleMatrix
-    void setup()
+    void setup() override
     {
       oomph_info << "Setting up SuperLU (exact) preconditioner" << std::endl;
       if (dynamic_cast<DistributableLinearAlgebraObject*>(matrix_pt()) != 0)
@@ -87,7 +87,7 @@ namespace oomph
 
     /// Function applies SuperLU to vector r for (exact) preconditioning,
     /// this requires a call to setup(...) first.
-    void preconditioner_solve(const DoubleVector& r, DoubleVector& z)
+    void preconditioner_solve(const DoubleVector& r, DoubleVector& z) override
     {
       Solver.resolve(r, z);
     }
@@ -95,7 +95,7 @@ namespace oomph
     /// Function applies SuperLU to vector r for (exact) preconditioning
     /// (of the transposed matrix system) this requires a call to setup(...)
     /// first.
-    void preconditioner_solve_transpose(const DoubleVector& r, DoubleVector& z)
+    void preconditioner_solve_transpose(const DoubleVector& r, DoubleVector& z) override
     {
       Solver.resolve_transpose(r, z);
     }
@@ -103,7 +103,7 @@ namespace oomph
 
     /// Clean up memory -- forward the call to the version in
     /// SuperLU in its LinearSolver incarnation.
-    virtual void clean_up_memory()
+    void clean_up_memory() override
     {
       Solver.clean_up_memory();
     }

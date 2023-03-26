@@ -239,7 +239,7 @@ namespace oomph
     }
 
     /// Empty virtual destructor
-    virtual ~SegregatableFSIProblem() {}
+    ~SegregatableFSIProblem() override {}
 
     /// Identify the fluid and solid Data. This is a pure virtual
     /// function that MUST be implemented for every specific problem that

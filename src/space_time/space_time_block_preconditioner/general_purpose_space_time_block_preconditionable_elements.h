@@ -54,7 +54,7 @@ namespace oomph
     BlockPreconditionableSpaceTimeElementBase() {}
 
     /// Destructor (empty)
-    ~BlockPreconditionableSpaceTimeElementBase() {}
+    ~BlockPreconditionableSpaceTimeElementBase() override {}
 
     /// Access function to assign the time slice this element lies in
     void set_time_slab_id(const int& time_slice_id)
@@ -90,7 +90,7 @@ namespace oomph
 
     /// Return the number of "DOF types" that the degrees of freedom in
     /// this element are sub-divided into
-    unsigned ndof_types() const
+    unsigned ndof_types() const override
     {
       // Return the number of dof types being used in the mesh
       return this->N_dof_types;
@@ -102,8 +102,8 @@ namespace oomph
     /// so the first entry in each pair contains the global equation
     /// number of the unknown, while the second one contains the number
     /// of the "DOF type" that this unknown is associated with.
-    virtual void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const = 0;
+    void get_dof_numbers_for_unknowns(
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override = 0;
 
   protected:
     /// The number of time slices in the mesh

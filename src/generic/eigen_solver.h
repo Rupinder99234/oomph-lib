@@ -72,7 +72,7 @@ namespace oomph
     EigenSolver(const EigenSolver&) {}
 
     /// Empty destructor
-    virtual ~EigenSolver() {}
+    ~EigenSolver() override {}
 
     /// Eigensolver. This takes a pointer to a problem and returns
     /// a vector of complex numbers representing the eigenvalues
@@ -205,7 +205,7 @@ namespace oomph
     ARPACK(const ARPACK&) {}
 
     /// Destructor, delete the linear solver
-    virtual ~ARPACK();
+    ~ARPACK() override;
 
     /// Access function for the number of Arnoldi vectors
     int& narnoldi()
@@ -236,7 +236,7 @@ namespace oomph
                                    const int& n_eval,
                                    Vector<std::complex<double>>& eigenvalue,
                                    Vector<DoubleVector>& eigenvector,
-                                   const bool& do_adjoint_problem = false);
+                                   const bool& do_adjoint_problem = false) override;
 
 
     /// Solve the real eigenproblem that is assembled by elements in
@@ -257,7 +257,7 @@ namespace oomph
                             Vector<double>& beta,
                             Vector<DoubleVector>& eigenvector_real,
                             Vector<DoubleVector>& eigenvector_imag,
-                            const bool& do_adjoint_problem = false)
+                            const bool& do_adjoint_problem = false) override
     {
       oomph_info << "Broken, but then don't we want arpack to go anyway?\n";
       abort();
@@ -327,7 +327,7 @@ namespace oomph
     void operator=(const LAPACK_QZ&) = delete;
 
     /// Empty desctructor
-    virtual ~LAPACK_QZ() {}
+    ~LAPACK_QZ() override {}
 
     /// Use LAPACK QZ to solve the real eigenproblem that is assembled
     /// by elements in a mesh in a Problem object. Note that the assembled
@@ -342,7 +342,7 @@ namespace oomph
                                    const int& n_eval,
                                    Vector<std::complex<double>>& eigenvalue,
                                    Vector<DoubleVector>& eigenvector,
-                                   const bool& do_adjoint_problem = false);
+                                   const bool& do_adjoint_problem = false) override;
 
     /// Solve the real eigenproblem that is assembled by elements in
     /// a mesh in a Problem object. Note that the assembled matrices include the
@@ -362,7 +362,7 @@ namespace oomph
                             Vector<double>& beta,
                             Vector<DoubleVector>& eigenvector_real,
                             Vector<DoubleVector>& eigenvector_imag,
-                            const bool& do_adjoint_problem = false);
+                            const bool& do_adjoint_problem = false) override;
 
     /// Find the eigenvalues of a complex generalised eigenvalue problem
     /// specified by \f$ Ax = \lambda  Mx \f$. Note: the (real) shift

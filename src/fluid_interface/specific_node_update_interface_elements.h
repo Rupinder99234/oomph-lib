@@ -432,32 +432,32 @@ namespace oomph
     }
 
     /// Overload the output function
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       FiniteElement::output(outfile);
     }
 
     /// Output the element
-    void output(std::ostream& outfile, const unsigned& n_plot)
+    void output(std::ostream& outfile, const unsigned& n_plot) override
     {
       FluidInterfaceBoundingElement::output(outfile, n_plot);
     }
 
     /// Overload the C-style output function
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       FiniteElement::output(file_pt);
     }
 
     /// C-style Output function
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       FluidInterfaceBoundingElement::output(file_pt, n_plot);
     }
 
     /// Calculate the elemental residual vector and the Jacobian
     void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian)
+                                          DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine with the flag set to 1
       this->fill_in_generic_residual_contribution_interface_boundary(
@@ -471,7 +471,7 @@ namespace oomph
 
     /// Return local equation number associated with the kinematic
     /// constraint for local node n
-    int kinematic_local_eqn(const unsigned& n)
+    int kinematic_local_eqn(const unsigned& n) override
     {
       return this->spine_local_eqn(n);
     }
@@ -496,25 +496,25 @@ namespace oomph
     }
 
     /// Overload the output function
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       FiniteElement::output(outfile);
     }
 
     /// Output the element
-    void output(std::ostream& outfile, const unsigned& n_plot)
+    void output(std::ostream& outfile, const unsigned& n_plot) override
     {
       FluidInterfaceBoundingElement::output(outfile, n_plot);
     }
 
     /// Overload the C-style output function
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       FiniteElement::output(file_pt);
     }
 
     /// C-style Output function
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       FluidInterfaceBoundingElement::output(file_pt, n_plot);
     }
@@ -522,7 +522,7 @@ namespace oomph
 
     /// Calculate the jacobian
     void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian)
+                                          DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine with the flag set to 1
       this->fill_in_generic_residual_contribution_interface_boundary(
@@ -536,7 +536,7 @@ namespace oomph
 
 
     /// Local eqn number of the kinematic bc associated with local node n
-    int kinematic_local_eqn(const unsigned& n)
+    int kinematic_local_eqn(const unsigned& n) override
     {
       // Kinematic bc is always associated with the n-th spine height
       return this->spine_local_eqn(n);
@@ -1059,7 +1059,7 @@ namespace oomph
     /// the FaceElement representation, by default
     double zeta_nodal(const unsigned& n,
                       const unsigned& k,
-                      const unsigned& i) const
+                      const unsigned& i) const override
     {
       return FaceElement::zeta_nodal(n, k, i);
     }
@@ -1073,32 +1073,32 @@ namespace oomph
     }
 
     /// Overload the output function
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       FiniteElement::output(outfile);
     }
 
     /// Output the element
-    void output(std::ostream& outfile, const unsigned& n_plot)
+    void output(std::ostream& outfile, const unsigned& n_plot) override
     {
       FluidInterfaceBoundingElement::output(outfile, n_plot);
     }
 
     /// Overload the C-style output function
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       FiniteElement::output(file_pt);
     }
 
     /// C-style Output function
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       FluidInterfaceBoundingElement::output(file_pt, n_plot);
     }
 
     /// Calculate the element's residual vector and Jacobian
     void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian)
+                                          DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine with the flag set to 1
       fill_in_generic_residual_contribution_interface_boundary(
@@ -1112,7 +1112,7 @@ namespace oomph
     }
 
     /// Set the kinematic local equation
-    inline int kinematic_local_eqn(const unsigned& n)
+    inline int kinematic_local_eqn(const unsigned& n) override
     {
       return this->nodal_local_eqn(n, this->Lagrange_index[n]);
     }
@@ -1152,39 +1152,39 @@ namespace oomph
     /// the FaceElement representation, by default
     double zeta_nodal(const unsigned& n,
                       const unsigned& k,
-                      const unsigned& i) const
+                      const unsigned& i) const override
     {
       return FaceElement::zeta_nodal(n, k, i);
     }
 
 
     /// Overload the output function
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       FiniteElement::output(outfile);
     }
 
     /// Output the element
-    void output(std::ostream& outfile, const unsigned& n_plot)
+    void output(std::ostream& outfile, const unsigned& n_plot) override
     {
       FluidInterfaceBoundingElement::output(outfile, n_plot);
     }
 
     /// Overload the C-style output function
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       FiniteElement::output(file_pt);
     }
 
     /// C-style Output function
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       FluidInterfaceBoundingElement::output(file_pt, n_plot);
     }
 
     /// Calculate the elemental residual vector and Jacobian
     void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian)
+                                          DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine with the flag set to 1
       fill_in_generic_residual_contribution_interface_boundary(
@@ -1199,7 +1199,7 @@ namespace oomph
     }
 
     /// Local eqn number of kinematic bc associated with local node n
-    int kinematic_local_eqn(const unsigned& n)
+    int kinematic_local_eqn(const unsigned& n) override
     {
       // Read out the kinematic constraint from the Id which is passed down
       // from the constructing element

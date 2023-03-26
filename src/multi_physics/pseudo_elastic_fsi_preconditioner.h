@@ -99,7 +99,7 @@ namespace oomph
     }
 
     // destructor
-    virtual ~PseudoElasticFSIPreconditioner()
+    ~PseudoElasticFSIPreconditioner() override
     {
       // clean the memory
       this->clean_up_memory();
@@ -138,13 +138,13 @@ namespace oomph
       delete;*/
 
     /// clean up memory method
-    void clean_up_memory();
+    void clean_up_memory() override;
 
     /// Setup the precoonditioner.
-    void setup();
+    void setup() override;
 
     ///  Apply the preconditioner
-    void preconditioner_solve(const DoubleVector& r, DoubleVector& z);
+    void preconditioner_solve(const DoubleVector& r, DoubleVector& z) override;
 
     /// specify the mesh containing the combined fluid/pseudo solid elements
     void set_fluid_and_pseudo_elastic_mesh_pt(Mesh* mesh_pt)

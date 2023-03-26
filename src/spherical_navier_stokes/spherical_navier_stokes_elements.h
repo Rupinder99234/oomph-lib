@@ -421,7 +421,7 @@ namespace oomph
 
     /// Disable ALE, i.e. assert the mesh is not moving -- you do this
     /// at your own risk!
-    void disable_ALE()
+    void disable_ALE() override
     {
       ALE_is_disabled = true;
     }
@@ -430,7 +430,7 @@ namespace oomph
     /// when evaluating the time-derivative. Note: By default, ALE is
     /// enabled, at the expense of possibly creating unnecessary work
     /// in problems where the mesh is, in fact, stationary.
-    void enable_ALE()
+    void enable_ALE() override
     {
       ALE_is_disabled = false;
     }
@@ -491,7 +491,7 @@ namespace oomph
     /// in the computation.
     void get_load(const Vector<double>& s,
                   const Vector<double>& N,
-                  Vector<double>& load)
+                  Vector<double>& load) override
     {
       // Note: get_traction() computes the traction onto the fluid
       // if N is the outer unit normal onto the fluid; here we're
@@ -509,12 +509,12 @@ namespace oomph
     void get_pressure_and_velocity_mass_matrix_diagonal(
       Vector<double>& press_mass_diag,
       Vector<double>& veloc_mass_diag,
-      const unsigned& which_one = 0);
+      const unsigned& which_one = 0) override;
 
 
     /// Output function: x,y,[z],u,v,[w],p
     /// in tecplot format. Default number of plot points
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       unsigned nplot = 5;
       output(outfile, nplot);
@@ -522,11 +522,11 @@ namespace oomph
 
     /// Output function: x,y,[z],u,v,[w],p
     /// in tecplot format. nplot points in each coordinate direction
-    void output(std::ostream& outfile, const unsigned& nplot);
+    void output(std::ostream& outfile, const unsigned& nplot) override;
 
     /// C-style output function: x,y,[z],u,v,[w],p
     /// in tecplot format. Default number of plot points
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       unsigned nplot = 5;
       output(file_pt, nplot);
@@ -534,7 +534,7 @@ namespace oomph
 
     /// C-style output function: x,y,[z],u,v,[w],p
     /// in tecplot format. nplot points in each coordinate direction
-    void output(FILE* file_pt, const unsigned& nplot);
+    void output(FILE* file_pt, const unsigned& nplot) override;
 
     /// Full output function:
     /// x,y,[z],u,v,[w],p,du/dt,dv/dt,[dw/dt],dissipation
@@ -568,7 +568,7 @@ namespace oomph
     /// many components as are returned in solution Vector
     void output_fct(std::ostream& outfile,
                     const unsigned& nplot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt);
+                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
 
     /// Output exact solution specified via function pointer
     /// at a given time and at a given number of plot points.
@@ -576,7 +576,7 @@ namespace oomph
     void output_fct(std::ostream& outfile,
                     const unsigned& nplot,
                     const double& time,
-                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt);
+                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override;
 
     /// Validate against exact solution at given time
     /// Solution is provided via function pointer.
@@ -586,7 +586,7 @@ namespace oomph
                        FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt,
                        const double& time,
                        double& error,
-                       double& norm);
+                       double& norm) override;
 
     /// Validate against exact solution.
     /// Solution is provided via function pointer.
@@ -595,7 +595,7 @@ namespace oomph
     void compute_error(std::ostream& outfile,
                        FiniteElement::SteadyExactSolutionFctPt exact_soln_pt,
                        double& error,
-                       double& norm);
+                       double& norm) override;
 
     /// Validate against exact solution.
     /// Solution is provided direct from exact_soln function.
@@ -665,7 +665,7 @@ namespace oomph
     }
 
     /// Compute the element's residual Vector
-    void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       // Call the generic residuals function with flag set to 0
       // and using a dummy matrix argument
@@ -679,7 +679,7 @@ namespace oomph
     // Compute the element's residual Vector and the jacobian matrix
     // Virtual function can be overloaded by hanging-node version
     void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian)
+                                          DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine with the flag set to 1
       fill_in_generic_residual_contribution_spherical_nst(
@@ -691,7 +691,7 @@ namespace oomph
     void fill_in_contribution_to_jacobian_and_mass_matrix(
       Vector<double>& residuals,
       DenseMatrix<double>& jacobian,
-      DenseMatrix<double>& mass_matrix)
+      DenseMatrix<double>& mass_matrix) override
     {
       // Call the generic routine with the flag set to 2
       fill_in_generic_residual_contribution_spherical_nst(
@@ -831,7 +831,7 @@ namespace oomph
       Shape& psi,
       DShape& dpsidx,
       Shape& test,
-      DShape& dtestdx) const;
+      DShape& dtestdx) const override;
 
     /// Velocity shape and test functions and their derivs
     /// w.r.t. to global coords at ipt-th integation point (taken from geometry)
@@ -841,18 +841,18 @@ namespace oomph
       Shape& psi,
       DShape& dpsidx,
       Shape& test,
-      DShape& dtestdx) const;
+      DShape& dtestdx) const override;
 
     /// Pressure shape functions at local coordinate s
-    inline void pshape_spherical_nst(const Vector<double>& s, Shape& psi) const;
+    inline void pshape_spherical_nst(const Vector<double>& s, Shape& psi) const override;
 
     /// Pressure shape and test functions at local coordinte s
     inline void pshape_spherical_nst(const Vector<double>& s,
                                      Shape& psi,
-                                     Shape& test) const;
+                                     Shape& test) const override;
 
     /// Return the local equation numbers for the pressure values.
-    inline int p_local_eqn(const unsigned& n) const
+    inline int p_local_eqn(const unsigned& n) const override
     {
       return this->internal_local_eqn(P_spherical_nst_internal_index, n);
     }
@@ -868,7 +868,7 @@ namespace oomph
     }
 
     /// Number of values (pinned or dofs) required at local node n.
-    inline unsigned required_nvalue(const unsigned& n) const
+    inline unsigned required_nvalue(const unsigned& n) const override
     {
       return 3;
     }
@@ -877,19 +877,19 @@ namespace oomph
     /// Return the i-th pressure value
     /// (Discontinous pressure interpolation -- no need to cater for hanging
     /// nodes).
-    double p_spherical_nst(const unsigned& i) const
+    double p_spherical_nst(const unsigned& i) const override
     {
       return this->internal_data_pt(P_spherical_nst_internal_index)->value(i);
     }
 
     /// Return number of pressure values
-    unsigned npres_spherical_nst() const
+    unsigned npres_spherical_nst() const override
     {
       return 3;
     }
 
     /// Pin p_dof-th pressure dof and set it to value specified by p_value.
-    void fix_pressure(const unsigned& p_dof, const double& p_value)
+    void fix_pressure(const unsigned& p_dof, const double& p_value) override
     {
       this->internal_data_pt(P_spherical_nst_internal_index)->pin(p_dof);
       this->internal_data_pt(P_spherical_nst_internal_index)
@@ -904,7 +904,7 @@ namespace oomph
     /// for all values (pressures, velocities) that affect the
     /// load computed in the \c get_load(...) function.
     void identify_load_data(
-      std::set<std::pair<Data*, unsigned>>& paired_load_data);
+      std::set<std::pair<Data*, unsigned>>& paired_load_data) override;
 
     ///  Add to the set \c paired_pressure_data pairs containing
     /// - the pointer to a Data object
@@ -914,29 +914,29 @@ namespace oomph
     /// for pressure values that affect the
     /// load computed in the \c get_load(...) function.
     void identify_pressure_data(
-      std::set<std::pair<Data*, unsigned>>& paired_pressure_data);
+      std::set<std::pair<Data*, unsigned>>& paired_pressure_data) override;
 
     /// Redirect output to SphericalNavierStokesEquations output
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       SphericalNavierStokesEquations::output(outfile);
     }
 
     /// Redirect output to SphericalNavierStokesEquations output
-    void output(std::ostream& outfile, const unsigned& nplot)
+    void output(std::ostream& outfile, const unsigned& nplot) override
     {
       SphericalNavierStokesEquations::output(outfile, nplot);
     }
 
 
     /// Redirect output to SphericalNavierStokesEquations output
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       SphericalNavierStokesEquations::output(file_pt);
     }
 
     /// Redirect output to SphericalNavierStokesEquations output
-    void output(FILE* file_pt, const unsigned& nplot)
+    void output(FILE* file_pt, const unsigned& nplot) override
     {
       SphericalNavierStokesEquations::output(file_pt, nplot);
     }
@@ -961,7 +961,7 @@ namespace oomph
 
     /// The number of "DOF types" that degrees of freedom in this element
     /// are sub-divided into: Velocity (three comp) and pressure.
-    unsigned ndof_types() const
+    unsigned ndof_types() const override
     {
       return 4;
     }
@@ -973,7 +973,7 @@ namespace oomph
     /// (Function can obviously only be called if the equation numbering
     /// scheme has been set up.)
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const;
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override;
   };
 
   // Inline functions
@@ -1107,7 +1107,7 @@ namespace oomph
       Shape& psi,
       DShape& dpsidx,
       Shape& test,
-      DShape& dtestdx) const;
+      DShape& dtestdx) const override;
 
     /// Velocity shape and test functions and their derivs
     /// w.r.t. to global coords  at local coordinate s (taken from geometry)
@@ -1117,18 +1117,18 @@ namespace oomph
       Shape& psi,
       DShape& dpsidx,
       Shape& test,
-      DShape& dtestdx) const;
+      DShape& dtestdx) const override;
 
     /// Pressure shape functions at local coordinate s
-    inline void pshape_spherical_nst(const Vector<double>& s, Shape& psi) const;
+    inline void pshape_spherical_nst(const Vector<double>& s, Shape& psi) const override;
 
     /// Pressure shape and test functions at local coordinte s
     inline void pshape_spherical_nst(const Vector<double>& s,
                                      Shape& psi,
-                                     Shape& test) const;
+                                     Shape& test) const override;
 
     /// Return the local equation numbers for the pressure values.
-    inline int p_local_eqn(const unsigned& n) const
+    inline int p_local_eqn(const unsigned& n) const override
     {
       return this->nodal_local_eqn(Pconv[n], p_nodal_index_spherical_nst());
     }
@@ -1142,33 +1142,33 @@ namespace oomph
 
     /// Number of values (pinned or dofs) required at node n. Can
     /// be overwritten for hanging node version
-    inline virtual unsigned required_nvalue(const unsigned& n) const
+    inline unsigned required_nvalue(const unsigned& n) const override
     {
       return Initial_Nvalue[n];
     }
 
     /// Set the value at which the pressure is stored in the nodes
     /// In this case the third index because there are three velocity components
-    int p_nodal_index_spherical_nst() const
+    int p_nodal_index_spherical_nst() const override
     {
       return 3;
     }
 
     /// Access function for the pressure values at local pressure
     /// node n_p (const version)
-    double p_spherical_nst(const unsigned& n_p) const
+    double p_spherical_nst(const unsigned& n_p) const override
     {
       return this->nodal_value(Pconv[n_p], this->p_nodal_index_spherical_nst());
     }
 
     /// Return number of pressure values
-    unsigned npres_spherical_nst() const
+    unsigned npres_spherical_nst() const override
     {
       return 4;
     }
 
     /// Pin p_dof-th pressure dof and set it to value specified by p_value.
-    void fix_pressure(const unsigned& p_dof, const double& p_value)
+    void fix_pressure(const unsigned& p_dof, const double& p_value) override
     {
       this->node_pt(Pconv[p_dof])->pin(this->p_nodal_index_spherical_nst());
       this->node_pt(Pconv[p_dof])
@@ -1184,7 +1184,7 @@ namespace oomph
     /// for all values (pressures, velocities) that affect the
     /// load computed in the \c get_load(...) function.
     void identify_load_data(
-      std::set<std::pair<Data*, unsigned>>& paired_load_data);
+      std::set<std::pair<Data*, unsigned>>& paired_load_data) override;
 
 
     ///  Add to the set \c paired_pressure_data pairs containing
@@ -1195,28 +1195,28 @@ namespace oomph
     /// for pressure values that affect the
     /// load computed in the \c get_load(...) function.
     void identify_pressure_data(
-      std::set<std::pair<Data*, unsigned>>& paired_pressure_data);
+      std::set<std::pair<Data*, unsigned>>& paired_pressure_data) override;
 
     /// Redirect output to SphericalNavierStokesEquations output
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       SphericalNavierStokesEquations::output(outfile);
     }
 
     /// Redirect output to SphericalNavierStokesEquations output
-    void output(std::ostream& outfile, const unsigned& nplot)
+    void output(std::ostream& outfile, const unsigned& nplot) override
     {
       SphericalNavierStokesEquations::output(outfile, nplot);
     }
 
     /// Redirect output to SphericalNavierStokesEquations output
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       SphericalNavierStokesEquations::output(file_pt);
     }
 
     /// Redirect output to SphericalNavierStokesEquations output
-    void output(FILE* file_pt, const unsigned& nplot)
+    void output(FILE* file_pt, const unsigned& nplot) override
     {
       SphericalNavierStokesEquations::output(file_pt, nplot);
     }
@@ -1224,7 +1224,7 @@ namespace oomph
 
     /// The number of "DOF types" that degrees of freedom in this element
     /// are sub-divided into: Velocity (3 components) and pressure.
-    unsigned ndof_types() const
+    unsigned ndof_types() const override
     {
       return 4;
     }
@@ -1236,7 +1236,7 @@ namespace oomph
     /// (Function can obviously only be called if the equation numbering
     /// scheme has been set up.)
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const;
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override;
   };
 
   // Inline functions

@@ -151,16 +151,16 @@ namespace oomph
     }
 
     /// Empty Virtual destructor
-    virtual ~MooneyRivlin() {}
+    ~MooneyRivlin() override {}
 
     /// Return the strain energy in terms of strain tensor
-    double W(const DenseMatrix<double>& gamma)
+    double W(const DenseMatrix<double>& gamma) override
     {
       return StrainEnergyFunction::W(gamma);
     }
 
     /// Return the strain energy in terms of the strain invariants
-    double W(const Vector<double>& I)
+    double W(const Vector<double>& I) override
     {
       return (*C1_pt) * (I[0] - 3.0) + (*C2_pt) * (I[1] - 3.0);
     }
@@ -168,7 +168,7 @@ namespace oomph
 
     /// Return the derivatives of the strain energy function with
     /// respect to the strain invariants
-    void derivatives(Vector<double>& I, Vector<double>& dWdI)
+    void derivatives(Vector<double>& I, Vector<double>& dWdI) override
     {
       dWdI[0] = (*C1_pt);
       dWdI[1] = (*C2_pt);
@@ -179,7 +179,7 @@ namespace oomph
     /// constitutive equation requires an incompressible formulation
     /// in which the volume constraint is enforced explicitly.
     /// Used as a sanity check in PARANOID mode. True
-    bool requires_incompressibility_constraint()
+    bool requires_incompressibility_constraint() override
     {
       return true;
     }
@@ -239,20 +239,20 @@ namespace oomph
 
 
     /// Virtual destructor
-    virtual ~GeneralisedMooneyRivlin()
+    ~GeneralisedMooneyRivlin() override
     {
       if (Must_delete_e) delete E_pt;
     }
 
     /// Return the strain energy in terms of strain tensor
-    double W(const DenseMatrix<double>& gamma)
+    double W(const DenseMatrix<double>& gamma) override
     {
       return StrainEnergyFunction::W(gamma);
     }
 
 
     /// Return the strain energy in terms of the strain invariants
-    double W(const Vector<double>& I)
+    double W(const Vector<double>& I) override
     {
       double G = (*E_pt) / (2.0 * (1.0 + (*Nu_pt)));
       return 0.5 * ((*C1_pt) * (I[0] - 3.0) + (G - (*C1_pt)) * (I[1] - 3.0) +
@@ -264,7 +264,7 @@ namespace oomph
 
     /// Return the derivatives of the strain energy function with
     /// respect to the strain invariants
-    void derivatives(Vector<double>& I, Vector<double>& dWdI)
+    void derivatives(Vector<double>& I, Vector<double>& dWdI) override
     {
       double G = (*E_pt) / (2.0 * (1.0 + (*Nu_pt)));
       dWdI[0] = 0.5 * (*C1_pt);
@@ -279,7 +279,7 @@ namespace oomph
     /// constitutive equation requires an incompressible formulation
     /// in which the volume constraint is enforced explicitly.
     /// Used as a sanity check in PARANOID mode. False.
-    bool requires_incompressibility_constraint()
+    bool requires_incompressibility_constraint() override
     {
       return false;
     }
@@ -719,7 +719,7 @@ namespace oomph
 
 
     /// Virtual destructor
-    virtual ~GeneralisedHookean()
+    ~GeneralisedHookean() override
     {
       if (Must_delete_e) delete E_pt;
     }
@@ -730,7 +730,7 @@ namespace oomph
     /// matrix in which to return the stress tensor
     void calculate_second_piola_kirchhoff_stress(const DenseMatrix<double>& g,
                                                  const DenseMatrix<double>& G,
-                                                 DenseMatrix<double>& sigma);
+                                                 DenseMatrix<double>& sigma) override;
 
 
     /// Calculate the deviatoric part
@@ -747,7 +747,7 @@ namespace oomph
                                                  const DenseMatrix<double>& G,
                                                  DenseMatrix<double>& sigma_dev,
                                                  DenseMatrix<double>& G_contra,
-                                                 double& Gdet);
+                                                 double& Gdet) override;
 
 
     /// Calculate the deviatoric part of the contravariant
@@ -763,14 +763,14 @@ namespace oomph
                                                  DenseMatrix<double>& sigma_dev,
                                                  DenseMatrix<double>& Gcontra,
                                                  double& gen_dil,
-                                                 double& inv_kappa);
+                                                 double& inv_kappa) override;
 
 
     /// Pure virtual function in which the writer must declare if the
     /// constitutive equation requires an incompressible formulation
     /// in which the volume constraint is enforced explicitly.
     /// Used as a sanity check in PARANOID mode. False.
-    bool requires_incompressibility_constraint()
+    bool requires_incompressibility_constraint() override
     {
       return false;
     }
@@ -818,7 +818,7 @@ namespace oomph
     /// Uses correct 3D invariants for 2D (plane strain) problems.
     void calculate_second_piola_kirchhoff_stress(const DenseMatrix<double>& g,
                                                  const DenseMatrix<double>& G,
-                                                 DenseMatrix<double>& sigma);
+                                                 DenseMatrix<double>& sigma) override;
 
 
     /// Calculate the deviatoric part
@@ -835,7 +835,7 @@ namespace oomph
                                                  const DenseMatrix<double>& G,
                                                  DenseMatrix<double>& sigma_dev,
                                                  DenseMatrix<double>& G_contra,
-                                                 double& Gdet);
+                                                 double& Gdet) override;
 
 
     /// Calculate the deviatoric part of the contravariant
@@ -851,14 +851,14 @@ namespace oomph
                                                  DenseMatrix<double>& sigma_dev,
                                                  DenseMatrix<double>& Gcontra,
                                                  double& gen_dil,
-                                                 double& inv_kappa);
+                                                 double& inv_kappa) override;
 
 
     /// State if the constitutive equation requires an incompressible
     /// formulation in which the volume constraint is enforced explicitly.
     /// Used as a sanity check in PARANOID mode. This is determined
     /// by interrogating the associated strain energy function.
-    bool requires_incompressibility_constraint()
+    bool requires_incompressibility_constraint() override
     {
       return Strain_energy_function_pt->requires_incompressibility_constraint();
     }

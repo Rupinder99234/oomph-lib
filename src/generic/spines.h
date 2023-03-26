@@ -401,10 +401,10 @@ namespace oomph
 
     /// Overload thet node update function, call
     /// the update function in the Node's SpineMesh
-    void node_update(const bool& update_all_time_levels_for_new_node = false);
+    void node_update(const bool& update_all_time_levels_for_new_node = false) override;
 
     /// Return the number of geometric data, zero if no spine.
-    unsigned ngeom_data() const
+    unsigned ngeom_data() const override
     {
       if (Spine_pt)
       {
@@ -417,7 +417,7 @@ namespace oomph
     }
 
     /// Return the number of geometric objects, zero if no spine.
-    unsigned ngeom_object() const
+    unsigned ngeom_object() const override
     {
       if (Spine_pt)
       {
@@ -430,13 +430,13 @@ namespace oomph
     }
 
     /// Return the vector of all geometric data
-    Data** all_geom_data_pt()
+    Data** all_geom_data_pt() override
     {
       return &(Spine_pt->geom_data_pt(0));
     }
 
     /// Return the vector of all geometric objects
-    GeomObject** all_geom_object_pt()
+    GeomObject** all_geom_object_pt() override
     {
       return &(Spine_pt->geom_object_pt(0));
     }
@@ -508,7 +508,7 @@ namespace oomph
     }
 
     /// Destructor, clean up the storage allocated to the local equation numbers
-    ~SpineElement()
+    ~SpineElement() override
     {
       if (Spine_geometric_index)
       {
@@ -617,7 +617,7 @@ namespace oomph
 
   public:
     /// Destructor to clean up the memory allocated to the spines
-    virtual ~SpineMesh();
+    ~SpineMesh() override;
 
     /// Return the i-th spine in the mesh
     Spine*& spine_pt(const unsigned long& i)
@@ -719,7 +719,7 @@ namespace oomph
     /// Overload the mesh_level timestepper function to set the
     /// timestepper data for the spines
     void set_mesh_level_time_stepper(TimeStepper* const& time_stepper_pt,
-                                     const bool& preserve_existing_data)
+                                     const bool& preserve_existing_data) override
     {
       this->set_spine_time_stepper(time_stepper_pt, preserve_existing_data);
     }
@@ -743,7 +743,7 @@ namespace oomph
     /// [Doesn't make sense to use this mesh with SolidElements anyway,
     /// so we buffer the case if update_all_solid_nodes is set to
     /// true.]
-    void node_update(const bool& update_all_solid_nodes = false);
+    void node_update(const bool& update_all_solid_nodes = false) override;
 
     /// Update function for given spine node -- this must be implemented
     /// by all specific SpineMeshes.
@@ -763,7 +763,7 @@ namespace oomph
 
     /// Overload the read function so that the spine data is read
     /// from the restart file
-    void read(std::ifstream& restart_file);
+    void read(std::ifstream& restart_file) override;
   };
 
 

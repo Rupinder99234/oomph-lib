@@ -109,13 +109,13 @@ namespace oomph
     }
 
     /// destructor - cleans up preconditioners and delete matrices
-    ~BiharmonicPreconditioner()
+    ~BiharmonicPreconditioner() override
     {
       this->clean_up_memory();
     }
 
     // delete the subsidiary preconditioners and memory
-    void clean_up_memory()
+    void clean_up_memory() override
     {
       // delete the sub preconditioners
       delete Sub_preconditioner_1_pt;
@@ -130,10 +130,10 @@ namespace oomph
     void operator=(const BiharmonicPreconditioner&) = delete;
 
     /// Setup the preconditioner
-    void setup();
+    void setup() override;
 
     /// Apply preconditioner to r
-    void preconditioner_solve(const DoubleVector& r, DoubleVector& z);
+    void preconditioner_solve(const DoubleVector& r, DoubleVector& z) override;
 
     /// Access function to the preconditioner type \n
     /// + 0 : exact BBD \n
@@ -207,13 +207,13 @@ namespace oomph
     }
 
     /// destructor deletes the exact preconditioner
-    ~ExactSubBiharmonicPreconditioner()
+    ~ExactSubBiharmonicPreconditioner() override
     {
       this->clean_up_memory();
     }
 
     /// delete the subsidiary preconditioner pointer
-    void clean_up_memory()
+    void clean_up_memory() override
     {
       delete Sub_preconditioner_pt;
       Sub_preconditioner_pt = 0;
@@ -227,10 +227,10 @@ namespace oomph
     void operator=(const ExactSubBiharmonicPreconditioner&) = delete;
 
     /// Setup the preconditioner
-    void setup();
+    void setup() override;
 
     /// Apply preconditioner to r
-    void preconditioner_solve(const DoubleVector& r, DoubleVector& z);
+    void preconditioner_solve(const DoubleVector& r, DoubleVector& z) override;
 
     //   private:
 
@@ -279,13 +279,13 @@ namespace oomph
     }
 
     /// destructor  - just calls this->clean_up_memory()
-    ~InexactSubBiharmonicPreconditioner()
+    ~InexactSubBiharmonicPreconditioner() override
     {
       this->clean_up_memory();
     }
 
     /// clean the memory
-    void clean_up_memory()
+    void clean_up_memory() override
     {
       // delete the sub preconditioner pt
       delete S_00_preconditioner_pt;
@@ -322,10 +322,10 @@ namespace oomph
     void operator=(const InexactSubBiharmonicPreconditioner&) = delete;
 
     /// Setup the preconditioner
-    void setup();
+    void setup() override;
 
     /// Apply preconditioner to r
-    void preconditioner_solve(const DoubleVector& r, DoubleVector& z);
+    void preconditioner_solve(const DoubleVector& r, DoubleVector& z) override;
 
     //    private:
 

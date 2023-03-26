@@ -129,7 +129,7 @@ namespace oomph
 
     /// Disable ALE, i.e. assert the mesh is not moving -- you do this
     /// at your own risk!
-    void disable_ALE()
+    void disable_ALE() override
     {
       ALE_is_disabled = true;
     }
@@ -139,14 +139,14 @@ namespace oomph
     /// when evaluating the time-derivative. Note: By default, ALE is
     /// enabled, at the expense of possibly creating unnecessary work
     /// in problems where the mesh is, in fact, stationary.
-    void enable_ALE()
+    void enable_ALE() override
     {
       ALE_is_disabled = false;
     }
 
 
     /// Output with default number of plot points
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       unsigned nplot = 5;
       output(outfile, nplot);
@@ -154,11 +154,11 @@ namespace oomph
 
     /// Output FE representation of soln: x,y,u or x,y,z,u at
     /// nplot^DIM plot points
-    void output(std::ostream& outfile, const unsigned& nplot);
+    void output(std::ostream& outfile, const unsigned& nplot) override;
 
 
     /// C_style output with default number of plot points
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       unsigned n_plot = 5;
       output(file_pt, n_plot);
@@ -166,22 +166,22 @@ namespace oomph
 
     /// C-style output FE representation of soln: x,y,u or x,y,z,u at
     /// n_plot^DIM plot points
-    void output(FILE* file_pt, const unsigned& n_plot);
+    void output(FILE* file_pt, const unsigned& n_plot) override;
 
 
     /// Output exact soln: x,y,u_exact or x,y,z,u_exact at nplot^DIM plot points
     void output_fct(std::ostream& outfile,
                     const unsigned& nplot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt);
+                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
 
     /// Output exact soln: x,y,u_exact or x,y,z,u_exact at
     /// nplot^DIM plot points (dummy time-dependent version to
     /// keep intel compiler happy)
-    virtual void output_fct(
+    void output_fct(
       std::ostream& outfile,
       const unsigned& nplot,
       const double& time,
-      FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt)
+      FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override
     {
       throw OomphLibError("There is no time-dependent output_fct() for "
                           "Advection Diffusion elements",
@@ -194,7 +194,7 @@ namespace oomph
     void compute_error(std::ostream& outfile,
                        FiniteElement::SteadyExactSolutionFctPt exact_soln_pt,
                        double& error,
-                       double& norm);
+                       double& norm) override;
 
 
     /// Dummy, time dependent error checker
@@ -202,7 +202,7 @@ namespace oomph
                        FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt,
                        const double& time,
                        double& error,
-                       double& norm)
+                       double& norm) override
     {
       throw OomphLibError(
         "No time-dependent compute_error() for Advection Diffusion elements",
@@ -501,7 +501,7 @@ namespace oomph
 
 
     /// Add the element's contribution to its residual vector (wrapper)
-    void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       // Call the generic residuals function with flag set to 0 and using
       // a dummy matrix
@@ -516,7 +516,7 @@ namespace oomph
     /// Add the element's contribution to its residual vector and
     /// the element Jacobian matrix (wrapper)
     void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian)
+                                          DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine with the flag set to 1
       fill_in_generic_residual_contribution_cons_adv_diff(
@@ -529,7 +529,7 @@ namespace oomph
     void fill_in_contribution_to_jacobian_and_mass_matrix(
       Vector<double>& residuals,
       DenseMatrix<double>& jacobian,
-      DenseMatrix<double>& mass_matrix)
+      DenseMatrix<double>& mass_matrix) override
     {
       // Call the generic routine with the flag set to 2
       fill_in_generic_residual_contribution_cons_adv_diff(
@@ -566,7 +566,7 @@ namespace oomph
 
 
     /// Self-test: Return 0 for OK
-    unsigned self_test();
+    unsigned self_test() override;
 
   protected:
     /// Shape/test functions and derivs w.r.t. to global coords at
@@ -663,21 +663,21 @@ namespace oomph
 
     ///  Required  # of `values' (pinned or dofs)
     /// at node n
-    inline unsigned required_nvalue(const unsigned& n) const
+    inline unsigned required_nvalue(const unsigned& n) const override
     {
       return Initial_Nvalue;
     }
 
     /// Output function:
     ///  x,y,u   or    x,y,z,u
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       GeneralisedAdvectionDiffusionEquations<DIM>::output(outfile);
     }
 
     /// Output function:
     ///  x,y,u   or    x,y,z,u at n_plot^DIM plot points
-    void output(std::ostream& outfile, const unsigned& n_plot)
+    void output(std::ostream& outfile, const unsigned& n_plot) override
     {
       GeneralisedAdvectionDiffusionEquations<DIM>::output(outfile, n_plot);
     }
@@ -685,14 +685,14 @@ namespace oomph
 
     /// C-style output function:
     ///  x,y,u   or    x,y,z,u
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       GeneralisedAdvectionDiffusionEquations<DIM>::output(file_pt);
     }
 
     ///  C-style output function:
     ///   x,y,u   or    x,y,z,u at n_plot^DIM plot points
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       GeneralisedAdvectionDiffusionEquations<DIM>::output(file_pt, n_plot);
     }
@@ -701,7 +701,7 @@ namespace oomph
     ///  x,y,u_exact   or    x,y,z,u_exact at n_plot^DIM plot points
     void output_fct(std::ostream& outfile,
                     const unsigned& n_plot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt)
+                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override
     {
       GeneralisedAdvectionDiffusionEquations<DIM>::output_fct(
         outfile, n_plot, exact_soln_pt);
@@ -714,7 +714,7 @@ namespace oomph
     void output_fct(std::ostream& outfile,
                     const unsigned& n_plot,
                     const double& time,
-                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt)
+                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override
     {
       GeneralisedAdvectionDiffusionEquations<DIM>::output_fct(
         outfile, n_plot, time, exact_soln_pt);
@@ -729,7 +729,7 @@ namespace oomph
       Shape& psi,
       DShape& dpsidx,
       Shape& test,
-      DShape& dtestdx) const;
+      DShape& dtestdx) const override;
 
     /// Shape, test functions & derivs. w.r.t. to global coords. at
     /// integration point ipt. Return Jacobian.
@@ -738,7 +738,7 @@ namespace oomph
       Shape& psi,
       DShape& dpsidx,
       Shape& test,
-      DShape& dtestdx) const;
+      DShape& dtestdx) const override;
   };
 
   // Inline functions:

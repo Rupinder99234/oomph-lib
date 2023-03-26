@@ -88,7 +88,7 @@ namespace oomph
     void operator=(const TopologicallyRectangularDomain&) = delete;
 
     /// Destructor - empty; clean up done in base class
-    ~TopologicallyRectangularDomain() {}
+    ~TopologicallyRectangularDomain() override {}
 
 
     /// allows the boundary derivate function pointers to be set. To
@@ -127,7 +127,7 @@ namespace oomph
                                 const unsigned& i_macro,
                                 const unsigned& i_direct,
                                 const Vector<double>& s,
-                                Vector<double>& f);
+                                Vector<double>& f) override;
 
 
     /// returns the derivates of the global coordinate position (f) wrt to the
@@ -137,7 +137,7 @@ namespace oomph
                                  const unsigned& i_macro,
                                  const unsigned& i_direct,
                                  const Vector<double>& s,
-                                 Vector<double>& f);
+                                 Vector<double>& f) override;
 
 
     /// returns the second derivates of the global coordinate position (f) wrt
@@ -147,7 +147,7 @@ namespace oomph
                                   const unsigned& i_macro,
                                   const unsigned& i_direct,
                                   const Vector<double>& s,
-                                  Vector<double>& f);
+                                  Vector<double>& f) override;
 
 
   private:

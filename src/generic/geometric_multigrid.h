@@ -60,7 +60,7 @@ namespace oomph
     MGProblem() {}
 
     /// Destructor (empty)
-    virtual ~MGProblem() {}
+    ~MGProblem() override {}
 
     /// This function needs to be implemented in the derived problem:
     /// Returns a pointer to a new object of the same type as the derived
@@ -138,14 +138,14 @@ namespace oomph
     } // End of MGSolver
 
     /// Delete any dynamically allocated data
-    ~MGSolver()
+    ~MGSolver() override
     {
       // Run the function written to clean up the memory
       clean_up_memory();
     } // End of ~MGSolver
 
     /// Clean up anything that needs to be cleaned up
-    void clean_up_memory()
+    void clean_up_memory() override
     {
       // We only need to destroy data if the solver has been set up and
       // the data hasn't already been cleared
@@ -506,7 +506,7 @@ namespace oomph
 
     /// Virtual function in the base class that needs to be implemented
     /// later but for now just leave it empty
-    void solve(Problem* const& problem_pt, DoubleVector& result)
+    void solve(Problem* const& problem_pt, DoubleVector& result) override
     {
       // Dynamically cast problem_pt of type Problem to a MGProblem pointer
       MGProblem* mg_problem_pt = dynamic_cast<MGProblem*>(problem_pt);
@@ -592,7 +592,7 @@ namespace oomph
     } // End of solve
 
     /// Number of iterations
-    unsigned iterations() const
+    unsigned iterations() const override
     {
       // Return the number of V-cycles which have been done
       return V_cycle_counter;
@@ -742,7 +742,7 @@ namespace oomph
     } // End of MGPreconditioner (constructor)
 
     /// Destructor (empty)
-    ~MGPreconditioner(){};
+    ~MGPreconditioner() override{};
 
     /// Broken copy constructor.
     MGPreconditioner(const MGPreconditioner&) = delete;
@@ -751,7 +751,7 @@ namespace oomph
     void operator=(const MGPreconditioner&) = delete;
 
     /// Function to set up a preconditioner for the linear system
-    void setup()
+    void setup() override
     {
 #ifdef OOMPH_HAS_MPI
       // Make sure that this is running in serial. Can't guarantee it'll
@@ -778,7 +778,7 @@ namespace oomph
     } // End of setup
 
     /// Function applies MG to the vector r for a full solve
-    virtual void preconditioner_solve(const DoubleVector& rhs, DoubleVector& z)
+    void preconditioner_solve(const DoubleVector& rhs, DoubleVector& z) override
     {
 #ifdef PARANOID
       if (this->Mg_problem_pt->ndof() != rhs.nrow())
@@ -815,7 +815,7 @@ namespace oomph
     } // End of preconditioner_solve
 
     /// Clean up memory
-    void clean_up_memory() {}
+    void clean_up_memory() override {}
   };
 
 

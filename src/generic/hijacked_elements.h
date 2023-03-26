@@ -315,7 +315,7 @@ namespace oomph
     /// then set up the local arrays to hold the hijacked variables.
     /// If the boolean argument is true then pointers to the associated degrees
     /// of freedom are stored in the array Dof_pt
-    void assign_local_eqn_numbers(const bool& store_local_dof_pt)
+    void assign_local_eqn_numbers(const bool& store_local_dof_pt) override
     {
       // If things have already been allocated,
       // clear the local hijacked array, so that if the equation numbers
@@ -374,7 +374,7 @@ namespace oomph
     /// Get the residuals from the underlying element, but then wipe the
     /// entries in the residual vector that correspond to hijacked
     /// values -- they will be computed by other elements.
-    void get_residuals(Vector<double>& residuals)
+    void get_residuals(Vector<double>& residuals) override
     {
       // Get parent redisuals
       ELEMENT::get_residuals(residuals);
@@ -392,7 +392,7 @@ namespace oomph
     /// element, but then wipe the entries in the residual vector and the
     /// rows in the Jacobian matrix that correspond to hijacked
     /// values -- they will be computed by other elements.
-    void get_jacobian(Vector<double>& residuals, DenseMatrix<double>& jacobian)
+    void get_jacobian(Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Call the element's get jacobian function
       ELEMENT::get_jacobian(residuals, jacobian);

@@ -74,17 +74,17 @@ namespace oomph
     void operator=(const RefineableYoungLaplaceEquations&) = delete;
 
     /// Compute element residual vector taking hanging nodes into account
-    void fill_in_contribution_to_residuals(Vector<double>& residuals);
+    void fill_in_contribution_to_residuals(Vector<double>& residuals) override;
 
     /// Number of 'flux' terms for Z2 error estimation
-    unsigned num_Z2_flux_terms()
+    unsigned num_Z2_flux_terms() override
     {
       return 2;
     }
 
     /// Get 'flux' for Z2 error recovery:  Standard flux
     /// from YoungLaplace equations
-    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux)
+    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux) override
     {
       this->get_flux(s, flux);
     }
@@ -94,7 +94,7 @@ namespace oomph
     /// is usually called from black-box documentation or interpolation
     /// routines), the values Vector sets its own size in here.
     void get_interpolated_values(const Vector<double>& s,
-                                 Vector<double>& values)
+                                 Vector<double>& values) override
     {
       // Set size of Vector: u
       values.resize(1);
@@ -125,7 +125,7 @@ namespace oomph
     /// routines), the values Vector sets its own size in here.
     void get_interpolated_values(const unsigned& t,
                                  const Vector<double>& s,
-                                 Vector<double>& values)
+                                 Vector<double>& values) override
     {
       if (t != 0)
       {
@@ -143,7 +143,7 @@ namespace oomph
     /// Further build: Copy function pointers to spine and spine base
     /// functions from father. Kappa is passed across with set_kappa(...)
     /// to ensure that it's added to the element's external Data.
-    void further_build()
+    void further_build() override
     {
       // Copy kappa with set_kappa() to ensure that it's added to the
       // element's external Data.
@@ -193,36 +193,36 @@ namespace oomph
     void operator=(const RefineableQYoungLaplaceElement<NNODE_1D>&) = delete;
 
     /// Number of continuously interpolated values: 1
-    unsigned ncont_interpolated_values() const
+    unsigned ncont_interpolated_values() const override
     {
       return 1;
     }
 
     /// Number of vertex nodes in the element
-    unsigned nvertex_node() const
+    unsigned nvertex_node() const override
     {
       return QYoungLaplaceElement<NNODE_1D>::nvertex_node();
     }
 
     /// Pointer to the j-th vertex node in the element
-    Node* vertex_node_pt(const unsigned& j) const
+    Node* vertex_node_pt(const unsigned& j) const override
     {
       return QYoungLaplaceElement<NNODE_1D>::vertex_node_pt(j);
     }
 
     /// Rebuild from sons: empty
-    void rebuild_from_sons(Mesh*& mesh_pt) {}
+    void rebuild_from_sons(Mesh*& mesh_pt) override {}
 
     /// Order of recovery shape functions for Z2 error estimation:
     /// Same order as shape functions.
-    unsigned nrecovery_order()
+    unsigned nrecovery_order() override
     {
       return (NNODE_1D - 1);
     }
 
     ///  Perform additional hanging node procedures for variables
     /// that are not interpolated by all nodes. Empty.
-    void further_setup_hanging_nodes() {}
+    void further_setup_hanging_nodes() override {}
   };
 
   /// /////////////////////////////////////////////////////////////////////

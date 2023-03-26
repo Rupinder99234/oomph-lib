@@ -59,13 +59,13 @@ namespace oomph
 
   protected:
     /// DIM momentum-components, a density and an energy are transported
-    inline unsigned nflux() const
+    inline unsigned nflux() const override
     {
       return DIM + 2;
     }
 
     /// Return the flux as a function of the unknown
-    void flux(const Vector<double>& u, DenseMatrix<double>& f);
+    void flux(const Vector<double>& u, DenseMatrix<double>& f) override;
 
     /// Return the flux derivatives as a function of the unknowns
     // void dflux_du(const Vector<double> &u, RankThreeTensor<double> &df_du);
@@ -82,7 +82,7 @@ namespace oomph
     }
 
     /// Destructor
-    virtual ~EulerEquations()
+    ~EulerEquations() override
     {
       if (this->Average_prim_value != 0)
       {
@@ -119,7 +119,7 @@ namespace oomph
 
     /// The number of unknowns at each node is the number of flux
     /// components
-    inline unsigned required_nvalue(const unsigned& n) const
+    inline unsigned required_nvalue(const unsigned& n) const override
     {
       return DIM + 2;
     }
@@ -131,7 +131,7 @@ namespace oomph
       FiniteElement::UnsteadyExactSolutionFctPt exact_solution_pt,
       const double& t,
       Vector<double>& error,
-      Vector<double>& norm)
+      Vector<double>& norm) override
     {
       // Find the number of fluxes
       const unsigned n_flux = this->nflux();
@@ -200,7 +200,7 @@ namespace oomph
 
     /// Output function:
     ///  x,y,u   or    x,y,z,u
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       unsigned nplot = 5;
       output(outfile, nplot);
@@ -208,7 +208,7 @@ namespace oomph
 
     /// Output function:
     ///  x,y,u   or    x,y,z,u at n_plot^DIM plot points
-    void output(std::ostream& outfile, const unsigned& n_plot);
+    void output(std::ostream& outfile, const unsigned& n_plot) override;
 
     void allocate_memory_for_averages()
     {
@@ -280,14 +280,14 @@ namespace oomph
 
     /// Output function:
     ///  x,y,u   or    x,y,z,u
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       EulerEquations<DIM>::output(outfile);
     }
 
     /// Output function:
     ///  x,y,u   or    x,y,z,u at n_plot^DIM plot points
-    void output(std::ostream& outfile, const unsigned& n_plot)
+    void output(std::ostream& outfile, const unsigned& n_plot) override
     {
       EulerEquations<DIM>::output(outfile, n_plot);
     }
@@ -338,7 +338,7 @@ namespace oomph
       Shape& psi,
       DShape& dpsidx,
       Shape& test,
-      DShape& dtestdx) const;
+      DShape& dtestdx) const override;
 
     /// Shape, test functions & derivs. w.r.t. to global coords. at
     /// integration point ipt. Return Jacobian.
@@ -347,7 +347,7 @@ namespace oomph
       Shape& psi,
       DShape& dpsidx,
       Shape& test,
-      DShape& dtestdx) const;
+      DShape& dtestdx) const override;
   };
 
   // Inline functions:
@@ -471,14 +471,14 @@ namespace oomph
     /// indeterminacy if bulk element is SolidElement)
     double zeta_nodal(const unsigned& n,
                       const unsigned& k,
-                      const unsigned& i) const
+                      const unsigned& i) const override
     {
       return FaceElement::zeta_nodal(n, k, i);
     }
 
 
     // There is a single required n_flux
-    unsigned required_nflux()
+    unsigned required_nflux() override
     {
       return Nflux;
     }
@@ -488,7 +488,7 @@ namespace oomph
     void numerical_flux(const Vector<double>& n_out,
                         const Vector<double>& u_int,
                         const Vector<double>& u_ext,
-                        Vector<double>& flux)
+                        Vector<double>& flux) override
     {
       // Let's follow the yellow book and use local Lax-Friedrichs
       // This is almost certainly not the best flux to use ---
@@ -720,19 +720,19 @@ namespace oomph
     /// indeterminacy if bulk element is SolidElement)
     double zeta_nodal(const unsigned& n,
                       const unsigned& k,
-                      const unsigned& i) const
+                      const unsigned& i) const override
     {
       return FaceElement::zeta_nodal(n, k, i);
     }
 
     // There is a single required n_flux
-    unsigned required_nflux()
+    unsigned required_nflux() override
     {
       return Nflux;
     }
 
     /// We overload interpolated_u to reflect
-    void interpolated_u(const Vector<double>& s, Vector<double>& u)
+    void interpolated_u(const Vector<double>& s, Vector<double>& u) override
     {
       // Get the standard interpolated_u
       DGFaceElement::interpolated_u(s, u);
@@ -780,13 +780,13 @@ namespace oomph
 
   public:
     /// Overload the required number of fluxes for the DGElement
-    unsigned required_nflux()
+    unsigned required_nflux() override
     {
       return this->nflux();
     }
 
     // Calculate averages
-    void calculate_element_averages(double*& average_value)
+    void calculate_element_averages(double*& average_value) override
     {
       FluxTransportEquations<1>::calculate_element_averages(average_value);
     }
@@ -807,9 +807,9 @@ namespace oomph
     }
 
 
-    ~DGSpectralEulerElement() {}
+    ~DGSpectralEulerElement() override {}
 
-    void build_all_faces()
+    void build_all_faces() override
     {
       // Make the two faces
       Face_element_pt.resize(2);
@@ -908,13 +908,13 @@ namespace oomph
 
   public:
     /// Overload the required number of fluxes for the DGElement
-    unsigned required_nflux()
+    unsigned required_nflux() override
     {
       return this->nflux();
     }
 
     // Calculate averages
-    void calculate_element_averages(double*& average_value)
+    void calculate_element_averages(double*& average_value) override
     {
       FluxTransportEquations<2>::calculate_element_averages(average_value);
     }
@@ -928,14 +928,14 @@ namespace oomph
         new GaussLobattoLegendre<2, 3 * NNODE_1D / 2>);
     }
 
-    ~DGSpectralEulerElement() {}
+    ~DGSpectralEulerElement() override {}
 
     Integral* face_integration_pt() const
     {
       return &Default_face_integration_scheme;
     }
 
-    void build_all_faces()
+    void build_all_faces() override
     {
       Face_element_pt.resize(4);
       Face_element_pt[0] =
@@ -955,7 +955,7 @@ namespace oomph
       Vector<double>& residuals,
       DenseMatrix<double>& jacobian,
       DenseMatrix<double>& mass_matrix,
-      unsigned flag)
+      unsigned flag) override
     {
       QSpectralEulerElement<2, NNODE_1D>::
         fill_in_generic_residual_contribution_flux_transport(

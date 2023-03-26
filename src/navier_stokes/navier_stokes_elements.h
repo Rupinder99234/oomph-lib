@@ -56,7 +56,7 @@ namespace oomph
     FpPressureAdvDiffRobinBCElementBase() {}
 
     /// Empty virtual destructor
-    virtual ~FpPressureAdvDiffRobinBCElementBase() {}
+    ~FpPressureAdvDiffRobinBCElementBase() override {}
 
     /// This function returns the residuals for the
     /// traction function. flag=1 (or 0): do (or don't) compute the
@@ -129,17 +129,17 @@ namespace oomph
     }
 
     /// Empty destructor
-    ~FpPressureAdvDiffRobinBCElement() {}
+    ~FpPressureAdvDiffRobinBCElement() override {}
 
     /// This function returns the residuals for the
     /// traction function. flag=1 (or 0): do (or don't) compute the
     /// Jacobian as well.
-    virtual void fill_in_generic_residual_contribution_fp_press_adv_diff_robin_bc(
-      Vector<double>& residuals, DenseMatrix<double>& jacobian, unsigned flag);
+    void fill_in_generic_residual_contribution_fp_press_adv_diff_robin_bc(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian, unsigned flag) override;
 
 
     /// This function returns just the residuals
-    inline void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    inline void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       std::ostringstream error_message;
       error_message
@@ -152,7 +152,7 @@ namespace oomph
 
     /// This function returns the residuals and the jacobian
     inline void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                                 DenseMatrix<double>& jacobian)
+                                                 DenseMatrix<double>& jacobian) override
     {
       std::ostringstream error_message;
       error_message
@@ -164,13 +164,13 @@ namespace oomph
     }
 
     /// Overload the output function
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       FiniteElement::output(outfile);
     }
 
     /// Output function: x,y,[z],u,v,[w],p in tecplot format
-    void output(std::ostream& outfile, const unsigned& nplot)
+    void output(std::ostream& outfile, const unsigned& nplot) override
     {
       FiniteElement::output(outfile, nplot);
     }
@@ -311,7 +311,7 @@ namespace oomph
     TemplateFreeNavierStokesEquationsBase(){};
 
     /// Virtual destructor (empty)
-    virtual ~TemplateFreeNavierStokesEquationsBase(){};
+    ~TemplateFreeNavierStokesEquationsBase() override{};
 
     /// Compute the residuals for the associated pressure advection
     /// diffusion problem. Used by the Fp preconditioner.
@@ -358,10 +358,10 @@ namespace oomph
     /// If which one=0, both are computed, otherwise only the pressure
     /// (which_one=1) or the velocity mass matrix (which_one=2 -- the
     /// LSC version of the preconditioner only needs that one)
-    virtual void get_pressure_and_velocity_mass_matrix_diagonal(
+    void get_pressure_and_velocity_mass_matrix_diagonal(
       Vector<double>& press_mass_diag,
       Vector<double>& veloc_mass_diag,
-      const unsigned& which_one = 0) = 0;
+      const unsigned& which_one = 0) override = 0;
   };
 
 
@@ -668,7 +668,7 @@ namespace oomph
     void fill_in_contribution_to_hessian_vector_products(
       Vector<double> const& Y,
       DenseMatrix<double> const& C,
-      DenseMatrix<double>& product);
+      DenseMatrix<double>& product) override;
 
 
   public:
@@ -814,7 +814,7 @@ namespace oomph
 
     /// Global eqn number of pressure dof that's pinned in pressure
     /// adv diff problem
-    int& pinned_fp_pressure_eqn()
+    int& pinned_fp_pressure_eqn() override
     {
       return Pinned_fp_pressure_eqn;
     }
@@ -906,7 +906,7 @@ namespace oomph
 
     /// Disable ALE, i.e. assert the mesh is not moving -- you do this
     /// at your own risk!
-    void disable_ALE()
+    void disable_ALE() override
     {
       ALE_is_disabled = true;
     }
@@ -915,7 +915,7 @@ namespace oomph
     /// when evaluating the time-derivative. Note: By default, ALE is
     /// enabled, at the expense of possibly creating unnecessary work
     /// in problems where the mesh is, in fact, stationary.
-    void enable_ALE()
+    void enable_ALE() override
     {
       ALE_is_disabled = false;
     }
@@ -933,7 +933,7 @@ namespace oomph
     /// Return the index at which the pressure is stored if it is
     /// stored at the nodes. If not stored at the nodes this will return
     /// a negative number.
-    virtual int p_nodal_index_nst() const
+    int p_nodal_index_nst() const override
     {
       return Pressure_not_stored_at_node;
     }
@@ -991,7 +991,7 @@ namespace oomph
     /// in the computation.
     void get_load(const Vector<double>& s,
                   const Vector<double>& N,
-                  Vector<double>& load)
+                  Vector<double>& load) override
     {
       // Note: get_traction() computes the traction onto the fluid
       // if N is the outer unit normal onto the fluid; here we're
@@ -1007,11 +1007,11 @@ namespace oomph
     void get_pressure_and_velocity_mass_matrix_diagonal(
       Vector<double>& press_mass_diag,
       Vector<double>& veloc_mass_diag,
-      const unsigned& which_one = 0);
+      const unsigned& which_one = 0) override;
 
     /// Number of scalars/fields output by this element. Reimplements
     /// broken virtual function in base class.
-    unsigned nscalar_paraview() const
+    unsigned nscalar_paraview() const override
     {
       return DIM + 1;
     }
@@ -1020,7 +1020,7 @@ namespace oomph
     /// to be implemented for each new specific element type.
     void scalar_value_paraview(std::ofstream& file_out,
                                const unsigned& i,
-                               const unsigned& nplot) const
+                               const unsigned& nplot) const override
     {
       // Vector of local coordinates
       Vector<double> s(DIM);
@@ -1069,7 +1069,7 @@ namespace oomph
       const unsigned& i,
       const unsigned& nplot,
       const double& time,
-      FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) const
+      FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) const override
     {
 #ifdef PARANOID
       if (i > DIM)
@@ -1124,7 +1124,7 @@ namespace oomph
     /// Name of the i-th scalar field. Default implementation
     /// returns V1 for the first one, V2 for the second etc. Can (should!) be
     /// overloaded with more meaningful names in specific elements.
-    std::string scalar_name_paraview(const unsigned& i) const
+    std::string scalar_name_paraview(const unsigned& i) const override
     {
       // Velocities
       if (i < DIM)
@@ -1152,7 +1152,7 @@ namespace oomph
 
     /// Output function: x,y,[z],u,v,[w],p
     /// in tecplot format. Default number of plot points
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       unsigned nplot = 5;
       output(outfile, nplot);
@@ -1160,11 +1160,11 @@ namespace oomph
 
     /// Output function: x,y,[z],u,v,[w],p
     /// in tecplot format. nplot points in each coordinate direction
-    void output(std::ostream& outfile, const unsigned& nplot);
+    void output(std::ostream& outfile, const unsigned& nplot) override;
 
     /// C-style output function: x,y,[z],u,v,[w],p
     /// in tecplot format. Default number of plot points
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       unsigned nplot = 5;
       output(file_pt, nplot);
@@ -1172,7 +1172,7 @@ namespace oomph
 
     /// C-style output function: x,y,[z],u,v,[w],p
     /// in tecplot format. nplot points in each coordinate direction
-    void output(FILE* file_pt, const unsigned& nplot);
+    void output(FILE* file_pt, const unsigned& nplot) override;
 
     /// Full output function:
     /// x,y,[z],u,v,[w],p,du/dt,dv/dt,[dw/dt],dissipation
@@ -1206,7 +1206,7 @@ namespace oomph
     /// many components as are returned in solution Vector
     void output_fct(std::ostream& outfile,
                     const unsigned& nplot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt);
+                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
 
     /// Output exact solution specified via function pointer
     /// at a given time and at a given number of plot points.
@@ -1214,13 +1214,13 @@ namespace oomph
     void output_fct(std::ostream& outfile,
                     const unsigned& nplot,
                     const double& time,
-                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt);
+                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override;
 
     /// Compute norm of solution: square of the L2 norm of the velocities
-    void compute_norm(double& norm);
+    void compute_norm(double& norm) override;
 
     /// Compute the vector norm of the FEM solution
-    void compute_norm(Vector<double>& norm);
+    void compute_norm(Vector<double>& norm) override;
 
     /// Validate against exact solution at given time
     /// Solution is provided via function pointer.
@@ -1230,7 +1230,7 @@ namespace oomph
                        FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt,
                        const double& time,
                        double& error,
-                       double& norm);
+                       double& norm) override;
 
     /// Validate against exact solution.
     /// Solution is provided via function pointer.
@@ -1239,7 +1239,7 @@ namespace oomph
     void compute_error(std::ostream& outfile,
                        FiniteElement::SteadyExactSolutionFctPt exact_soln_pt,
                        double& error,
-                       double& norm);
+                       double& norm) override;
 
     /// Validate against exact solution. Solution is provided via
     /// function pointer. Compute L2 error and L2 norm of velocity solution
@@ -1247,17 +1247,17 @@ namespace oomph
     void compute_error(FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt,
                        const double& time,
                        double& error,
-                       double& norm);
+                       double& norm) override;
 
     /// Validate against exact solution. Solution is provided via
     /// function pointer. Compute L2 error and L2 norm of velocity solution
     /// over element.
     void compute_error(FiniteElement::SteadyExactSolutionFctPt exact_soln_pt,
                        double& error,
-                       double& norm);
+                       double& norm) override;
 
     /// Compute the element's residual Vector
-    void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       // Call the generic residuals function with flag set to 0
       // and using a dummy matrix argument
@@ -1271,7 +1271,7 @@ namespace oomph
     /// Compute the element's residual Vector and the jacobian matrix
     /// Virtual function can be overloaded by hanging-node version
     void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian)
+                                          DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine with the flag set to 1
       fill_in_generic_residual_contribution_nst(
@@ -1283,7 +1283,7 @@ namespace oomph
     void fill_in_contribution_to_jacobian_and_mass_matrix(
       Vector<double>& residuals,
       DenseMatrix<double>& jacobian,
-      DenseMatrix<double>& mass_matrix)
+      DenseMatrix<double>& mass_matrix) override
     {
       // Call the generic routine with the flag set to 2
       fill_in_generic_residual_contribution_nst(
@@ -1292,7 +1292,7 @@ namespace oomph
 
     /// Compute the element's residual Vector
     void fill_in_contribution_to_dresiduals_dparameter(
-      double* const& parameter_pt, Vector<double>& dres_dparam)
+      double* const& parameter_pt, Vector<double>& dres_dparam) override
     {
       // Call the generic residuals function with flag set to 0
       // and using a dummy matrix argument
@@ -1309,7 +1309,7 @@ namespace oomph
     void fill_in_contribution_to_djacobian_dparameter(
       double* const& parameter_pt,
       Vector<double>& dres_dparam,
-      DenseMatrix<double>& djac_dparam)
+      DenseMatrix<double>& djac_dparam) override
     {
       // Call the generic routine with the flag set to 1
       fill_in_generic_dresidual_contribution_nst(
@@ -1326,7 +1326,7 @@ namespace oomph
       double* const& parameter_pt,
       Vector<double>& dres_dparam,
       DenseMatrix<double>& djac_dparam,
-      DenseMatrix<double>& dmass_matrix_dparam)
+      DenseMatrix<double>& dmass_matrix_dparam) override
     {
       // Call the generic routine with the flag set to 2
       fill_in_generic_dresidual_contribution_nst(
@@ -1337,7 +1337,7 @@ namespace oomph
     /// Compute the residuals for the associated pressure advection
     /// diffusion problem. Used by the Fp preconditioner.
     void fill_in_pressure_advection_diffusion_residuals(
-      Vector<double>& residuals)
+      Vector<double>& residuals) override
     {
       fill_in_generic_pressure_advection_diffusion_contribution_nst(
         residuals, GeneralisedElement::Dummy_matrix, 0);
@@ -1346,7 +1346,7 @@ namespace oomph
     /// Compute the residuals and Jacobian for the associated
     /// pressure advection diffusion problem. Used by the Fp preconditioner.
     void fill_in_pressure_advection_diffusion_jacobian(
-      Vector<double>& residuals, DenseMatrix<double>& jacobian)
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       fill_in_generic_pressure_advection_diffusion_contribution_nst(
         residuals, jacobian, 1);
@@ -1355,7 +1355,7 @@ namespace oomph
 
     /// Pin all non-pressure dofs and backup eqn numbers
     void pin_all_non_pressure_dofs(
-      std::map<Data*, std::vector<int>>& eqn_number_backup)
+      std::map<Data*, std::vector<int>>& eqn_number_backup) override
     {
       // Loop over internal data and pin the values (having established that
       // pressure dofs aren't amongst those)
@@ -1440,8 +1440,8 @@ namespace oomph
     /// Build FaceElements that apply the Robin boundary condition
     /// to the pressure advection diffusion problem required by
     /// Fp preconditioner
-    virtual void build_fp_press_adv_diff_robin_bc_element(
-      const unsigned& face_index) = 0;
+    void build_fp_press_adv_diff_robin_bc_element(
+      const unsigned& face_index) override = 0;
 
     /// Output the FaceElements that apply the Robin boundary condition
     /// to the pressure advection diffusion problem required by
@@ -1483,7 +1483,7 @@ namespace oomph
     /// Delete the FaceElements that apply the Robin boundary condition
     /// to the pressure advection diffusion problem required by
     /// Fp preconditioner
-    void delete_pressure_advection_diffusion_robin_elements()
+    void delete_pressure_advection_diffusion_robin_elements() override
     {
       unsigned nel = Pressure_advection_diffusion_robin_element_pt.size();
       for (unsigned e = 0; e < nel; e++)
@@ -1497,8 +1497,8 @@ namespace oomph
     /// to nodal coordinates. Overwrites default implementation in
     /// FiniteElement base class.
     /// dresidual_dnodal_coordinates(l,i,j) = d res(l) / dX_{ij}
-    virtual void get_dresidual_dnodal_coordinates(
-      RankThreeTensor<double>& dresidual_dnodal_coordinates);
+    void get_dresidual_dnodal_coordinates(
+      RankThreeTensor<double>& dresidual_dnodal_coordinates) override;
 
 
     /// Compute vector of FE interpolated velocity u at local coordinate s
@@ -1714,7 +1714,7 @@ namespace oomph
 
     /// Output solution in data vector at local cordinates s:
     /// x,y [,z], u,v,[w], p
-    void point_output_data(const Vector<double>& s, Vector<double>& data)
+    void point_output_data(const Vector<double>& s, Vector<double>& data) override
     {
       // Dimension
       unsigned dim = s.size();
@@ -1764,7 +1764,7 @@ namespace oomph
                                                 Shape& psi,
                                                 DShape& dpsidx,
                                                 Shape& test,
-                                                DShape& dtestdx) const;
+                                                DShape& dtestdx) const override;
 
     /// Velocity shape and test functions and their derivs
     /// w.r.t. to global coords at ipt-th integation point (taken from geometry)
@@ -1773,7 +1773,7 @@ namespace oomph
                                                         Shape& psi,
                                                         DShape& dpsidx,
                                                         Shape& test,
-                                                        DShape& dtestdx) const;
+                                                        DShape& dtestdx) const override;
 
     /// Shape/test functions and derivs w.r.t. to global coords at
     /// integration point ipt; return Jacobian of mapping (J). Also compute
@@ -1786,7 +1786,7 @@ namespace oomph
       Shape& test,
       DShape& dtestdx,
       RankFourTensor<double>& d_dtestdx_dX,
-      DenseMatrix<double>& djacobian_dX) const;
+      DenseMatrix<double>& djacobian_dX) const override;
 
 
   public:
@@ -1799,21 +1799,21 @@ namespace oomph
     }
 
     /// Number of values (pinned or dofs) required at local node n.
-    virtual unsigned required_nvalue(const unsigned& n) const;
+    unsigned required_nvalue(const unsigned& n) const override;
 
 
     /// Pressure shape functions at local coordinate s
-    inline void pshape_nst(const Vector<double>& s, Shape& psi) const;
+    inline void pshape_nst(const Vector<double>& s, Shape& psi) const override;
 
     /// Pressure shape and test functions at local coordinte s
     inline void pshape_nst(const Vector<double>& s,
                            Shape& psi,
-                           Shape& test) const;
+                           Shape& test) const override;
 
     /// Return the i-th pressure value
     /// (Discontinous pressure interpolation -- no need to cater for hanging
     /// nodes).
-    double p_nst(const unsigned& i) const
+    double p_nst(const unsigned& i) const override
     {
       return this->internal_data_pt(P_nst_internal_index)->value(i);
     }
@@ -1821,13 +1821,13 @@ namespace oomph
     /// Return the i-th pressure value
     /// (Discontinous pressure interpolation -- no need to cater for hanging
     /// nodes).
-    double p_nst(const unsigned& t, const unsigned& i) const
+    double p_nst(const unsigned& t, const unsigned& i) const override
     {
       return this->internal_data_pt(P_nst_internal_index)->value(t, i);
     }
 
     /// Return number of pressure values
-    unsigned npres_nst() const
+    unsigned npres_nst() const override
     {
       return DIM + 1;
     }
@@ -1839,16 +1839,16 @@ namespace oomph
                                                   Shape& ppsi,
                                                   DShape& dppsidx,
                                                   Shape& ptest,
-                                                  DShape& dptestdx) const;
+                                                  DShape& dptestdx) const override;
 
     /// Return the local equation numbers for the pressure values.
-    inline int p_local_eqn(const unsigned& n) const
+    inline int p_local_eqn(const unsigned& n) const override
     {
       return this->internal_local_eqn(P_nst_internal_index, n);
     }
 
     /// Pin p_dof-th pressure dof and set it to value specified by p_value.
-    void fix_pressure(const unsigned& p_dof, const double& p_value)
+    void fix_pressure(const unsigned& p_dof, const double& p_value) override
     {
       this->internal_data_pt(P_nst_internal_index)->pin(p_dof);
       this->internal_data_pt(P_nst_internal_index)->set_value(p_dof, p_value);
@@ -1858,7 +1858,7 @@ namespace oomph
     /// Build FaceElements that apply the Robin boundary condition
     /// to the pressure advection diffusion problem required by
     /// Fp preconditioner
-    void build_fp_press_adv_diff_robin_bc_element(const unsigned& face_index)
+    void build_fp_press_adv_diff_robin_bc_element(const unsigned& face_index) override
     {
       this->Pressure_advection_diffusion_robin_element_pt.push_back(
         new FpPressureAdvDiffRobinBCElement<QCrouzeixRaviartElement<DIM>>(
@@ -1873,7 +1873,7 @@ namespace oomph
     /// for all values (pressures, velocities) that affect the
     /// load computed in the \c get_load(...) function.
     void identify_load_data(
-      std::set<std::pair<Data*, unsigned>>& paired_load_data);
+      std::set<std::pair<Data*, unsigned>>& paired_load_data) override;
 
     ///  Add to the set \c paired_pressure_data pairs
     /// containing
@@ -1884,30 +1884,30 @@ namespace oomph
     /// for all pressure values that affect the
     /// load computed in the \c get_load(...) function.
     void identify_pressure_data(
-      std::set<std::pair<Data*, unsigned>>& paired_pressure_data);
+      std::set<std::pair<Data*, unsigned>>& paired_pressure_data) override;
 
 
     /// Redirect output to NavierStokesEquations output
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       NavierStokesEquations<DIM>::output(outfile);
     }
 
     /// Redirect output to NavierStokesEquations output
-    void output(std::ostream& outfile, const unsigned& nplot)
+    void output(std::ostream& outfile, const unsigned& nplot) override
     {
       NavierStokesEquations<DIM>::output(outfile, nplot);
     }
 
 
     /// Redirect output to NavierStokesEquations output
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       NavierStokesEquations<DIM>::output(file_pt);
     }
 
     /// Redirect output to NavierStokesEquations output
-    void output(FILE* file_pt, const unsigned& nplot)
+    void output(FILE* file_pt, const unsigned& nplot) override
     {
       NavierStokesEquations<DIM>::output(file_pt, nplot);
     }
@@ -1932,7 +1932,7 @@ namespace oomph
 
     /// The number of "DOF types" that degrees of freedom in this element
     /// are sub-divided into: Velocity and pressure.
-    unsigned ndof_types() const
+    unsigned ndof_types() const override
     {
       return DIM + 1;
     }
@@ -1944,7 +1944,7 @@ namespace oomph
     /// (Function can obviously only be called if the equation numbering
     /// scheme has been set up.) Velocity=0; Pressure=1
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const;
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override;
   };
 
   // Inline functions
@@ -2322,7 +2322,7 @@ namespace oomph
                                                 Shape& psi,
                                                 DShape& dpsidx,
                                                 Shape& test,
-                                                DShape& dtestdx) const;
+                                                DShape& dtestdx) const override;
 
     /// Velocity shape and test functions and their derivs
     /// w.r.t. to global coords  at local coordinate s (taken from geometry)
@@ -2331,7 +2331,7 @@ namespace oomph
                                                         Shape& psi,
                                                         DShape& dpsidx,
                                                         Shape& test,
-                                                        DShape& dtestdx) const;
+                                                        DShape& dtestdx) const override;
 
     /// Shape/test functions and derivs w.r.t. to global coords at
     /// integration point ipt; return Jacobian of mapping (J). Also compute
@@ -2344,7 +2344,7 @@ namespace oomph
       Shape& test,
       DShape& dtestdx,
       RankFourTensor<double>& d_dtestdx_dX,
-      DenseMatrix<double>& djacobian_dX) const;
+      DenseMatrix<double>& djacobian_dX) const override;
 
   public:
     /// Constructor, no internal data points
@@ -2352,42 +2352,42 @@ namespace oomph
 
     /// Number of values (pinned or dofs) required at node n. Can
     /// be overwritten for hanging node version
-    inline virtual unsigned required_nvalue(const unsigned& n) const
+    inline unsigned required_nvalue(const unsigned& n) const override
     {
       return Initial_Nvalue[n];
     }
 
 
     /// Pressure shape functions at local coordinate s
-    inline void pshape_nst(const Vector<double>& s, Shape& psi) const;
+    inline void pshape_nst(const Vector<double>& s, Shape& psi) const override;
 
     /// Pressure shape and test functions at local coordinte s
     inline void pshape_nst(const Vector<double>& s,
                            Shape& psi,
-                           Shape& test) const;
+                           Shape& test) const override;
 
     /// Set the value at which the pressure is stored in the nodes
-    virtual int p_nodal_index_nst() const
+    int p_nodal_index_nst() const override
     {
       return static_cast<int>(DIM);
     }
 
     /// Return the local equation numbers for the pressure values.
-    inline int p_local_eqn(const unsigned& n) const
+    inline int p_local_eqn(const unsigned& n) const override
     {
       return this->nodal_local_eqn(Pconv[n], p_nodal_index_nst());
     }
 
     /// Access function for the pressure values at local pressure
     /// node n_p (const version)
-    double p_nst(const unsigned& n_p) const
+    double p_nst(const unsigned& n_p) const override
     {
       return this->nodal_value(Pconv[n_p], this->p_nodal_index_nst());
     }
 
     /// Access function for the pressure values at local pressure
     /// node n_p (const version)
-    double p_nst(const unsigned& t, const unsigned& n_p) const
+    double p_nst(const unsigned& t, const unsigned& n_p) const override
     {
       return this->nodal_value(t, Pconv[n_p], this->p_nodal_index_nst());
     }
@@ -2399,10 +2399,10 @@ namespace oomph
                                                   Shape& ppsi,
                                                   DShape& dppsidx,
                                                   Shape& ptest,
-                                                  DShape& dptestdx) const;
+                                                  DShape& dptestdx) const override;
 
     /// Return number of pressure values
-    unsigned npres_nst() const
+    unsigned npres_nst() const override
     {
       return static_cast<unsigned>(pow(2.0, static_cast<int>(DIM)));
     }
@@ -2420,7 +2420,7 @@ namespace oomph
 
 
     /// Pin p_dof-th pressure dof and set it to value specified by p_value.
-    void fix_pressure(const unsigned& p_dof, const double& p_value)
+    void fix_pressure(const unsigned& p_dof, const double& p_value) override
     {
       this->node_pt(Pconv[p_dof])->pin(this->p_nodal_index_nst());
       this->node_pt(Pconv[p_dof])
@@ -2431,7 +2431,7 @@ namespace oomph
     /// Build FaceElements that apply the Robin boundary condition
     /// to the pressure advection diffusion problem required by
     /// Fp preconditioner
-    void build_fp_press_adv_diff_robin_bc_element(const unsigned& face_index)
+    void build_fp_press_adv_diff_robin_bc_element(const unsigned& face_index) override
     {
       this->Pressure_advection_diffusion_robin_element_pt.push_back(
         new FpPressureAdvDiffRobinBCElement<QTaylorHoodElement<DIM>>(
@@ -2447,7 +2447,7 @@ namespace oomph
     /// for all values (pressures, velocities) that affect the
     /// load computed in the \c get_load(...) function.
     void identify_load_data(
-      std::set<std::pair<Data*, unsigned>>& paired_load_data);
+      std::set<std::pair<Data*, unsigned>>& paired_load_data) override;
 
 
     ///  Add to the set \c paired_pressure_data pairs
@@ -2459,29 +2459,29 @@ namespace oomph
     /// for all pressure values that affect the
     /// load computed in the \c get_load(...) function.
     void identify_pressure_data(
-      std::set<std::pair<Data*, unsigned>>& paired_pressure_data);
+      std::set<std::pair<Data*, unsigned>>& paired_pressure_data) override;
 
 
     /// Redirect output to NavierStokesEquations output
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       NavierStokesEquations<DIM>::output(outfile);
     }
 
     /// Redirect output to NavierStokesEquations output
-    void output(std::ostream& outfile, const unsigned& nplot)
+    void output(std::ostream& outfile, const unsigned& nplot) override
     {
       NavierStokesEquations<DIM>::output(outfile, nplot);
     }
 
     /// Redirect output to NavierStokesEquations output
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       NavierStokesEquations<DIM>::output(file_pt);
     }
 
     /// Redirect output to NavierStokesEquations output
-    void output(FILE* file_pt, const unsigned& nplot)
+    void output(FILE* file_pt, const unsigned& nplot) override
     {
       NavierStokesEquations<DIM>::output(file_pt, nplot);
     }
@@ -2489,7 +2489,7 @@ namespace oomph
 
     /// Returns the number of "DOF types" that degrees of freedom
     /// in this element are sub-divided into: Velocity and pressure.
-    unsigned ndof_types() const
+    unsigned ndof_types() const override
     {
       return DIM + 1;
     }
@@ -2501,7 +2501,7 @@ namespace oomph
     /// (Function can obviously only be called if the equation numbering
     /// scheme has been set up.) Velocity=0; Pressure=1
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const;
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override;
   };
 
   // Inline functions

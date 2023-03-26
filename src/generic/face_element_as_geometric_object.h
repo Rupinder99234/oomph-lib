@@ -103,7 +103,7 @@ namespace oomph
     /// the FaceElement representation, by default
     double zeta_nodal(const unsigned& n,
                       const unsigned& k,
-                      const unsigned& i) const
+                      const unsigned& i) const override
     {
       return FaceElement::zeta_nodal(n, k, i);
     }
@@ -111,7 +111,7 @@ namespace oomph
 
     /// How many items of Data does the shape of the object depend on?
     /// None! We're dealing with a pure geometric FiniteElement!
-    unsigned ngeom_data() const
+    unsigned ngeom_data() const override
     {
       return 0;
     }
@@ -119,7 +119,7 @@ namespace oomph
     /// Return pointer to the j-th Data item that the object's
     /// shape depends on. Object doesn't depend on any geom Data
     /// so we die if this gets called.
-    Data* geom_data_pt(const unsigned& j)
+    Data* geom_data_pt(const unsigned& j) override
     {
       std::ostringstream error_message;
       error_message
@@ -133,7 +133,7 @@ namespace oomph
 
     /// Override fill in contribution to jacobian, nothing should be done
     void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian)
+                                          DenseMatrix<double>& jacobian) override
     {
       std::ostringstream warn_message;
       warn_message << "Warning: You have just called the empty function \n"
@@ -158,14 +158,14 @@ namespace oomph
     /// call hierarchy of this function when called from
     /// Problem::describe_dofs(...)
     void describe_local_dofs(std::ostream& out,
-                             const std::string& current_string) const
+                             const std::string& current_string) const override
     {
       // Call the ElementWithExternalElement's describe function
       ElementWithExternalElement::describe_local_dofs(out, current_string);
     }
 
     /// Unique final overrider needed for assign_all_generic_local_eqn_numbers
-    void assign_all_generic_local_eqn_numbers(const bool& store_local_dof_pt)
+    void assign_all_generic_local_eqn_numbers(const bool& store_local_dof_pt) override
     {
       // Call the ElementWithExternalElement's assign function
       ElementWithExternalElement::assign_all_generic_local_eqn_numbers(

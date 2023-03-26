@@ -66,11 +66,11 @@ namespace oomph
     void operator=(const QuadMeshBase&) = delete;
 
     /// Destructor (empty)
-    virtual ~QuadMeshBase() {}
+    ~QuadMeshBase() override {}
 
     /// Setup lookup schemes which establish whic elements are located
     /// next to mesh's boundaries (wrapper to suppress doc).
-    void setup_boundary_element_info()
+    void setup_boundary_element_info() override
     {
       std::ofstream outfile;
       setup_boundary_element_info(outfile);
@@ -78,7 +78,7 @@ namespace oomph
 
     /// Setup lookup schemes which establish whic elements are located
     /// next to mesh's boundaries. Doc in outfile (if it's open).
-    void setup_boundary_element_info(std::ostream& outfile);
+    void setup_boundary_element_info(std::ostream& outfile) override;
   };
 
 } // namespace oomph

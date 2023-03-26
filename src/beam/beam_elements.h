@@ -278,7 +278,7 @@ namespace oomph
     /// theory with linear constitutive equations; if  Solid_ic_pt!=0, we
     /// assign residuals which force the assignement of an initial shape/
     /// veloc/accel to the dofs. This overloads the standard interface.
-    void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       fill_in_contribution_to_residuals_beam(residuals);
     }
@@ -292,8 +292,8 @@ namespace oomph
 
 
     /// Get FE jacobian and residuals (Jacobian done by finite differences)
-    virtual void fill_in_contribution_to_jacobian(
-      Vector<double>& residuals, DenseMatrix<double>& jacobian);
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override;
 
     /// Get potential (strain) and kinetic energy of the element
     void get_energy(double& pot_en, double& kin_en);
@@ -321,22 +321,22 @@ namespace oomph
     }
 
     /// Output function
-    void output(std::ostream& outfile);
+    void output(std::ostream& outfile) override;
 
     /// Output function with specified number of plot points
-    void output(std::ostream& outfile, const unsigned& n_plot);
+    void output(std::ostream& outfile, const unsigned& n_plot) override;
 
     /// Output at previous time (t=0: present; t>0: previous)
     /// with specified number of plot points
     void output(const unsigned& t,
                 std::ostream& outfile,
-                const unsigned& n_plot) const;
+                const unsigned& n_plot) const override;
 
     /// C-style output function
-    void output(FILE* file_pt);
+    void output(FILE* file_pt) override;
 
     /// C-style output function with specified number of plot points
-    void output(FILE* file_pt, const unsigned& n_plot);
+    void output(FILE* file_pt, const unsigned& n_plot) override;
 
     /// C-style output at previous time (t=0: present; t>0: previous)
     /// with specified number of plot points
@@ -370,7 +370,7 @@ namespace oomph
     }
 
     /// Destructor: empty
-    ~FSIHermiteBeamElement() {}
+    ~FSIHermiteBeamElement() override {}
 
     /// Set the normal computed by
     /// KirchhoffLoveBeamEquations::get_normal(...) to point into the fluid
@@ -406,7 +406,7 @@ namespace oomph
                      const Vector<double>& xi,
                      const Vector<double>& x,
                      const Vector<double>& N,
-                     Vector<double>& load)
+                     Vector<double>& load) override
     {
       // Initially call the standard Load_vector_fct_pt
       Load_vector_fct_pt(xi, x, N, load);
@@ -434,8 +434,8 @@ namespace oomph
     /// Get the Jacobian and residuals. Wrapper to generic FSI version;
     /// that catches the case when we replace the Jacobian by the
     /// mass matrix (for the consistent assignment of initial conditions).
-    virtual void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                                  DenseMatrix<double>& jacobian)
+    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
+                                                  DenseMatrix<double>& jacobian) override
     {
       // Call the standard beam element's jacobian function
       HermiteBeamElement::fill_in_contribution_to_jacobian(residuals, jacobian);
@@ -454,12 +454,12 @@ namespace oomph
     void locate_zeta(const Vector<double>& zeta,
                      GeomObject*& geom_object_pt,
                      Vector<double>& s,
-                     const bool& use_coordinate_as_initial_guess = false);
+                     const bool& use_coordinate_as_initial_guess = false) override;
 
 
     /// The number of "DOF types" that degrees of freedom in this element
     /// are sub-divided into: Just the solid degrees of freedom themselves.
-    unsigned ndof_types() const
+    unsigned ndof_types() const override
     {
       return 1;
     }
@@ -471,7 +471,7 @@ namespace oomph
     /// (Function can obviously only be called if the equation numbering
     /// scheme has been set up.)
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const;
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override;
   };
 
 
@@ -556,26 +556,26 @@ namespace oomph
 
 
     /// Fill in the element's contribution to its residual vector
-    void fill_in_contribution_to_residuals(Vector<double>& residuals);
+    void fill_in_contribution_to_residuals(Vector<double>& residuals) override;
 
 
     /// Output function -- forward to broken version in FiniteElement
     /// until somebody decides what exactly they want to plot here...
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       FiniteElement::output(outfile);
     }
 
     /// Output function -- forward to broken version in FiniteElement
     /// until somebody decides what exactly they want to plot here...
-    void output(std::ostream& outfile, const unsigned& n_plot)
+    void output(std::ostream& outfile, const unsigned& n_plot) override
     {
       FiniteElement::output(outfile, n_plot);
     }
 
     /// C-style output function -- forward to broken version in FiniteElement
     /// until somebody decides what exactly they want to plot here...
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       FiniteElement::output(file_pt);
     }
@@ -583,7 +583,7 @@ namespace oomph
     /// C-style output function -- forward to broken version in
     /// FiniteElement until somebody decides what exactly they want to plot
     /// here...
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       FiniteElement::output(file_pt, n_plot);
     }

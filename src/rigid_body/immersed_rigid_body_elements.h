@@ -183,7 +183,7 @@ namespace oomph
     }
 
     /// Overload the position to apply the rotation and translation
-    void position(const Vector<double>& xi, Vector<double>& r) const
+    void position(const Vector<double>& xi, Vector<double>& r) const override
     {
       Vector<double> initial_x(2);
       Geom_object_pt->position(xi, initial_x);
@@ -193,7 +193,7 @@ namespace oomph
     /// Overload to include the time history of the motion of the object
     void position(const unsigned& t,
                   const Vector<double>& xi,
-                  Vector<double>& r) const
+                  Vector<double>& r) const override
     {
       Vector<double> initial_x(2);
       Geom_object_pt->position(xi, initial_x);
@@ -204,10 +204,10 @@ namespace oomph
     /// Work out the position derivative, including rigid body motion
     void dposition_dt(const Vector<double>& zeta,
                       const unsigned& j,
-                      Vector<double>& drdt);
+                      Vector<double>& drdt) override;
 
     /// Destuctor: Cleanup if required
-    ~ImmersedRigidBodyElement()
+    ~ImmersedRigidBodyElement() override
     {
       if (Displacement_data_is_internal)
       {
@@ -295,7 +295,7 @@ namespace oomph
     void output_centre_of_gravity(std::ostream& outfile);
 
     /// Get the contribution to the residuals
-    void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       // Get generic function without jacobian terms
       get_residuals_rigid_body_generic(
@@ -305,7 +305,7 @@ namespace oomph
 
     /// Get residuals including contribution to jacobian
     void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian)
+                                          DenseMatrix<double>& jacobian) override
     {
       // Get generic function, but don't bother to get jacobian terms
       bool flag = false;
@@ -344,33 +344,33 @@ namespace oomph
 
 
     /// After an external data change, update the nodal positions
-    inline void update_in_external_fd(const unsigned& i)
+    inline void update_in_external_fd(const unsigned& i) override
     {
       node_update_adjacent_fluid_elements();
     }
 
     /// Do nothing to reset within finite-differencing of  external data
-    inline void reset_in_external_fd(const unsigned& i) {}
+    inline void reset_in_external_fd(const unsigned& i) override {}
 
     /// After all external data finite-differencing, update nodal
     /// positions
-    inline void reset_after_external_fd()
+    inline void reset_after_external_fd() override
     {
       node_update_adjacent_fluid_elements();
     }
 
     /// After an internal data change, update the nodal positions
-    inline void update_in_internal_fd(const unsigned& i)
+    inline void update_in_internal_fd(const unsigned& i) override
     {
       node_update_adjacent_fluid_elements();
     }
 
     /// Do nothing to reset within finite-differencing of internal data
-    inline void reset_in_internal_fd(const unsigned& i) {}
+    inline void reset_in_internal_fd(const unsigned& i) override {}
 
     /// After all internal data finite-differencing, update nodal
     /// positions
-    inline void reset_after_internal_fd()
+    inline void reset_after_internal_fd() override
     {
       node_update_adjacent_fluid_elements();
     }
@@ -418,14 +418,14 @@ namespace oomph
     }
 
     /// The position of the object depends on one data item
-    unsigned ngeom_data() const
+    unsigned ngeom_data() const override
     {
       return 1;
     }
 
     /// Return pointer to the j-th (only) Data item that the object's
     /// shape depends on.
-    Data* geom_data_pt(const unsigned& j)
+    Data* geom_data_pt(const unsigned& j) override
     {
       return this->Centre_displacement_data_pt;
     }
@@ -678,10 +678,10 @@ namespace oomph
       Data* const& centre_displacement_data_pt = 0);
 
     /// Empty Destuctor
-    ~ImmersedRigidBodyTriangleMeshPolygon() {}
+    ~ImmersedRigidBodyTriangleMeshPolygon() override {}
 
     /// Overload (again) the position to apply the rotation and translation
-    void position(const Vector<double>& xi, Vector<double>& r) const
+    void position(const Vector<double>& xi, Vector<double>& r) const override
     {
       Vector<double> initial_x(2);
       this->get_initial_position(xi, initial_x);
@@ -692,7 +692,7 @@ namespace oomph
     /// Overload (again) the position to apply the rotation and translation
     void position(const unsigned& t,
                   const Vector<double>& xi,
-                  Vector<double>& r) const
+                  Vector<double>& r) const override
     {
       Vector<double> initial_x(2);
       this->get_initial_position(xi, initial_x);
@@ -704,7 +704,7 @@ namespace oomph
     /// position of the vertices to their current ones, re-set the
     /// original position of the centre of mass, and the displacements
     /// and rotations relative to it
-    void reset_reference_configuration();
+    void reset_reference_configuration() override;
 
   private:
     /// Get the initial position of the polygon

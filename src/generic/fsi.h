@@ -202,7 +202,7 @@ namespace oomph
     /// call hierarchy of this function when called from
     /// Problem::describe_dofs(...)
     void describe_local_dofs(std::ostream& out,
-                             const std::string& current_string) const;
+                             const std::string& current_string) const override;
 
     /// Static flag that allows the suppression of warning messages
     static bool Dont_warn_about_missing_adjacent_fluid_elements;
@@ -223,7 +223,7 @@ namespace oomph
     void operator=(const FSIWallElement&) = delete;
 
     /// Empty virtual destructor for safety
-    virtual ~FSIWallElement() {}
+    ~FSIWallElement() override {}
 
     /// Setup: Assign storage -- pass the Eulerian
     /// dimension of the "adjacent" fluid elements and the
@@ -321,7 +321,7 @@ namespace oomph
     /// and the residual vector: Done by finite differencing the
     /// residual vector w.r.t. all nodal, internal, external and load Data.
     void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian)
+                                          DenseMatrix<double>& jacobian) override
     {
       // Add the contribution to the residuals
       fill_in_contribution_to_residuals(residuals);
@@ -349,7 +349,7 @@ namespace oomph
 
   protected:
     /// After an internal data change, update the nodal positions
-    inline void update_in_internal_fd(const unsigned& i)
+    inline void update_in_internal_fd(const unsigned& i) override
     {
       if (!Ignore_shear_stress_in_jacobian)
       {
@@ -358,10 +358,10 @@ namespace oomph
     }
 
     // Do nothing
-    inline void reset_in_internal_fd(const unsigned& i) {}
+    inline void reset_in_internal_fd(const unsigned& i) override {}
 
     // After all internal stuff reset
-    inline void reset_after_internal_fd()
+    inline void reset_after_internal_fd() override
     {
       if (!Ignore_shear_stress_in_jacobian)
       {
@@ -371,7 +371,7 @@ namespace oomph
 
 
     /// After an external data change, update the nodal positions
-    inline void update_in_external_fd(const unsigned& i)
+    inline void update_in_external_fd(const unsigned& i) override
     {
       if (!Ignore_shear_stress_in_jacobian)
       {
@@ -380,10 +380,10 @@ namespace oomph
     }
 
     // Do nothing
-    inline void reset_in_external_fd(const unsigned& i) {}
+    inline void reset_in_external_fd(const unsigned& i) override {}
 
     // After all external stuff reset
-    inline void reset_after_external_fd()
+    inline void reset_after_external_fd() override
     {
       if (!Ignore_shear_stress_in_jacobian)
       {
@@ -393,7 +393,7 @@ namespace oomph
 
 
     /// After a nodal data change, update the nodal positions
-    inline void update_in_nodal_fd(const unsigned& i)
+    inline void update_in_nodal_fd(const unsigned& i) override
     {
       if (!Ignore_shear_stress_in_jacobian)
       {
@@ -402,10 +402,10 @@ namespace oomph
     }
 
     // Do nothing
-    inline void reset_in_nodal_fd(const unsigned& i) {}
+    inline void reset_in_nodal_fd(const unsigned& i) override {}
 
     // After all nodal stuff reset
-    inline void reset_after_nodal_fd()
+    inline void reset_after_nodal_fd() override
     {
       if (!Ignore_shear_stress_in_jacobian)
       {
@@ -414,7 +414,7 @@ namespace oomph
     }
 
     /// After an external field data change, update the nodal positions
-    inline void update_in_external_interaction_field_fd(const unsigned& i)
+    inline void update_in_external_interaction_field_fd(const unsigned& i) override
     {
       if (!Ignore_shear_stress_in_jacobian)
       {
@@ -423,10 +423,10 @@ namespace oomph
     }
 
     // Do nothing
-    inline void reset_in_external_interaction_field_fd(const unsigned& i) {}
+    inline void reset_in_external_interaction_field_fd(const unsigned& i) override {}
 
     // After all external field stuff reset
-    inline void reset_after_external_interaction_field_fd()
+    inline void reset_after_external_interaction_field_fd() override
     {
       if (!Ignore_shear_stress_in_jacobian)
       {
@@ -437,7 +437,7 @@ namespace oomph
 
     /// After an external geometric data change, update the nodal
     /// positions
-    inline void update_in_external_interaction_geometric_fd(const unsigned& i)
+    inline void update_in_external_interaction_geometric_fd(const unsigned& i) override
     {
       if (!Ignore_shear_stress_in_jacobian)
       {
@@ -446,10 +446,10 @@ namespace oomph
     }
 
     // Do nothing
-    inline void reset_in_external_interaction_geometric_fd(const unsigned& i) {}
+    inline void reset_in_external_interaction_geometric_fd(const unsigned& i) override {}
 
     // After all external geometric stuff reset
-    inline void reset_after_external_interaction_geometric_fd()
+    inline void reset_after_external_interaction_geometric_fd() override
     {
       if (!Ignore_shear_stress_in_jacobian)
       {
@@ -459,7 +459,7 @@ namespace oomph
 
 
     /// After an internal data change, update the nodal positions
-    inline void update_in_solid_position_fd(const unsigned& i)
+    inline void update_in_solid_position_fd(const unsigned& i) override
     {
       if (!Ignore_shear_stress_in_jacobian)
       {
@@ -468,10 +468,10 @@ namespace oomph
     }
 
     // Do nothing
-    inline void reset_in_solid_position_fd(const unsigned& i) {}
+    inline void reset_in_solid_position_fd(const unsigned& i) override {}
 
     // After all internal stuff reset
-    inline void reset_after_solid_position_fd()
+    inline void reset_after_solid_position_fd() override
     {
       if (!Ignore_shear_stress_in_jacobian)
       {
@@ -515,13 +515,13 @@ namespace oomph
     /// ignore the shear stresses when computing the Jacobian.
     void identify_all_field_data_for_external_interaction(
       Vector<std::set<FiniteElement*>> const& external_elements_pt,
-      std::set<std::pair<Data*, unsigned>>& paired_iteraction_data);
+      std::set<std::pair<Data*, unsigned>>& paired_iteraction_data) override;
 
     /// Function that must return all geometric data involved
     /// in the desired interactions from the external element
     void identify_all_geometric_data_for_external_interaction(
       Vector<std::set<FiniteElement*>> const& external_elements_pt,
-      std::set<Data*>& external_geometric_data_pt);
+      std::set<Data*>& external_geometric_data_pt) override;
 
     /// Static default value for the ratio of stress scales
     /// used in the fluid and solid equations (default is 1.0)

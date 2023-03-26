@@ -61,7 +61,7 @@ namespace oomph
     }
 
     /// Empty destructor
-    ~BlockPrecQUnsteadyHeatMixedOrderSpaceTimeElement() {}
+    ~BlockPrecQUnsteadyHeatMixedOrderSpaceTimeElement() override {}
 
     /// Overload the pure virtual base class implementation.
     /// Create a list of pairs for all unknowns in this element,
@@ -69,7 +69,7 @@ namespace oomph
     /// number of the unknown, while the second one contains the number
     /// of the "DOF type" that this unknown is associated with.
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const;
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override;
   };
 
   //======start_of_BlockPrecRefineableQUnsteadyHeatMixedOrderSpaceTimeElement
@@ -92,7 +92,7 @@ namespace oomph
     }
 
     /// Empty destructor
-    ~BlockPrecRefineableQUnsteadyHeatMixedOrderSpaceTimeElement() {}
+    ~BlockPrecRefineableQUnsteadyHeatMixedOrderSpaceTimeElement() override {}
 
     /// Overload the pure virtual base class implementation.
     /// Create a list of pairs for all unknowns in this element,
@@ -100,7 +100,7 @@ namespace oomph
     /// number of the unknown, while the second one contains the number
     /// of the "DOF type" that this unknown is associated with.
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const;
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override;
   };
 } // End of namespace oomph
 #endif

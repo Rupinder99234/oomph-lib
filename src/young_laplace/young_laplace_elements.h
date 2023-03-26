@@ -87,7 +87,7 @@ namespace oomph
     }
 
     /// Output with default number of plot points
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       unsigned n_plot = 5;
       output(outfile, n_plot);
@@ -95,23 +95,23 @@ namespace oomph
 
     /// Output FE representation of soln
     /// at n_plot^2 plot points
-    void output(std::ostream& outfile, const unsigned& n_plot);
+    void output(std::ostream& outfile, const unsigned& n_plot) override;
 
 
     /// Output exact soln at n_plot^2 plot points
     void output_fct(std::ostream& outfile,
                     const unsigned& n_plot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt);
+                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
 
 
     /// Output exact soln at
     /// n_plot^2 plot points (dummy time-dependent version to
     /// keep intel compiler happy)
-    virtual void output_fct(
+    void output_fct(
       std::ostream& outfile,
       const unsigned& n_plot,
       const double& time,
-      FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt)
+      FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override
     {
       throw OomphLibError("These equations are steady => no time dependence",
                           OOMPH_CURRENT_FUNCTION,
@@ -123,14 +123,14 @@ namespace oomph
     void compute_error(std::ostream& outfile,
                        FiniteElement::SteadyExactSolutionFctPt exact_soln_pt,
                        double& error,
-                       double& norm);
+                       double& norm) override;
 
     /// Dummy, time dependent error checker
     void compute_error(std::ostream& outfile,
                        FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt,
                        const double& time,
                        double& error,
-                       double& norm)
+                       double& norm) override
     {
       throw OomphLibError("These equations are steady => no time dependence",
                           OOMPH_CURRENT_FUNCTION,
@@ -294,7 +294,7 @@ namespace oomph
     }
 
     /// Get position vector to meniscus at local coordinate s
-    void position(const Vector<double>& s, Vector<double>& r) const;
+    void position(const Vector<double>& s, Vector<double>& r) const override;
 
     /// Get exact position vector to meniscus at local coordinate s
     void exact_position(const Vector<double>& s,
@@ -302,7 +302,7 @@ namespace oomph
                         FiniteElement::SteadyExactSolutionFctPt exact_soln_pt);
 
     /// Add the element's contribution to its residual vector
-    void fill_in_contribution_to_residuals(Vector<double>& residuals);
+    void fill_in_contribution_to_residuals(Vector<double>& residuals) override;
 
 
     /// Return FE representation of function value u(s) at local coordinate s
@@ -331,7 +331,7 @@ namespace oomph
 
 
     /// Self-test: Return 0 for OK
-    unsigned self_test();
+    unsigned self_test() override;
 
 
     /// Helper fct: Allocate storage for a vector of vectors of doubles
@@ -478,20 +478,20 @@ namespace oomph
 
     ///  Required  # of `values' (pinned or dofs)
     /// at node n
-    inline unsigned required_nvalue(const unsigned& n) const
+    inline unsigned required_nvalue(const unsigned& n) const override
     {
       return Initial_Nvalue[n];
     }
 
     /// Output function
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       YoungLaplaceEquations::output(outfile);
     }
 
 
     ///  Output function at n_plot^2 plot points
-    void output(std::ostream& outfile, const unsigned& n_plot)
+    void output(std::ostream& outfile, const unsigned& n_plot) override
     {
       YoungLaplaceEquations::output(outfile, n_plot);
     }
@@ -500,7 +500,7 @@ namespace oomph
     /// Output function for an exact solutio at n_plot^2 plot points
     void output_fct(std::ostream& outfile,
                     const unsigned& n_plot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt)
+                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override
     {
       YoungLaplaceEquations::output_fct(outfile, n_plot, exact_soln_pt);
     }
@@ -511,7 +511,7 @@ namespace oomph
     void output_fct(std::ostream& outfile,
                     const unsigned& n_plot,
                     const double& time,
-                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt)
+                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override
     {
       YoungLaplaceEquations::output_fct(outfile, n_plot, time, exact_soln_pt);
     }
@@ -585,7 +585,7 @@ namespace oomph
     }
 
     /// Setup local equation number for the height-control equation
-    void assign_additional_local_eqn_numbers()
+    void assign_additional_local_eqn_numbers() override
     {
       // Get equation number from generic scheme: The height control
       // equation is "the equation for the curvature" which is
@@ -598,7 +598,7 @@ namespace oomph
     /// Add the element's contribution to its residual vector:
     /// The height constraint. [Note: Jacobian is computed
     /// automatically by finite-differencing]
-    void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       residuals[Height_ctrl_local_eqn] =
         Control_node_pt->value(0) - (*Prescribed_height_pt);

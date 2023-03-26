@@ -74,14 +74,14 @@ namespace oomph
     void operator=(const PeriodicOrbitTimeDiscretisation&) = delete;
 
     /// Return the actual order of the scheme
-    unsigned order() const
+    unsigned order() const override
     {
       return 1;
     }
 
     /// Broken initialisation the time-history for the Data values
     /// corresponding to an impulsive start.
-    void assign_initial_values_impulsive(Data* const& data_pt)
+    void assign_initial_values_impulsive(Data* const& data_pt) override
     {
       throw OomphLibError(
         "Cannot perform impulsive start for PeriodicOrbitTimeDiscretisation",
@@ -91,7 +91,7 @@ namespace oomph
 
     /// Broken initialisation of
     /// the positions for the node corresponding to an impulsive start
-    void assign_initial_positions_impulsive(Node* const& node_pt)
+    void assign_initial_positions_impulsive(Node* const& node_pt) override
     {
       throw OomphLibError(
         "Cannot perform impulsive start for PeriodicOrbitTimeDiscretisation",
@@ -131,7 +131,7 @@ namespace oomph
     }
 
     /// Broken shifting of time values
-    void shift_time_values(Data* const& data_pt)
+    void shift_time_values(Data* const& data_pt) override
     {
       throw OomphLibError(
         "Cannot shift time values for PeriodicOrbitTimeDiscretisation",
@@ -140,7 +140,7 @@ namespace oomph
     }
 
     /// Broken shifting of time positions
-    void shift_time_positions(Node* const& node_pt)
+    void shift_time_positions(Node* const& node_pt) override
     {
       throw OomphLibError(
         "Cannot shift time positions for PeriodicOrbitTimeDiscretisation",
@@ -149,16 +149,16 @@ namespace oomph
     }
 
     /// Set the weights
-    void set_weights() {}
+    void set_weights() override {}
 
     /// Number of previous values available.
-    unsigned nprev_values() const
+    unsigned nprev_values() const override
     {
       return ntstorage();
     }
 
     /// Number of timestep increments that need to be stored by the scheme
-    unsigned ndt() const
+    unsigned ndt() const override
     {
       return ntstorage();
     }
@@ -373,19 +373,19 @@ namespace oomph
     /// at node n (only ever one dummy value, used for equation numbering)
     /// This is also used to represent all *spatial* variables during a
     /// temporal refinement, which is a bit naughty but it quick and dirty.
-    inline unsigned required_nvalue(const unsigned& n) const
+    inline unsigned required_nvalue(const unsigned& n) const override
     {
       return 1;
     }
 
     /// Number of continuously interpolated values (1)
-    inline unsigned ncont_interpolated_values() const
+    inline unsigned ncont_interpolated_values() const override
     {
       return 1;
     }
 
     /// Return the dummy values
-    void get_interpolated_values(const Vector<double>& s, Vector<double>& value)
+    void get_interpolated_values(const Vector<double>& s, Vector<double>& value) override
     {
       this->get_interpolated_values(0, s, value);
     }
@@ -393,7 +393,7 @@ namespace oomph
     /// Return the temporal dummy values
     void get_interpolated_values(const unsigned& t,
                                  const Vector<double>& s,
-                                 Vector<double>& value)
+                                 Vector<double>& value) override
     {
       value.resize(1);
       value[0] = 0.0;
@@ -409,20 +409,20 @@ namespace oomph
     }
 
     // Order of recovery shape functions for Z2 error estimation:
-    unsigned nrecovery_order()
+    unsigned nrecovery_order() override
     {
       return NNODE_1D - 1;
     }
 
     /// Number of flux terms for Z2 error estimation
     /// This will be used to represent all spatial values,
-    unsigned num_Z2_flux_terms()
+    unsigned num_Z2_flux_terms() override
     {
       return this->node_pt(0)->ntstorage();
     }
 
     /// Get the fluxes for the recovert
-    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux)
+    void get_Z2_flux(const Vector<double>& s, Vector<double>& flux) override
     {
       // Find out the number of nodes in the element
       const unsigned n_node = this->nnode();
@@ -455,13 +455,13 @@ namespace oomph
     }
 
     // Number of vertex nodes in the element (always 2)
-    unsigned nvertex_node() const
+    unsigned nvertex_node() const override
     {
       return 2;
     }
 
     /// Pointer to the j-th vertex node in the element
-    Node* vertex_node_pt(const unsigned& j) const
+    Node* vertex_node_pt(const unsigned& j) const override
     {
       return QSpectralElement<1, NNODE_1D>::vertex_node_pt(j);
     }
@@ -472,7 +472,7 @@ namespace oomph
 
     /// Output function:
     ///  x,y,u   or    x,y,z,u
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       PeriodicOrbitEquations::output(outfile);
     }
@@ -480,7 +480,7 @@ namespace oomph
 
     ///  Output function:
     ///   x,y,u   or    x,y,z,u at n_plot^DIM plot points
-    void output(std::ostream& outfile, const unsigned& n_plot)
+    void output(std::ostream& outfile, const unsigned& n_plot) override
     {
       PeriodicOrbitEquations::output(outfile, n_plot);
     }
@@ -488,7 +488,7 @@ namespace oomph
 
     /// C-style output function:
     ///  x,y,u   or    x,y,z,u
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       PeriodicOrbitEquations::output(file_pt);
     }
@@ -496,7 +496,7 @@ namespace oomph
 
     ///  C-style output function:
     ///   x,y,u   or    x,y,z,u at n_plot^DIM plot points
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       PeriodicOrbitEquations::output(file_pt, n_plot);
     }
@@ -509,7 +509,7 @@ namespace oomph
                                                   Shape& psi,
                                                   DShape& dpsidt,
                                                   Shape& test,
-                                                  DShape& dtestdt) const;
+                                                  DShape& dtestdt) const override;
 
 
     /// Shape, test functions & derivs. w.r.t. to global coords. at
@@ -519,7 +519,7 @@ namespace oomph
       Shape& psi,
       DShape& dpsidt,
       Shape& test,
-      DShape& dtestdt) const;
+      DShape& dtestdt) const override;
   };
 
 
@@ -908,7 +908,7 @@ namespace oomph
     }
 
     /// Return the number of degrees of freedom in the element elem_pt
-    unsigned ndof(GeneralisedElement* const& elem_pt)
+    unsigned ndof(GeneralisedElement* const& elem_pt) override
     {
       return ((elem_pt->ndof()) * N_tstorage + 1);
     }
@@ -916,7 +916,7 @@ namespace oomph
     /// Return the global equation number of the local unknown ieqn_local
     /// in elem_pt.
     unsigned long eqn_number(GeneralisedElement* const& elem_pt,
-                             const unsigned& ieqn_local)
+                             const unsigned& ieqn_local) override
     {
       // Get unaugmented number of (spatial) dofs in element
       unsigned raw_ndof = elem_pt->ndof();
@@ -939,7 +939,7 @@ namespace oomph
 
     /// Return the contribution to the residuals of the element elem_pt
     void get_residuals(GeneralisedElement* const& elem_pt,
-                       Vector<double>& residuals)
+                       Vector<double>& residuals) override
     {
       Time_mesh_pt->assemble_residuals(this, elem_pt, residuals);
     }
@@ -947,7 +947,7 @@ namespace oomph
 
     // Provide interface
     void get_dofs_for_element(GeneralisedElement* const elem_pt,
-                              Vector<double>& dofs)
+                              Vector<double>& dofs) override
     {
       // Find the number of dofs in the element
       const unsigned n_elem_dof = this->ndof(elem_pt);
@@ -961,7 +961,7 @@ namespace oomph
     }
 
     void get_previous_dofs_for_element(GeneralisedElement* const elem_pt,
-                                       Vector<double>& dofs)
+                                       Vector<double>& dofs) override
     {
       // Find the number of dofs in the element
       const unsigned n_elem_dof = this->ndof(elem_pt);
@@ -976,7 +976,7 @@ namespace oomph
 
 
     void set_dofs_for_element(GeneralisedElement* const elem_pt,
-                              Vector<double> const& dofs)
+                              Vector<double> const& dofs) override
     {
       // Find the number of dofs in the element
       const unsigned n_elem_dof = this->ndof(elem_pt);
@@ -993,7 +993,7 @@ namespace oomph
     /// / d variable" for elem_pt.
     void get_jacobian(GeneralisedElement* const& elem_pt,
                       Vector<double>& residuals,
-                      DenseMatrix<double>& jacobian)
+                      DenseMatrix<double>& jacobian) override
     {
       Time_mesh_pt->assemble_residuals_and_jacobian(
         this, elem_pt, residuals, jacobian);
@@ -1447,7 +1447,7 @@ namespace oomph
 
 
     /// Destructor, destroy the time mesh
-    ~PeriodicOrbitAssemblyHandler()
+    ~PeriodicOrbitAssemblyHandler() override
     {
       delete Time_mesh_pt;
     }

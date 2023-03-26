@@ -96,7 +96,7 @@ namespace oomph
 
     /// Disable ALE, i.e. assert the mesh is not moving -- you do this
     /// at your own risk!
-    void disable_ALE()
+    void disable_ALE() override
     {
       // Set the flag to true
       ALE_is_disabled = true;
@@ -107,7 +107,7 @@ namespace oomph
     /// when evaluating the time-derivative. Note: By default, ALE is
     /// enabled, at the expense of possibly creating unnecessary work
     /// in problems where the mesh is, in fact, stationary.
-    void enable_ALE()
+    void enable_ALE() override
     {
       // Set the flag to false
       ALE_is_disabled = false;
@@ -115,11 +115,11 @@ namespace oomph
 
 
     /// Compute norm of FE solution
-    void compute_norm(double& norm);
+    void compute_norm(double& norm) override;
 
 
     /// Output with default number of plot points
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       // Number of plot points
       unsigned nplot = 5;
@@ -131,11 +131,11 @@ namespace oomph
 
     /// Output FE representation of soln: x,y,u or x,y,z,u at
     /// nplot^SPATIAL_DIM plot points
-    void output(std::ostream& outfile, const unsigned& nplot);
+    void output(std::ostream& outfile, const unsigned& nplot) override;
 
 
     /// C_style output with default number of plot points
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       // Number of plot points
       unsigned nplot = 5;
@@ -147,30 +147,30 @@ namespace oomph
 
     /// C-style output FE representation of soln: x,y,u or x,y,z,u at
     /// nplot^SPATIAL_DIM plot points
-    void output(FILE* file_pt, const unsigned& nplot);
+    void output(FILE* file_pt, const unsigned& nplot) override;
 
 
     /// Output exact soln: x,y,u_exact or x,y,z,u_exact at nplot^SPATIAL_DIM
     /// plot points
     void output_fct(std::ostream& outfile,
                     const unsigned& nplot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt);
+                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
 
 
     /// Output exact soln: x,y,u_exact or x,y,z,u_exact at
     /// nplot^SPATIAL_DIM plot points (time-dependent version)
-    virtual void output_fct(
+    void output_fct(
       std::ostream& outfile,
       const unsigned& nplot,
       const double& time,
-      FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt);
+      FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override;
 
 
     /// Get error and norm against exact solution
     void compute_error(std::ostream& outfile,
                        FiniteElement::SteadyExactSolutionFctPt exact_soln_pt,
                        double& error,
-                       double& norm);
+                       double& norm) override;
 
 
     /// Get error and norm against exact solution
@@ -178,7 +178,7 @@ namespace oomph
                        FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt,
                        const double& time,
                        double& error,
-                       double& norm);
+                       double& norm) override;
 
 
     /// C-style output FE representation of soln: x,y,u or x,y,z,u at
@@ -188,7 +188,7 @@ namespace oomph
 
     /// Number of scalars/fields output by this element. Reimplements
     /// broken virtual function in base class.
-    unsigned nscalar_paraview() const
+    unsigned nscalar_paraview() const override
     {
       // Only one field to output
       return 1;
@@ -199,7 +199,7 @@ namespace oomph
     /// to be implemented for each new specific element type.
     void scalar_value_paraview(std::ofstream& file_out,
                                const unsigned& i,
-                               const unsigned& nplot) const
+                               const unsigned& nplot) const override
     {
 #ifdef PARANOID
       if (i != 0)
@@ -236,7 +236,7 @@ namespace oomph
       std::ofstream& file_out,
       const unsigned& i,
       const unsigned& nplot,
-      FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) const
+      FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) const override
     {
 #ifdef PARANOID
       if (i != 0)
@@ -290,7 +290,7 @@ namespace oomph
       const unsigned& i,
       const unsigned& nplot,
       const double& time,
-      FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) const
+      FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) const override
     {
 #ifdef PARANOID
       if (i != 0)
@@ -345,7 +345,7 @@ namespace oomph
 
     /// Name of the i-th scalar field. Default implementation
     /// returns V1 for the first one, V2 for the second etc.
-    std::string scalar_name_paraview(const unsigned& i) const
+    std::string scalar_name_paraview(const unsigned& i) const override
     {
       // If we're outputting the solution
       if (i == 0)
@@ -369,7 +369,7 @@ namespace oomph
 
 
     /// Access function: Pointer to source function
-    SpaceTimeUnsteadyHeatSourceFctPt& source_fct_pt()
+    SpaceTimeUnsteadyHeatSourceFctPt& source_fct_pt() override
     {
       // Return the source function pointer
       return Source_fct_pt;
@@ -492,7 +492,7 @@ namespace oomph
 
 
     /// Compute element residual Vector (wrapper)
-    void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       // Call the generic residuals function with flag set to 0
       // using a dummy matrix argument
@@ -503,7 +503,7 @@ namespace oomph
 
     /// Compute element residual Vector and element Jacobian matrix (wrapper)
     void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian)
+                                          DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine with the flag set to 1
       fill_in_generic_residual_contribution_ust_heat(residuals, jacobian, 1);
@@ -654,7 +654,7 @@ namespace oomph
 
 
     /// Self-test: Return 0 for OK
-    unsigned self_test();
+    unsigned self_test() override;
 
     /// Shape/test functions and derivs w.r.t. to global coords at
     /// local coordinate s; return Jacobian of mapping
@@ -754,7 +754,7 @@ namespace oomph
         dummy) = delete;
 
     /// Required number of 'values' (pinned or dofs) at node n
-    inline unsigned required_nvalue(const unsigned& n) const
+    inline unsigned required_nvalue(const unsigned& n) const override
     {
       // Return the appropriate value
       return Initial_Nvalue;
@@ -763,7 +763,7 @@ namespace oomph
 
     /// Output function:
     /// x,t,u   or   x,y,t,u
-    void output(std::ostream& outfile)
+    void output(std::ostream& outfile) override
     {
       // Call the function in the base class
       SpaceTimeUnsteadyHeatMixedOrderEquations<SPATIAL_DIM>::output(outfile);
@@ -772,7 +772,7 @@ namespace oomph
 
     /// Output function:
     /// x,t,u   or   x,y,t,u at n_plot^(SPATIAL_DIM+1) plot points
-    void output(std::ostream& outfile, const unsigned& n_plot)
+    void output(std::ostream& outfile, const unsigned& n_plot) override
     {
       // Call the function in the base class
       SpaceTimeUnsteadyHeatMixedOrderEquations<SPATIAL_DIM>::output(outfile,
@@ -782,7 +782,7 @@ namespace oomph
 
     /// C-style output function:
     /// x,t,u   or   x,y,t,u
-    void output(FILE* file_pt)
+    void output(FILE* file_pt) override
     {
       // Call the function in the base class
       SpaceTimeUnsteadyHeatMixedOrderEquations<SPATIAL_DIM>::output(file_pt);
@@ -791,7 +791,7 @@ namespace oomph
 
     /// C-style output function:
     /// x,t,u   or   x,y,t,u at n_plot^(SPATIAL_DIM+1) plot points
-    void output(FILE* file_pt, const unsigned& n_plot)
+    void output(FILE* file_pt, const unsigned& n_plot) override
     {
       // Call the function in the base class
       SpaceTimeUnsteadyHeatMixedOrderEquations<SPATIAL_DIM>::output(file_pt,
@@ -803,7 +803,7 @@ namespace oomph
     /// x,t,u_exact   or   x,y,t,u_exact at n_plot^(SPATIAL_DIM+1) plot points
     void output_fct(std::ostream& outfile,
                     const unsigned& n_plot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt)
+                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override
     {
       // Call the function in the base class
       SpaceTimeUnsteadyHeatMixedOrderEquations<SPATIAL_DIM>::output_fct(
@@ -817,7 +817,7 @@ namespace oomph
     void output_fct(std::ostream& outfile,
                     const unsigned& n_plot,
                     const double& time,
-                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt)
+                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override
     {
       // Call the function in the base class
       SpaceTimeUnsteadyHeatMixedOrderEquations<SPATIAL_DIM>::output_fct(
@@ -830,7 +830,7 @@ namespace oomph
                                                      Shape& psi,
                                                      DShape& dpsidx,
                                                      Shape& test,
-                                                     DShape& dtestdx) const;
+                                                     DShape& dtestdx) const override;
 
     /// Shape/test functions and derivs w.r.t. to global coords at
     /// integration point ipt; return Jacobian of mapping
@@ -839,23 +839,23 @@ namespace oomph
       Shape& psi,
       DShape& dpsidx,
       Shape& test,
-      DShape& dtestdx) const;
+      DShape& dtestdx) const override;
 
   protected:
     /// Shape functions w.r.t. to local coords
-    inline void shape_ust_heat(const Vector<double>& s, Shape& psi) const;
+    inline void shape_ust_heat(const Vector<double>& s, Shape& psi) const override;
 
 
     /// Shape functions & derivs. w.r.t. to local coords
     inline void dshape_local_ust_heat(const Vector<double>& s,
                                       Shape& psi,
-                                      DShape& dpsidx) const;
+                                      DShape& dpsidx) const override;
 
 
     /// Test functions & derivs. w.r.t. to local coords
     inline void dtest_local_ust_heat(const Vector<double>& s,
                                      Shape& test,
-                                     DShape& dtestdx) const;
+                                     DShape& dtestdx) const override;
 
 
   private:

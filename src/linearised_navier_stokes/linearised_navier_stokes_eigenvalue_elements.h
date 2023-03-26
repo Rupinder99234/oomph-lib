@@ -88,7 +88,7 @@ namespace oomph
        index_of_traded_pressure);*/
 
     /// Empty destructor
-    ~LinearisedNavierStokesEigenfunctionNormalisationElement() {}
+    ~LinearisedNavierStokesEigenfunctionNormalisationElement() override {}
 
     /// Access to Data that contains the traded pressure
     inline Data* eigenvalue_data_pt()
@@ -110,14 +110,14 @@ namespace oomph
 
 
     /// Fill in the residuals for the volume constraint
-    void fill_in_contribution_to_residuals(Vector<double>& residuals)
+    void fill_in_contribution_to_residuals(Vector<double>& residuals) override
     {
       this->fill_in_generic_contribution_to_residuals_normalisation(residuals);
     }
 
     /// Fill in the residuals and jacobian for the volume constraint
     void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian)
+                                          DenseMatrix<double>& jacobian) override
     {
       // One contribution to jacobian; see comment in that function
       this->fill_in_generic_contribution_to_residuals_normalisation(residuals);
@@ -135,7 +135,7 @@ namespace oomph
     void fill_in_contribution_to_jacobian_and_mass_matrix(
       Vector<double>& residuals,
       DenseMatrix<double>& jacobian,
-      DenseMatrix<double>& mass_matrix)
+      DenseMatrix<double>& mass_matrix) override
     {
       // No contribution to jacobian or mass matrix; see comment in that
       // function

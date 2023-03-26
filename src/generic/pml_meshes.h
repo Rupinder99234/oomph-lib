@@ -210,7 +210,7 @@ namespace oomph
     /// elements in the mesh. Additionally, we assume that the PML mesh is
     /// axis aligned when deciding if the given point lies inside the mesh
     void pml_locate_zeta(const Vector<double>& x,
-                         FiniteElement*& coarse_mesh_el_pt)
+                         FiniteElement*& coarse_mesh_el_pt) override
     {
       //------------------------------------------
       // Make sure the point lies inside the mesh:
