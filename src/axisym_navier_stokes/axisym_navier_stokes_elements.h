@@ -691,7 +691,8 @@ namespace oomph
 
     /// Output solution in data vector at local cordinates s:
     /// r,z,u_r,u_z,u_phi,p
-    void point_output_data(const Vector<double>& s, Vector<double>& data) override
+    void point_output_data(const Vector<double>& s,
+                           Vector<double>& data) override
     {
       // Output the components of the position
       for (unsigned i = 0; i < 2; i++)
@@ -745,17 +746,19 @@ namespace oomph
     /// Output exact solution specified via function pointer
     /// at a given number of plot points. Function prints as
     /// many components as are returned in solution Vector
-    void output_fct(std::ostream& outfile,
-                    const unsigned& nplot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& nplot,
+      FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
 
     /// Output exact solution specified via function pointer
     /// at a given time and at a given number of plot points.
     /// Function prints as many components as are returned in solution Vector.
-    void output_fct(std::ostream& outfile,
-                    const unsigned& nplot,
-                    const double& time,
-                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override;
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& nplot,
+      const double& time,
+      FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override;
 
     /// Validate against exact solution at given time
     /// Solution is provided via function pointer.
@@ -790,8 +793,8 @@ namespace oomph
 
     /// Compute the element's residual Vector and the jacobian matrix
     /// Virtual function can be overloaded by hanging-node version
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine with the flag set to 1
       fill_in_generic_residual_contribution_axi_nst(
@@ -1244,11 +1247,12 @@ namespace oomph
     /// Velocity shape and test functions and their derivs
     /// w.r.t. to global coords  at local coordinate s (taken from geometry)
     /// Return Jacobian of mapping between local and global coordinates.
-    inline double dshape_and_dtest_eulerian_axi_nst(const Vector<double>& s,
-                                                    Shape& psi,
-                                                    DShape& dpsidx,
-                                                    Shape& test,
-                                                    DShape& dtestdx) const override;
+    inline double dshape_and_dtest_eulerian_axi_nst(
+      const Vector<double>& s,
+      Shape& psi,
+      DShape& dpsidx,
+      Shape& test,
+      DShape& dtestdx) const override;
 
     /// Velocity shape and test functions and their derivs
     /// w.r.t. to global coords at ipt-th integation point (taken from geometry)
@@ -1275,7 +1279,8 @@ namespace oomph
 
 
     /// Pressure shape functions at local coordinate s
-    inline void pshape_axi_nst(const Vector<double>& s, Shape& psi) const override;
+    inline void pshape_axi_nst(const Vector<double>& s,
+                               Shape& psi) const override;
 
     /// Pressure shape and test functions at local coordinte s
     inline void pshape_axi_nst(const Vector<double>& s,
@@ -1368,7 +1373,8 @@ namespace oomph
     /// (Function can obviously only be called if the equation numbering
     /// scheme has been set up.)
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override;
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list)
+      const override;
   };
 
   // Inline functions
@@ -1542,11 +1548,12 @@ namespace oomph
     /// Velocity shape and test functions and their derivs
     /// w.r.t. to global coords  at local coordinate s (taken from geometry)
     /// Return Jacobian of mapping between local and global coordinates.
-    inline double dshape_and_dtest_eulerian_axi_nst(const Vector<double>& s,
-                                                    Shape& psi,
-                                                    DShape& dpsidx,
-                                                    Shape& test,
-                                                    DShape& dtestdx) const override;
+    inline double dshape_and_dtest_eulerian_axi_nst(
+      const Vector<double>& s,
+      Shape& psi,
+      DShape& dpsidx,
+      Shape& test,
+      DShape& dtestdx) const override;
 
     /// Velocity shape and test functions and their derivs
     /// w.r.t. to global coords  at local coordinate s (taken from geometry)
@@ -1572,7 +1579,8 @@ namespace oomph
       DenseMatrix<double>& djacobian_dX) const override;
 
     /// Pressure shape functions at local coordinate s
-    inline void pshape_axi_nst(const Vector<double>& s, Shape& psi) const override;
+    inline void pshape_axi_nst(const Vector<double>& s,
+                               Shape& psi) const override;
 
     /// Pressure shape and test functions at local coordinte s
     inline void pshape_axi_nst(const Vector<double>& s,
@@ -1670,7 +1678,8 @@ namespace oomph
     /// (Function can obviously only be called if the equation numbering
     /// scheme has been set up.)
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override;
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list)
+      const override;
   };
 
   // Inline functions

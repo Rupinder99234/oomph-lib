@@ -1109,7 +1109,8 @@ namespace oomph
     void multiply(const DoubleVector& x, DoubleVector& soln) const override;
 
     /// Multiply the  transposed matrix by the vector x: soln=A^T x
-    void multiply_transpose(const DoubleVector& x, DoubleVector& soln) const override;
+    void multiply_transpose(const DoubleVector& x,
+                            DoubleVector& soln) const override;
 
     /// Function to multiply this matrix by the CRDoubleMatrix matrix_in.
     /// In a serial matrix, there are 4 methods available:
@@ -1342,7 +1343,8 @@ namespace oomph
     void multiply(const DoubleVector& x, DoubleVector& soln) const override;
 
     /// Multiply the  transposed matrix by the vector x: soln=A^T x
-    void multiply_transpose(const DoubleVector& x, DoubleVector& soln) const override;
+    void multiply_transpose(const DoubleVector& x,
+                            DoubleVector& soln) const override;
 
     /// For every row, find the maximum absolute value of the
     /// entries in this row. Set all values that are less than alpha times
@@ -2843,7 +2845,8 @@ namespace oomph
     void multiply(const DoubleVector& x, DoubleVector& soln) const override;
 
     /// Multiply the  transposed matrix by the vector x: soln=A^T x
-    void multiply_transpose(const DoubleVector& x, DoubleVector& soln) const override;
+    void multiply_transpose(const DoubleVector& x,
+                            DoubleVector& soln) const override;
 
 
     /// Function to multiply this matrix by the CCDoubleMatrix matrix_in

@@ -282,7 +282,9 @@ namespace oomph
     /// Specific additional contributions may be provided in
     /// add_additional_residual_contributions_interface_boundary(...)
     void fill_in_generic_residual_contribution_interface_boundary(
-      Vector<double>& residuals, DenseMatrix<double>& jacobian, unsigned flag) override;
+      Vector<double>& residuals,
+      DenseMatrix<double>& jacobian,
+      unsigned flag) override;
 
   public:
     /// Constructor
@@ -302,7 +304,9 @@ namespace oomph
     /// Specific additional contributions may be provided in
     /// add_additional_residual_contributions_interface_boundary()
     void fill_in_generic_residual_contribution_interface_boundary(
-      Vector<double>& residuals, DenseMatrix<double>& jacobian, unsigned flag) override;
+      Vector<double>& residuals,
+      DenseMatrix<double>& jacobian,
+      unsigned flag) override;
 
   public:
     /// Constructor

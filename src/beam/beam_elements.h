@@ -434,8 +434,8 @@ namespace oomph
     /// Get the Jacobian and residuals. Wrapper to generic FSI version;
     /// that catches the case when we replace the Jacobian by the
     /// mass matrix (for the consistent assignment of initial conditions).
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                                  DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Call the standard beam element's jacobian function
       HermiteBeamElement::fill_in_contribution_to_jacobian(residuals, jacobian);
@@ -451,10 +451,11 @@ namespace oomph
     /// is not contained in this element geom_object_pt=NULL.
     /// By default don't use any value passed in to the local coordinate s
     /// as the initial guess in the Newton method
-    void locate_zeta(const Vector<double>& zeta,
-                     GeomObject*& geom_object_pt,
-                     Vector<double>& s,
-                     const bool& use_coordinate_as_initial_guess = false) override;
+    void locate_zeta(
+      const Vector<double>& zeta,
+      GeomObject*& geom_object_pt,
+      Vector<double>& s,
+      const bool& use_coordinate_as_initial_guess = false) override;
 
 
     /// The number of "DOF types" that degrees of freedom in this element
@@ -471,7 +472,8 @@ namespace oomph
     /// (Function can obviously only be called if the equation numbering
     /// scheme has been set up.)
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override;
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list)
+      const override;
   };
 
 

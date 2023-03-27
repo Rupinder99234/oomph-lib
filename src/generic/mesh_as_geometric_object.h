@@ -370,10 +370,11 @@ namespace oomph
     /// argument "s" is used as the initial guess. However, this doesn't
     /// make sense here and the argument is ignored (though a warning
     /// is issued when the code is compiled in PARANOID setting)
-    void locate_zeta(const Vector<double>& zeta,
-                     GeomObject*& sub_geom_object_pt,
-                     Vector<double>& s,
-                     const bool& use_coordinate_as_initial_guess = false) override
+    void locate_zeta(
+      const Vector<double>& zeta,
+      GeomObject*& sub_geom_object_pt,
+      Vector<double>& s,
+      const bool& use_coordinate_as_initial_guess = false) override
     {
 #ifdef PARANOID
       if (use_coordinate_as_initial_guess)
@@ -440,7 +441,8 @@ namespace oomph
     } // end of position
 
     /// Return the derivative of the position
-    void dposition(const Vector<double>& xi, DenseMatrix<double>& drdxi) const override
+    void dposition(const Vector<double>& xi,
+                   DenseMatrix<double>& drdxi) const override
     {
       throw OomphLibError("dposition() not implemented",
                           OOMPH_CURRENT_FUNCTION,

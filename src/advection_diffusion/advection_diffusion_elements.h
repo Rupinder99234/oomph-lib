@@ -246,9 +246,10 @@ namespace oomph
 
 
     /// Output exact soln: x,y,u_exact or x,y,z,u_exact at nplot^DIM plot points
-    void output_fct(std::ostream& outfile,
-                    const unsigned& nplot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& nplot,
+      FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
 
     /// Output exact soln: x,y,u_exact or x,y,z,u_exact at
     /// nplot^DIM plot points (dummy time-dependent version to
@@ -432,8 +433,8 @@ namespace oomph
 
     /// Add the element's contribution to its residual vector and
     /// the element Jacobian matrix (wrapper)
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine with the flag set to 1
       fill_in_generic_residual_contribution_adv_diff(
@@ -666,9 +667,10 @@ namespace oomph
 
     /// Output function for an exact solution:
     ///  x,y,u_exact   or    x,y,z,u_exact at n_plot^DIM plot points
-    void output_fct(std::ostream& outfile,
-                    const unsigned& n_plot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& n_plot,
+      FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override
     {
       AdvectionDiffusionEquations<DIM>::output_fct(
         outfile, n_plot, exact_soln_pt);
@@ -678,10 +680,11 @@ namespace oomph
     /// Output function for a time-dependent exact solution.
     ///  x,y,u_exact   or    x,y,z,u_exact at n_plot^DIM plot points
     /// (Calls the steady version)
-    void output_fct(std::ostream& outfile,
-                    const unsigned& n_plot,
-                    const double& time,
-                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& n_plot,
+      const double& time,
+      FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override
     {
       AdvectionDiffusionEquations<DIM>::output_fct(
         outfile, n_plot, time, exact_soln_pt);
@@ -691,11 +694,12 @@ namespace oomph
   protected:
     /// Shape, test functions & derivs. w.r.t. to global coords. Return
     /// Jacobian.
-    inline double dshape_and_dtest_eulerian_adv_diff(const Vector<double>& s,
-                                                     Shape& psi,
-                                                     DShape& dpsidx,
-                                                     Shape& test,
-                                                     DShape& dtestdx) const override;
+    inline double dshape_and_dtest_eulerian_adv_diff(
+      const Vector<double>& s,
+      Shape& psi,
+      DShape& dpsidx,
+      Shape& test,
+      DShape& dtestdx) const override;
 
     /// Shape, test functions & derivs. w.r.t. to global coords. at
     /// integration point ipt. Return Jacobian.

@@ -566,9 +566,8 @@ namespace oomph
 
     /// The pressure nodes are the corner nodes, so when n_value==DIM,
     /// the fraction is the same as the 1d node number, 0 or 1.
-    double local_one_d_fraction_of_interpolating_node(const unsigned& n1d,
-                                                      const unsigned& i,
-                                                      const int& value_id) override
+    double local_one_d_fraction_of_interpolating_node(
+      const unsigned& n1d, const unsigned& i, const int& value_id) override
     {
       if (value_id == DIM)
       {
@@ -586,8 +585,8 @@ namespace oomph
     /// pressure nodes must be calculated by using the same methods as
     /// the geometric nodes, but by recalling that there are only two pressure
     /// nodes per edge.
-    Node* get_interpolating_node_at_local_coordinate(const Vector<double>& s,
-                                                     const int& value_id) override
+    Node* get_interpolating_node_at_local_coordinate(
+      const Vector<double>& s, const int& value_id) override
     {
       // If we are calculating pressure nodes
       if (value_id == DIM)
@@ -1212,11 +1211,12 @@ namespace oomph
     /// Velocity shape and test functions and their derivs
     /// w.r.t. to global coords at ipt-th integation point (taken from geometry)
     /// Return Jacobian of mapping between local and global coordinates.
-    inline double dshape_and_dtest_eulerian_at_knot_nst(const unsigned& ipt,
-                                                        Shape& psi,
-                                                        DShape& dpsidx,
-                                                        Shape& test,
-                                                        DShape& dtestdx) const override;
+    inline double dshape_and_dtest_eulerian_at_knot_nst(
+      const unsigned& ipt,
+      Shape& psi,
+      DShape& dpsidx,
+      Shape& test,
+      DShape& dtestdx) const override;
 
     /// Pressure shape functions at local coordinate s
     inline void pshape_nst(const Vector<double>& s, Shape& psi) const override;

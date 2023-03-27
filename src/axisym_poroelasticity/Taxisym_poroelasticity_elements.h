@@ -332,7 +332,9 @@ namespace oomph
 
     /// Set the values of the j-th edge (flux) degree of freedom at
     /// time history level t
-    void set_q_edge(const unsigned& t, const unsigned& j, const double& value) override
+    void set_q_edge(const unsigned& t,
+                    const unsigned& j,
+                    const double& value) override
     {
       node_pt(q_edge_node_number(j))->set_value(t, q_edge_index(j), value);
     }
@@ -360,7 +362,8 @@ namespace oomph
     unsigned nq_basis_internal() const override;
 
     /// Returns the local form of the q basis at local coordinate s
-    void get_q_basis_local(const Vector<double>& s, Shape& q_basis) const override;
+    void get_q_basis_local(const Vector<double>& s,
+                           Shape& q_basis) const override;
 
     /// Returns the local form of the q basis and dbasis/ds at local coordinate
     /// s
@@ -373,8 +376,8 @@ namespace oomph
 
     /// Returns the local coordinate of the jth flux_interpolation point
     /// along specified edge
-    Vector<double> edge_flux_interpolation_point(const unsigned& edge,
-                                                 const unsigned& j) const override
+    Vector<double> edge_flux_interpolation_point(
+      const unsigned& edge, const unsigned& j) const override
     {
 #ifdef RANGE_CHECKING
       if (edge >= 3)

@@ -79,11 +79,12 @@ namespace oomph
     /// Velocity shape and test functions and their derivs
     /// w.r.t. to global coords at ipt-th integation point (taken from geometry)
     /// Return Jacobian of mapping between local and global coordinates.
-    inline double dshape_and_dtest_eulerian_at_knot_nst(const unsigned& ipt,
-                                                        Shape& psi,
-                                                        DShape& dpsidx,
-                                                        Shape& test,
-                                                        DShape& dtestdx) const override;
+    inline double dshape_and_dtest_eulerian_at_knot_nst(
+      const unsigned& ipt,
+      Shape& psi,
+      DShape& dpsidx,
+      Shape& test,
+      DShape& dtestdx) const override;
 
     /// Shape/test functions and derivs w.r.t. to global coords at
     /// integration point ipt; return Jacobian of mapping (J). Also compute
@@ -101,11 +102,12 @@ namespace oomph
     /// Pressure shape and test functions and their derivs
     /// w.r.t. to global coords  at local coordinate s (taken from geometry)
     /// Return Jacobian of mapping between local and global coordinates.
-    inline double dpshape_and_dptest_eulerian_nst(const Vector<double>& s,
-                                                  Shape& ppsi,
-                                                  DShape& dppsidx,
-                                                  Shape& ptest,
-                                                  DShape& dptestdx) const override;
+    inline double dpshape_and_dptest_eulerian_nst(
+      const Vector<double>& s,
+      Shape& ppsi,
+      DShape& dppsidx,
+      Shape& ptest,
+      DShape& dptestdx) const override;
 
   public:
     /// Pressure shape functions at local coordinate s
@@ -186,7 +188,8 @@ namespace oomph
     /// Build FaceElements that apply the Robin boundary condition
     /// to the pressure advection diffusion problem required by
     /// Fp preconditioner
-    void build_fp_press_adv_diff_robin_bc_element(const unsigned& face_index) override
+    void build_fp_press_adv_diff_robin_bc_element(
+      const unsigned& face_index) override
     {
       this->Pressure_advection_diffusion_robin_element_pt.push_back(
         new FpPressureAdvDiffRobinBCElement<TCrouzeixRaviartElement<DIM>>(
@@ -336,7 +339,8 @@ namespace oomph
     /// (Function can obviously only be called if the equation numbering
     /// scheme has been set up.) Velocity=0; Pressure=1
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override;
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list)
+      const override;
   };
 
   // Inline functions
@@ -767,11 +771,12 @@ namespace oomph
     /// Velocity shape and test functions and their derivs
     /// w.r.t. to global coords  at local coordinate s (taken from geometry)
     /// Return Jacobian of mapping between local and global coordinates.
-    inline double dshape_and_dtest_eulerian_at_knot_nst(const unsigned& ipt,
-                                                        Shape& psi,
-                                                        DShape& dpsidx,
-                                                        Shape& test,
-                                                        DShape& dtestdx) const override;
+    inline double dshape_and_dtest_eulerian_at_knot_nst(
+      const unsigned& ipt,
+      Shape& psi,
+      DShape& dpsidx,
+      Shape& test,
+      DShape& dtestdx) const override;
 
     /// Shape/test functions and derivs w.r.t. to global coords at
     /// integration point ipt; return Jacobian of mapping (J). Also compute
@@ -790,10 +795,10 @@ namespace oomph
     /// w.r.t. global coords at local coordinate s.
     /// Return Jacobian of mapping between local and global coordinates.
     double dpshape_and_dptest_eulerian_nst(const Vector<double>& s,
-                                                   Shape& ppsi,
-                                                   DShape& dppsidx,
-                                                   Shape& ptest,
-                                                   DShape& dptestdx) const override;
+                                           Shape& ppsi,
+                                           DShape& dppsidx,
+                                           Shape& ptest,
+                                           DShape& dptestdx) const override;
 
     /// Unpin all pressure dofs
     void unpin_all_nodal_pressure_dofs();
@@ -886,7 +891,8 @@ namespace oomph
     /// Build FaceElements that apply the Robin boundary condition
     /// to the pressure advection diffusion problem required by
     /// Fp preconditioner
-    void build_fp_press_adv_diff_robin_bc_element(const unsigned& face_index) override
+    void build_fp_press_adv_diff_robin_bc_element(
+      const unsigned& face_index) override
     {
       this->Pressure_advection_diffusion_robin_element_pt.push_back(
         new FpPressureAdvDiffRobinBCElement<TTaylorHoodElement<DIM>>(
@@ -1022,7 +1028,8 @@ namespace oomph
     /// (Function can obviously only be called if the equation numbering
     /// scheme has been set up.) Velocity=0; Pressure=1
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list)
+      const override
     {
       // number of nodes
       unsigned n_node = this->nnode();

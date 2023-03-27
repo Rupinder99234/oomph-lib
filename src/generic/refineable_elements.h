@@ -508,7 +508,8 @@ namespace oomph
     /// Overload the function that assigns local equation numbers
     /// for the Data stored at the nodes so that hanging data is taken
     /// into account
-    inline void assign_nodal_local_eqn_numbers(const bool& store_local_dof_pt) override
+    inline void assign_nodal_local_eqn_numbers(
+      const bool& store_local_dof_pt) override
     {
       FiniteElement::assign_nodal_local_eqn_numbers(store_local_dof_pt);
       assign_hanging_local_eqn_numbers(store_local_dof_pt);
@@ -824,8 +825,8 @@ namespace oomph
 
     /// Broken function -- this shouldn't really be needed.
     void get_interpolated_values(const unsigned& t,
-                                         const Vector<double>& s,
-                                         Vector<double>& values) override
+                                 const Vector<double>& s,
+                                 Vector<double>& values) override
     {
       std::ostringstream error_message;
       error_message << "This function is broken as it's only needed/used \n"

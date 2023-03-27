@@ -303,7 +303,9 @@ namespace oomph
 
     /// Plot: x,y in tecplot format at time level t (t=0: current;
     /// t>0: previous)
-    void output(const unsigned& t, std::ostream& outfile, const unsigned& nplot) override
+    void output(const unsigned& t,
+                std::ostream& outfile,
+                const unsigned& nplot) override
     {
       Vector<double> x(2), f(2);
       outfile << "ZONE I=" << nplot << ", J=" << nplot << std::endl;
@@ -332,7 +334,9 @@ namespace oomph
 
 
     /// Get global position r(s) at continuous time value, t.
-    void macro_map(const double& t, const Vector<double>& s, Vector<double>& r) override;
+    void macro_map(const double& t,
+                   const Vector<double>& s,
+                   Vector<double>& r) override;
 
 
     /// assemble the jacobian of the mapping from the macro coordinates to
@@ -397,7 +401,9 @@ namespace oomph
 
     /// Plot: x,y in tecplot format at time level t (t=0: current;
     /// t>0: previous)
-    void output(const unsigned& t, std::ostream& outfile, const unsigned& nplot) override
+    void output(const unsigned& t,
+                std::ostream& outfile,
+                const unsigned& nplot) override
     {
       Vector<double> x(3), f(3);
 

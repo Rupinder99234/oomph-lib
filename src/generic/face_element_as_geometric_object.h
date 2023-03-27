@@ -132,8 +132,8 @@ namespace oomph
     }
 
     /// Override fill in contribution to jacobian, nothing should be done
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       std::ostringstream warn_message;
       warn_message << "Warning: You have just called the empty function \n"
@@ -165,7 +165,8 @@ namespace oomph
     }
 
     /// Unique final overrider needed for assign_all_generic_local_eqn_numbers
-    void assign_all_generic_local_eqn_numbers(const bool& store_local_dof_pt) override
+    void assign_all_generic_local_eqn_numbers(
+      const bool& store_local_dof_pt) override
     {
       // Call the ElementWithExternalElement's assign function
       ElementWithExternalElement::assign_all_generic_local_eqn_numbers(

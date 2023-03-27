@@ -101,8 +101,8 @@ namespace oomph
 
 
     /// wrapper function, adds contribution to residual and generic
-    void fill_in_contribution_to_jacobian(Vector<double>& residual,
-                                          DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residual, DenseMatrix<double>& jacobian) override
     {
       // call generic routine with flag set to 1
       fill_in_generic_residual_contribution_biharmonic(residual, jacobian, 1);
@@ -225,9 +225,10 @@ namespace oomph
 
 
     /// output analytic solution
-    void output_fct(std::ostream& outfile,
-                    const unsigned& nplot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& nplot,
+      FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override
     {
       // Vector of local coordinates
       Vector<double> s(DIM);
@@ -270,10 +271,11 @@ namespace oomph
     /// at a given time and at a given number of plot points.
     /// Function prints as many components as are returned in solution Vector.
     /// Implement broken FiniteElement base class version
-    void output_fct(std::ostream& outfile,
-                    const unsigned& nplot,
-                    const double& time,
-                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& nplot,
+      const double& time,
+      FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override
     {
       FiniteElement::output_fct(outfile, nplot, time, exact_soln_pt);
     }
@@ -445,7 +447,8 @@ namespace oomph
     /// (Function can obviously only be called if the equation numbering
     /// scheme has been set up.) (for block preconditioning)
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list)
+      const override
     {
       // number of nodes
       int n_node = this->nnode();
@@ -575,19 +578,21 @@ namespace oomph
 
 
     /// analytic solution wrapper
-    void output_fct(std::ostream& outfile,
-                    const unsigned& nplot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& nplot,
+      FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override
     {
       BiharmonicEquations<DIM>::output_fct(outfile, nplot, exact_soln_pt);
     }
 
 
     /// Final override
-    void output_fct(std::ostream& outfile,
-                    const unsigned& nplot,
-                    const double& time,
-                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& nplot,
+      const double& time,
+      FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override
     {
       BiharmonicEquations<DIM>::output_fct(outfile, nplot, time, exact_soln_pt);
     }

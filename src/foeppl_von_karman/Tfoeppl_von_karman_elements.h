@@ -118,9 +118,10 @@ namespace oomph
 
     /// Output function for an exact solution:
     ///  x,y,w_exact
-    void output_fct(std::ostream& outfile,
-                    const unsigned& n_plot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& n_plot,
+      FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override
     {
       FoepplvonKarmanEquations::output_fct(outfile, n_plot, exact_soln_pt);
     }
@@ -128,10 +129,11 @@ namespace oomph
 
     /// Output function for a time-dependent exact solution.
     ///  x,y,w_exact (calls the steady version)
-    void output_fct(std::ostream& outfile,
-                    const unsigned& n_plot,
-                    const double& time,
-                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& n_plot,
+      const double& time,
+      FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override
     {
       FoepplvonKarmanEquations::output_fct(
         outfile, n_plot, time, exact_soln_pt);
@@ -149,11 +151,12 @@ namespace oomph
 
     /// Shape, test functions & derivs. w.r.t. to global coords. Return
     /// Jacobian.
-    inline double dshape_and_dtest_eulerian_at_knot_fvk(const unsigned& ipt,
-                                                        Shape& psi,
-                                                        DShape& dpsidx,
-                                                        Shape& test,
-                                                        DShape& dtestdx) const override;
+    inline double dshape_and_dtest_eulerian_at_knot_fvk(
+      const unsigned& ipt,
+      Shape& psi,
+      DShape& dpsidx,
+      Shape& test,
+      DShape& dtestdx) const override;
 
     /// Order of recovery shape functions for Z2 error estimation:
     /// Same order as shape functions.

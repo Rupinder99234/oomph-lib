@@ -424,8 +424,8 @@ namespace oomph
     /// Fill in the element's contribution to the Jacobian matrix
     /// and the residual vector: Done by finite differencing the
     /// residual vector w.r.t. all nodal, internal, external and load Data.
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Add the contribution to the residuals
       fill_in_contribution_to_residuals(residuals);

@@ -372,8 +372,8 @@ namespace oomph
     }
 
     /// Fill in the Jacobian matrix for the Newton method
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       this->fill_in_generic_residual_contribution(residuals, jacobian, 1);
     }
@@ -715,16 +715,18 @@ namespace oomph
 
     /// Output FE representation of exact soln: x,y,u1,u2,div_q,p at
     /// Nplot^DIM plot points
-    void output_fct(std::ostream& outfile,
-                    const unsigned& nplot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& nplot,
+      FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
 
     /// Output FE representation of exact soln: x,y,u1,u2,div_q,p at
     /// Nplot^DIM plot points. Unsteady version
-    void output_fct(std::ostream& outfile,
-                    const unsigned& nplot,
-                    const double& time,
-                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override;
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& nplot,
+      const double& time,
+      FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override;
 
     /// Compute the error between the FE solution and the exact solution
     /// using the H(div) norm for q and L^2 norm for p

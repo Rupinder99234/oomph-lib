@@ -204,9 +204,10 @@ namespace oomph
 
     /// Calculate all desired vectors and matrices
     /// provided by the element elem_pt.
-    void get_all_vectors_and_matrices(GeneralisedElement* const& elem_pt,
-                                      Vector<Vector<double>>& vec,
-                                      Vector<DenseMatrix<double>>& matrix) override;
+    void get_all_vectors_and_matrices(
+      GeneralisedElement* const& elem_pt,
+      Vector<Vector<double>>& vec,
+      Vector<DenseMatrix<double>>& matrix) override;
 
     /// Empty virtual destructor
     ~ExplicitTimeStepHandler() override {}
@@ -249,9 +250,10 @@ namespace oomph
 
     /// Calculate all desired vectors and matrices
     /// provided by the element elem_pt.
-    void get_all_vectors_and_matrices(GeneralisedElement* const& elem_pt,
-                                      Vector<Vector<double>>& vec,
-                                      Vector<DenseMatrix<double>>& matrix) override;
+    void get_all_vectors_and_matrices(
+      GeneralisedElement* const& elem_pt,
+      Vector<Vector<double>>& vec,
+      Vector<DenseMatrix<double>>& matrix) override;
 
     /// Empty virtual destructor
     ~EigenProblemHandler() override {}
@@ -316,9 +318,10 @@ namespace oomph
     /// provided by the element elem_pt
     /// This function calls only the get_residuals function associated
     /// with the original assembly handler
-    void get_all_vectors_and_matrices(GeneralisedElement* const& elem_pt,
-                                      Vector<Vector<double>>& vec,
-                                      Vector<DenseMatrix<double>>& matrix) override
+    void get_all_vectors_and_matrices(
+      GeneralisedElement* const& elem_pt,
+      Vector<Vector<double>>& vec,
+      Vector<DenseMatrix<double>>& matrix) override
     {
       Assembly_handler_pt->get_residuals(elem_pt, vec[0]);
     }

@@ -95,7 +95,8 @@ namespace oomph
     /// Function applies SuperLU to vector r for (exact) preconditioning
     /// (of the transposed matrix system) this requires a call to setup(...)
     /// first.
-    void preconditioner_solve_transpose(const DoubleVector& r, DoubleVector& z) override
+    void preconditioner_solve_transpose(const DoubleVector& r,
+                                        DoubleVector& z) override
     {
       Solver.resolve_transpose(r, z);
     }

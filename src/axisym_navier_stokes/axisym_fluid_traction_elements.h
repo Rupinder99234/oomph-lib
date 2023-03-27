@@ -157,8 +157,8 @@ namespace oomph
 
 
     /// Fill in contribution from Jacobian
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Call the residuals
       fill_in_contribution_to_residuals_axisymmetric_nst_traction(residuals);
@@ -656,7 +656,8 @@ namespace oomph
     }
 
     /// Add the element's contribution to its residual vector
-    inline void fill_in_contribution_to_residuals(Vector<double>& residuals) override
+    inline void fill_in_contribution_to_residuals(
+      Vector<double>& residuals) override
     {
       // Call the generic residuals function with flag set to 0
       // using a dummy matrix argument
@@ -667,8 +668,8 @@ namespace oomph
 
     /// Add the element's contribution to its residual vector and its
     /// Jacobian matrix
-    inline void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                                 DenseMatrix<double>& jacobian) override
+    inline void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine with the flag set to 1
       fill_in_generic_residual_contribution_fsi_no_slip_axisym(

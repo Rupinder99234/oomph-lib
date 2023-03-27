@@ -149,9 +149,10 @@ namespace oomph
     void output(FILE* file_pt, const unsigned& n_plot) override;
 
     /// Output exact soln: x,y,w_exact at n_plot^DIM plot points
-    void output_fct(std::ostream& outfile,
-                    const unsigned& n_plot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& n_plot,
+      FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
 
     /// Output exact soln: x,y,w_exact at
     /// n_plot^DIM plot points (dummy time-dependent version to

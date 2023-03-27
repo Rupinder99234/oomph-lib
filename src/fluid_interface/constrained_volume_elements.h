@@ -156,8 +156,8 @@ namespace oomph
     }
 
     /// Fill in the residuals and jacobian for the volume constraint
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // No contribution to jacobian; see comment in that function
       this->fill_in_generic_contribution_to_residuals_volume_constraint(
@@ -385,8 +385,8 @@ namespace oomph
     /// Fill in contribution to residuals and Jacobian. This is specific
     /// to solid-based elements in which derivatives w.r.t. to nodal
     /// positions are evaluated by finite differencing
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine
       this->fill_in_generic_residual_contribution_volume_constraint(residuals);
@@ -439,8 +439,8 @@ namespace oomph
     /// Fill in contribution to residuals and Jacobian. This is specific
     /// to spine based elements in which the shape derivatives are evaluated
     /// using geometric data
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine
       this->fill_in_generic_residual_contribution_volume_constraint(residuals);
@@ -618,8 +618,8 @@ namespace oomph
     /// Fill in contribution to residuals and Jacobian. This is specific
     /// to solid-based elements in which derivatives w.r.t. to nodal
     /// positions are evaluated by finite differencing
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine
       this->fill_in_generic_residual_contribution_volume_constraint(residuals);
@@ -673,8 +673,8 @@ namespace oomph
     /// Fill in contribution to residuals and Jacobian. This is specific
     /// to spine based elements in which the shape derivatives are evaluated
     /// using geometric data
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine
       this->fill_in_generic_residual_contribution_volume_constraint(residuals);
@@ -770,8 +770,8 @@ namespace oomph
     /// Fill in contribution to residuals and Jacobian. This is specific
     /// to solid-based elements in which derivatives w.r.t. to nodal
     /// positions are evaluated by finite differencing
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine
       this->fill_in_generic_residual_contribution_volume_constraint(residuals);
@@ -831,8 +831,8 @@ namespace oomph
     /// Fill in contribution to residuals and Jacobian. This is specific
     /// to spine based elements in which the shape derivatives are evaluated
     /// using geometric data
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine
       this->fill_in_generic_residual_contribution_volume_constraint(residuals);

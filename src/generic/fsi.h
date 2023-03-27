@@ -320,8 +320,8 @@ namespace oomph
     /// Fill in the element's contribution to the Jacobian matrix
     /// and the residual vector: Done by finite differencing the
     /// residual vector w.r.t. all nodal, internal, external and load Data.
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Add the contribution to the residuals
       fill_in_contribution_to_residuals(residuals);
@@ -414,7 +414,8 @@ namespace oomph
     }
 
     /// After an external field data change, update the nodal positions
-    inline void update_in_external_interaction_field_fd(const unsigned& i) override
+    inline void update_in_external_interaction_field_fd(
+      const unsigned& i) override
     {
       if (!Ignore_shear_stress_in_jacobian)
       {
@@ -423,7 +424,10 @@ namespace oomph
     }
 
     // Do nothing
-    inline void reset_in_external_interaction_field_fd(const unsigned& i) override {}
+    inline void reset_in_external_interaction_field_fd(
+      const unsigned& i) override
+    {
+    }
 
     // After all external field stuff reset
     inline void reset_after_external_interaction_field_fd() override
@@ -437,7 +441,8 @@ namespace oomph
 
     /// After an external geometric data change, update the nodal
     /// positions
-    inline void update_in_external_interaction_geometric_fd(const unsigned& i) override
+    inline void update_in_external_interaction_geometric_fd(
+      const unsigned& i) override
     {
       if (!Ignore_shear_stress_in_jacobian)
       {
@@ -446,7 +451,10 @@ namespace oomph
     }
 
     // Do nothing
-    inline void reset_in_external_interaction_geometric_fd(const unsigned& i) override {}
+    inline void reset_in_external_interaction_geometric_fd(
+      const unsigned& i) override
+    {
+    }
 
     // After all external geometric stuff reset
     inline void reset_after_external_interaction_geometric_fd() override

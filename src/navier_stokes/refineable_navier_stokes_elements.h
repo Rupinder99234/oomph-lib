@@ -74,7 +74,9 @@ namespace oomph
     /// traction function. flag=1 (or 0): do (or don't) compute the
     /// Jacobian as well.
     void fill_in_generic_residual_contribution_fp_press_adv_diff_robin_bc(
-      Vector<double>& residuals, DenseMatrix<double>& jacobian, unsigned flag) override;
+      Vector<double>& residuals,
+      DenseMatrix<double>& jacobian,
+      unsigned flag) override;
   };
 
 
@@ -628,7 +630,9 @@ namespace oomph
     /// diffusion problem. Used by the Fp preconditioner.
     /// flag=1(or 0): do (or don't) compute the Jacobian as well.
     void fill_in_generic_pressure_advection_diffusion_contribution_nst(
-      Vector<double>& residuals, DenseMatrix<double>& jacobian, unsigned flag) override;
+      Vector<double>& residuals,
+      DenseMatrix<double>& jacobian,
+      unsigned flag) override;
 
 
     /// Compute derivatives of elemental residual vector with respect
@@ -832,9 +836,8 @@ namespace oomph
 
     /// The pressure nodes are the corner nodes, so when n_value==DIM,
     /// the fraction is the same as the 1d node number, 0 or 1.
-    double local_one_d_fraction_of_interpolating_node(const unsigned& n1d,
-                                                      const unsigned& i,
-                                                      const int& value_id) override
+    double local_one_d_fraction_of_interpolating_node(
+      const unsigned& n1d, const unsigned& i, const int& value_id) override
     {
       if (value_id == DIM)
       {
@@ -852,8 +855,8 @@ namespace oomph
     /// pressure nodes must be calculated by using the same methods as
     /// the geometric nodes, but by recalling that there are only two pressure
     /// nodes per edge.
-    Node* get_interpolating_node_at_local_coordinate(const Vector<double>& s,
-                                                     const int& value_id) override
+    Node* get_interpolating_node_at_local_coordinate(
+      const Vector<double>& s, const int& value_id) override
     {
       // If we are calculating pressure nodes
       if (value_id == DIM)
@@ -959,7 +962,8 @@ namespace oomph
     /// Build FaceElements that apply the Robin boundary condition
     /// to the pressure advection diffusion problem required by
     /// Fp preconditioner
-    void build_fp_press_adv_diff_robin_bc_element(const unsigned& face_index) override
+    void build_fp_press_adv_diff_robin_bc_element(
+      const unsigned& face_index) override
     {
       this->Pressure_advection_diffusion_robin_element_pt.push_back(
         new RefineableFpPressureAdvDiffRobinBCElement<
@@ -1243,7 +1247,8 @@ namespace oomph
     /// Build FaceElements that apply the Robin boundary condition
     /// to the pressure advection diffusion problem required by
     /// Fp preconditioner
-    void build_fp_press_adv_diff_robin_bc_element(const unsigned& face_index) override
+    void build_fp_press_adv_diff_robin_bc_element(
+      const unsigned& face_index) override
     {
       this->Pressure_advection_diffusion_robin_element_pt.push_back(
         new RefineableFpPressureAdvDiffRobinBCElement<
@@ -1485,11 +1490,12 @@ namespace oomph
     /// Velocity shape and test functions and their derivs
     /// w.r.t. to global coords at ipt-th integation point (taken from geometry)
     /// Return Jacobian of mapping between local and global coordinates.
-    inline double dshape_and_dtest_eulerian_at_knot_nst(const unsigned& ipt,
-                                                        Shape& psi,
-                                                        DShape& dpsidx,
-                                                        Shape& test,
-                                                        DShape& dtestdx) const override;
+    inline double dshape_and_dtest_eulerian_at_knot_nst(
+      const unsigned& ipt,
+      Shape& psi,
+      DShape& dpsidx,
+      Shape& test,
+      DShape& dtestdx) const override;
 
     /// Pressure shape functions at local coordinate s
     inline void pshape_nst(const Vector<double>& s, Shape& psi) const override;

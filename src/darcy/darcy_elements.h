@@ -440,9 +440,10 @@ namespace oomph
 
     /// Output FE representation of exact soln: x,y,q1,q2,div_q,p at
     /// Nplot^DIM plot points
-    void output_fct(std::ostream& outfile,
-                    const unsigned& nplot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& nplot,
+      FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
 
     /// Compute the error between the FE solution and the exact solution
     /// using the H(div) norm for q and L^2 norm for p
@@ -526,7 +527,8 @@ namespace oomph
     /// Specify the values associated with field fld.
     /// The information is returned in a vector of pairs which comprise
     /// the Data object and the value within it, that correspond to field fld.
-    Vector<std::pair<Data*, unsigned>> data_values_of_field(const unsigned& fld) override
+    Vector<std::pair<Data*, unsigned>> data_values_of_field(
+      const unsigned& fld) override
     {
 #ifdef PARANOID
       if (fld > 1)

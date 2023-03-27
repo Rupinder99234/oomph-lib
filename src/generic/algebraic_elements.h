@@ -129,7 +129,8 @@ namespace oomph
     /// of this flag, this should only be done for newly
     /// created nodes, when this function is called from
     /// AlgebraicElementBase::setup_algebraic_node_update(...)
-    void node_update(const bool& update_all_time_levels_for_new_node = false) override;
+    void node_update(
+      const bool& update_all_time_levels_for_new_node = false) override;
 
 
     /// Number of node update fcts
@@ -870,7 +871,7 @@ namespace oomph
     /// Update the nodal position posn at time level t (t=0: present;
     /// t>0: previous). Do nothing
     void algebraic_node_update(const unsigned& t,
-                                       AlgebraicNode*& node_pt) override
+                               AlgebraicNode*& node_pt) override
     {
     }
 

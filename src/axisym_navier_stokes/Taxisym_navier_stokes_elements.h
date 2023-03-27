@@ -69,11 +69,12 @@ namespace oomph
     /// Velocity shape and test functions and their derivs
     /// w.r.t. to global coords  at local coordinate s (taken from geometry)
     /// Return Jacobian of mapping between local and global coordinates.
-    inline double dshape_and_dtest_eulerian_axi_nst(const Vector<double>& s,
-                                                    Shape& psi,
-                                                    DShape& dpsidx,
-                                                    Shape& test,
-                                                    DShape& dtestdx) const override;
+    inline double dshape_and_dtest_eulerian_axi_nst(
+      const Vector<double>& s,
+      Shape& psi,
+      DShape& dpsidx,
+      Shape& test,
+      DShape& dtestdx) const override;
 
     /// Velocity shape and test functions and their derivs
     /// w.r.t. to global coords at ipt-th integation point (taken from geometry)
@@ -109,7 +110,8 @@ namespace oomph
 
   public:
     /// Pressure shape functions at local coordinate s
-    inline void pshape_axi_nst(const Vector<double>& s, Shape& psi) const override;
+    inline void pshape_axi_nst(const Vector<double>& s,
+                               Shape& psi) const override;
 
     /// Pressure shape and test functions at local coordinte s
     inline void pshape_axi_nst(const Vector<double>& s,
@@ -318,7 +320,8 @@ namespace oomph
     /// (Function can obviously only be called if the equation numbering
     /// scheme has been set up.)
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list)
+      const override
     {
       // number of nodes
       unsigned n_node = this->nnode();
@@ -585,11 +588,12 @@ namespace oomph
     /// Velocity shape and test functions and their derivs
     /// w.r.t. to global coords  at local coordinate s (taken from geometry)
     /// Return Jacobian of mapping between local and global coordinates.
-    inline double dshape_and_dtest_eulerian_axi_nst(const Vector<double>& s,
-                                                    Shape& psi,
-                                                    DShape& dpsidx,
-                                                    Shape& test,
-                                                    DShape& dtestdx) const override;
+    inline double dshape_and_dtest_eulerian_axi_nst(
+      const Vector<double>& s,
+      Shape& psi,
+      DShape& dpsidx,
+      Shape& test,
+      DShape& dtestdx) const override;
 
     /// Velocity shape and test functions and their derivs
     /// w.r.t. to global coords  at local coordinate s (taken from geometry)
@@ -662,7 +666,8 @@ namespace oomph
 
 
     /// Pressure shape functions at local coordinate s
-    inline void pshape_axi_nst(const Vector<double>& s, Shape& psi) const override;
+    inline void pshape_axi_nst(const Vector<double>& s,
+                               Shape& psi) const override;
 
     /// Pressure shape and test functions at local coordinte s
     inline void pshape_axi_nst(const Vector<double>& s,
@@ -853,7 +858,8 @@ namespace oomph
     /// (Function can obviously only be called if the equation numbering
     /// scheme has been set up.)
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list)
+      const override
     {
       // number of nodes
       unsigned n_node = this->nnode();

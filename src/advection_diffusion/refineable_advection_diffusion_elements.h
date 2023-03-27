@@ -196,9 +196,10 @@ namespace oomph
     /// equation numbers corresponding to the data.
     /// Overload the non-refineable version to take account of hanging node
     /// information
-    void dinterpolated_u_adv_diff_ddata(const Vector<double>& s,
-                                        Vector<double>& du_ddata,
-                                        Vector<unsigned>& global_eqn_number) override
+    void dinterpolated_u_adv_diff_ddata(
+      const Vector<double>& s,
+      Vector<double>& du_ddata,
+      Vector<unsigned>& global_eqn_number) override
     {
       // Find number of nodes
       unsigned n_node = this->nnode();

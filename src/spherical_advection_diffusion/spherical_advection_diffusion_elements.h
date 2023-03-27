@@ -151,9 +151,10 @@ namespace oomph
 
 
     /// Output exact soln: r,z,u_exact at nplot^2 plot points
-    void output_fct(std::ostream& outfile,
-                    const unsigned& nplot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& nplot,
+      FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
 
     /// Get error against and norm of exact solution
     void compute_error(std::ostream& outfile,
@@ -309,8 +310,8 @@ namespace oomph
 
     /// Add the element's contribution to its residual vector and
     /// the element Jacobian matrix (wrapper)
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine with the flag set to 1
       fill_in_generic_residual_contribution_spherical_adv_diff(
@@ -543,9 +544,10 @@ namespace oomph
 
     /// Output function for an exact solution:
     ///  r,z,u_exact at n_plot^2 plot points
-    void output_fct(std::ostream& outfile,
-                    const unsigned& n_plot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& n_plot,
+      FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override
     {
       SphericalAdvectionDiffusionEquations::output_fct(
         outfile, n_plot, exact_soln_pt);
@@ -715,7 +717,8 @@ namespace oomph
 
 
     /// Add the element's contribution to its residual vector
-    inline void fill_in_contribution_to_residuals(Vector<double>& residuals) override
+    inline void fill_in_contribution_to_residuals(
+      Vector<double>& residuals) override
     {
       // Call the generic residuals function with flag set to 0
       // using a dummy matrix
@@ -726,8 +729,8 @@ namespace oomph
 
     /// Add the element's contribution to its residual vector and
     /// its Jacobian matrix
-    inline void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                                 DenseMatrix<double>& jacobian) override
+    inline void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine with the flag set to 1
       fill_in_generic_residual_contribution_spherical_adv_diff_flux(

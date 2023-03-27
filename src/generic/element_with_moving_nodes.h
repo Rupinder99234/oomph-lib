@@ -432,7 +432,8 @@ namespace oomph
     }
 
     /// Overloaded node allocation for unsteady problems
-    Node* construct_node(const unsigned& n, TimeStepper* const& time_stepper_pt) override
+    Node* construct_node(const unsigned& n,
+                         TimeStepper* const& time_stepper_pt) override
     {
       // Assign a node to the local node pointer
       // The dimension and number of values are taken from internal element data
@@ -494,7 +495,8 @@ namespace oomph
 
     /// Assign local equation numbers for the underlying element, then
     /// deal with the additional geometric dofs
-    void assign_all_generic_local_eqn_numbers(const bool& store_local_dof_pt) override
+    void assign_all_generic_local_eqn_numbers(
+      const bool& store_local_dof_pt) override
     {
       // Call the generic local equation numbering scheme of the ELEMENT
       ELEMENT::assign_all_generic_local_eqn_numbers(store_local_dof_pt);
@@ -503,7 +505,8 @@ namespace oomph
     }
 
     /// Compute the element's residuals vector and jacobian matrix
-    void get_jacobian(Vector<double>& residuals, DenseMatrix<double>& jacobian) override
+    void get_jacobian(Vector<double>& residuals,
+                      DenseMatrix<double>& jacobian) override
     {
       /// Call the element's get jacobian function
       ELEMENT::get_jacobian(residuals, jacobian);

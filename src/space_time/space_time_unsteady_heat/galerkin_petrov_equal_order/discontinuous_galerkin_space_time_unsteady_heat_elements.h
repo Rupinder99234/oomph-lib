@@ -159,9 +159,10 @@ namespace oomph
 
     /// Output exact soln: x,y,u_exact or x,y,z,u_exact at nplot^SPATIAL_DIM
     /// plot points
-    void output_fct(std::ostream& outfile,
-                    const unsigned& nplot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& nplot,
+      FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
 
 
     /// Output exact soln: x,y,u_exact or x,y,z,u_exact at
@@ -494,8 +495,8 @@ namespace oomph
 
 
     /// Compute element residual Vector and element Jacobian matrix (wrapper)
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine with the flag set to 1
       fill_in_generic_residual_contribution_ust_heat(residuals, jacobian, 1);
@@ -762,9 +763,10 @@ namespace oomph
 
     /// Output function for an exact solution:
     /// x,t,u_exact   or   x,y,t,u_exact at n_plot^(SPATIAL_DIM+1) plot points
-    void output_fct(std::ostream& outfile,
-                    const unsigned& n_plot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& n_plot,
+      FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override
     {
       // Call the function in the base class
       SpaceTimeUnsteadyHeatEquations<SPATIAL_DIM>::output_fct(
@@ -775,10 +777,11 @@ namespace oomph
     /// Output function for a time-dependent exact solution.
     ///  x,t,u_exact   or    x,y,t,u_exact at n_plot^(SPATIAL_DIM+1) plot points
     /// (Calls the unsteady version)
-    void output_fct(std::ostream& outfile,
-                    const unsigned& n_plot,
-                    const double& time,
-                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& n_plot,
+      const double& time,
+      FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override
     {
       // Call the function in the base class
       SpaceTimeUnsteadyHeatEquations<SPATIAL_DIM>::output_fct(
@@ -786,11 +789,12 @@ namespace oomph
     } // End of output_fct
 
     /// Shape/test functions & derivs. w.r.t. to global coords. Return Jacobian.
-    inline double dshape_and_dtest_eulerian_ust_heat(const Vector<double>& s,
-                                                     Shape& psi,
-                                                     DShape& dpsidx,
-                                                     Shape& test,
-                                                     DShape& dtestdx) const override;
+    inline double dshape_and_dtest_eulerian_ust_heat(
+      const Vector<double>& s,
+      Shape& psi,
+      DShape& dpsidx,
+      Shape& test,
+      DShape& dtestdx) const override;
 
 
     /// Shape/test functions and derivs w.r.t. to global coords at

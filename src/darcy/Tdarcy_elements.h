@@ -211,7 +211,8 @@ namespace oomph
     unsigned nq_basis_internal() const override;
 
     /// Return the local form of the q basis at local coordinate s
-    void get_q_basis_local(const Vector<double>& s, Shape& q_basis) const override;
+    void get_q_basis_local(const Vector<double>& s,
+                           Shape& q_basis) const override;
 
     /// Return the local form of the q basis and dbasis/ds at local coordinate s
     void get_div_q_basis_local(const Vector<double>& s,
@@ -223,8 +224,8 @@ namespace oomph
 
     /// Return the local coordinate of the nth flux interpolation
     /// point along an edge
-    Vector<double> edge_flux_interpolation_point(const unsigned& edge,
-                                                 const unsigned& n) const override
+    Vector<double> edge_flux_interpolation_point(
+      const unsigned& edge, const unsigned& n) const override
     {
       Vector<double> coord(1);
       coord[0] = (1.0 - sign_edge(edge)) / 2.0 +

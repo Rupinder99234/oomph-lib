@@ -913,9 +913,8 @@ namespace oomph
 
     /// The pressure nodes are the corner nodes, so when n_value==DIM,
     /// the fraction is the same as the 1D node number, 0 or 1.
-    double local_one_d_fraction_of_interpolating_node(const unsigned& n_1d,
-                                                      const unsigned& i,
-                                                      const int& value_id) override
+    double local_one_d_fraction_of_interpolating_node(
+      const unsigned& n_1d, const unsigned& i, const int& value_id) override
     {
       // If we're dealing with a pressure node
       if (value_id == DIM)
@@ -936,8 +935,8 @@ namespace oomph
     /// pressure nodes must be calculated by using the same methods as
     /// the geometric nodes, but by recalling that there are only two pressure
     /// nodes per edge.
-    Node* get_interpolating_node_at_local_coordinate(const Vector<double>& s,
-                                                     const int& value_id) override
+    Node* get_interpolating_node_at_local_coordinate(
+      const Vector<double>& s, const int& value_id) override
     {
       // If we are calculating pressure nodes
       if (value_id == DIM)
@@ -1070,7 +1069,8 @@ namespace oomph
     /// Build FaceElements that apply the Robin boundary condition
     /// to the pressure advection diffusion problem required by
     /// Fp preconditioner
-    void build_fp_press_adv_diff_robin_bc_element(const unsigned& face_index) override
+    void build_fp_press_adv_diff_robin_bc_element(
+      const unsigned& face_index) override
     {
       this->Pressure_advection_diffusion_robin_element_pt.push_back(
         new RefineableFpPressureAdvDiffRobinBCMixedOrderSpaceTimeElement<

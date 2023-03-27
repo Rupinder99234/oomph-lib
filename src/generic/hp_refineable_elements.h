@@ -77,7 +77,9 @@ namespace oomph
     /// Overload the shape functions
     void shape(const Vector<double>& s, Shape& psi) const override;
 
-    void dshape_local(const Vector<double>& s, Shape& psi, DShape& dpsi) const override;
+    void dshape_local(const Vector<double>& s,
+                      Shape& psi,
+                      DShape& dpsi) const override;
 
     void d2shape_local(const Vector<double>& s,
                        Shape& psi,
@@ -112,13 +114,16 @@ namespace oomph
 
     // Overload nodal positions -- these elements have GLL-spaced nodes.
     /// Get local coordinates of node j in the element; vector sets its own size
-    void local_coordinate_of_node(const unsigned& n, Vector<double>& s) const override;
+    void local_coordinate_of_node(const unsigned& n,
+                                  Vector<double>& s) const override;
 
     /// Get the local fractino of node j in the element
-    void local_fraction_of_node(const unsigned& n, Vector<double>& s_fraction) override;
+    void local_fraction_of_node(const unsigned& n,
+                                Vector<double>& s_fraction) override;
 
     /// The local one-d fraction is the same
-    double local_one_d_fraction_of_node(const unsigned& n1d, const unsigned& i) override;
+    double local_one_d_fraction_of_node(const unsigned& n1d,
+                                        const unsigned& i) override;
 
     /// Rebuild the element. This needs to find any nodes in the sons which
     /// are still required.
@@ -169,7 +174,9 @@ namespace oomph
     /// Overload the shape functions
     void shape(const Vector<double>& s, Shape& psi) const override;
 
-    void dshape_local(const Vector<double>& s, Shape& psi, DShape& dpsi) const override;
+    void dshape_local(const Vector<double>& s,
+                      Shape& psi,
+                      DShape& dpsi) const override;
 
     void d2shape_local(const Vector<double>& s,
                        Shape& psi,
@@ -207,13 +214,16 @@ namespace oomph
 
     // Overload nodal positions -- these elements have GLL-spaced nodes.
     /// Get local coordinates of node j in the element; vector sets its own size
-    void local_coordinate_of_node(const unsigned& n, Vector<double>& s) const override;
+    void local_coordinate_of_node(const unsigned& n,
+                                  Vector<double>& s) const override;
 
     /// Get the local fractino of node j in the element
-    void local_fraction_of_node(const unsigned& n, Vector<double>& s_fraction) override;
+    void local_fraction_of_node(const unsigned& n,
+                                Vector<double>& s_fraction) override;
 
     /// The local one-d fraction is the same
-    double local_one_d_fraction_of_node(const unsigned& n1d, const unsigned& i) override;
+    double local_one_d_fraction_of_node(const unsigned& n1d,
+                                        const unsigned& i) override;
 
     /// Rebuild the element. This needs to find any nodes in the sons which
     /// are still required.
@@ -270,7 +280,9 @@ namespace oomph
     /// Overload the shape functions
     void shape(const Vector<double>& s, Shape& psi) const override;
 
-    void dshape_local(const Vector<double>& s, Shape& psi, DShape& dpsi) const override;
+    void dshape_local(const Vector<double>& s,
+                      Shape& psi,
+                      DShape& dpsi) const override;
 
     void d2shape_local(const Vector<double>& s,
                        Shape& psi,
@@ -308,13 +320,16 @@ namespace oomph
 
     // Overload nodal positions -- these elements have GLL-spaced nodes.
     /// Get local coordinates of node j in the element; vector sets its own size
-    void local_coordinate_of_node(const unsigned& n, Vector<double>& s) const override;
+    void local_coordinate_of_node(const unsigned& n,
+                                  Vector<double>& s) const override;
 
     /// Get the local fractino of node j in the element
-    void local_fraction_of_node(const unsigned& n, Vector<double>& s_fraction) override;
+    void local_fraction_of_node(const unsigned& n,
+                                Vector<double>& s_fraction) override;
 
     /// The local one-d fraction is the same
-    double local_one_d_fraction_of_node(const unsigned& n1d, const unsigned& i) override;
+    double local_one_d_fraction_of_node(const unsigned& n1d,
+                                        const unsigned& i) override;
 
     /// Rebuild the element. This needs to find any nodes in the sons which
     /// are still required.

@@ -176,7 +176,9 @@ namespace oomph
     ~QExtrudedMacroElement() override {}
 
     /// Plot: x,y,t in tecplot format
-    void output(const unsigned& t, std::ostream& outfile, const unsigned& nplot) override
+    void output(const unsigned& t,
+                std::ostream& outfile,
+                const unsigned& nplot) override
     {
       // Make sure that t=0 otherwise this doesn't make sense
       if (t != 0)

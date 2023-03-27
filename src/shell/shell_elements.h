@@ -263,8 +263,8 @@ namespace oomph
     }
 
     /// Return the jacobian is calculated by finite differences by default,
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian) override;
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override;
 
     /// Get potential (strain) and kinetic energy of the element
     void get_energy(double& pot_en, double& kin_en);
@@ -439,12 +439,11 @@ namespace oomph
     /// (not all of the input arguments will be
     /// required for all specific load functions but the list should
     /// cover all cases).
-    void load_vector_for_rate_of_work_computation(
-      const unsigned& intpt,
-      const Vector<double>& xi,
-      const Vector<double>& x,
-      const Vector<double>& N,
-      Vector<double>& load) override
+    void load_vector_for_rate_of_work_computation(const unsigned& intpt,
+                                                  const Vector<double>& xi,
+                                                  const Vector<double>& x,
+                                                  const Vector<double>& N,
+                                                  Vector<double>& load) override
     {
       /// Get fluid-only load vector
       if (Compute_rate_of_work_by_load_with_fluid_load_only)
@@ -561,8 +560,8 @@ namespace oomph
     /// Get the Jacobian and residuals. Wrapper to generic FSI version;
     /// that catches the case when we replace the Jacobian by the
     /// mass matrix (for the consistent assignment of initial conditions).
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                                  DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Call the basic shell jacobian
       DiagHermiteShellElement::fill_in_contribution_to_jacobian(residuals,
@@ -586,7 +585,8 @@ namespace oomph
     /// (Function can obviously only be called if the equation numbering
     /// scheme has been set up.)
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override;
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list)
+      const override;
   };
 
 
@@ -691,7 +691,9 @@ namespace oomph
 
     /// Calculate the geometric shape functions
     /// at local coordinate s. Set any "superfluous" shape functions to zero.
-    void dshape_local(const Vector<double>& s, Shape& psi, DShape& dpsids) const override
+    void dshape_local(const Vector<double>& s,
+                      Shape& psi,
+                      DShape& dpsids) const override
     {
       // Initialise all of them to zero
       unsigned n = psi.nindex1();
@@ -758,7 +760,8 @@ namespace oomph
     /// (Function can obviously only be called if the equation numbering
     /// scheme has been set up.)
     void get_dof_numbers_for_unknowns(
-      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list) const override;
+      std::list<std::pair<unsigned long, unsigned>>& dof_lookup_list)
+      const override;
 
 
   private:

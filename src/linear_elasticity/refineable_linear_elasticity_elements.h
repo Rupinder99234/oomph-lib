@@ -178,7 +178,9 @@ namespace oomph
   private:
     /// Overloaded helper function to take hanging nodes into account
     void fill_in_generic_contribution_to_residuals_linear_elasticity(
-      Vector<double>& residuals, DenseMatrix<double>& jacobian, unsigned flag) override;
+      Vector<double>& residuals,
+      DenseMatrix<double>& jacobian,
+      unsigned flag) override;
   };
 
 

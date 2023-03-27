@@ -583,7 +583,8 @@ namespace oomph
     /// function. Get the second index for block number i. Obviously for a
     /// diagonal preconditioner we want the blocks (i,i). For anti diagonal
     /// we will want blocks (i, nblock - i - 1).
-    unsigned get_other_diag_ds(const unsigned& i, const unsigned& nblock) const override
+    unsigned get_other_diag_ds(const unsigned& i,
+                               const unsigned& nblock) const override
     {
       return nblock - i - 1;
     }

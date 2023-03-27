@@ -456,8 +456,8 @@ namespace oomph
     }
 
     /// Calculate the elemental residual vector and the Jacobian
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine with the flag set to 1
       this->fill_in_generic_residual_contribution_interface_boundary(
@@ -521,8 +521,8 @@ namespace oomph
 
 
     /// Calculate the jacobian
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine with the flag set to 1
       this->fill_in_generic_residual_contribution_interface_boundary(
@@ -1097,8 +1097,8 @@ namespace oomph
     }
 
     /// Calculate the element's residual vector and Jacobian
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine with the flag set to 1
       fill_in_generic_residual_contribution_interface_boundary(
@@ -1183,8 +1183,8 @@ namespace oomph
     }
 
     /// Calculate the elemental residual vector and Jacobian
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       // Call the generic routine with the flag set to 1
       fill_in_generic_residual_contribution_interface_boundary(

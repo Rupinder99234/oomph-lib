@@ -1760,7 +1760,8 @@ namespace oomph
     void set_dofs(const unsigned& t, Vector<double*>& dof_pt);
 
     /// Add lambda x incremenet_dofs[l] to the l-th dof
-    void add_to_dofs(const double& lambda, const DoubleVector& increment_dofs) override;
+    void add_to_dofs(const double& lambda,
+                     const DoubleVector& increment_dofs) override;
 
     /// Return a pointer to the dof, indexed by global equation number
     /// which may be haloed or stored locally. If it is haloed, a local copy

@@ -466,8 +466,8 @@ namespace oomph
     }
 
     /// Fill in the Jacobian matrix for the Newton method
-    void fill_in_contribution_to_jacobian(Vector<double>& residuals,
-                                          DenseMatrix<double>& jacobian) override
+    void fill_in_contribution_to_jacobian(
+      Vector<double>& residuals, DenseMatrix<double>& jacobian) override
     {
       this->fill_in_generic_residual_contribution(residuals, jacobian, 1);
     }
@@ -1171,7 +1171,8 @@ namespace oomph
 
     /// Output solution in data vector at local cordinates s:
     /// r,z,u_r,u_z,q_r,q_z,div_q,p,durdt,duzdt
-    void point_output_data(const Vector<double>& s, Vector<double>& data) override
+    void point_output_data(const Vector<double>& s,
+                           Vector<double>& data) override
     {
       // Output the components of the position
       for (unsigned i = 0; i < 2; i++)
@@ -1236,16 +1237,18 @@ namespace oomph
 
     /// Output FE representation of exact soln: x,y,u1,u2,div_q,p at
     /// Nplot^2 plot points
-    void output_fct(std::ostream& outfile,
-                    const unsigned& nplot,
-                    FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& nplot,
+      FiniteElement::SteadyExactSolutionFctPt exact_soln_pt) override;
 
     /// Output FE representation of exact soln: x,y,u1,u2,div_q,p at
     /// Nplot^2 plot points. Unsteady version
-    void output_fct(std::ostream& outfile,
-                    const unsigned& nplot,
-                    const double& time,
-                    FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override;
+    void output_fct(
+      std::ostream& outfile,
+      const unsigned& nplot,
+      const double& time,
+      FiniteElement::UnsteadyExactSolutionFctPt exact_soln_pt) override;
 
     /// Compute the error between the FE solution and the exact solution
     /// using the H(div) norm for q and L^2 norm for p
@@ -1405,7 +1408,8 @@ namespace oomph
     /// Specify the values associated with field fld.
     /// The information is returned in a vector of pairs which comprise
     /// the Data object and the value within it, that correspond to field fld.
-    Vector<std::pair<Data*, unsigned>> data_values_of_field(const unsigned& fld) override
+    Vector<std::pair<Data*, unsigned>> data_values_of_field(
+      const unsigned& fld) override
     {
 #ifdef PARANOID
       if (fld > 3)
